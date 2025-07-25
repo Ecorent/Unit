@@ -414,7 +414,7 @@
       slide.classList.add('carousel-slide');
       if (i === 1) slide.classList.add('active');
 
-      const imageURL = ${i}.jpg;
+      const imageURL = `${i}.jpg`;
       slide.innerHTML = 
         <div class="blur-bg" style="background-image: url('${imageURL}');"></div>
         <img src="${imageURL}" alt="Apartment photo ${i}" loading="lazy" />
