@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>4BR Downtown Apartment for Rent</title>
+  <link rel="icon" type="image/jpeg" href="favicon.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #27ae60;
+      --dark: #2c3e50;
+      --light: #f8f9fa;
+      --gray: #888;
+      --box-bg: #ffffff;
+      --details-title: #14532d;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo {
+      height: 85px;
+      width: 85px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .header-text p {
+      margin: 6px 0 0;
+      font-size: 1.1rem;
+    }
+
+    .header-info {
+      text-align: right;
+      font-size: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .header-info .price-tag {
+      font-weight: 600;
+      font-size: 1.4rem;
+    }
+
+    .header-info .phone a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .header-info .phone a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 50px auto 40px;
+      padding: 0 20px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .carousel, .details {
+      flex: 1 1 48%;
+      background: var(--box-bg);
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .carousel {
+      aspect-ratio: 4 / 3;
+      min-height: 300px;
+      background-color: #eee;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .carousel-slide.active {
+      display: flex;
+    }
+
+    .carousel-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      z-index: 1;
+    }
+
+    .blur-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px);
+      transform: scale(1.1);
+      z-index: 0;
+    }
+
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .carousel-controls button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 20px;
+      border-radius: 6px;
+      pointer-events: all;
+      opacity: 0.9;
+    }
+
+    .carousel-controls #prev { left: 10px; }
+    .carousel-controls #next { right: 10px; }
+
+    .details h2,
+    .contact-form h2,
+    .map h2 {
+      color: var(--details-title);
+      margin-top: 0;
+      font-size: 1.6rem;
+      margin-bottom: 21px;
+    }
+
+    .details ul {
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .details li {
+      margin-bottom: 12px;
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 10px;
+    }
+
+    .details li i {
+      color: var(--primary);
+      min-width: 20px;
+    }
+
+    .extras {
+      max-width: 1200px;
+      margin: 40px auto 55px;
+      padding: 0 20px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .contact-form, .map {
+      flex: 1 1 48%;
+      background: var(--box-bg);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 495px;
+    }
+
+    .map {
+      padding-right: 40px; /* Matches gap between boxes on desktop */
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+      margin-top: 0;
+      min-height: 400px;
+      flex-grow: 1;
+    }
+
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .contact-form button:hover {
+      background: #239954;
+    }
+
+    .form-message {
+      font-weight: 500;
+      min-height: 24px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #e1e1e1;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+
+    .mobile-only { display: none; }
+    .desktop-only { display: inline; }
+
+    @media (min-width: 769px) {
+      .details h2 {
+        margin-bottom: 21px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-only { display: inline; }
+      .desktop-only { display: none; }
+
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .header-text h1 { font-size: 1.4rem; line-height: 1.3; }
+      .header-text p { font-size: 1rem; }
+
+      .header-info {
+        align-items: flex-start;
+        text-align: left;
+        margin-top: 4px;
+      }
+
+      main, .extras {
+        flex-direction: column;
+        gap: 16px; /* cut in half from 32px */
+      }
+
+      .carousel, .details, .contact-form, .map {
+        flex: 1 1 100%;
+        width: 100%;
+        margin-bottom: 16px; /* cut in half */
+      }
+
+      .map {
+        min-height: 495px;
+        margin-bottom: 19px; /* 60% of original 32px */
+      }
+
+      .contact-form {
+        margin-bottom: 19px; /* 60% of original 32px */
+      }
+
+      .form-message {
+        font-size: clamp(0.95rem, 2.5vw, 1rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <img src="logo.jpg" alt="Logo" class="logo" />
+        <div class="header-text">
+          <h1>4BR Downtown Apartment for Rent</h1>
+          <p>Grand Rapids, MI</p>
+        </div>
+      </div>
+      <div class="header-info">
+        <div class="price-tag">$2,400 / month</div>
+        <div class="phone">
+          <span class="mobile-only"><a href="tel:16162933460">(616) 293 - 3460</a></span>
+          <span class="desktop-only">(616) 293 - 3460</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="carousel" id="carousel"></div>
+    <div class="details">
+      <h2>Property Details</h2>
+      <ul>
+        <li><i class="fas fa-bed"></i>4 Bedrooms</li>
+        <li><i class="fas fa-bath"></i>1 Bathroom</li>
+        <li><i class="fas fa-ruler-combined"></i>1,200 sq ft</li>
+        <li><i class="fas fa-tint"></i>Water & gas included</li>
+        <li><i class="fas fa-dog"></i>Pet-friendly</li>
+        <li><i class="fas fa-soap"></i>In-unit washer & dryer</li>
+        <li><i class="fas fa-map-marker-alt"></i>135 Straight NW, Grand Rapids, MI</li>
+        <li><i class="fas fa-car"></i>Street parking available</li>
+      </ul>
+    </div>
+  </main>
+
+  <section class="extras">
+    <div class="map">
+      <h2>Location & Directions</h2>
+      <iframe src="https://maps.google.com/maps?q=135+Straight+NW,+Grand+Rapids,+MI&output=embed"></iframe>
+    </div>
+    <div class="contact-form">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="tel" name="phone" placeholder="Your Phone Number" />
+        <textarea name="message" placeholder="Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+        <p class="form-message" id="form-message"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 ECOrent. All rights reserved.
+  </footer>
+
+  <script>
+    const imageCount = 8;
+    const carousel = document.getElementById('carousel');
+    const slides = [];
+
+    for (let i = 1; i <= imageCount; i++) {
+      const slide = document.createElement('div');
+      slide.classList.add('carousel-slide');
+      if (i === 1) slide.classList.add('active');
+
+      const imageURL = `${i}.jpg`;
+      slide.innerHTML =
+        `<div class="blur-bg" style="background-image: url('${imageURL}');"></div>
+         <img src="${imageURL}" alt="Apartment photo ${i}" loading="lazy" />`;
+      carousel.appendChild(slide);
+      slides.push(slide);
+    }
+
+    let current = 0;
+    const nav = document.createElement('div');
+    nav.classList.add('carousel-controls');
+    nav.innerHTML =
+      `<button id="prev">&#10094;</button>
+       <button id="next">&#10095;</button>`;
+    carousel.appendChild(nav);
+
+    document.getElementById('prev').onclick = () => {
+      slides[current].classList.remove('active');
+      current = (current - 1 + slides.length) % slides.length;
+      slides[current].classList.add('active');
+    };
+
+    document.getElementById('next').onclick = () => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    };
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+      const messageEl = document.getElementById('form-message');
+
+      try {
+        const res = await fetch("https://formspree.io/f/xgvzvalo", {
+          method: "POST",
+          headers: { 'Accept': 'application/json' },
+          body: formData
+        });
+
+        if (res.ok) {
+          messageEl.textContent = "Thank you! Your message has been sent.";
+          messageEl.style.color = "green";
+          form.reset();
+        } else {
+          messageEl.textContent = "Oops! Something went wrong. Please try again.";
+          messageEl.style.color = "red";
+        }
+      } catch (error) {
+        messageEl.textContent = "There was a network error. Please try again.";
+        messageEl.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>
