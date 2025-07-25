@@ -415,10 +415,10 @@
       if (i === 1) slide.classList.add('active');
 
       const imageURL = `${i}.jpg`;
-      slide.innerHTML = 
-        <div class="blur-bg" style="background-image: url('${imageURL}');"></div>
-        <img src="${imageURL}" alt="Apartment photo ${i}" loading="lazy" />
-      ;
+    slide.innerHTML = `
+      <div class="blur-bg" style="background-image: url('${imageURL}');"></div>
+      <img src="${imageURL}" alt="Apartment photo ${i}" loading="lazy" />
+    `;
       carousel.appendChild(slide);
       slides.push(slide);
     }
@@ -426,10 +426,10 @@
     let current = 0;
     const nav = document.createElement('div');
     nav.classList.add('carousel-controls');
-    nav.innerHTML = 
+    nav.innerHTML = `
       <button id="prev">&#10094;</button>
       <button id="next">&#10095;</button>
-    ;
+    `;
     carousel.appendChild(nav);
 
     document.getElementById('prev').onclick = () => {
