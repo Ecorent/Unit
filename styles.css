@@ -14,8 +14,6 @@ body {
   color: var(--dark);
 }
 
-/* ---------- HEADER ---------- */
-
 header {
   background: var(--dark);
   color: white;
@@ -79,8 +77,6 @@ header {
   text-decoration: underline;
 }
 
-/* ---------- MAIN LAYOUT ---------- */
-
 main {
   max-width: 1200px;
   margin: 50px auto 40px;
@@ -90,8 +86,7 @@ main {
   flex-wrap: wrap;
 }
 
-.carousel,
-.details {
+.carousel, .details {
   flex: 1 1 48%;
   background: var(--box-bg);
   padding: 32px;
@@ -110,8 +105,7 @@ main {
 
 .carousel-slide {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   display: none;
@@ -133,8 +127,7 @@ main {
 
 .blur-bg {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -143,8 +136,6 @@ main {
   transform: scale(1.1);
   z-index: 0;
 }
-
-/* ---------- CAROUSEL CONTROLS ---------- */
 
 .carousel-controls {
   position: absolute;
@@ -171,15 +162,8 @@ main {
   opacity: 0.9;
 }
 
-.carousel-controls #prev {
-  left: 10px;
-}
-
-.carousel-controls #next {
-  right: 10px;
-}
-
-/* ---------- DETAILS ---------- */
+.carousel-controls #prev { left: 10px; }
+.carousel-controls #next { right: 10px; }
 
 .details h2,
 .contact-form h2,
@@ -210,8 +194,6 @@ main {
   min-width: 20px;
 }
 
-/* ---------- EXTRAS: MAP + FORM ---------- */
-
 .extras {
   max-width: 1200px;
   margin: 40px auto 55px;
@@ -222,8 +204,7 @@ main {
   align-items: flex-start;
 }
 
-.contact-form,
-.map {
+.contact-form, .map {
   flex: 1 1 48%;
   background: var(--box-bg);
   padding: 25px;
@@ -277,8 +258,6 @@ main {
   min-height: 24px;
 }
 
-/* ---------- FOOTER ---------- */
-
 footer {
   text-align: center;
   padding: 20px;
@@ -287,15 +266,8 @@ footer {
   font-size: 0.95rem;
 }
 
-/* ---------- RESPONSIVE ---------- */
-
-.mobile-only {
-  display: none;
-}
-
-.desktop-only {
-  display: inline;
-}
+.mobile-only { display: none; }
+.desktop-only { display: inline; }
 
 @media (min-width: 769px) {
   .details h2 {
@@ -304,14 +276,8 @@ footer {
 }
 
 @media (max-width: 768px) {
-
-  .mobile-only {
-    display: inline;
-  }
-
-  .desktop-only {
-    display: none;
-  }
+  .mobile-only { display: inline; }
+  .desktop-only { display: none; }
 
   .header-container {
     flex-direction: column;
@@ -319,14 +285,8 @@ footer {
     gap: 12px;
   }
 
-  .header-text h1 {
-    font-size: 1.4rem;
-    line-height: 1.3;
-  }
-
-  .header-text p {
-    font-size: 1rem;
-  }
+  .header-text h1 { font-size: 1.4rem; line-height: 1.3; }
+  .header-text p { font-size: 1rem; }
 
   .header-info {
     align-items: flex-start;
@@ -334,8 +294,7 @@ footer {
     margin-top: 4px;
   }
 
-  main,
-  .extras {
+  main, .extras {
     flex-direction: column;
     gap: 8px;
   }
@@ -344,10 +303,7 @@ footer {
     margin: 40px auto 40px;
   }
 
-  .carousel,
-  .details,
-  .contact-form,
-  .map {
+  .carousel, .details, .contact-form, .map {
     flex: 1 1 100%;
     width: 100%;
     margin-bottom: 16px;
