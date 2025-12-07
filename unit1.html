@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>4BR Downtown Apartment for Rent</title>
+
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="css/units.css" />
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <img src="images/logo.jpg" alt="Logo" class="logo" />
+        <div class="header-text">
+          <h1>4BR Downtown Apartment for Rent</h1>
+          <p>Grand Rapids, MI</p>
+        </div>
+      </div>
+      <div class="header-info">
+        <div class="price-tag">$2,400 / month</div>
+        <div class="phone">
+          <span class="mobile-only"><a href="tel:16162933460">(616) 293-3460</a></span>
+          <span class="desktop-only">(616) 477 - 2400</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="carousel" id="carousel"></div>
+
+    <div class="details">
+      <h2>Property Details</h2>
+      <ul>
+        <li><i class="fas fa-bed"></i>4 Bedrooms</li>
+        <li><i class="fas fa-bath"></i>1 Bathroom</li>
+        <li><i class="fas fa-ruler-combined"></i>1,200 sq ft</li>
+        <li><i class="fas fa-tint"></i>Water & gas included</li>
+        <li><i class="fas fa-dog"></i>Pet-friendly</li>
+        <li><i class="fas fa-soap"></i>In-unit washer & dryer</li>
+        <li><i class="fas fa-map-marker-alt"></i>135 Straight NW, Grand Rapids, MI</li>
+        <li><i class="fas fa-car"></i>Street parking available</li>
+      </ul>
+    </div>
+  </main>
+
+  <section class="extras">
+    <div class="map">
+      <h2>Location & Directions</h2>
+      <iframe
+        src="https://maps.google.com/maps?q=135+Straight+NW,+Grand+Rapids,+MI&output=embed"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <div class="contact-form">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="tel" name="phone" placeholder="Your Phone Number" />
+        <textarea name="message" placeholder="Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+        <p class="form-message" id="form-message"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 ECOrent. All rights reserved.
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
