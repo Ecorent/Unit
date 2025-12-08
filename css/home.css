@@ -3,6 +3,7 @@
   --dark: #2c3e50;
   --light: #f8f9fa;
   --box-bg: #ffffff;
+  --details-title: #14532d; /* Added */
 }
 
 body {
@@ -20,7 +21,7 @@ body {
 }
 
 .nav-container {
-  max-width: 1200px; /* matches welcome-about */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 
@@ -34,7 +35,7 @@ body {
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 26px; /* INCREASED SPACING from 18px */
+  gap: 26px;
 }
 
 .nav-logo {
@@ -47,7 +48,7 @@ body {
 
 .nav-title {
   margin: 0;
-  font-size: 2.8rem; /* SLIGHTLY SMALLER (was 3.2rem) */
+  font-size: 2.8rem;
   font-weight: 600;
 }
 
@@ -78,7 +79,7 @@ body {
 /* SIDE-BY-SIDE SECTION */
 .welcome-about {
   max-width: 1200px;
-  margin: 60px auto;
+  margin: 40px auto; /* REDUCED spacing (was 60px) */
   padding: 0 20px;
 
   display: grid;
@@ -103,21 +104,21 @@ body {
 
 /* UNITS GRID */
 .units {
-  padding: 60px 20px;
-  max-width: 1200px; /* matches welcome-about width */
+  padding: 40px 20px; /* REDUCED spacing (was 60px) */
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .units h2 {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   font-size: 2.2rem;
-  color: var(--primary);
+  color: var(--details-title); /* NEW COLOR #14532d */
 }
 
 .units-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 units visible */
+  grid-template-columns: repeat(3, 1fr);
   gap: 35px;
 }
 
@@ -150,10 +151,9 @@ body {
   margin-bottom: 12px;
 }
 
+/* PRICE REMOVED */
 .unit-info .price {
-  font-weight: 600;
-  font-size: 1.3rem;
-  margin-bottom: 20px;
+  display: none !important;
 }
 
 .view-button {
