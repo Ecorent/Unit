@@ -128,7 +128,7 @@ body {
 
 /* UNITS GRID */
 .units {
-  padding: 20px 20px 60px; /* reduced top padding */
+  padding: 20px 20px 60px;
   max-width: 1200px;
   margin: 0 auto;
 }
