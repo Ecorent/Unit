@@ -12,40 +12,43 @@ body {
   color: var(--dark);
 }
 
-/* NAVIGATION BAR */
+/* NAVIGATION BAR — MATCH REFERENCE */
 .navbar {
   background: var(--dark);
-  padding: 22px 0;
   color: white;
+  padding: 40px 20px; /* updated */
 }
 
 .nav-container {
-  max-width: 1300px;
+  max-width: 1200px; /* updated from 1300 to match reference */
   margin: 0 auto;
-  padding: 0 25px;
+  padding: 0 20px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* reference-compatible */
+  gap: 12px;       /* reference-like gap */
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px; /* match reference */
 }
 
 .nav-logo {
-  height: 75px;
-  width: 75px;
-  border-radius: 10px;
+  height: 85px;  /* updated */
+  width: 85px;   /* updated */
+  border-radius: 8px; /* match reference */
   object-fit: cover;
+  flex-shrink: 0; /* match reference */
 }
 
 .nav-title {
-  font-size: 2.2rem;
+  margin: 0;
+  font-size: 2rem; /* match reference header text */
   font-weight: 600;
-  letter-spacing: 1px;
 }
 
 /* Maintenance Button */
@@ -64,7 +67,7 @@ body {
   background: #239954;
 }
 
-/* HERO SECTION (LARGER) */
+/* HERO SECTION */
 .hero {
   background: var(--box-bg);
   padding: 120px 20px;
@@ -200,11 +203,12 @@ footer {
   }
 
   .nav-logo {
-    height: 55px;
-    width: 55px;
+    height: 70px; /* scaled down proportionally */
+    width: 70px;
   }
 
   .nav-title {
     font-size: 1.7rem;
   }
 }
+
