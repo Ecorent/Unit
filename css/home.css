@@ -130,10 +130,13 @@ body {
   flex-direction: column;
 }
 
+/* FIXED TO EXACT 4:3 RATIO (960:720 simplified) */
 .unit-image {
-  height: 250px;
-  background-size: cover;
-  background-position: center;
+  aspect-ratio: 4 / 3; /* Ensures perfect 4:3 image box */
+  width: 100%;
+  background-size: cover;      /* Fill frame */
+  background-position: center; /* Center image */
+  background-repeat: no-repeat;
 }
 
 .unit-info {
@@ -146,7 +149,7 @@ body {
 
 .unit-info .location {
   color: #555;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 
 .unit-info .price {
