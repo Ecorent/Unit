@@ -47,8 +47,8 @@ body {
 
 .nav-title {
   margin: 0;
-  font-size: 2rem; /* match reference header text */
-  font-weight: 900;
+  font-size: 2.6rem; /* match reference header text */
+  font-weight: 600;
 }
 
 /* Maintenance Button */
