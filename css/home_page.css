@@ -106,7 +106,7 @@ body {
 }
 
 .mobile-menu a:last-child {
-  padding-bottom: 5px;
+  padding-bottom: -10px;
 }
 
 .welcome-about {
