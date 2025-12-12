@@ -102,7 +102,7 @@ body {
 }
 
 .mobile-menu.open {
-  padding-bottom: 5px;
+  padding-bottom: 0px;
 }
 
 .welcome-about {
