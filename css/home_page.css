@@ -105,6 +105,10 @@ body {
   display: flex;
 }
 
+.mobile-menu a:last-child {
+  padding-bottom: 5px;
+}
+
 .welcome-about {
   max-width: 1200px;
   margin: 50px auto 20px; 
