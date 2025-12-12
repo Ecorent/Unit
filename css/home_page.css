@@ -86,7 +86,7 @@ body {
   background: var(--dark);
   width: 100%;
   padding: 15px 0;
-  gap: -8px;
+  gap: -10px;
 }
 
 .mobile-menu a {
