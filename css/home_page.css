@@ -227,20 +227,24 @@ footer {
     flex-direction: column;
     background: var(--dark);
     width: 100%;
-    padding: 15px 0;
+    padding: 15px 0 0 0;
     gap: 0px;
   }
 
   .mobile-menu a {
     color: white;
     text-decoration: none;
-    padding: 12px 20px 6px 20px;
+    padding: 12px 20px;
     font-size: 1.1rem;
     display: block;
   }
 
   .mobile-menu.open {
     display: flex;
+  }
+
+  .mobile-menu a + a {
+    padding-top: 2px;
   }
 
   .welcome-about {
