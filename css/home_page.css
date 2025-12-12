@@ -77,6 +77,10 @@ body {
   display: none;
 }
 
+.mobile-menu {
+  display: none;
+}
+
 .welcome-about {
   max-width: 1200px;
   margin: 50px auto 20px; 
@@ -198,10 +202,6 @@ footer {
     padding: 32px 20px;
   }
 
-  .navbar.menu-open {
-    padding-bottom: 5px;
-  }
-
   .nav-logo {
     height: 60px;
     width: 60px;
@@ -241,10 +241,6 @@ footer {
 
   .mobile-menu.open {
     display: flex;
-  }
-
-  .mobile-menu a + a {
-    padding-top: 4px;
   }
 
   .welcome-about {
