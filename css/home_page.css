@@ -85,7 +85,7 @@ body {
   flex-direction: column;
   background: var(--dark);
   width: 100%;
-  padding: 15px 0;
+  padding: 15px 0 0 10px;
   gap: -10px;
 }
 
