@@ -19,10 +19,6 @@ body {
   position: relative;
 }
 
-.navbar.menu-open {
-  padding-bottom: 10px;
-}
-
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -200,6 +196,10 @@ footer {
 @media (max-width: 900px) {
   .navbar {
     padding: 32px 20px;
+  }
+
+  .navbar.menu-open {
+    padding-bottom: 10px;
   }
 
   .nav-logo {
