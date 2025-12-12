@@ -8,14 +8,11 @@
   <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Homepage CSS -->
-  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/home_page.css" />
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-container">
 
@@ -24,27 +21,23 @@
         <span class="nav-title">Ecorent</span>
       </div>
 
-      <!-- DESKTOP BUTTONS -->
       <div class="nav-right">
         <a href="maintenance.html" class="maintenance-button">Maintenance Requests</a>
         <a href="contact.html" class="contact-button">Contact Us</a>
       </div>
 
-      <!-- MOBILE HAMBURGER -->
       <div class="hamburger">
         <i class="fas fa-bars"></i>
       </div>
 
     </div>
 
-    <!-- MOBILE DROPDOWN MENU -->
     <div class="mobile-menu">
       <a href="maintenance.html">Maintenance Requests</a>
       <a href="contact.html">Contact Us</a>
     </div>
   </nav>
 
-  <!-- SIDE-BY-SIDE SECTION -->
   <section class="welcome-about">
     <div class="welcome-box">
       <h2>Welcome to Ecorent</h2>
@@ -65,7 +58,6 @@
     </div>
   </section>
 
-  <!-- AVAILABLE UNITS -->
   <section class="units" id="units">
     <div class="section-title-box">
       <div class="line"></div>
@@ -75,7 +67,6 @@
 
     <div class="units-grid">
 
-      <!-- UNIT CARD 1 --> 
       <div class="unit-card">
         <div class="unit-image" style="background-image: url('images/1.jpg');"></div>
         <div class="unit-info">
@@ -86,7 +77,6 @@
         </div>
       </div>
 
-      <!-- UNIT CARD 2 - COMING SOON -->
       <div class="unit-card">
         <div class="unit-image" style="background-image: url('images/nocontent.jpg');"></div>
         <div class="unit-info">
@@ -97,7 +87,6 @@
         </div>
       </div>
 
-      <!-- UNIT CARD 3 -->
       <div class="unit-card">
         <div class="unit-image" style="background-image: url('images/nocontent.jpg');"></div>
         <div class="unit-info">
@@ -115,15 +104,7 @@
     &copy; 2025 ECOrent. All rights reserved.
   </footer>
 
-  <!-- HAMBURGER MENU SCRIPT -->
-  <script>
-    const hamburger = document.querySelector('.hamburger');
-    const mobileMenu = document.querySelector('.mobile-menu');
-
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
-  </script>
+  <script src="js/home_page.js"></script>
 
 </body>
 </html>
