@@ -86,13 +86,13 @@ body {
   background: var(--dark);
   width: 100%;
   padding: 15px 0;
-  gap: 8px;
+  gap: 1px;
 }
 
 .mobile-menu a {
   color: white;
   text-decoration: none;
-  padding: 12px 20px;
+  padding: 12px 20px 0 20px;
   font-size: 1.1rem;
   display: block;
 }
@@ -223,7 +223,7 @@ footer {
 
 @media (max-width: 900px) {
   .navbar {
-    padding: 28px 20px;
+    padding: 30px 20px;
   }
 
   .nav-logo {
@@ -232,7 +232,7 @@ footer {
   }
 
   .nav-title {
-    font-size: 2.1rem;
+    font-size: 2.2rem;
   }
 
   .nav-right {
