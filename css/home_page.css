@@ -241,10 +241,11 @@ footer {
 
   .mobile-menu.open {
     display: flex;
+    padding-bottom: 5px;
   }
 
   .mobile-menu a + a {
-    padding-top: 2px;
+    margin-top: -2px;
   }
 
   .welcome-about {
