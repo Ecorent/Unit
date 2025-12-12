@@ -17,6 +17,7 @@ body {
   background: var(--dark);
   color: white;
   padding: 40px 20px;
+  position: relative;
 }
 
 .nav-container {
@@ -75,10 +76,45 @@ body {
   background: #239954;
 }
 
+/* HAMBURGER (MOBILE ONLY) */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--dark);
+  width: 100%;
+  padding: 15px 0;
+  gap: 8px;
+}
+
+.mobile-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  display: block;
+}
+
+.mobile-menu a:hover {
+  background: #1f2d3a;
+}
+
+/* When opened */
+.mobile-menu.open {
+  display: flex;
+}
+
 /* SIDE-BY-SIDE SECTION */
 .welcome-about {
   max-width: 1200px;
-  margin: 50px auto 20px; /* tightened spacing */
+  margin: 50px auto 20px; 
   padding: 0 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -107,20 +143,13 @@ body {
   justify-content: center;
   gap: 18px;
   margin: 25px 0 50px;
-} 
+}
 
-/* UPDATED — removed the background box entirely */
 .section-title {
   font-size: 2.1rem;
   margin: 0;
   color: var(--primary);
   font-weight: 600;
-
-  /* removed the box */
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
 }
 
 .line {
@@ -206,20 +235,35 @@ footer {
 
 /* MOBILE FIXES */
 @media (max-width: 900px) {
+
+  .navbar {
+    padding: 18px 20px;  /* shrink header */
+  }
+
+  .nav-logo {
+    height: 55px;
+    width: 55px;
+  }
+
+  .nav-title {
+    font-size: 2rem;
+  }
+
+  /* Hide desktop buttons */
+  .nav-right {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .hamburger {
+    display: block;
+  }
+
   .welcome-about {
     grid-template-columns: 1fr;
   }
 
   .units-grid {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-
-  .nav-logo {
-    height: 70px;
-    width: 70px;
-  }
-
-  .nav-title {
-    font-size: 2.2rem;
   }
 }

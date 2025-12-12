@@ -24,11 +24,23 @@
         <span class="nav-title">Ecorent</span>
       </div>
 
+      <!-- DESKTOP BUTTONS -->
       <div class="nav-right">
         <a href="maintenance.html" class="maintenance-button">Maintenance Requests</a>
         <a href="contact.html" class="contact-button">Contact Us</a>
       </div>
 
+      <!-- MOBILE HAMBURGER -->
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+
+    </div>
+
+    <!-- MOBILE DROPDOWN MENU -->
+    <div class="mobile-menu">
+      <a href="maintenance.html">Maintenance Requests</a>
+      <a href="contact.html">Contact Us</a>
     </div>
   </nav>
 
@@ -85,7 +97,7 @@
         </div>
       </div>
 
-      <!-- UNIT CARD 3 - COMING SOON -->
+      <!-- UNIT CARD 3 -->
       <div class="unit-card">
         <div class="unit-image" style="background-image: url('images/nocontent.jpg');"></div>
         <div class="unit-info">
@@ -102,6 +114,16 @@
   <footer>
     &copy; 2025 ECOrent. All rights reserved.
   </footer>
+
+  <!-- HAMBURGER MENU SCRIPT -->
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+  </script>
 
 </body>
 </html>
