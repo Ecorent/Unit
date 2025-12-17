@@ -178,7 +178,7 @@ body {
 .unit-meta {
   display: flex;
   gap: 20px;
-  margin: 10px 0 8px;
+  margin: 10px 0 2px;
   color: #555;
   font-size: 0.95rem;
 }
