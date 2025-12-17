@@ -188,14 +188,12 @@ body {
   color: white;
 }
 
-/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   background: #e1e1e1;
 }
 
-/* MOBILE */
 @media (max-width: 900px) {
   .nav-right { display: none; }
   .hamburger { display: block; color: white; font-size: 2rem; }
