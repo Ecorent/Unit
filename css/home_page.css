@@ -50,7 +50,7 @@ body {
   color: var(--primary);
   border: 3px solid var(--primary);
   padding: 12px 18px;
-  border-radius: 8px;
+  border-radius: gpx;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -89,7 +89,7 @@ body {
 .about-box {
   background: white;
   padding: 30px;
-  border-radius: 14px;
+  border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 }
 
@@ -136,7 +136,7 @@ body {
 .unit-card.horizontal {
   display: flex;
   background: white;
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 }
@@ -153,7 +153,7 @@ body {
   aspect-ratio: 4 / 3;
   background-size: cover;
   background-position: center;
-  border-radius: 10px;
+  border-radius: 6px;
 }
 
 .unit-info {
