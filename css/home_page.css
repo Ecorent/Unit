@@ -16,7 +16,7 @@ body {
 .navbar {
   background: var(--box-bg);
   color: white;
-  padding: 40px 20px;
+  padding: 40px 5px;
 }
 
 .nav-container {
@@ -34,8 +34,8 @@ body {
 }
 
 .nav-logo {
-  height: 50%;
-  width: 50%;
+  height: 25%;
+  width: 25%;
   border-radius: 8px;
   object-fit: cover;
 }
