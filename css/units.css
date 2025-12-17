@@ -228,6 +228,7 @@ main {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  resize: none;
 }
 
 .contact-form button {
