@@ -44,6 +44,15 @@ body {
   border-radius: 6px;
 }
 
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-link img {
+  cursor: pointer;
+}
+
 .maintenance-button,
 .contact-button {
   background: white;
