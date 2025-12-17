@@ -1,7 +1,7 @@
 :root {
   --primary: #27ae60;
   --dark: #2c3e50;
-  --light: #f8f9fa;
+  --light: #e3e4e5;
   --gray: #888;
   --box-bg: #ffffff;
   --details-title: #12793d;
@@ -251,9 +251,8 @@ main {
 footer {
   text-align: center;
   padding: 20px;
-  background-color: #e1e1e1;
-  color: var(--dark);
-  font-size: 0.95rem;
+  background: #e1e1e1;
+  border-top: 2px solid #bebebe;
 }
 
 .mobile-only { display: none; }
