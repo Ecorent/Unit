@@ -12,11 +12,10 @@ body {
   color: var(--dark);
 }
 
-/* NAVBAR (unchanged) */
 .navbar {
   background: var(--box-bg);
   color: white;
-  padding: 40px 5px;
+  padding: 25px 10px;
 }
 
 .nav-container {
@@ -30,12 +29,12 @@ body {
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 10px;
 }
 
 .nav-logo {
-  height: 25%;
-  width: 25%;
+  height: 30%;
+  width: 30%;
   border-radius: 8px;
   object-fit: cover;
 }
