@@ -14,8 +14,8 @@ body {
 
 .navbar {
   background: var(--box-bg);
-  color: white;
   padding: 25px 10px;
+  width: 100%;
 }
 
 .nav-container {
@@ -26,10 +26,11 @@ body {
   align-items: center;
 }
 
-.nav-left {
+.nav-left,
+.nav-right {
   display: flex;
-  align-items: left;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
 }
 
 .nav-logo {
@@ -37,12 +38,6 @@ body {
   width: auto;
   object-fit: contain;
   border-radius: 8px;
-}
-
-.nav-right {
-  display: flex;
-  align-items: right;
-  gap: 10px;
 }
 
 .maintenance-button,
