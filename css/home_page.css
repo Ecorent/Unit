@@ -218,7 +218,7 @@ footer {
   text-align: center;
   padding: 20px;
   background: #e1e1e1;
-  border-top: 2px solid #777777;
+  border-top: 2px solid #adadad;
 }
 
 @media (max-width: 900px) {
