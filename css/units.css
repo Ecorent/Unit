@@ -45,6 +45,15 @@ body {
   border-radius: 6px;
 }
 
+.nav-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--dark);
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
+}
+
 .maintenance-button,
 .contact-button {
   background: white;
