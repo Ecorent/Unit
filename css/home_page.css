@@ -22,7 +22,6 @@ body {
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,6 +37,7 @@ body {
   height: 85px;
   width: 85px;
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .nav-title {
@@ -55,9 +55,9 @@ body {
   background: var(--primary);
   padding: 12px 18px;
   border-radius: 8px;
+  color: white;
   text-decoration: none;
   font-weight: 600;
-  color: white;
 }
 
 .hamburger,
@@ -65,7 +65,7 @@ body {
   display: none;
 }
 
-/* WELCOME */
+/* CONTENT */
 .welcome-about {
   max-width: 1200px;
   margin: 50px auto 20px;
@@ -78,7 +78,7 @@ body {
 .welcome-box,
 .about-box {
   background: white;
-  padding: 20px 30px;
+  padding: 30px;
   border-radius: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 }
@@ -91,31 +91,29 @@ body {
 }
 
 .units-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 30px;
 }
 
 .unit-card.horizontal {
   display: flex;
-  gap: 28px;
-  padding: 22px;
   background: white;
   border-radius: 14px;
+  overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 }
 
 .unit-image {
-  width: 280px;
-  aspect-ratio: 4 / 3;
+  width: 320px;
+  min-height: 220px;
   background-size: cover;
   background-position: center;
-  border-radius: 10px;
-  flex-shrink: 0;
 }
 
 .unit-info {
   flex: 1;
+  padding: 26px;
   display: flex;
   flex-direction: column;
 }
@@ -132,20 +130,24 @@ body {
 }
 
 .price {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
 .unit-meta {
   display: flex;
-  gap: 22px;
+  gap: 20px;
   margin: 10px 0 14px;
   color: #555;
   font-size: 0.95rem;
 }
 
+.unit-meta i {
+  margin-right: 6px;
+}
+
 .unit-description {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   line-height: 1.5;
 }
 
@@ -160,15 +162,23 @@ body {
   text-decoration: none;
 }
 
+.view-button:hover {
+  background: var(--primary);
+  color: white;
+}
+
 /* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
-  background-color: #e1e1e1;
+  background: #e1e1e1;
 }
 
 /* MOBILE */
 @media (max-width: 900px) {
+  .nav-right { display: none; }
+  .hamburger { display: block; color: white; font-size: 2rem; }
+
   .welcome-about {
     grid-template-columns: 1fr;
   }
@@ -179,5 +189,6 @@ footer {
 
   .unit-image {
     width: 100%;
+    height: 220px;
   }
 }
