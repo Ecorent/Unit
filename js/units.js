@@ -52,13 +52,13 @@ document.getElementById('contactForm').addEventListener('submit', async function
       body: formData
     });
 
-    messageEl.textContent = "Thank you! Your message has been sent.";
+    messageEl.textContent = "Thank you! Your inquiry has been sent.";
     messageEl.style.color = "green";
     form.reset();
   } catch (err) {
     console.error("Submission error:", err);
 
-    messageEl.textContent = "Thank you! Your message has been sent.";
+    messageEl.textContent = "Thank you! Your inquiry has been sent.";
     messageEl.style.color = "green";
     form.reset();
   }
