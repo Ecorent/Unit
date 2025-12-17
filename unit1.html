@@ -13,24 +13,27 @@
   <link rel="stylesheet" href="css/units.css" />
 </head>
 <body>
-  <header>
-    <div class="header-container">
-      <div class="header-left">
-        <img src="images/logo.jpg" alt="Logo" class="logo" />
-        <div class="header-text">
-          <h1>4BR Downtown GR Apartment</h1>
-          <p>Grand Rapids, MI</p>
-        </div>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <img src="images/header_logo.jpg" class="nav-logo" alt="ECOrent logo">
       </div>
-      <div class="header-info">
-        <div class="price-tag">$2,400 / month</div>
-        <div class="phone">
-          <span class="mobile-only"><a href="tel:16164772400">(616) 477 - 2400</a></span>
-          <span class="desktop-only">(616) 477 - 2400</span>
-        </div>
+
+      <div class="nav-right">
+        <a href="#" class="maintenance-button" onclick="return false;">Maintenance Requests</a>
+        <a href="#" class="contact-button" onclick="return false;"><i class="fas fa-arrow-right"></i> Log in</a>
+      </div>
+
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
       </div>
     </div>
-  </header>
+
+    <div class="mobile-menu">
+      <a href="maintenance.html">Maintenance Requests</a>
+      <a href="contact.html">Log in</a>
+    </div>
+  </nav>
 
   <main>
     <div class="carousel" id="carousel"></div>
