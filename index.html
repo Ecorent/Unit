@@ -6,7 +6,7 @@
   <title>Ecorent - Home Page</title>
 
   <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/home_page.css" />
 </head>
@@ -22,8 +22,8 @@
       </div>
 
       <div class="nav-right">
-        <a class="maintenance-button">Maintenance Requests</a>
-        <a class="contact-button">Contact Us</a>
+        <a href="maintenance.html" class="maintenance-button">Maintenance Requests</a>
+        <a href="contact.html" class="contact-button">Contact Us</a>
       </div>
 
       <div class="hamburger">
@@ -33,26 +33,26 @@
     </div>
 
     <div class="mobile-menu">
-      <a>Maintenance Requests</a>
-      <a>Contact Us</a>
+      <a href="maintenance.html">Maintenance Requests</a>
+      <a href="contact.html">Contact Us</a>
     </div>
   </nav>
 
   <section class="welcome-about">
     <div class="welcome-box">
-      <h2 class="section-heading">Welcome to Ecorent</h2>
+      <h2>Welcome to Ecorent</h2>
       <p>
-        We offer clean, spacious, well-located rental homes throughout Grand Rapids and manage them with care.
-        Our goal is simple: offer comfortable living, honest communication, and support you can count on.
+        We offer clean, spacious, well-located rental homes throughout Grand Rapids and manage them with care.  
+        Our goal is simple: offer comfortable living, honest communication, and support you can count on.  
         Whether you're new to the area or moving across town, we aim to make renting feel easy and worry-free.
       </p>
     </div>
 
     <div class="about-box">
-      <h2 class="section-heading">Why Rent With Us</h2>
+      <h2>Why Rent With Us</h2>
       <p>
-        Our properties are well-kept, energy-efficient, and located in convenient neighborhoods.
-        We respond quickly to maintenance needs, keep our process transparent, and prioritize your comfort.
+        Our properties are well-kept, energy-efficient, and located in convenient neighborhoods.  
+        We respond quickly to maintenance needs, keep our process transparent, and prioritize your comfort.  
         Renting with us means reliable service and a place you’ll feel confident calling home.
       </p>
     </div>
@@ -61,88 +61,39 @@
   <section class="units" id="units">
     <div class="section-title-box">
       <div class="line"></div>
-      <h2 class="section-title section-heading">Available Units</h2>
+      <h2 class="section-title">Available Units</h2>
       <div class="line"></div>
     </div>
 
     <div class="units-grid">
 
-      <!-- UNIT 1 -->
       <div class="unit-card">
         <div class="unit-image" style="background-image: url('images/1.jpg');"></div>
-
         <div class="unit-info">
-          <div class="unit-header">
-            <h3 class="unit-title">4BR Downtown Apartment</h3>
-            <span class="price">$2,400 / month</span>
-          </div>
-
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> Grand Rapids, MI
-            <span class="details">
-              <i class="fas fa-ruler-combined"></i> 1,600 sqft
-              <i class="fas fa-bed"></i> 4 Beds
-            </span>
-          </p>
-
-          <p class="description">
-            Spacious downtown apartment with modern finishes, large windows, and convenient access to
-            restaurants, public transit, and nearby parks.
-          </p>
-
-          <a href="unit1.html" class="view-button outline">View Details</a>
+          <h3>4BR Downtown Apartment</h3>
+          <p class="location"><i class="fas fa-map-marker-alt"></i> Grand Rapids, MI</p>
+          <p class="price">$2,400 / month</p>
+          <a href="unit1.html" class="view-button">View Details</a>
         </div>
       </div>
 
-      <!-- UNIT 2 -->
       <div class="unit-card">
         <div class="unit-image" style="background-image: url('images/nocontent.jpg');"></div>
-
         <div class="unit-info">
-          <div class="unit-header">
-            <h3 class="unit-title">Coming Soon</h3>
-            <span class="price">$X,XXX / month</span>
-          </div>
-
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> Location
-            <span class="details">
-              <i class="fas fa-ruler-combined"></i> TBD
-              <i class="fas fa-bed"></i> TBD
-            </span>
-          </p>
-
-          <p class="description">
-            A new property is on the way. Details, photos, and pricing will be available soon.
-          </p>
-
-          <a class="view-button outline">View Details</a>
+          <h3>Coming soon...</h3>
+          <p class="location"><i class="fas fa-map-marker-alt"></i> Location</p>
+          <p class="price">$X,XXX / month</p>
+          <a class="view-button">View Details</a>
         </div>
       </div>
 
-      <!-- UNIT 3 -->
       <div class="unit-card">
         <div class="unit-image" style="background-image: url('images/nocontent.jpg');"></div>
-
         <div class="unit-info">
-          <div class="unit-header">
-            <h3 class="unit-title">Coming Soon</h3>
-            <span class="price">$X,XXX / month</span>
-          </div>
-
-          <p class="location">
-            <i class="fas fa-map-marker-alt"></i> Location
-            <span class="details">
-              <i class="fas fa-ruler-combined"></i> TBD
-              <i class="fas fa-bed"></i> TBD
-            </span>
-          </p>
-
-          <p class="description">
-            Another upcoming rental currently under preparation. Check back shortly for updates.
-          </p>
-
-          <a class="view-button outline">View Details</a>
+          <h3>Coming soon...</h3>
+          <p class="location"><i class="fas fa-map-marker-alt"></i> Location</p>
+          <p class="price">$X,XXX / month</p>
+          <a class="view-button">View Details</a>
         </div>
       </div>
 
@@ -153,5 +104,6 @@
     &copy; 2025 ECOrent. All rights reserved.
   </footer>
 
+  <script src="js/home_page.js"></script>
 </body>
 </html>
