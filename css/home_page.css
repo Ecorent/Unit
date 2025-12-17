@@ -52,12 +52,19 @@ body {
 
 .maintenance-button,
 .contact-button {
-  background: var(--primary);
+  background: white;
+  color: var(--primary);
+  border: 3px solid var(--primary);
   padding: 12px 18px;
   border-radius: 8px;
-  color: white;
   text-decoration: none;
   font-weight: 600;
+}
+
+.maintenance-button:hover,
+.contact-button:hover {
+  background: var(--primary);
+  color: white;
 }
 
 .hamburger,
@@ -77,10 +84,16 @@ body {
 .welcome-box,
 .about-box {
   background: white;
-  color: var(--primary);
   padding: 30px;
   border-radius: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+}
+
+.welcome-box h2,
+.about-box h2 {
+  color: var(--primary);
+  margin-bottom: 14px;
+  font-size: 1.8rem;
 }
 
 .section-title-box {
