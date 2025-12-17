@@ -28,19 +28,20 @@ body {
 
 .nav-left {
   display: flex;
-  align-items: center;
+  align-items: left;
   gap: 10px;
 }
 
 .nav-logo {
-  height: 30%;
-  width: 30%;
+  height: 40px;
+  width: auto;
+  object-fit: contain;
   border-radius: 8px;
-  object-fit: cover;
 }
 
 .nav-right {
   display: flex;
+  align-items: right;
   gap: 10px;
 }
 
