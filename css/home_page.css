@@ -34,8 +34,8 @@ body {
 }
 
 .nav-logo {
-  height: 85px;
-  width: 85px;
+  height: 100%;
+  width: 100%;
   border-radius: 8px;
   object-fit: cover;
 }
