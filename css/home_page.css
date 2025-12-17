@@ -14,7 +14,7 @@ body {
 
 /* NAVBAR (unchanged) */
 .navbar {
-  background: var(--dark);
+  background: var(--box-bg);
   color: white;
   padding: 40px 20px;
 }
