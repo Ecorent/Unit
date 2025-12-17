@@ -1,6 +1,6 @@
 :root {
   --primary: #27ae60;
-  --darker-green :#138944;
+  --darker-green :#12793d;
   --dark: #000000;
   --light: #f8f9fa;
   --box-bg: #ffffff;
@@ -88,7 +88,7 @@ body {
 .welcome-box,
 .about-box {
   background: white;
-  padding: 30px;
+  padding: 20px 40px;
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 }
