@@ -137,11 +137,16 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 }
 
+.unit-image-wrapper {
+  padding: 18px;
+}
+
 .unit-image {
   width: 320px;
   min-height: 220px;
   background-size: cover;
   background-position: center;
+  border-radius: 10px;
 }
 
 .unit-info {
@@ -216,6 +221,10 @@ footer {
 
   .unit-card.horizontal {
     flex-direction: column;
+  }
+
+  .unit-image-wrapper {
+    padding: 14px;
   }
 
   .unit-image {
