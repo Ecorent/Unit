@@ -1,7 +1,7 @@
 :root {
   --primary: #27ae60;
   --dark: #2c3e50;
-  --light: #f1f1f1;
+  --light: #f3f3f3;
   --gray: #888;
   --box-bg: #ffffff;
   --details-title: #12793d;
@@ -16,7 +16,7 @@ body {
 
 .navbar {
   background: var(--box-bg);
-  padding: 25px 0px;
+  padding: 25px 20px;
   width: 100%;
   border-bottom: 2px solid #dcdcdc;
 }
