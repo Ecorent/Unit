@@ -1,7 +1,7 @@
 :root {
   --primary: #27ae60;
   --dark: #2c3e50;
-  --light: #e3e4e5;
+  --light: #f1f1f1;
   --gray: #888;
   --box-bg: #ffffff;
   --details-title: #12793d;
@@ -230,17 +230,21 @@ main {
 }
 
 .contact-form button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 10px 16px;
+  background: white;
+  color: var(--primary);
+  border: 3px solid var(--primary);
+  padding: 12px 18px;
   font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.15s ease;
 }
 
 .contact-form button:hover {
-  background: #239954;
+  background: var(--primary);
+  color: white;
 }
 
 .form-message {
