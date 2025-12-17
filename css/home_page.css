@@ -100,7 +100,7 @@ body {
 
 .welcome-box h2,
 .about-box h2 {
-  color: var(--primary);
+  color: var(--dark);
   margin-bottom: 14px;
   font-size: 1.8rem;
 }
@@ -114,9 +114,9 @@ body {
 }
 
 .section-title {
-  font-size: 2.1rem;
+  font-size: 2rem;
   margin: 0;
-  color: var(--primary);
+  color: var(--dark);
   font-weight: 600;
 }
 
