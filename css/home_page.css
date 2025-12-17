@@ -12,8 +12,7 @@ body {
   color: var(--dark);
 }
 
-/* ---------------- NAVBAR ---------------- */
-
+/* NAVBAR */
 .navbar {
   background: var(--dark);
   color: white;
@@ -38,6 +37,7 @@ body {
   height: 85px;
   width: 85px;
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .nav-title {
@@ -58,6 +58,7 @@ body {
   text-decoration: none;
   font-weight: 600;
   color: white;
+  cursor: pointer;
 }
 
 .maintenance-button:hover,
@@ -65,21 +66,31 @@ body {
   background: #239954;
 }
 
+/* Disable navigation behavior */
+.maintenance-button,
+.contact-button,
+.mobile-menu a {
+  pointer-events: none;
+}
+
+/* HAMBURGER */
 .hamburger {
   display: none;
 }
 
-/* ---------------- TITLES ---------------- */
-
-.section-heading {
-  color: var(--primary);
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 0;
+/* MOBILE MENU DISABLED */
+.mobile-menu {
+  display: none !important;
 }
 
-/* ---------------- WELCOME ---------------- */
+/* TITLES */
+.welcome-box h2,
+.about-box h2,
+.section-title {
+  color: var(--dark);
+}
 
+/* CONTENT */
 .welcome-about {
   max-width: 1200px;
   margin: 50px auto;
@@ -97,8 +108,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 }
 
-/* ---------------- UNITS ---------------- */
-
+/* UNITS */
 .units {
   max-width: 1200px;
   margin: 0 auto;
@@ -111,16 +121,16 @@ body {
   gap: 30px;
 }
 
-.unit-card.horizontal {
+.unit-card {
   display: flex;
   background: white;
   border-radius: 14px;
-  overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+  overflow: hidden;
 }
 
 .unit-image {
-  width: 35%;
+  width: 260px;
   background-size: cover;
   background-position: center;
 }
@@ -134,17 +144,20 @@ body {
   margin-top: 0;
 }
 
-/* -------- View Details Button -------- */
+.unit-info .price {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
 
+/* VIEW BUTTON */
 .view-button {
-  display: inline-block;
   background: white;
   color: var(--primary);
+  border: 2px solid var(--primary);
   padding: 10px 18px;
   border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
-  border: 2px solid var(--primary);
   transition: all 0.15s ease;
 }
 
@@ -153,18 +166,15 @@ body {
   color: white;
 }
 
-/* ---------------- FOOTER ---------------- */
-
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   background: #e1e1e1;
 }
 
-/* ---------------- MOBILE ---------------- */
-
+/* MOBILE */
 @media (max-width: 900px) {
-
   .nav-right {
     display: none;
   }
@@ -172,23 +182,19 @@ footer {
   .hamburger {
     display: block;
     font-size: 2rem;
+    color: white;
   }
 
   .welcome-about {
     grid-template-columns: 1fr;
   }
 
-  .unit-card.horizontal {
+  .unit-card {
     flex-direction: column;
   }
 
   .unit-image {
     width: 100%;
-    height: 220px;
-  }
-
-  /* Mobile menu disabled */
-  .mobile-menu {
-    display: none !important;
+    height: 200px;
   }
 }
