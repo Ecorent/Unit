@@ -107,7 +107,7 @@ button:hover {
 .forgot-password {
   display: block;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 15px;
   font-size: 0.9rem;
   color: var(--primary);
   text-decoration: none;
@@ -120,7 +120,7 @@ button:hover {
 
 .auth-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 15px;
   font-size: 0.9rem;
   color: #777;
 }
