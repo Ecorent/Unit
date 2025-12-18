@@ -30,7 +30,7 @@ body {
 
 .auth-header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .auth-header img {
@@ -102,6 +102,20 @@ button:hover {
   background: white;
   color: var(--primary);
   border: 3px solid var(--primary);
+}
+
+.forgot-password {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
 }
 
 .auth-footer {
