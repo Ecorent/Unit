@@ -1,0 +1,6 @@
+{
+  "public": true,
+  "routes": [
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ]
+}
