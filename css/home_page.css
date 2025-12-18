@@ -10,7 +10,7 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: var(--light);
-  color: var(--darker-green);
+  color: var(--dark);
 }
 
 .navbar {
