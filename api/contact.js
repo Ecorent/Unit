@@ -3,19 +3,14 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
 
-  const formData = await req.formData();
+  const { name, email, phone, message, website } = req.body;
 
   // Honeypot protection
-  if (formData.get('website')) {
+  if (website) {
     return res.status(200).end();
   }
 
-  const name = formData.get('name');
-  const email = formData.get('email');
-  const phone = formData.get('phone');
-  const message = formData.get('message');
-
-  // TEMP: log to Vercel (works now)
+  // TEMP: Log submissions (visible in Vercel logs)
   console.log({
     name,
     email,

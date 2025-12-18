@@ -37,35 +37,41 @@ document.getElementById('next').onclick = () => {
   slides[current].classList.add('active');
 };
 
+/* ================= CONTACT FORM ================= */
+
 document.getElementById('contactForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
-  const form = e.target;
-  const formData = new FormData(form);
   const messageEl = document.getElementById('form-message');
 
+  const data = {
+    name: this.name.value,
+    email: this.email.value,
+    phone: this.phone.value,
+    message: this.message.value,
+    website: this.website?.value || "" // honeypot
+  };
+
   // Honeypot check
-  if (formData.get('website')) {
-    return; // silently fail bots
-  }
+  if (data.website) return;
 
   try {
     const response = await fetch('/api/contact', {
       method: 'POST',
-      body: formData
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
 
-    if (response.ok) {
-      messageEl.textContent = "Thank you! Your inquiry has been sent.";
-      messageEl.style.color = "green";
-      form.reset();
-    } else {
-      throw new Error("Submission failed");
-    }
-  } catch (err) {
+    if (!response.ok) throw new Error();
+
+    messageEl.textContent = "Thank you! Your inquiry has been sent.";
+    messageEl.style.color = "green";
+    this.reset();
+
+  } catch {
     messageEl.textContent = "Something went wrong. Please try again.";
     messageEl.style.color = "red";
   }
 });
-
-
