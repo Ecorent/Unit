@@ -39,21 +39,17 @@ document.getElementById('next').onclick = () => {
 
 /* ================= CONTACT FORM ================= */
 
-document.getElementById('contactForm').addEventListener('submit', async function (e) {
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const messageEl = document.getElementById('form-message');
 
   const data = {
-    name: this.name.value,
-    email: this.email.value,
-    phone: this.phone.value,
-    message: this.message.value,
-    website: this.website?.value || "" // honeypot
+    name: e.target.name.value,
+    email: e.target.email.value,
+    phone: e.target.phone.value,
+    message: e.target.message.value
   };
-
-  // Honeypot check
-  if (data.website) return;
 
   try {
     const response = await fetch('/api/contact', {
@@ -68,8 +64,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
     messageEl.textContent = "Thank you! Your inquiry has been sent.";
     messageEl.style.color = "green";
-    this.reset();
-
+    e.target.reset();
   } catch {
     messageEl.textContent = "Something went wrong. Please try again.";
     messageEl.style.color = "red";
