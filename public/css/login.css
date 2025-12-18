@@ -99,7 +99,9 @@ button {
 }
 
 button:hover {
-  background: #219150;
+  background: white;
+  color: var(--primary);
+  border: 3px solid var(--primary);
 }
 
 .auth-footer {
