@@ -37,29 +37,35 @@ document.getElementById('next').onclick = () => {
   slides[current].classList.add('active');
 };
 
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
+document.getElementById('contactForm').addEventListener('submit', async function (e) {
   e.preventDefault();
+
   const form = e.target;
   const formData = new FormData(form);
   const messageEl = document.getElementById('form-message');
 
+  // Honeypot check
+  if (formData.get('website')) {
+    return; // silently fail bots
+  }
+
   try {
-    const response = await fetch("https://formspree.io/f/xgvzvalo", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json'
-      },
+    const response = await fetch('/api/contact', {
+      method: 'POST',
       body: formData
     });
 
-    messageEl.textContent = "Thank you! Your inquiry has been sent.";
-    messageEl.style.color = "green";
-    form.reset();
+    if (response.ok) {
+      messageEl.textContent = "Thank you! Your inquiry has been sent.";
+      messageEl.style.color = "green";
+      form.reset();
+    } else {
+      throw new Error("Submission failed");
+    }
   } catch (err) {
-    console.error("Submission error:", err);
-
-    messageEl.textContent = "Thank you! Your inquiry has been sent.";
-    messageEl.style.color = "green";
-    form.reset();
+    messageEl.textContent = "Something went wrong. Please try again.";
+    messageEl.style.color = "red";
   }
 });
+
+
