@@ -238,6 +238,7 @@ main {
   border: 1px solid #ccc;
   font-size: 1rem;
   resize: none;
+  font-family: inherit;
 }
 
 .contact-form button {
