@@ -131,7 +131,7 @@ body {
 }
 
 .unit-meta {
-  padding-left: 1px;
+  padding-left: 2px;
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
@@ -151,6 +151,7 @@ body {
 
 .view-button {
   margin-top: 14px;
+  width: 100%;
   background: white;
   color: var(--buttons);
   border: 3px solid var(--buttons);
@@ -158,9 +159,9 @@ body {
   border-radius: 6px;
   font-weight: 600;
   text-decoration: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
 }
 
 .view-button::after {
