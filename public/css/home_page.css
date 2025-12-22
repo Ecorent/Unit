@@ -84,51 +84,6 @@ body {
   background-position: center;
 }
 
-.welcome-about {
-  max-width: 1200px;
-  margin: 50px auto 20px;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
-
-.welcome-box,
-.about-box {
-  background: white;
-  padding: 20px 40px;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-}
-
-.welcome-box h2,
-.about-box h2 {
-  color: var(--darker-green);
-  margin-bottom: 14px;
-  font-size: 1.8rem;
-}
-
-.section-title-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  margin: 25px 0 50px;
-}
-
-.section-title {
-  font-size: 1.8rem;
-  margin: 0;
-  color: var(--dark);
-  font-weight: 600;
-}
-
-.line {
-  flex-grow: 1;
-  height: 2px;
-  background: #cfd6dd;
-}
-
 .units {
   max-width: 1200px;
   margin: 0 auto;
