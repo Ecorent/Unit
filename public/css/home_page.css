@@ -125,13 +125,13 @@ body {
 }
 
 .unit-info h3 {
-  margin: 0;
+  margin: 0 0 4px 0;
   font-size: 1.20rem;
   color: var(--darker-green);
 }
 
 .unit-meta {
-  padding-left: 1px;
+  padding-left: 2px;
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
