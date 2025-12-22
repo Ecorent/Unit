@@ -20,3 +20,22 @@ document.querySelectorAll('.unit-carousel').forEach(carousel => {
     update();
   });
 });
+
+const cards = document.querySelectorAll('.unit-card');
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target); // animate once
+      }
+    });
+  },
+  {
+    threshold: 0.15
+  }
+);
+
+cards.forEach(card => observer.observe(card));
+
