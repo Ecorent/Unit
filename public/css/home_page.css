@@ -131,7 +131,7 @@ body {
 }
 
 .unit-meta {
-  padding-left: 15px;
+  padding-left: 1px;
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
@@ -143,6 +143,10 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.unit-meta:not(.address) {
+  padding-left: 2px;
 }
 
 .unit-meta i {
