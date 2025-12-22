@@ -45,8 +45,8 @@ body {
 .maintenance-button,
 .contact-button {
   background: white;
-  color: var(--primary);
-  border: 3px solid var(--primary);
+  color: var(--darker-green);
+  border: 3px solid var(--darker-green);
   padding: 12px 18px;
   border-radius: 6px;
   font-weight: 600;
@@ -55,7 +55,7 @@ body {
 
 .maintenance-button:hover,
 .contact-button:hover {
-  background: var(--primary);
+  background: var(--darker-green);
   color: white;
 }
 
@@ -95,7 +95,6 @@ body {
   flex-direction: column;
 }
 
-/* IMAGE + PRICE BADGE */
 .unit-image {
   position: relative;
   margin: 16px;
@@ -109,7 +108,7 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(18, 121, 61, 0.92);
+  background: var(--darker-green);
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
@@ -118,7 +117,6 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* INFO */
 .unit-info {
   padding: 6px 22px 22px;
   display: flex;
@@ -128,7 +126,7 @@ body {
 
 .unit-info h3 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.20rem;
   color: var(--darker-green);
 }
 
