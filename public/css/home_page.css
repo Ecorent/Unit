@@ -61,12 +61,12 @@ body {
 .maintenance-wrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .language-icon {
-  font-size: 3.1rem;
-  color: var(--buttons);
+  font-size: 3rem;
+  color: var(--dark);
   cursor: pointer;
 }
 
