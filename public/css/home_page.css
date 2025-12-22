@@ -58,22 +58,6 @@ body {
   color: white;
 }
 
-.maintenance-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.language-icon {
-  font-size: 3.1rem;
-  color: var(--buttons);
-  cursor: pointer;
-}
-
-.language-icon:hover {
-  color: var(--darker-green);
-}
-
 .hamburger,
 .mobile-menu {
   display: none;
