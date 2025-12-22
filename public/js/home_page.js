@@ -1,6 +1,7 @@
 document.querySelectorAll('.unit-carousel').forEach(carousel => {
   const track = carousel.querySelector('.carousel-track');
   const images = track.querySelectorAll('img');
+  const blur = carousel.querySelector('.carousel-blur');
   const prev = carousel.querySelector('.prev');
   const next = carousel.querySelector('.next');
 
@@ -8,7 +9,10 @@ document.querySelectorAll('.unit-carousel').forEach(carousel => {
 
   const update = () => {
     track.style.transform = `translateX(-${index * 100}%)`;
+    blur.style.backgroundImage = `url(${images[index].src})`;
   };
+
+  blur.style.backgroundImage = `url(${images[0].src})`;
 
   prev.addEventListener('click', () => {
     index = (index - 1 + images.length) % images.length;
