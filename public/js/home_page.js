@@ -28,7 +28,7 @@ const observer = new IntersectionObserver(
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
-        observer.unobserve(entry.target); // animate once
+        observer.unobserve(entry.target);
       }
     });
   },

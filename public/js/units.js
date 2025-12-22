@@ -7,7 +7,7 @@ for (let i = 1; i <= imageCount; i++) {
   slide.classList.add('carousel-slide');
   if (i === 1) slide.classList.add('active');
 
-  const imageURL = `images/${i}.jpg`;
+  const imageURL = `images/unit1/${i}.jpg`;
   slide.innerHTML = `
     <div class="blur-bg" style="background-image: url('${imageURL}');"></div>
     <img src="${imageURL}" alt="Apartment photo ${i}" loading="lazy" />
