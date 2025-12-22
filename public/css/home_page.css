@@ -40,7 +40,7 @@ body {
   height: 60px;
 }
 
-.maintenance-wrapper {
+.header-wrapper {
   display: flex;
   align-items: center;
   gap: 18px;
@@ -169,6 +169,60 @@ body {
   font-weight: 600;
 }
 
+.unit-carousel {
+  position: relative;
+  margin: 16px;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.carousel-track img {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+.carousel-btn:hover {
+  background: rgba(0,0,0,0.75);
+}
+
+.carousel-blur {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+  transform: scale(1.15);
+  z-index: 0;
+}
+
 .unit-info {
   padding: 6px 22px 22px;
   display: flex;
@@ -229,60 +283,6 @@ body {
 .view-button:hover {
   background: var(--buttons);
   color: white;
-}
-
-.unit-carousel {
-  position: relative;
-  margin: 16px;
-  aspect-ratio: 4 / 3;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.carousel-track {
-  display: flex;
-  height: 100%;
-  transition: transform 0.4s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.carousel-track img {
-  width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 4;
-  background: rgba(0,0,0,0.55);
-  color: white;
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; }
-
-.carousel-btn:hover {
-  background: rgba(0,0,0,0.75);
-}
-
-.carousel-blur {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: blur(20px);
-  transform: scale(1.15);
-  z-index: 0;
 }
 
 footer {
