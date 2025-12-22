@@ -17,7 +17,7 @@ body {
   background: var(--box-bg);
   padding: 25px 0;
   width: 100%;
-  border-bottom: 1px solid #dcdcdc;
+  border-bottom: 2px solid #d1d1d1;
 }
 
 .nav-container {
