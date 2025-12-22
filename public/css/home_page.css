@@ -13,7 +13,6 @@ body {
   color: var(--dark);
 }
 
-/* NAVBAR */
 .navbar {
   background: var(--box-bg);
   padding: 25px 0;
@@ -59,12 +58,27 @@ body {
   color: white;
 }
 
+.maintenance-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.language-icon {
+  font-size: 1.1rem;
+  color: var(--buttons);
+  cursor: pointer;
+}
+
+.language-icon:hover {
+  color: var(--darker-green);
+}
+
 .hamburger,
 .mobile-menu {
   display: none;
 }
 
-/* HERO */
 .hero-image {
   width: 100%;
   height: 450px;
