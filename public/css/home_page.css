@@ -40,38 +40,31 @@ body {
   height: 65px;
 }
 
-.map-button,
-.maintenance-button,
-.contact-button {
-  background: none;
-  border: none;
-  padding: 0;
-  color: var(--dark);
-  font-weight: 600;
-  text-decoration: none;
-  cursor: default;
-}
-
-.map-button:hover,
-.maintenance-button:hover,
-.contact-button:hover {
-  background: none;
-  color: var(--buttons);
-}
-
 .maintenance-wrapper {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.language-icon {
-  font-size: 1.1rem;
+.language-icon,
+.map-button,
+.maintenance-button,
+.contact-button {
+  font-size: 1.20rem;
+  background: none;
+  border: none;
+  padding: 0;
   color: var(--dark);
+  font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.language-icon:hover {
+.language-icon:hover,
+.map-button:hover,
+.maintenance-button:hover,
+.contact-button:hover {
+  background: none;
   color: var(--buttons);
 }
 
