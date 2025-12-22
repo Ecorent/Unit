@@ -82,6 +82,7 @@ body {
   background-image: url("../images/landscape.png");
   background-size: cover;
   background-position: center;
+  margin-bottom: 30px;
 }
 
 .units {
