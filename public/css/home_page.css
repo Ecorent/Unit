@@ -43,7 +43,7 @@ body {
 .maintenance-wrapper {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 18px;
 }
 
 .language-icon,
@@ -51,12 +51,12 @@ body {
 .map-button,
 .maintenance-button,
 .contact-button {
-  font-size: 1.10rem;
+  font-size: 1.05rem;
   background: none;
   border: none;
   padding: 0;
   color: var(--dark);
-  font-weight: 550;
+  font-weight: 6000;
   text-decoration: none;
   cursor: pointer;
 }
