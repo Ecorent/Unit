@@ -45,11 +45,14 @@ body {
 .navbar {
   background: var(--box-bg);
   padding: 22px 0;
+  width: 100%;
   border-bottom: 2px solid #d1d1d1;
-  margin-bottom: 45px;
 }
 
 .nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,6 +94,7 @@ body {
 .map-button:hover,
 .maintenance-button:hover,
 .contact-button:hover {
+  background: none;
   color: var(--buttons);
 }
 
