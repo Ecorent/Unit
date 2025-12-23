@@ -60,3 +60,8 @@
 .hidden {
   display: none !important;
 }
+
+.navbar.auth-loading #loginLink,
+.navbar.auth-loading #profileIcon {
+  display: none !important;
+}

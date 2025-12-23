@@ -4,10 +4,11 @@ import { onAuthStateChanged } from
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
+  const navbar = document.querySelector(".navbar");
   const loginLink = document.getElementById("loginLink");
   const profileIcon = document.getElementById("profileIcon");
 
-  if (!loginLink || !profileIcon) return;
+  if (!navbar || !loginLink || !profileIcon) return;
 
   if (user) {
     loginLink.classList.add("hidden");
@@ -16,4 +17,7 @@ onAuthStateChanged(auth, (user) => {
     loginLink.classList.remove("hidden");
     profileIcon.classList.add("hidden");
   }
+
+  // AUTH STATE IS NOW KNOWN
+  navbar.classList.remove("auth-loading");
 });
