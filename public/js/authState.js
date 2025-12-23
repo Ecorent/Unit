@@ -17,7 +17,5 @@ onAuthStateChanged(auth, (user) => {
     loginLink.classList.remove("hidden");
     profileIcon.classList.add("hidden");
   }
-
-  // AUTH STATE IS NOW KNOWN
-  navbar.classList.remove("auth-loading");
+  navbar.style.visibility = "visible";
 });
