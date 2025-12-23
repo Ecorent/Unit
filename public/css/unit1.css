@@ -13,16 +13,6 @@ body {
   color: var(--dark);
 }
 
-.container,
-.section,
-.card,
-.carousel,
-.details,
-.map,
-.contact-form {
-  box-sizing: border-box;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -30,9 +20,20 @@ body {
 }
 
 .section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
+}
+
+.card,
+.carousel,
+.details,
+.map,
+.contact-form {
+  box-sizing: border-box;
 }
 
 .card {
@@ -105,20 +106,18 @@ body {
 }
 
 main {
-  max-width: 1200px;
   margin: 0 auto 55px;
-  padding: 0 20px;
 }
 
 .carousel,
 .details {
-  flex: 1 1 calc(50% - 20px);
-  padding: 32px;
+  flex: 1 1 calc((100% - 40px) / 2);
+  padding: 36px;
 }
 
 .carousel {
   aspect-ratio: 4 / 3;
-  min-height: 320px;
+  min-height: 330px;
   background-color: #eee;
   overflow: hidden;
 }
@@ -200,12 +199,15 @@ main {
   max-width: 1200px;
   margin: 40px auto 55px;
   padding: 0 20px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 .map,
 .contact-form {
-  flex: 1 1 calc(50% - 20px);
-  padding: 25px;
+  flex: 1 1 calc((100% - 40px) / 2);
+  padding: 28px;
   display: flex;
   flex-direction: column;
   height: 495px;
