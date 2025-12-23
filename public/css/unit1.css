@@ -13,6 +13,16 @@ body {
   color: var(--dark);
 }
 
+.container,
+.section,
+.card,
+.carousel,
+.details,
+.map,
+.contact-form {
+  box-sizing: border-box;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -91,12 +101,13 @@ body {
 .map-button:hover,
 .maintenance-button:hover,
 .contact-button:hover {
-  background: none;
   color: var(--buttons);
 }
 
 main {
-  margin: 50px auto 55px;
+  max-width: 1200px;
+  margin: 0 auto 55px;
+  padding: 0 20px;
 }
 
 .carousel,
@@ -186,7 +197,9 @@ main {
 }
 
 .extras {
+  max-width: 1200px;
   margin: 40px auto 55px;
+  padding: 0 20px;
 }
 
 .map,
@@ -250,4 +263,3 @@ footer {
   background: #e1e1e1;
   border-top: 1px solid #bebebe;
 }
-
