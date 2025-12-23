@@ -52,3 +52,11 @@
 .contact-button:hover {
   color: var(--buttons);
 }
+
+.profile-button i {
+  font-size: 1.4rem;
+}
+
+.hidden {
+  display: none;
+}

@@ -51,7 +51,6 @@ signupForm.addEventListener("submit", async (e) => {
 
     const uid = userCredential.user.uid;
 
-    // Store user profile
     await setDoc(doc(db, "users", uid), {
       name,
       phone,
@@ -60,8 +59,11 @@ signupForm.addEventListener("submit", async (e) => {
       createdAt: new Date()
     });
 
-    // Redirect (no alert)
-    window.location.href = "/index.html";
+    // IMPORTANT: sign out immediately
+    await auth.signOut();
+
+    // Switch back to login tab
+    loginTab.click();
 
   } catch (error) {
     alert(error.message);
