@@ -112,13 +112,13 @@ main {
 
 .carousel,
 .details {
-  flex: 1 1 48%;
+  flex: 1 1 calc(50% - 20px);
   padding: 32px;
 }
 
 .carousel {
   aspect-ratio: 4 / 3;
-  min-height: 300px;
+  min-height: 320px;
   background-color: #eee;
   overflow: hidden;
 }
@@ -204,7 +204,7 @@ main {
 
 .map,
 .contact-form {
-  flex: 1 1 48%;
+  flex: 1 1 calc(50% - 20px);
   padding: 25px;
   display: flex;
   flex-direction: column;
