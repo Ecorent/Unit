@@ -1,7 +1,8 @@
 // public/js/authState.js
 import { auth } from "./firebase.js";
-import { onAuthStateChanged } from
-  "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
   const navbar = document.querySelector(".navbar");
@@ -10,18 +11,17 @@ onAuthStateChanged(auth, (user) => {
 
   if (!navbar) return;
 
-  // Safety: hide both first
-  if (loginLink) loginLink.classList.add("hidden");
-  if (profileIcon) profileIcon.classList.add("hidden");
+  // Hide both first (safe reset)
+  loginLink?.classList.add("hidden");
+  profileIcon?.classList.add("hidden");
 
   if (user) {
-    // Logged in
-    if (profileIcon) profileIcon.classList.remove("hidden");
+    // Logged in → show profile icon
+    profileIcon?.classList.remove("hidden");
   } else {
-    // Logged out
-    if (loginLink) loginLink.classList.remove("hidden");
+    // Logged out → show login
+    loginLink?.classList.remove("hidden");
   }
-
-  // Reveal navbar AFTER auth is resolved
+  navbar.classList.remove("auth-loading");
   navbar.classList.add("ready");
 });
