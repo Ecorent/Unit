@@ -1,8 +1,8 @@
 :root {
   --buttons: #27ae60;
   --dark: #2c3e50;
+  --icons: #555;
   --light: #f5f5f5;
-  --gray: #888;
   --box-bg: #ffffff;
   --details-title: #12793d;
 }
@@ -175,6 +175,7 @@ main {
 .details li {
   margin-bottom: 12px;
   font-size: clamp(1rem, 2.8vw, 1.1rem);
+  color: var(--icons);
   list-style: none;
   display: flex;
   align-items: center;
@@ -183,7 +184,6 @@ main {
 }
 
 .details li i {
-  color: var(--buttons);
   min-width: 20px;
 }
 
