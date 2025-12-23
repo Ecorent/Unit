@@ -28,19 +28,12 @@ body {
   flex-wrap: wrap;
 }
 
-.card,
-.carousel,
-.details,
-.map,
-.contact-form {
-  box-sizing: border-box;
-}
-
 .card {
   background: var(--box-bg);
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.07);
   position: relative;
+  box-sizing: border-box;
 }
 
 .section-title {
@@ -109,17 +102,18 @@ main {
   margin: 0 auto 55px;
 }
 
-.carousel,
-.details {
+.carousel {
   flex: 1 1 calc((100% - 40px) / 2);
-  padding: 36px;
+  padding: 24px;
 }
 
-.carousel {
+.carousel-inner {
+  position: relative;
+  width: 100%;
   aspect-ratio: 4 / 3;
-  min-height: 330px;
   background-color: #eee;
   overflow: hidden;
+  border-radius: 6px;
 }
 
 .carousel-slide {
@@ -174,6 +168,11 @@ main {
 
 #prev { left: 10px; }
 #next { right: 10px; }
+
+.details {
+  flex: 1 1 calc((100% - 40px) / 2);
+  padding: 36px;
+}
 
 .details ul {
   padding: 0;
