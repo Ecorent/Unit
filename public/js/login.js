@@ -2,8 +2,7 @@
 import { auth, db } from "./firebase.js";
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   doc,
@@ -17,6 +16,9 @@ const signupTab = document.getElementById("signupTab");
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const forgotPasswordLink = document.getElementById("forgotPassword");
+
+const loginEmailInput = document.getElementById("loginEmail");
+const loginPasswordInput = document.getElementById("loginPassword");
 
 // ---------- TAB SWITCHING ----------
 loginTab.onclick = () => {
@@ -59,7 +61,7 @@ signupForm.addEventListener("submit", async (e) => {
       createdAt: new Date()
     });
 
-    // IMPORTANT: sign out immediately
+    // Sign out immediately after signup
     await auth.signOut();
 
     // Switch back to login tab
@@ -74,8 +76,8 @@ signupForm.addEventListener("submit", async (e) => {
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value;
+  const email = loginEmailInput.value.trim();
+  const password = loginPasswordInput.value;
 
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -97,21 +99,16 @@ loginForm.addEventListener("submit", async (e) => {
 
   } catch {
     alert("Invalid email or password");
+
+    // Clear incorrect credentials
+    loginEmailInput.value = "";
+    loginPasswordInput.value = "";
+    loginEmailInput.focus();
   }
 });
 
-// ---------- PASSWORD RESET ----------
-forgotPasswordLink.addEventListener("click", async (e) => {
+// ---------- FORGOT PASSWORD (DISABLED) ----------
+forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
-
-  const email = prompt("Enter your email to reset your password:");
-
-  if (!email) return;
-
-  try {
-    await sendPasswordResetEmail(auth, email.trim());
-    alert("Password reset email sent!");
-  } catch (error) {
-    alert(error.message);
-  }
+  // intentionally disabled for now
 });
