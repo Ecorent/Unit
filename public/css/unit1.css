@@ -20,20 +20,9 @@ body {
 }
 
 .section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
-}
-
-.card,
-.carousel,
-.details,
-.map,
-.contact-form {
-  box-sizing: border-box;
 }
 
 .card {
@@ -52,7 +41,6 @@ body {
 .navbar {
   background: var(--box-bg);
   padding: 22px 0;
-  width: 100%;
   border-bottom: 2px solid #d1d1d1;
   margin-bottom: 45px;
 }
@@ -105,21 +93,23 @@ body {
   color: var(--buttons);
 }
 
-main {
-  margin: 0 auto 55px;
-}
-
 .carousel,
 .details {
   flex: 1 1 calc((100% - 40px) / 2);
-  padding: 36px;
 }
 
 .carousel {
   aspect-ratio: 4 / 3;
   min-height: 330px;
-  background-color: #eee;
+  background: #eee;
   overflow: hidden;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 36px;
 }
 
 .carousel-slide {
@@ -175,6 +165,10 @@ main {
 #prev { left: 10px; }
 #next { right: 10px; }
 
+.details {
+  padding: 36px;
+}
+
 .details ul {
   padding: 0;
   margin: 0;
@@ -187,7 +181,6 @@ main {
   gap: 10px;
   margin-bottom: 12px;
   padding-left: 10px;
-  font-size: clamp(1rem, 2.8vw, 1.1rem);
 }
 
 .details li i {
@@ -196,12 +189,7 @@ main {
 }
 
 .extras {
-  max-width: 1200px;
   margin: 40px auto 55px;
-  padding: 0 20px;
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
 }
 
 .map,
@@ -234,8 +222,6 @@ main {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 0.9rem;
-  font-family: inherit;
-  resize: none;
 }
 
 .contact-form button {
