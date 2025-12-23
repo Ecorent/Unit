@@ -51,16 +51,16 @@ signupForm.addEventListener("submit", async (e) => {
 
     const uid = userCredential.user.uid;
 
-    // Store user profile in Firestore
+    // Store user profile
     await setDoc(doc(db, "users", uid), {
       name,
       phone,
       email,
-      role: "user", // default role
+      role: "user",
       createdAt: new Date()
     });
 
-    alert("Account created successfully!");
+    // Redirect (no alert)
     window.location.href = "/index.html";
 
   } catch (error) {
@@ -84,18 +84,16 @@ loginForm.addEventListener("submit", async (e) => {
 
     const uid = userCredential.user.uid;
 
-    // Fetch user role
     const userDoc = await getDoc(doc(db, "users", uid));
     const role = userDoc.exists() ? userDoc.data().role : "user";
 
-    // Redirect based on role
     if (role === "admin") {
       window.location.href = "/sanity";
     } else {
       window.location.href = "/index.html";
     }
 
-  } catch (error) {
+  } catch {
     alert("Invalid email or password");
   }
 });
@@ -104,15 +102,12 @@ loginForm.addEventListener("submit", async (e) => {
 forgotPasswordLink.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("loginEmail").value.trim();
+  const email = prompt("Enter your email to reset your password:");
 
-  if (!email) {
-    alert("Please enter your email first.");
-    return;
-  }
+  if (!email) return;
 
   try {
-    await sendPasswordResetEmail(auth, email);
+    await sendPasswordResetEmail(auth, email.trim());
     alert("Password reset email sent!");
   } catch (error) {
     alert(error.message);
