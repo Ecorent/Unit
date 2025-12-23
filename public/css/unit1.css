@@ -195,7 +195,7 @@ main {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12.5px;
+  margin-bottom: 13px;
   padding-left: 10px;
   font-size: clamp(1rem, 2.8vw, 1.1rem);
 }
