@@ -11,8 +11,9 @@
   <link rel="stylesheet" href="css/unit1.css" />
 </head>
 <body>
+
   <nav class="navbar">
-    <div class="nav-container">
+    <div class="nav-container container">
       <div class="nav-left">
         <a href="index.html" class="logo-link">
           <img src="images/header_logo.jpg" class="nav-logo" alt="ECOrent logo">
@@ -31,11 +32,11 @@
     </div>
   </nav>
 
-  <main>
-    <div class="carousel" id="carousel"></div>
+  <main class="section container">
+    <div class="carousel card" id="carousel"></div>
 
-    <div class="details">
-      <h2>4BR Downtown GR Apartment</h2>
+    <div class="details card">
+      <h2 class="section-title">4BR Downtown GR Apartment</h2>
       <ul>
         <li><i class="fas fa-money-bill-wave"></i>$2,400 / month</li>
         <li><i class="fas fa-bed"></i>4 Bedrooms</li>
@@ -49,31 +50,23 @@
     </div>
   </main>
 
-  <section class="extras">
-    <div class="map">
-      <h2>Location & Directions</h2>
+  <section class="extras section container">
+    <div class="map card">
+      <h2 class="section-title">Location & Directions</h2>
       <iframe
         src="https://maps.google.com/maps?q=135+Straight+NW,+Grand+Rapids,+MI&output=embed"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
+        loading="lazy">
       </iframe>
     </div>
 
-    <div class="contact-form">
-      <h2>Contact Us</h2>
+    <div class="contact-form card">
+      <h2 class="section-title">Contact Us</h2>
       <form id="contactForm">
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <input type="tel" name="phone" placeholder="Your Phone Number" />
 
-        <input
-          type="text"
-          name="website"
-          tabindex="-1"
-          autocomplete="off"
-          style="display:none"
-        />
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="display:none" />
 
         <textarea name="message" placeholder="Message" rows="4" required></textarea>
         <button type="submit">Send Message</button>
