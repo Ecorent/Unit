@@ -124,6 +124,40 @@ main {
   border-radius: 6px;
 }
 
+.carousel-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.carousel-controls button {
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.55);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.carousel-controls #prev {
+  left: 10px;
+}
+
+.carousel-controls #next {
+  right: 10px;
+}
+
+.carousel-controls button:hover {
+  background: rgba(0,0,0,0.75);
+}
+
 .details h2,
 .contact-form h2,
 .map h2 {
@@ -225,6 +259,3 @@ footer {
   background: #e1e1e1;
   border-top: 1px solid #bebebe;
 }
-
-.mobile-only { display: none; }
-.desktop-only { display: inline; }
