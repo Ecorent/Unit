@@ -3,12 +3,6 @@
   padding: 22px 0;
   width: 100%;
   border-bottom: 2px solid #d1d1d1;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.navbar.ready {
-  opacity: 1;
 }
 
 .nav-container {
@@ -61,13 +55,9 @@
 
 .profile-button i {
   font-size: 1.4rem;
+  cursor: pointer;
 }
 
 .hidden {
-  display: none !important;
-}
-
-.navbar.auth-loading #loginLink,
-.navbar.auth-loading #profileIcon {
   display: none !important;
 }

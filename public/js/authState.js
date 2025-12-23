@@ -4,24 +4,25 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-onAuthStateChanged(auth, (user) => {
-  const navbar = document.querySelector(".navbar");
-  const loginLink = document.getElementById("loginLink");
-  const profileIcon = document.getElementById("profileIcon");
+const loginLink = document.getElementById("loginLink");
+const profileIcon = document.getElementById("profileIcon");
 
-  if (!navbar) return;
-
-  // Hide both first (safe reset)
+/* 1️⃣ Instant optimistic render */
+if (auth.currentUser) {
   loginLink?.classList.add("hidden");
+  profileIcon?.classList.remove("hidden");
+} else {
+  loginLink?.classList.remove("hidden");
   profileIcon?.classList.add("hidden");
+}
 
+/* 2️⃣ Firebase confirmation */
+onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Logged in → show profile icon
+    loginLink?.classList.add("hidden");
     profileIcon?.classList.remove("hidden");
   } else {
-    // Logged out → show login
     loginLink?.classList.remove("hidden");
+    profileIcon?.classList.add("hidden");
   }
-  navbar.classList.remove("auth-loading");
-  navbar.classList.add("ready");
 });
