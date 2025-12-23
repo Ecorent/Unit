@@ -1,68 +1,41 @@
-const unitData = {
-  title: "4BR Downtown GR Apartment",
-  price: "$2,400 / month",
-  features: [
-    { icon: "fa-bed", text: "4 Bedrooms" },
-    { icon: "fa-bath", text: "1 Bathroom" },
-    { icon: "fa-ruler-combined", text: "1,200 sq ft" },
-    { icon: "fa-tint", text: "Gas and heating included" },
-    { icon: "fa-dog", text: "Pet friendly" },
-    { icon: "fa-soap", text: "In-unit washer & dryer" },
-    { icon: "fa-car", text: "Street parking available" }
-  ],
-  images: 8
-};
-
-const carousel = document.getElementById("carousel");
+const imageCount = 8;
+const carousel = document.getElementById('carousel');
 const slides = [];
 
-for (let i = 1; i <= unitData.images; i++) {
-  const slide = document.createElement("div");
-  slide.className = "carousel-slide" + (i === 1 ? " active" : "");
+for (let i = 1; i <= imageCount; i++) {
+  const slide = document.createElement('div');
+  slide.classList.add('carousel-slide');
+  if (i === 1) slide.classList.add('active');
 
   const imageURL = `images/unit1/${i}.jpg`;
-
   slide.innerHTML = `
-    <div class="blur-bg" style="background-image:url('${imageURL}')"></div>
-    <img src="${imageURL}" loading="lazy" />
+    <div class="blur-bg" style="background-image: url('${imageURL}');"></div>
+    <img src="${imageURL}" alt="Apartment photo ${i}" loading="lazy" />
   `;
-
   carousel.appendChild(slide);
   slides.push(slide);
 }
 
 let current = 0;
-
-const controls = document.createElement("div");
-controls.className = "carousel-controls";
-controls.innerHTML = `
+const nav = document.createElement('div');
+nav.classList.add('carousel-controls');
+nav.innerHTML = `
   <button id="prev">&#10094;</button>
   <button id="next">&#10095;</button>
 `;
-carousel.appendChild(controls);
+carousel.appendChild(nav);
 
-document.getElementById("prev").onclick = () => {
-  slides[current].classList.remove("active");
+document.getElementById('prev').onclick = () => {
+  slides[current].classList.remove('active');
   current = (current - 1 + slides.length) % slides.length;
-  slides[current].classList.add("active");
+  slides[current].classList.add('active');
 };
 
-document.getElementById("next").onclick = () => {
-  slides[current].classList.remove("active");
+document.getElementById('next').onclick = () => {
+  slides[current].classList.remove('active');
   current = (current + 1) % slides.length;
-  slides[current].classList.add("active");
+  slides[current].classList.add('active');
 };
-
-const details = document.getElementById("details");
-details.innerHTML = `
-  <h2 class="section-title">${unitData.title}</h2>
-  <ul>
-    <li><i class="fas fa-money-bill-wave"></i>${unitData.price}</li>
-    ${unitData.features.map(f => `
-      <li><i class="fas ${f.icon}"></i>${f.text}</li>
-    `).join("")}
-  </ul>
-`;
 
 /* ================= CONTACT FORM ================= */
 

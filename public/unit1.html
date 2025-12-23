@@ -11,11 +11,10 @@
   <link rel="stylesheet" href="css/unit1.css" />
 </head>
 <body>
-
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-left">
-        <a href="index.html">
+        <a href="index.html" class="logo-link">
           <img src="images/header_logo.jpg" class="nav-logo" alt="ECOrent logo">
         </a>
       </div>
@@ -23,9 +22,9 @@
       <div class="nav-right">
         <div class="header-wrapper">
           <i class="fas fa-globe-americas language-icon"></i>
-          <a href="#" class="home-button">Home</a>
-          <a href="#" class="map-button">Interactive map</a>
-          <a href="#" class="maintenance-button">Maintenance Requests</a>
+          <a href="#" class="home-button" onclick="return false;">Home</a>
+          <a href="#" class="map-button" onclick="return false;">Interactive map</a>
+          <a href="#" class="maintenance-button" onclick="return false;">Maintenance Requests</a>
           <a href="login.html" class="contact-button">Log in</a>
         </div>
       </div>
@@ -33,11 +32,21 @@
   </nav>
 
   <main class="section container">
-    <div class="carousel card">
-      <div class="carousel-inner" id="carousel"></div>
-    </div>
+    <div class="carousel card" id="carousel"></div>
 
-    <div class="details card" id="details"></div>
+    <div class="details card">
+      <h2 class="section-title">4BR Downtown GR Apartment</h2>
+      <ul>
+        <li><i class="fas fa-money-bill-wave"></i>$2,400 / month</li>
+        <li><i class="fas fa-bed"></i>4 Bedrooms</li>
+        <li><i class="fas fa-bath"></i>1 Bathroom</li>
+        <li><i class="fas fa-ruler-combined"></i>1,200 sq ft</li>
+        <li><i class="fas fa-tint"></i>Gas and heating included</li>
+        <li><i class="fas fa-dog"></i>Pet friendly</li>
+        <li><i class="fas fa-soap"></i>In-unit washer & dryer</li>
+        <li><i class="fas fa-car"></i>Street parking available</li>
+      </ul>
+    </div>
   </main>
 
   <section class="extras section container">
@@ -55,7 +64,9 @@
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <input type="tel" name="phone" placeholder="Your Phone Number" />
+
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="display:none" />
+
         <textarea name="message" placeholder="Message" rows="4" required></textarea>
         <button type="submit">Send Message</button>
         <p class="form-message" id="form-message"></p>
