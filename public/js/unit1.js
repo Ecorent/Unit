@@ -1,41 +1,50 @@
 const imageCount = 8;
 const carousel = document.getElementById('carousel');
-const slides = [];
+
+const blur = document.createElement('div');
+blur.className = 'blur-bg';
+carousel.appendChild(blur);
+
+const track = document.createElement('div');
+track.className = 'carousel-track';
+carousel.appendChild(track);
 
 for (let i = 1; i <= imageCount; i++) {
-  const slide = document.createElement('div');
-  slide.classList.add('carousel-slide');
-  if (i === 1) slide.classList.add('active');
-
-  const imageURL = `images/unit1/${i}.jpg`;
-  slide.innerHTML = `
-    <div class="blur-bg" style="background-image: url('${imageURL}');"></div>
-    <img src="${imageURL}" alt="Apartment photo ${i}" loading="lazy" />
-  `;
-  carousel.appendChild(slide);
-  slides.push(slide);
+  const img = document.createElement('img');
+  img.src = `images/unit1/${i}.jpg`;
+  img.alt = `Apartment photo ${i}`;
+  img.loading = 'lazy';
+  track.appendChild(img);
 }
 
-let current = 0;
-const nav = document.createElement('div');
-nav.classList.add('carousel-controls');
-nav.innerHTML = `
+const controls = document.createElement('div');
+controls.className = 'carousel-controls';
+controls.innerHTML = `
   <button id="prev">&#10094;</button>
   <button id="next">&#10095;</button>
 `;
-carousel.appendChild(nav);
+carousel.appendChild(controls);
 
-document.getElementById('prev').onclick = () => {
-  slides[current].classList.remove('active');
-  current = (current - 1 + slides.length) % slides.length;
-  slides[current].classList.add('active');
-};
+const images = track.querySelectorAll('img');
+let index = 0;
 
-document.getElementById('next').onclick = () => {
-  slides[current].classList.remove('active');
-  current = (current + 1) % slides.length;
-  slides[current].classList.add('active');
-};
+blur.style.backgroundImage = `url(${images[0].src})`;
+
+function updateCarousel() {
+  track.style.transform = `translateX(-${index * 100}%)`;
+  blur.style.backgroundImage = `url(${images[index].src})`;
+}
+
+document.getElementById('prev').addEventListener('click', () => {
+  index = (index - 1 + images.length) % images.length;
+  updateCarousel();
+});
+
+document.getElementById('next').addEventListener('click', () => {
+  index = (index + 1) % images.length;
+  updateCarousel();
+});
+
 
 /* ================= CONTACT FORM ================= */
 
