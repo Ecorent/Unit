@@ -121,9 +121,9 @@ main {
   top: 14px;
   right: 14px;
   z-index: 4;
-  background: var(--buttons);
+  background: var(--details-title);
   color: white;
-  padding: 8px 16px;
+  padding: 7px 15px;
   border-radius: 6px;
   font-weight: 600;
   font-size: 1.05rem;
@@ -195,7 +195,7 @@ main {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 12.5px;
   padding-left: 10px;
   font-size: clamp(1rem, 2.8vw, 1.1rem);
 }
