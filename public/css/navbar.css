@@ -3,7 +3,12 @@
   padding: 22px 0;
   width: 100%;
   border-bottom: 2px solid #d1d1d1;
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.navbar.ready {
+  opacity: 1;
 }
 
 .nav-container {

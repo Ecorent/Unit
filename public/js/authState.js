@@ -8,14 +8,20 @@ onAuthStateChanged(auth, (user) => {
   const loginLink = document.getElementById("loginLink");
   const profileIcon = document.getElementById("profileIcon");
 
-  if (!navbar || !loginLink || !profileIcon) return;
+  if (!navbar) return;
+
+  // Safety: hide both first
+  if (loginLink) loginLink.classList.add("hidden");
+  if (profileIcon) profileIcon.classList.add("hidden");
 
   if (user) {
-    loginLink.classList.add("hidden");
-    profileIcon.classList.remove("hidden");
+    // Logged in
+    if (profileIcon) profileIcon.classList.remove("hidden");
   } else {
-    loginLink.classList.remove("hidden");
-    profileIcon.classList.add("hidden");
+    // Logged out
+    if (loginLink) loginLink.classList.remove("hidden");
   }
-  navbar.style.visibility = "visible";
+
+  // Reveal navbar AFTER auth is resolved
+  navbar.classList.add("ready");
 });
