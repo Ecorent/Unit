@@ -9,28 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/unit1.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/unit1.css" />
 </head>
 <body>
-
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-left">
-        <a href="index.html" class="logo-link">
-          <img src="images/header_logo.jpg" class="nav-logo" alt="ECOrent logo">
-        </a>
-      </div>
-
-      <div class="nav-right">
-        <div class="header-wrapper">
-          <i class="fas fa-globe-americas language-icon"></i>
-          <a href="index.html" class="home-button" onclick="return false;">Home</a>
-          <a href="#" class="map-button" onclick="return false;">Interactive map</a>
-          <a href="#" class="maintenance-button" onclick="return false;">Maintenance Requests</a>
-          <a href="login.html" class="contact-button">Log in</a>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <div id="navbar"></div>
 
   <main class="section container">
     <div class="carousel card">
@@ -83,6 +66,7 @@
     &copy; 2025 Ecorent. All rights reserved.
   </footer>
 
+  <script src="js/navbar.js"></script>
   <script src="js/unit1.js"></script>
 </body>
 </html>
