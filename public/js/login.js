@@ -124,5 +124,5 @@ loginForm.addEventListener("submit", async (e) => {
 // ---------- FORGOT PASSWORD (DISABLED) ----------
 forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
-  // intentionally disabled for now
+  window.location.href = "/forgot-password.html";
 });
