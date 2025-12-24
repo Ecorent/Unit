@@ -70,6 +70,8 @@ signupForm.addEventListener("submit", async (e) => {
     await auth.signOut();
 
     // Reset only email + password after success as well
+    signupNameInput.value = "";
+    signupPhoneInput.value = "";
     signupEmailInput.value = "";
     signupPasswordInput.value = "";
     loginTab.click();
