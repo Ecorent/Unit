@@ -113,7 +113,6 @@
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
   background: rgba(0, 0, 0, 0.05);
-  color: var(--buttons);
 }
  
 .hidden {
