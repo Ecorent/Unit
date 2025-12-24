@@ -15,8 +15,8 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-  
-  studio: {
+
+  vite: {
     basePath: '/sanity',
   },
 })
