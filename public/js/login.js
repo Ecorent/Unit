@@ -76,9 +76,11 @@ signupForm.addEventListener("submit", async (e) => {
 
   } catch (error) {
     alert(error.message);
+    signupNameInput.value = "";
+    signupPhoneInput.value = "";
     signupEmailInput.value = "";
     signupPasswordInput.value = "";
-    signupEmailInput.focus();
+    signupNameInput.focus();
   }
 });
 
