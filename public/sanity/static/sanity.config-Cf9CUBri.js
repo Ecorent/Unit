@@ -1,0 +1,1 @@
+import{defineConfig as o}from"sanity";import{structureTool as t}from"sanity/structure";import{visionTool as s}from"@sanity/vision";const e=[],n=o({name:"default",title:"ecorent",projectId:"uxragbo5",dataset:"production",basePath:"/sanity",plugins:[t(),s()],schema:{types:e},studio:{basePath:"/sanity"}});export{n as s};
