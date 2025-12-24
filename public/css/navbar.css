@@ -53,7 +53,8 @@
 .home-button:hover,
 .map-button:hover,
 .maintenance-button:hover,
-.contact-button:hover {
+.contact-button:hover,
+.profile-button:hover {
   color: var(--buttons);
 }
 
