@@ -5,7 +5,6 @@
         <img src="images/header_logo.jpg" class="nav-logo" alt="ECOrent logo">
       </a>
     </div>
-
     <div class="nav-right">
       <div class="header-wrapper">
         <i class="fas fa-globe-americas language-icon nav-item item-1"></i>
@@ -13,7 +12,15 @@
         <a href="#" class="map-button nav-item item-3">Interactive map</a>
         <a href="#" class="maintenance-button nav-item item-4">Maintenance Requests</a>
         <a href="login.html" class="contact-button hidden nav-item item-5" id="loginLink">Log in</a>
-        <a href="#" class="profile-button hidden nav-item item-6" id="profileIcon"><i class="fas fa-user-circle"></i></a>
+        <div class="profile-wrapper hidden nav-item item-6" id="profileIcon">
+          <button class="profile-button" id="profileToggle">
+            <i class="fas fa-user-circle"></i>
+          </button>
+          <div class="profile-dropdown hidden" id="profileDropdown">
+            <a href="profile.html">Profile</a>
+            <button id="logoutBtn">Log out</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
