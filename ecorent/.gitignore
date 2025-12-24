@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Sanity
+.sanity/
+dist/
+
+# Env
+.env
+*.local
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+
+# OS / misc
+.DS_Store
+*.pem
+
+# TypeScript
+*.tsbuildinfo
