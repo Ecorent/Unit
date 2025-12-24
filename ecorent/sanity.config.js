@@ -9,7 +9,7 @@ export default defineConfig({
 
   projectId: 'uxragbo5',
   dataset: 'production',
-
+  basePath: '/sanity',
   plugins: [structureTool(), visionTool()],
 
   schema: {
