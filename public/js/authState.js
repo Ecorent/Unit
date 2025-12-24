@@ -11,17 +11,15 @@ onAuthStateChanged(auth, (user) => {
 
   if (!navbar) return;
 
-  // Hide both first (safe reset)
+  /* Safe reset */
   loginLink?.classList.add("hidden");
   profileIcon?.classList.add("hidden");
 
   if (user) {
-    // Logged in → show profile icon
     profileIcon?.classList.remove("hidden");
   } else {
-    // Logged out → show login
     loginLink?.classList.remove("hidden");
   }
+
   navbar.classList.remove("auth-loading");
-  navbar.classList.add("ready");
 });

@@ -3,12 +3,6 @@
   padding: 22px 0;
   width: 100%;
   border-bottom: 2px solid #d1d1d1;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.navbar.ready {
-  opacity: 1;
 }
 
 .nav-container {
@@ -72,4 +66,23 @@
 .navbar.auth-loading #loginLink,
 .navbar.auth-loading #profileIcon {
   display: none !important;
+}
+
+.nav-item {
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: navFadeIn 0.45s ease forwards;
+}
+
+.item-1 { animation-delay: 0.10s; }
+.item-2 { animation-delay: 0.20s; }
+.item-3 { animation-delay: 0.30s; }
+.item-4 { animation-delay: 0.40s; }
+.item-5 { animation-delay: 0.50s; }
+
+@keyframes navFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
