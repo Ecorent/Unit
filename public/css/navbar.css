@@ -63,6 +63,19 @@
   cursor: pointer;
 }
 
+.profile-button,
+.profile-button:link,
+.profile-button:visited,
+.profile-button:hover,
+.profile-button:active {
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.profile-button:hover {
+  color: var(--buttons);
+}
+
 .hidden {
   display: none !important;
 }
