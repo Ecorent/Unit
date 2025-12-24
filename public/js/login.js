@@ -20,6 +20,11 @@ const forgotPasswordLink = document.getElementById("forgotPassword");
 const loginEmailInput = document.getElementById("loginEmail");
 const loginPasswordInput = document.getElementById("loginPassword");
 
+const signupNameInput = document.getElementById("signupName");
+const signupPhoneInput = document.getElementById("signupPhone");
+const signupEmailInput = document.getElementById("signupEmail");
+const signupPasswordInput = document.getElementById("signupPassword");
+
 // ---------- TAB SWITCHING ----------
 loginTab.onclick = () => {
   loginTab.classList.add("active");
@@ -39,10 +44,10 @@ signupTab.onclick = () => {
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("signupName").value.trim();
-  const phone = document.getElementById("signupPhone").value.trim();
-  const email = document.getElementById("signupEmail").value.trim();
-  const password = document.getElementById("signupPassword").value;
+  const name = signupNameInput.value.trim();
+  const phone = signupPhoneInput.value.trim();
+  const email = signupEmailInput.value.trim();
+  const password = signupPasswordInput.value;
 
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -64,11 +69,16 @@ signupForm.addEventListener("submit", async (e) => {
     // Sign out immediately after signup
     await auth.signOut();
 
-    // Switch back to login tab
+    // Reset only email + password after success as well
+    signupEmailInput.value = "";
+    signupPasswordInput.value = "";
     loginTab.click();
 
   } catch (error) {
     alert(error.message);
+    signupEmailInput.value = "";
+    signupPasswordInput.value = "";
+    signupEmailInput.focus();
   }
 });
 
