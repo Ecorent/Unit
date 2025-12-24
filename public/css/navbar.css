@@ -70,6 +70,7 @@
   padding: 0;
   color: var(--dark);
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .profile-button i {
