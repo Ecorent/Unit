@@ -19,7 +19,12 @@ resetForm.addEventListener("submit", async (e) => {
       "If an account with that email exists, a password reset link has been sent."
     );
 
+    // Clear input
     resetEmailInput.value = "";
+
+    // Redirect back to login page
+    window.location.href = "/login.html";
+
   } catch (error) {
     alert(error.message);
     resetEmailInput.focus();
