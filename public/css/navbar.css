@@ -96,19 +96,15 @@
 
 .profile-dropdown a,
 .profile-dropdown button {
-  display: flex;
-  align-items: center;
   padding: 10px 14px;
   font-size: 0.95rem;
-  line-height: 1.2;
-  font-family: inherit;
   background: none;
   border: none;
-  width: 100%;
-  box-sizing: border-box;
+  text-align: left;
   cursor: pointer;
+  color: var(--dark);
+  text-decoration: none;
 }
-
 
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
