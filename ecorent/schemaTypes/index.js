@@ -1,3 +1,3 @@
-import page from './page'
+import unit from './unit'
 
-export const schemaTypes = [page]
+export const schemaTypes = [unit]
