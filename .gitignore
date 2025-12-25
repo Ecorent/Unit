@@ -19,11 +19,6 @@ node_modules/
 .sanity/
 
 # -------------------------
-# Sanity SOURCE project (NOT the built output)
-# -------------------------
-ecorent/
-
-# -------------------------
 # Logs
 # -------------------------
 logs/
