@@ -1,4 +1,3 @@
-// public/js/login.js
 import { auth, db } from "./firebase.js";
 import {
   createUserWithEmailAndPassword,
