@@ -1,6 +1,13 @@
 {
   "public": true,
-  "routes": [
-    { "src": "/(.*)", "dest": "/public/$1" }
+  "rewrites": [
+    {
+      "source": "/sanity/:path*",
+      "destination": "/sanity/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/public/$1"
+    }
   ]
 }
