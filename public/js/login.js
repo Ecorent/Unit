@@ -106,18 +106,10 @@ loginForm.addEventListener("submit", async (e) => {
     const role = userDoc.exists() ? userDoc.data().role : "user";
 
     if (role === "admin") {
-      const uid = userCredential.user.uid;
-
-      // Tell all tabs a new admin logged in
-      localStorage.setItem("activeSanityAdmin", uid);
-      localStorage.setItem("sanityKillSwitch", Date.now());
-
-      sessionStorage.setItem("sanityLogin", "true");
-
       window.open("/sanity", "_blank");
+      await auth.signOut();
       window.location.href = "/index.html";
-    }
-    else {
+    } else {
       window.location.href = "/index.html";
     }
 
