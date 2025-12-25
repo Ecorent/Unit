@@ -106,13 +106,11 @@ loginForm.addEventListener("submit", async (e) => {
     const role = userDoc.exists() ? userDoc.data().role : "user";
 
     if (role === "admin") {
-      // 🔥 Force logout of any existing admin (Sanity included)
-      await auth.signOut();
-
-      // 🔑 Fresh login for this admin
-      await signInWithEmailAndPassword(auth, email, password);
+      const adminUid = userCredential.user.uid;
 
       sessionStorage.setItem("sanityLogin", "true");
+      localStorage.setItem("sanityAdminUid", adminUid);
+
       window.open("/sanity", "_blank");
       window.location.href = "/index.html";
     }
