@@ -64,7 +64,7 @@ function createUnitCard(unit) {
         <span><i class="fas fa-bed"></i> ${unit.bedrooms} Bedrooms</span>
       </div>
 
-      <a href="${unit.slug?.current}.html" class="view-button">View Details</a>
+      <a href="unit.html?slug=${unit.slug.current}" class="view-button">View Details</a>
     </div>
   `;
 

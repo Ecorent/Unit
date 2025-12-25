@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>4BR Downtown GR Apartment</title>
+  <title id="pageTitle">Rental Unit</title>
 
   <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/unit1.css" />
+  <link rel="stylesheet" href="css/unit.css" />
   <link rel="stylesheet" href="css/navbar.css" />
 </head>
 <body>
@@ -17,21 +17,16 @@
   <main class="section container">
     <div class="carousel card">
       <div class="carousel-inner" id="carousel">
-        <div class="price-badge">$2,400 / month</div>
+        <div class="price-badge" id="unitPrice"></div>
       </div>
     </div>
 
     <div class="details card">
-      <h2 class="section-title">4BR Downtown GR Apartment</h2>
-      <ul>
-        <li><i class="fas fa-bed"></i>4 Bedrooms</li>
-        <li><i class="fas fa-bath"></i>1 Bathroom</li>
-        <li><i class="fas fa-ruler-combined"></i>1,200 sq ft</li>
-        <li><i class="fas fa-tint"></i>Gas, water, and heating included</li>
-        <li><i class="fas fa-dog"></i>Pet friendly</li>
-        <li><i class="fas fa-soap"></i>Washer & dryer in building</li>
-        <li><i class="fas fa-soap"></i>Storage in basement</li>
-        <li><i class="fas fa-box-archive"></i>Street parking available</li>
+      <h2 class="section-title" id="unitTitle"></h2>
+      <ul id="unitDetails">
+        <li><i class="fas fa-bed"></i><span id="unitBedrooms"></span> Bedrooms</li>
+        <li><i class="fas fa-ruler-combined"></i><span id="unitSqft"></span> sq ft</li>
+        <li><i class="fas fa-map-marker-alt"></i><span id="unitAddress"></span></li>
       </ul>
     </div>
   </main>
@@ -40,7 +35,7 @@
     <div class="map card">
       <h2 class="section-title">Location & Directions</h2>
       <iframe
-        src="https://maps.google.com/maps?q=135+Straight+NW,+Grand+Rapids,+MI&output=embed"
+        id="mapFrame"
         loading="lazy">
       </iframe>
     </div>
@@ -51,9 +46,6 @@
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <input type="tel" name="phone" placeholder="Your Phone Number" />
-
-        <input type="text" name="website" tabindex="-1" autocomplete="off" style="display:none" />
-
         <textarea name="message" placeholder="Message" rows="4" required></textarea>
         <button type="submit">Send Message</button>
         <p class="form-message" id="form-message"></p>
@@ -66,6 +58,6 @@
   </footer>
 
   <script src="js/navbar.js"></script>
-  <script src="js/unit1.js"></script>
+  <script src="js/units.js"></script>
 </body>
 </html>
