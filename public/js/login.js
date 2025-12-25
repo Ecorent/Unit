@@ -107,6 +107,7 @@ loginForm.addEventListener("submit", async (e) => {
 
     if (role === "admin") {
       window.open("/sanity", "_blank");
+      await auth.signOut();
       window.location.href = "/index.html";
     } else {
       window.location.href = "/index.html";
