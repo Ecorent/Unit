@@ -106,6 +106,7 @@ loginForm.addEventListener("submit", async (e) => {
     const role = userDoc.exists() ? userDoc.data().role : "user";
 
     if (role === "admin") {
+      sessionStorage.setItem("sanityLogin", "true");
       window.open("/sanity", "_blank");
       window.location.href = "/index.html";
     } else {
