@@ -1,5 +1,5 @@
 // 🔑 SANITY CONFIG
-const SANITY_PROJECT_ID = "YOUR_PROJECT_ID";
+const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 

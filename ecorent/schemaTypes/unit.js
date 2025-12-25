@@ -1,6 +1,6 @@
 export default {
   name: 'unit',
-  title: 'Rental Unit',
+  title: 'Home Page',
   type: 'document',
   fields: [
     {
