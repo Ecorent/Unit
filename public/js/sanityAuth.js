@@ -4,22 +4,28 @@ import { onAuthStateChanged, signOut } from
 import { doc, getDoc } from
   "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// Must be opened from admin login
+// Must be opened via login
 if (!sessionStorage.getItem("sanityLogin")) {
   window.location.href = "/login.html";
 }
 
-const expectedAdminUid = localStorage.getItem("sanityAdminUid");
+const expectedUid = localStorage.getItem("activeSanityAdmin");
+
+// 🔥 KILL SWITCH: reacts instantly across tabs
+window.addEventListener("storage", async (e) => {
+  if (e.key === "sanityKillSwitch") {
+    await signOut(auth);
+    window.location.href = "/login.html";
+  }
+});
 
 onAuthStateChanged(auth, async (user) => {
-  // 🔴 Not logged in
   if (!user) {
     window.location.href = "/login.html";
     return;
   }
 
-  // 🔴 Different admin logged in elsewhere
-  if (user.uid !== expectedAdminUid) {
+  if (user.uid !== expectedUid) {
     await signOut(auth);
     window.location.href = "/login.html";
     return;
@@ -32,6 +38,5 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  // Lock entry token
   sessionStorage.removeItem("sanityLogin");
 });
