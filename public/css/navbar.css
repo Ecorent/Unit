@@ -20,10 +20,16 @@
   align-items: center;
 }
 
-.nav-left,
-.nav-right {
+.nav-left{
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.nav-right{
+  display: flex;
+  align-items: center;
+  padding-right: 5px;
   gap: 12px;
 }
 
