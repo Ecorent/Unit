@@ -106,7 +106,8 @@ loginForm.addEventListener("submit", async (e) => {
     const role = userDoc.exists() ? userDoc.data().role : "user";
 
     if (role === "admin") {
-      window.location.href = "/sanity";
+      window.open("/sanity", "_blank");
+      window.location.href = "/index.html";
     } else {
       window.location.href = "/index.html";
     }
