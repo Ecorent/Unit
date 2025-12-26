@@ -18,8 +18,14 @@ const query = encodeURIComponent(`
     title,
     price,
     address,
-    sqft,
     bedrooms,
+    bathrooms,
+    sqft,
+    utilitiesIncluded,
+    petFriendly,
+    washerDryer,
+    storage,
+    parking,
     images[]{asset->{url}}
   }
 `);
@@ -40,20 +46,43 @@ fetch(url)
 
 // 🧱 RENDER UNIT
 function renderUnit(unit) {
-  // Title + meta
   document.getElementById("pageTitle").textContent = unit.title;
   document.getElementById("unitTitle").textContent = unit.title;
   document.getElementById("unitPrice").textContent = unit.price;
-  document.getElementById("unitBedrooms").textContent = unit.bedrooms;
-  document.getElementById("unitSqft").textContent = unit.sqft;
-  document.getElementById("unitAddress").textContent = unit.address;
 
-  // Google Map
+  const details = document.getElementById("unitDetails");
+  details.innerHTML = `
+    <li><i class="fas fa-bed"></i>${unit.bedrooms} Bedrooms</li>
+    <li><i class="fas fa-bath"></i>${unit.bathrooms} Bathroom</li>
+    <li><i class="fas fa-ruler-combined"></i>${unit.sqft} sq ft</li>
+
+    ${unit.utilitiesIncluded ? `
+      <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded}</li>
+    ` : ""}
+
+    ${unit.petFriendly ? `
+      <li><i class="fas fa-dog"></i>Pet friendly</li>
+    ` : ""}
+
+    ${unit.washerDryer ? `
+      <li><i class="fas fa-soap"></i>${unit.washerDryer}</li>
+    ` : ""}
+
+    ${unit.storage ? `
+      <li><i class="fas fa-soap"></i>${unit.storage}</li>
+    ` : ""}
+
+    ${unit.parking ? `
+      <li><i class="fas fa-box-archive"></i>${unit.parking}</li>
+    ` : ""}
+  `;
+
   document.getElementById("mapFrame").src =
     `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed`;
 
   initCarousel(unit.images || []);
 }
+
 
 // 🎠 CAROUSEL (Sanity images)
 function initCarousel(images) {

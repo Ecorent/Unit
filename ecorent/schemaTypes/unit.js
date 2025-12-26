@@ -32,15 +32,56 @@ export default {
     },
 
     {
+      name: "bedrooms",
+      title: "Bedrooms",
+      type: "number"
+    },
+
+    {
+      name: "bathrooms",
+      title: "Bathrooms",
+      type: "number"
+    },
+
+    {
       name: "sqft",
       title: "Square Feet",
       type: "number"
     },
 
     {
-      name: "bedrooms",
-      title: "Bedrooms",
-      type: "number"
+      name: "utilitiesIncluded",
+      title: "Utilities Included",
+      type: "string",
+      description: "Example: Gas, water, and heating included"
+    },
+
+    {
+      name: "petFriendly",
+      title: "Pet Friendly",
+      type: "boolean",
+      initialValue: false
+    },
+
+    {
+      name: "washerDryer",
+      title: "Washer & Dryer",
+      type: "string",
+      description: "Example: In building, In unit, None"
+    },
+
+    {
+      name: "storage",
+      title: "Storage",
+      type: "string",
+      description: "Example: Basement storage"
+    },
+
+    {
+      name: "parking",
+      title: "Parking",
+      type: "string",
+      description: "Example: Street parking available"
     },
 
     {
