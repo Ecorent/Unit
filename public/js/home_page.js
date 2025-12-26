@@ -3,11 +3,12 @@ const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 
+// 🧠 QUERY
 const query = encodeURIComponent(`
   *[_type == "unit" && published == true] | order(_createdAt desc) {
-    title,
+    title{en},
     price,
-    address,
+    address{en},
     sqft,
     bedrooms,
     slug,
@@ -20,11 +21,16 @@ const SANITY_URL =
 
 const unitsGrid = document.getElementById("unitsGrid");
 
+// 💰 PRICE FORMATTER
+function formatPrice(price) {
+  return `$${Number(price).toLocaleString()} / month`;
+}
+
 // 🔄 FETCH & RENDER
 fetch(SANITY_URL)
   .then(res => res.json())
-  .then(data => {
-    data.result.forEach(unit => {
+  .then(({ result }) => {
+    result.forEach(unit => {
       unitsGrid.appendChild(createUnitCard(unit));
     });
 
@@ -42,7 +48,7 @@ function createUnitCard(unit) {
   card.innerHTML = `
     <div class="unit-carousel">
       <div class="carousel-blur"></div>
-      <div class="price-badge">${unit.price || ""}</div>
+      <div class="price-badge">${formatPrice(unit.price)}</div>
 
       <div class="carousel-track">
         ${images.map(img => `<img src="${img.asset.url}" alt="">`).join("")}
@@ -53,32 +59,43 @@ function createUnitCard(unit) {
     </div>
 
     <div class="unit-info">
-      <h3>${unit.title}</h3>
+      <h3>${unit.title.en}</h3>
 
       <div class="unit-meta address">
-        <span><i class="fas fa-map-marker-alt"></i> ${unit.address}</span>
+        <span>
+          <i class="fas fa-map-marker-alt"></i>
+          ${unit.address.en}
+        </span>
       </div>
 
       <div class="unit-meta">
-        <span><i class="fas fa-ruler-combined"></i> ${unit.sqft} sqft</span>
-        <span><i class="fas fa-bed"></i> ${unit.bedrooms} Bedrooms</span>
+        <span>
+          <i class="fas fa-ruler-combined"></i>
+          ${unit.sqft} sqft
+        </span>
+        <span>
+          <i class="fas fa-bed"></i>
+          ${unit.bedrooms} Bedrooms
+        </span>
       </div>
 
-      <a href="unit.html?slug=${unit.slug.current}" class="view-button">View Details</a>
+      <a href="unit.html?slug=${unit.slug.current}" class="view-button">
+        View Details
+      </a>
     </div>
   `;
 
   return card;
 }
 
-// 🎠 CAROUSELS (your original logic)
+// 🎠 CAROUSELS
 function initCarousels() {
-  document.querySelectorAll('.unit-carousel').forEach(carousel => {
-    const track = carousel.querySelector('.carousel-track');
-    const images = track.querySelectorAll('img');
-    const blur = carousel.querySelector('.carousel-blur');
-    const prev = carousel.querySelector('.prev');
-    const next = carousel.querySelector('.next');
+  document.querySelectorAll(".unit-carousel").forEach(carousel => {
+    const track = carousel.querySelector(".carousel-track");
+    const images = track.querySelectorAll("img");
+    const blur = carousel.querySelector(".carousel-blur");
+    const prev = carousel.querySelector(".prev");
+    const next = carousel.querySelector(".next");
 
     if (!images.length) return;
 
@@ -91,33 +108,30 @@ function initCarousels() {
 
     blur.style.backgroundImage = `url(${images[0].src})`;
 
-    prev.addEventListener('click', () => {
+    prev.onclick = () => {
       index = (index - 1 + images.length) % images.length;
       update();
-    });
+    };
 
-    next.addEventListener('click', () => {
+    next.onclick = () => {
       index = (index + 1) % images.length;
       update();
-    });
+    };
   });
 }
 
-// ✨ ANIMATIONS (unchanged)
+// ✨ ANIMATIONS
 function initAnimations() {
-  const cards = document.querySelectorAll('.unit-card');
+  const cards = document.querySelectorAll(".unit-card");
 
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
 
   cards.forEach(card => observer.observe(card));
 }

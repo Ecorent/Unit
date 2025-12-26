@@ -17,14 +17,14 @@ const query = encodeURIComponent(`
   *[_type == "unit" && slug.current == "${slug}"][0]{
     title{en},
     price,
-    address{en},
+    address,
     bedrooms,
     bathrooms,
     sqft,
     utilitiesIncluded{en},
     petFriendly,
     washerDryer{en},
-    numberOfFloors,
+    locationHighlights{en},
     parking{en},
     images[]{asset->{url}}
   }
@@ -67,17 +67,17 @@ function renderUnit(unit) {
     ` : ""}
 
     <li><i class="fas fa-soap"></i>${unit.washerDryer.en}</li>
-
-    <li>
-      <i class="fas fa-building"></i>
-      ${unit.numberOfFloors} Floor${unit.numberOfFloors > 1 ? "s" : ""}
-    </li>
-
     <li><i class="fas fa-box-archive"></i>${unit.parking.en}</li>
   `;
 
   document.getElementById("mapFrame").src =
-    `https://maps.google.com/maps?q=${encodeURIComponent(unit.address.en)}&output=embed`;
+    `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed`;
+
+  // 📍 LOCATION HIGHLIGHTS
+  const highlightsEl = document.getElementById("locationHighlights");
+  if (highlightsEl) {
+    highlightsEl.textContent = unit.locationHighlights.en;
+  }
 
   initCarousel(unit.images || []);
 }

@@ -32,11 +32,8 @@ export default {
     {
       name: "address",
       title: "Address",
-      type: "object",
-      fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
-      ]
+      type: "string",
+      validation: Rule => Rule.required()
     },
 
     { name: "bedrooms", title: "Bedrooms", type: "number", validation: Rule => Rule.required() },
@@ -71,19 +68,22 @@ export default {
     },
 
     {
-      name: "numberOfFloors",
-      title: "Number of Floors",
-      type: "number",
-      validation: Rule => Rule.required()
-    },
-
-    {
       name: "parking",
       title: "Parking",
       type: "object",
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
         { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+      ]
+    },
+
+    {
+      name: "locationHighlights",
+      title: "What is attractive about this location",
+      type: "object",
+      fields: [
+        { name: "en", title: "English", type: "text", validation: Rule => Rule.required() },
+        { name: "es", title: "Español", type: "text", validation: Rule => Rule.required() }
       ]
     },
 
