@@ -16,9 +16,19 @@ export default {
 
     {
       name: "slug",
+      title: "Slug",
       type: "slug",
-      options: { source: "title.en", maxLength: 96 },
-      hidden: true,
+      options: {
+        source: "title.en",
+        maxLength: 96,
+        slugify: input =>
+          input
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-]/g, "")
+      },
+      readOnly: true,
       validation: Rule => Rule.required()
     },
 
@@ -79,7 +89,7 @@ export default {
 
     {
       name: "locationHighlights",
-      title: "What is attractive about this location?",
+      title: "What is attractive about this location? (no more than 6 words)",
       description: "Example: schools nearby, walkability, hospitals, public transit",
       type: "object",
       fields: [
