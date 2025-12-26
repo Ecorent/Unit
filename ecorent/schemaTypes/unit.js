@@ -1,6 +1,6 @@
 export default {
-  name: "units",
-  title: "Rental Units",
+  name: "unit",
+  title: "Rental Unit",
   type: "document",
 
   fields: [
@@ -15,25 +15,20 @@ export default {
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: {
-        source: "title",
-        maxLength: 96
-      },
+      options: { source: "title", maxLength: 96 },
       validation: Rule => Rule.required()
     },
 
     {
       name: "price",
       title: "Price",
-      type: "string",
-      description: "Example: $2,400 / month"
+      type: "string"
     },
 
     {
       name: "address",
       title: "Address",
-      type: "string",
-      description: "Used for Google Maps embed"
+      type: "string"
     },
 
     {
@@ -52,14 +47,14 @@ export default {
       name: "images",
       title: "Images",
       type: "array",
-      of: [
-        {
-          type: "image",
-          options: {
-            hotspot: true
-          }
-        }
-      ]
+      of: [{ type: "image", options: { hotspot: true } }]
+    },
+
+    {
+      name: "published",
+      title: "Published",
+      type: "boolean",
+      initialValue: true
     }
   ],
 

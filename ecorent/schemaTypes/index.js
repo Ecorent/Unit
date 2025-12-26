@@ -1,4 +1,3 @@
-import home_page from './home_page'
-import units from './units'
+import unit from "./unit";
 
-export const schemaTypes = [home_page, units]
+export const schemaTypes = [unit];
