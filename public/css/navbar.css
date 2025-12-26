@@ -58,7 +58,7 @@
 }
 
 .language-icon {
-  font-size: 1.20rem;
+  font-size: 1.15rem;
 }
 
 .language-icon:hover,
@@ -80,11 +80,11 @@
   padding: 0;
   color: var(--dark);
   cursor: pointer;
-  margin-top: 8px;
+  margin-top: 7px;
 }
 
 .profile-button i {
-  font-size: 1.30rem;
+  font-size: 1.35rem;
 }
 
 .profile-button,
@@ -146,12 +146,12 @@
   animation: navFadeIn 0.45s ease forwards;
 }
 
-.item-1 { animation-delay: 0.65s; }
-.item-2 { animation-delay: 0.70s; }
-.item-3 { animation-delay: 0.75s; }
-.item-4 { animation-delay: 0.80s; }
-.item-5 { animation-delay: 0.85s; }
-.item-6 { animation-delay: 0.90s; }
+.item-1 { animation-delay: 0.75s; }
+.item-2 { animation-delay: 0.80s; }
+.item-3 { animation-delay: 0.85s; }
+.item-4 { animation-delay: 0.90s; }
+.item-5 { animation-delay: 0.95s; }
+.item-6 { animation-delay: 1.00s; }
 
 @keyframes navFadeIn {
   to {
