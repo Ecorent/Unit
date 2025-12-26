@@ -67,6 +67,7 @@
 }
 
 .auth-slot {
+  margin-left: -6px;
   width: 110px;
   display: flex;
   align-items: center;
