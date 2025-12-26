@@ -228,10 +228,3 @@ body {
   background: var(--buttons);
   color: white;
 }
-
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #e1e1e1;
-  border-top: 1px solid #bebebe;
-}
