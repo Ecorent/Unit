@@ -10,7 +10,7 @@ export default {
       type: "object",
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
       ]
     },
 
@@ -46,7 +46,7 @@ export default {
       type: "object",
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
       ]
     },
 
@@ -63,7 +63,7 @@ export default {
       type: "object",
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
       ]
     },
 
@@ -73,17 +73,18 @@ export default {
       type: "object",
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
       ]
     },
 
     {
       name: "locationHighlights",
-      title: "What is attractive about this location",
+      title: "What is attractive about this location?",
+      description: "Example: schools nearby, walkability, hospitals, public transit",
       type: "object",
       fields: [
-        { name: "en", title: "English", type: "text", validation: Rule => Rule.required() },
-        { name: "es", title: "Español", type: "text", validation: Rule => Rule.required() }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
       ]
     },
 

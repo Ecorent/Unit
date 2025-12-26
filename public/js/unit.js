@@ -59,7 +59,6 @@ function renderUnit(unit) {
     <li><i class="fas fa-bed"></i>${unit.bedrooms} Bedrooms</li>
     <li><i class="fas fa-bath"></i>${unit.bathrooms} Bathroom</li>
     <li><i class="fas fa-ruler-combined"></i>${unit.sqft} sq ft</li>
-
     <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded.en}</li>
 
     ${unit.petFriendly ? `
@@ -68,16 +67,15 @@ function renderUnit(unit) {
 
     <li><i class="fas fa-soap"></i>${unit.washerDryer.en}</li>
     <li><i class="fas fa-box-archive"></i>${unit.parking.en}</li>
+
+    <li>
+      <i class="fas fa-star"></i>
+      ${unit.locationHighlights.en}
+    </li>
   `;
 
   document.getElementById("mapFrame").src =
     `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed`;
-
-  // 📍 LOCATION HIGHLIGHTS
-  const highlightsEl = document.getElementById("locationHighlights");
-  if (highlightsEl) {
-    highlightsEl.textContent = unit.locationHighlights.en;
-  }
 
   initCarousel(unit.images || []);
 }

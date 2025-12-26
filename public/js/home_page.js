@@ -8,7 +8,7 @@ const query = encodeURIComponent(`
   *[_type == "unit" && published == true] | order(_createdAt desc) {
     title{en},
     price,
-    address{en},
+    address,
     sqft,
     bedrooms,
     slug,
@@ -64,7 +64,7 @@ function createUnitCard(unit) {
       <div class="unit-meta address">
         <span>
           <i class="fas fa-map-marker-alt"></i>
-          ${unit.address.en}
+          ${unit.address}
         </span>
       </div>
 
