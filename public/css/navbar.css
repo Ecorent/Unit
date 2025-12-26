@@ -66,6 +66,10 @@
   color: var(--buttons);
 }
 
+.language-icon {
+  font-size: 1.35rem;
+}
+
 .auth-slot {
   margin-left: -6px;
   width: 110px;
