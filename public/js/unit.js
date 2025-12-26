@@ -15,17 +15,17 @@ if (!slug) {
 // 🧠 QUERY
 const query = encodeURIComponent(`
   *[_type == "unit" && slug.current == "${slug}"][0]{
-    title,
+    title{en},
     price,
-    address,
+    address{en},
     bedrooms,
     bathrooms,
     sqft,
-    utilitiesIncluded,
+    utilitiesIncluded{en},
     petFriendly,
-    washerDryer,
-    storage,
-    parking,
+    washerDryer{en},
+    numberOfFloors,
+    parking{en},
     images[]{asset->{url}}
   }
 `);
@@ -40,15 +40,19 @@ fetch(url)
       document.body.innerHTML = "<h1>Unit not found</h1>";
       return;
     }
-
     renderUnit(result);
   });
 
+// 💰 PRICE FORMATTER
+function formatPrice(price) {
+  return `$${Number(price).toLocaleString()} / month`;
+}
+
 // 🧱 RENDER UNIT
 function renderUnit(unit) {
-  document.getElementById("pageTitle").textContent = unit.title;
-  document.getElementById("unitTitle").textContent = unit.title;
-  document.getElementById("unitPrice").textContent = unit.price;
+  document.getElementById("pageTitle").textContent = unit.title.en;
+  document.getElementById("unitTitle").textContent = unit.title.en;
+  document.getElementById("unitPrice").textContent = formatPrice(unit.price);
 
   const details = document.getElementById("unitDetails");
   details.innerHTML = `
@@ -56,38 +60,31 @@ function renderUnit(unit) {
     <li><i class="fas fa-bath"></i>${unit.bathrooms} Bathroom</li>
     <li><i class="fas fa-ruler-combined"></i>${unit.sqft} sq ft</li>
 
-    ${unit.utilitiesIncluded ? `
-      <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded}</li>
-    ` : ""}
+    <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded.en}</li>
 
     ${unit.petFriendly ? `
       <li><i class="fas fa-dog"></i>Pet friendly</li>
     ` : ""}
 
-    ${unit.washerDryer ? `
-      <li><i class="fas fa-soap"></i>${unit.washerDryer}</li>
-    ` : ""}
+    <li><i class="fas fa-soap"></i>${unit.washerDryer.en}</li>
 
-    ${unit.storage ? `
-      <li><i class="fas fa-soap"></i>${unit.storage}</li>
-    ` : ""}
+    <li>
+      <i class="fas fa-building"></i>
+      ${unit.numberOfFloors} Floor${unit.numberOfFloors > 1 ? "s" : ""}
+    </li>
 
-    ${unit.parking ? `
-      <li><i class="fas fa-box-archive"></i>${unit.parking}</li>
-    ` : ""}
+    <li><i class="fas fa-box-archive"></i>${unit.parking.en}</li>
   `;
 
   document.getElementById("mapFrame").src =
-    `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed`;
+    `https://maps.google.com/maps?q=${encodeURIComponent(unit.address.en)}&output=embed`;
 
   initCarousel(unit.images || []);
 }
 
-
-// 🎠 CAROUSEL (Sanity images)
+// 🎠 CAROUSEL
 function initCarousel(images) {
   const carousel = document.getElementById("carousel");
-
   if (!images.length) return;
 
   const blur = document.createElement("div");

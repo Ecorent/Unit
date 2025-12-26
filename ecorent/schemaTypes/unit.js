@@ -7,103 +7,115 @@ export default {
     {
       name: "title",
       title: "Title",
-      type: "string",
-      validation: Rule => Rule.required()
+      type: "object",
+      fields: [
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
+        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+      ]
     },
 
     {
       name: "slug",
-      title: "Slug",
       type: "slug",
-      options: { source: "title", maxLength: 96 },
+      options: { source: "title.en", maxLength: 96 },
+      hidden: true,
       validation: Rule => Rule.required()
     },
 
     {
       name: "price",
-      title: "Price",
-      type: "string"
+      title: "Monthly Price",
+      type: "number",
+      validation: Rule => Rule.required().min(0)
     },
 
     {
       name: "address",
       title: "Address",
-      type: "string"
+      type: "object",
+      fields: [
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
+        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+      ]
     },
 
-    {
-      name: "bedrooms",
-      title: "Bedrooms",
-      type: "number"
-    },
-
-    {
-      name: "bathrooms",
-      title: "Bathrooms",
-      type: "number"
-    },
-
-    {
-      name: "sqft",
-      title: "Square Feet",
-      type: "number"
-    },
+    { name: "bedrooms", title: "Bedrooms", type: "number", validation: Rule => Rule.required() },
+    { name: "bathrooms", title: "Bathrooms", type: "number", validation: Rule => Rule.required() },
+    { name: "sqft", title: "Square Feet", type: "number", validation: Rule => Rule.required() },
 
     {
       name: "utilitiesIncluded",
       title: "Utilities Included",
-      type: "string",
-      description: "Example: Gas, water, and heating included"
+      type: "object",
+      fields: [
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
+        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+      ]
     },
 
     {
       name: "petFriendly",
       title: "Pet Friendly",
       type: "boolean",
-      initialValue: false
+      validation: Rule => Rule.required()
     },
 
     {
       name: "washerDryer",
       title: "Washer & Dryer",
-      type: "string",
-      description: "Example: In building, In unit, None"
+      type: "object",
+      fields: [
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
+        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+      ]
     },
 
     {
-      name: "storage",
-      title: "Storage",
-      type: "string",
-      description: "Example: Basement storage"
+      name: "numberOfFloors",
+      title: "Number of Floors",
+      type: "number",
+      validation: Rule => Rule.required()
     },
 
     {
       name: "parking",
       title: "Parking",
-      type: "string",
-      description: "Example: Street parking available"
+      type: "object",
+      fields: [
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
+        { name: "es", title: "Español", type: "string", validation: Rule => Rule.required() }
+      ]
     },
 
     {
       name: "images",
       title: "Images",
       type: "array",
-      of: [{ type: "image", options: { hotspot: true } }]
+      of: [{ type: "image", options: { hotspot: true } }],
+      validation: Rule => Rule.required().min(1)
     },
 
     {
       name: "published",
       title: "Published",
       type: "boolean",
-      initialValue: true
+      initialValue: true,
+      validation: Rule => Rule.required()
     }
   ],
 
   preview: {
     select: {
-      title: "title",
+      title: "title.en",
       subtitle: "price",
       media: "images.0"
+    },
+    prepare({ title, subtitle, media }) {
+      return {
+        title,
+        subtitle: `$${subtitle?.toLocaleString()} / month`,
+        media
+      };
     }
   }
 };
