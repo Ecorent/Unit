@@ -5,6 +5,14 @@ export default {
 
   fields: [
     {
+      name: "order",
+      title: "Display Order",
+      description: "Lower numbers appear first (1 = top of homepage)",
+      type: "number",
+      initialValue: 100
+    },
+
+    {
       name: "title",
       title: "Title",
       type: "object",
@@ -63,8 +71,9 @@ export default {
     {
       name: "petFriendly",
       title: "Pet Friendly",
+      description: "Leave unchecked if pets are not allowed.",
       type: "boolean",
-      validation: Rule => Rule.required()
+      initialValue: false
     },
 
     {

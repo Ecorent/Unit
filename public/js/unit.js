@@ -61,9 +61,10 @@ function renderUnit(unit) {
     <li><i class="fas fa-ruler-combined"></i>${unit.sqft} sq ft</li>
     <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded.en}</li>
 
-    ${unit.petFriendly ? `
-      <li><i class="fas fa-dog"></i>Pet friendly</li>
-    ` : ""}
+    <li>
+      <i class="fas ${unit.petFriendly ? "fa-dog" : "fa-ban"}"></i>
+      ${unit.petFriendly ? "Pet friendly" : "No pets allowed"}
+    </li>
 
     <li><i class="fas fa-soap"></i>${unit.washerDryer.en}</li>
     <li><i class="fas fa-box-archive"></i>${unit.parking.en}</li>
