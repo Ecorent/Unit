@@ -7,7 +7,7 @@ export default {
     {
       name: "order",
       title: "Display Order",
-      description: "Lower numbers appear first (1 = top of homepage)",
+      description: "Lower numbers appear first (1 = first)",
       type: "number",
       initialValue: 100
     },
@@ -16,6 +16,7 @@ export default {
       name: "title",
       title: "Title",
       type: "object",
+      validation: Rule => Rule.required(),
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
         { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
@@ -25,7 +26,7 @@ export default {
     {
       name: "slug",
       title: "Slug",
-      description: "Click the Generate button to create the URL from the English title.",
+      description: "Click the Generate button to create the URL for this specific unit.",
       type: "slug",
       options: {
         source: "title.en",
@@ -62,6 +63,7 @@ export default {
       name: "utilitiesIncluded",
       title: "Utilities Included",
       type: "object",
+      validation: Rule => Rule.required(),
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
         { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
@@ -80,6 +82,7 @@ export default {
       name: "washerDryer",
       title: "Washer & Dryer",
       type: "object",
+      validation: Rule => Rule.required(),
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
         { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
@@ -90,6 +93,7 @@ export default {
       name: "parking",
       title: "Parking",
       type: "object",
+      validation: Rule => Rule.required(),
       fields: [
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
         { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
@@ -101,9 +105,10 @@ export default {
       title: "What is attractive about this location? (no more than 6 words)",
       description: "Example: schools nearby, walkability, hospitals, public transit",
       type: "object",
+      validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(40) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(40) }
       ]
     },
 
