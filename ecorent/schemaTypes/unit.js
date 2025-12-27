@@ -17,6 +17,7 @@ export default {
     {
       name: "slug",
       title: "Slug",
+      description: "Click the Generate button to create the URL from the English title.",
       type: "slug",
       options: {
         source: "title.en",
@@ -28,7 +29,6 @@ export default {
             .replace(/\s+/g, "-")
             .replace(/[^a-z0-9-]/g, "")
       },
-      readOnly: true,
       validation: Rule => Rule.required()
     },
 
