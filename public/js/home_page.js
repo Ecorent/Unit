@@ -5,7 +5,8 @@ const SANITY_API_VERSION = "2023-10-01";
 
 // 🧠 QUERY
 const query = encodeURIComponent(`
-  *[_type == "unit" && published == true] | order(_createdAt desc) {
+  *[_type == "unit" && published == true]
+  | order(order asc, _createdAt desc) {
     title{en},
     price,
     address,
