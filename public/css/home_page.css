@@ -320,8 +320,8 @@ body {
   }
 
   .unit-meta {
-    font-size: 0.75rem;
-    gap: 8px;
+    font-size: clamp(0.68rem, 3vw, 0.75rem);
+    gap: clamp(6px, 2.5vw, 8px);
   }
 
   .price-badge {
