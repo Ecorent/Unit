@@ -214,6 +214,9 @@ main {
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    margin-bottom: 14px;
+  }
 
   .section,
   .extras {
@@ -229,7 +232,7 @@ main {
   }
 
   .carousel {
-    padding: 18px;
+    padding: 12px;
   }
 
   .details {
