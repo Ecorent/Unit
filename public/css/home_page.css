@@ -227,7 +227,7 @@ body {
     background-image: url("../images/landscape_mobile.png");
     background-size: 100% auto;
     height: 220px;
-    margin-bottom: 18px;
+    margin-bottom: 19px;
   }
 
   .map-cta {
@@ -287,7 +287,7 @@ body {
   }
 
   .unit-card {
-    flex: 0 0 68%;
+    flex: 0 0 69%;
     scroll-snap-align: start;
     box-shadow: none;
   }
