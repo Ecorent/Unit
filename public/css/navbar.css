@@ -161,7 +161,7 @@
   width: 100%;
   background: var(--box-bg);
   border-top: 1px solid #d1d1d1;
-  padding: 12px 20px;
+  padding: 10px 20px 12px;
   display: flex;
   flex-direction: column;
   z-index: 2500;       
@@ -194,6 +194,6 @@
   }
 
   .nav-logo {
-    height: 50px; 
+    height: 52px; 
   }
 }
