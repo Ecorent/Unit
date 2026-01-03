@@ -145,7 +145,7 @@
 }
 
 .hamburger-button i {
-  font-size: 1.6rem;
+  font-size: 1.55rem;
 }
 
 .mobile-actions {
@@ -191,7 +191,11 @@
     height: 52px;
   }
 
+  .mobile-profile {
+    margin-top: 2px;
+  }
+
   .mobile-profile .profile-button i {
-    font-size: 1.6rem; 
+    font-size: 1.55rem; 
   }
 }
