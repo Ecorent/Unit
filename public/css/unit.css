@@ -221,7 +221,7 @@ main {
   .section,
   .extras {
     flex-direction: column;
-    gap: 28px;
+    gap: 16px;
   }
 
   .carousel,
@@ -251,7 +251,7 @@ main {
   }
 
   .section-title {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     margin-bottom: 16px;
   }
 
