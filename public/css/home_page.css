@@ -64,10 +64,6 @@ body {
   color: white;
 }
 
-.cta-text-mobile {
-  display: none;
-}
-
 .units {
   max-width: 1200px;
   margin: 0 auto;
@@ -243,17 +239,9 @@ body {
   }
 
   .map-cta-inner p {
-    padding-left: 2px;
-    line-height: 1.2;
-  }
-
-  .cta-text-desktop {
-    display: none;
-  }
-
-  .cta-text-mobile {
-    display: inline;
     font-size: 0.83rem;
+    line-height: 1.2;
+    padding-left: 2px;
   }
 
   .map-lower-button {
