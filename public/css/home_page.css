@@ -234,6 +234,18 @@ body {
     margin-bottom: 12px;
   }
 
+  .map-cta-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .map-cta-inner p {
+    padding-left: 2px;
+    line-height: 1.2;
+  }
+
   .cta-text-desktop {
     display: none;
   }
@@ -241,6 +253,12 @@ body {
   .cta-text-mobile {
     display: inline;
     font-size: 0.9rem;
+  }
+
+  .map-lower-button {
+    padding: 12px 18px;
+    justify-content: center;
+    border: 2px solid var(--buttons);
   }
 
   .map-lower-button .button-text {
