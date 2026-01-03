@@ -314,7 +314,9 @@ body {
   }
 
   .unit-info h3 {
-    font-size: 0.95rem;
+    font-size: clamp(0.85rem, 3.6vw, 0.95rem);
+    line-height: 1.25;
+    text-wrap: balance;
   }
 
   .unit-meta {
