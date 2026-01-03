@@ -230,6 +230,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
   .hero-image {
     background-size: contain;  
     background-repeat: no-repeat;

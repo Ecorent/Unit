@@ -195,6 +195,10 @@
     height: 52px;
   }
 
+  .navbar {
+    padding-bottom: 0;
+  }
+
   .mobile-profile {
     margin-top: 2px;
   }
