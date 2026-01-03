@@ -215,7 +215,7 @@ main {
 
 @media (max-width: 768px) {
   .navbar {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
 
   .section,
@@ -233,6 +233,11 @@ main {
 
   .carousel {
     padding: 12px;
+  }
+
+  .price-badge {
+    padding: 7px 14px;
+    font-size: 1rem;
   }
 
   .details {
