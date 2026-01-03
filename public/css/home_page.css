@@ -270,16 +270,15 @@ body {
     padding: 8px 12px 40px;
   }
 
-  .units-grid {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 6px;
-    overflow-y: hidden;
-    touch-action: pan-x;
-  }
+.units-grid {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+}
 
   .unit-card {
     flex: 0 0 70%;
