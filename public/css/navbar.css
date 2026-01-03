@@ -20,13 +20,13 @@
   align-items: center;
 }
 
-.nav-left{
+.nav-left {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.nav-right{
+.nav-right {
   display: flex;
   align-items: center;
   padding-right: 5px;
@@ -43,11 +43,11 @@
   gap: 18px;
 }
 
+/* Nav items */
 .language-icon,
 .home-button,
 .map-button,
-.maintenance-button,
-.contact-button {
+.maintenance-button {
   font-size: 1.05rem;
   background: none;
   border: none;
@@ -65,11 +65,11 @@
 .home-button:hover,
 .map-button:hover,
 .maintenance-button:hover,
-.contact-button:hover,
 .profile-button:hover {
   color: var(--buttons);
 }
 
+/* Profile */
 .profile-wrapper {
   position: relative;
 }
@@ -85,12 +85,6 @@
 
 .profile-button i {
   font-size: 1.35rem;
-}
-
-.profile-button,
-.profile-button:link,
-.profile-button:visited {
-  color: var(--dark);
 }
 
 .profile-dropdown {
@@ -113,33 +107,26 @@
   align-items: center;
   padding: 10px 14px;
   font-size: 0.95rem;
-  line-height: 1.2;
-  font-family: inherit;
   background: none;
   border: none;
   width: 100%;
-  box-sizing: border-box;
   text-align: left;
   cursor: pointer;
   color: var(--dark);
   text-decoration: none;
 }
 
-
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
- 
+
+/* Shared utilities */
 .hidden {
   display: none !important;
 }
 
-.navbar.auth-loading #loginLink,
-.navbar.auth-loading #profileIcon {
-  display: none !important;
-}
-
+/* Animation */
 .nav-item {
   opacity: 0;
   transform: translateY(-6px);
@@ -150,7 +137,6 @@
 .item-2 { animation-delay: 0.80s; }
 .item-3 { animation-delay: 0.85s; }
 .item-4 { animation-delay: 0.90s; }
-.item-5 { animation-delay: 0.95s; }
 .item-6 { animation-delay: 1.00s; }
 
 @keyframes navFadeIn {
@@ -160,6 +146,7 @@
   }
 }
 
+/* Hamburger */
 .hamburger-button {
   display: none;
   background: none;
@@ -172,6 +159,7 @@
   font-size: 1.6rem;
 }
 
+/* Mobile menu */
 .mobile-menu {
   display: flex;
   flex-direction: column;
@@ -184,12 +172,12 @@
 .mobile-menu button {
   padding: 12px 0;
   font-size: 1rem;
-  text-decoration: none;
   background: none;
   border: none;
   text-align: left;
   cursor: pointer;
   color: var(--dark);
+  text-decoration: none;
 }
 
 .mobile-menu a:hover,
@@ -197,6 +185,7 @@
   color: var(--buttons);
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .desktop-nav {
     display: none;
@@ -206,4 +195,3 @@
     display: block;
   }
 }
-

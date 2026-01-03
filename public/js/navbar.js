@@ -17,11 +17,9 @@ fetch("/partials/navbar.html")
     authScript.src = "/js/authState.js";
     document.body.appendChild(authScript);
 
-    /* ---------- Profile dropdown ---------- */
     const profileToggle = document.getElementById("profileToggle");
     const profileDropdown = document.getElementById("profileDropdown");
 
-    /* ---------- Mobile menu ---------- */
     const hamburgerToggle = document.getElementById("hamburgerToggle");
     const mobileMenu = document.getElementById("mobileMenu");
 
