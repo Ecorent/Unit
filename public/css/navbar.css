@@ -192,4 +192,8 @@
   .hamburger-button {
     display: block;
   }
+
+  .nav-logo {
+    height: 50px; 
+  }
 }
