@@ -270,15 +270,21 @@ body {
     padding: 8px 12px 40px;
   }
 
-.units-grid {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 6px;
-}
+  .units-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .units-grid::-webkit-scrollbar {
+    display: none;
+  }
 
   .unit-card {
     flex: 0 0 70%;
