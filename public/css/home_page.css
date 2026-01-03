@@ -232,7 +232,7 @@ body {
 @media (max-width: 768px) {
 
   .hero-image {
-    background-size: contain;  
+    background-size: 80% auto;  
     background-repeat: no-repeat;
     background-position: center;
     height: auto;           
