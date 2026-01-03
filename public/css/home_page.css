@@ -305,13 +305,20 @@ body {
   }
 
   .unit-meta {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     gap: 8px;
   }
 
+  .price-badge {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
+
   .view-button {
+    margin-top: 12px;
     font-size: 0.85rem;
     padding: 8px 10px;
+    border: 2px solid var(--buttons);
   }
 }
 
