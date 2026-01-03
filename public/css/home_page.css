@@ -261,9 +261,10 @@ body {
   }
 
   .map-cta-inner p {
-    font-size: 0.83rem;
+    font-size: clamp(0.78rem, 3.2vw, 0.83rem);
     line-height: 1.2;
     padding-left: 2px;
+    text-wrap: balance;
   }
 
   .map-lower-button {
