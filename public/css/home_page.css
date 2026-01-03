@@ -15,8 +15,7 @@ body {
 
 .hero-image {
   width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
+  height: 450px;
   background-image: url("../images/landscape.png");
   background-size: cover;
   background-position: center;
@@ -223,7 +222,7 @@ body {
   .hero-image {
     background-image: url("../images/landscape_mobile.png");
     background-size: 100% auto;
-    height: 220px;
+    background-repeat: no-repeat;
     margin-bottom: 19px;
   }
 
