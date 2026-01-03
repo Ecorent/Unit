@@ -278,24 +278,30 @@ body {
   }
 
   .units {
-    padding: 8px 14px 40px;
+    padding: 8px 12px 40px;
   }
 
   .units-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px;
   }
 
-  .unit-carousel {
+  .unit-card {
+    border-radius: 5px;
+  }
+
+  .unit-carousel,
+  .unit-image {
     margin: 10px;
+    aspect-ratio: 4 / 3;
   }
 
   .unit-info {
-    padding: 6px 14px 16px;
+    padding: 4px 12px 14px;
   }
 
   .unit-info h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .unit-meta {
@@ -304,8 +310,8 @@ body {
   }
 
   .view-button {
-    padding: 8px 12px;
     font-size: 0.85rem;
+    padding: 8px 10px;
   }
 }
 
