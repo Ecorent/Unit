@@ -224,6 +224,10 @@ main {
     gap: 16px;
   }
 
+  main {
+    margin-bottom: 32px;
+  }
+
   .carousel,
   .details,
   .map,
