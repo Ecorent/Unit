@@ -231,7 +231,7 @@ body {
 
   .map-cta {
     padding: 0 14px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .cta-text-desktop {
@@ -261,7 +261,7 @@ body {
   }
 
   .unit-card {
-    flex: 0 0 82%;
+    flex: 0 0 70%;
     scroll-snap-align: start;
   }
 
