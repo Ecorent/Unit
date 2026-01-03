@@ -278,6 +278,7 @@ main {
 
   .extras {
     margin-top: 16px;
+    margin-bottom: 16px;
   }
 
   .map iframe {
