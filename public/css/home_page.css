@@ -240,6 +240,7 @@ body {
     height: 220px;
     margin-bottom: 18px;
   }
+
   .map-cta {
     padding: 0 14px;
     margin-bottom: 22px;
@@ -250,6 +251,10 @@ body {
     align-items: center;
     gap: 12px;
     padding: 16px;
+  }
+
+  .map-cta-inner p {
+    padding-left: 2px;
   }
 
   .cta-text-desktop {
@@ -263,8 +268,8 @@ body {
 
   .map-lower-button {
     padding: 10px;
-    min-width: 44px;
     justify-content: center;
+    border: 2px solid var(--buttons);
   }
 
   .map-lower-button .button-text {
