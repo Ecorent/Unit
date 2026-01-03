@@ -276,6 +276,10 @@ main {
     font-size: 20px;
   }
 
+  .extras {
+    margin-top: 16px;
+  }
+
   .map iframe {
     height: 300px;
   }
