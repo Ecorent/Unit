@@ -280,7 +280,7 @@ body {
     padding-bottom: 6px;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-left: 2px;
+    padding-left: 20px;
   }
 
   .units-grid::-webkit-scrollbar {
