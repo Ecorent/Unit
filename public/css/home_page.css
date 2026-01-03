@@ -2,7 +2,7 @@
   --buttons: #1f9c53;
   --darker-green: #12793d;
   --dark: #292929;
-  --light: #f3f3f3;
+  --light: #f1f1f1;
   --box-bg: #ffffff;
 }
 
@@ -267,7 +267,7 @@ body {
   }
 
   .units {
-    padding: 8px 14px 40px;
+    padding: 8px 15px 40px;
   }
 
   .units-grid {
