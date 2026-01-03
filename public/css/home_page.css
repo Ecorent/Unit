@@ -233,6 +233,7 @@ body {
   .hero-image {
     background-image: url("../images/landscape_mobile.png");
     background-size: 100% auto;
+    height: 220px;
   }
 }
 
