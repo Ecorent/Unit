@@ -190,4 +190,8 @@
   .nav-logo {
     height: 52px;
   }
+
+  .mobile-profile .profile-button i {
+    font-size: 1.6rem; 
+  }
 }
