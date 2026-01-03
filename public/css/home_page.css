@@ -228,3 +228,14 @@ body {
   background: var(--buttons);
   color: white;
 }
+
+@media (max-width: 768px) {
+  .hero-image {
+    background-size: contain;  
+    background-repeat: no-repeat;
+    background-position: center;
+    height: auto;           
+    min-height: 220px;        
+    margin-bottom: 30px;
+  }
+}
