@@ -278,10 +278,6 @@ body {
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px;
     overflow-y: hidden;
-    touch-action: pan-y;
-  }
-
-  .units-grid:active {
     touch-action: pan-x;
   }
 
