@@ -159,3 +159,51 @@
     transform: translateY(0);
   }
 }
+
+.hamburger-button {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dark);
+}
+
+.hamburger-button i {
+  font-size: 1.6rem;
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background: var(--box-bg);
+  border-top: 1px solid #d1d1d1;
+  padding: 12px 20px;
+}
+
+.mobile-menu a,
+.mobile-menu button {
+  padding: 12px 0;
+  font-size: 1rem;
+  text-decoration: none;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--dark);
+}
+
+.mobile-menu a:hover,
+.mobile-menu button:hover {
+  color: var(--buttons);
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .hamburger-button {
+    display: block;
+  }
+}
+

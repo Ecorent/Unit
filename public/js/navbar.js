@@ -17,17 +17,31 @@ fetch("/partials/navbar.html")
     authScript.src = "/js/authState.js";
     document.body.appendChild(authScript);
 
-    /* ---------- Profile dropdown logic ---------- */
-    const toggle = document.getElementById("profileToggle");
-    const dropdown = document.getElementById("profileDropdown");
+    /* ---------- Profile dropdown ---------- */
+    const profileToggle = document.getElementById("profileToggle");
+    const profileDropdown = document.getElementById("profileDropdown");
+
+    /* ---------- Mobile menu ---------- */
+    const hamburgerToggle = document.getElementById("hamburgerToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
 
     document.addEventListener("click", (e) => {
-      if (!toggle || !dropdown) return;
+      /* Profile dropdown */
+      if (profileToggle && profileDropdown) {
+        if (profileToggle.contains(e.target)) {
+          profileDropdown.classList.toggle("hidden");
+        } else if (!profileDropdown.contains(e.target)) {
+          profileDropdown.classList.add("hidden");
+        }
+      }
 
-      if (toggle.contains(e.target)) {
-        dropdown.classList.toggle("hidden");
-      } else if (!dropdown.contains(e.target)) {
-        dropdown.classList.add("hidden");
+      /* Mobile menu */
+      if (hamburgerToggle && mobileMenu) {
+        if (hamburgerToggle.contains(e.target)) {
+          mobileMenu.classList.toggle("hidden");
+        } else if (!mobileMenu.contains(e.target)) {
+          mobileMenu.classList.add("hidden");
+        }
       }
     });
   })

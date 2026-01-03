@@ -5,13 +5,16 @@
         <img src="images/header_logo.png" class="nav-logo" alt="ECOrent logo">
       </a>
     </div>
+
     <div class="nav-right">
-      <div class="header-wrapper">
+      <!-- Desktop navigation -->
+      <div class="header-wrapper desktop-nav">
         <i class="fas fa-globe-americas language-icon nav-item item-1"></i>
         <a href="index.html" class="home-button nav-item item-2">Home</a>
         <a href="#" class="map-button nav-item item-3">Interactive map</a>
         <a href="#" class="maintenance-button nav-item item-4">Maintenance Requests</a>
         <a href="login.html" class="contact-button hidden nav-item item-5" id="loginLink">Log in</a>
+
         <div class="profile-wrapper hidden nav-item item-6" id="profileIcon">
           <button class="profile-button" id="profileToggle">
             <i class="fas fa-user-circle"></i>
@@ -22,6 +25,21 @@
           </div>
         </div>
       </div>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger-button" id="hamburgerToggle">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  <div class="mobile-menu hidden" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="#">Interactive map</a>
+    <a href="#">Maintenance Requests</a>
+    <a href="login.html" id="mobileLoginLink" class="hidden">Log in</a>
+    <a href="profile.html" id="mobileProfileLink" class="hidden">Profile</a>
+    <button id="mobileLogoutBtn" class="hidden">Log out</button>
   </div>
 </nav>
