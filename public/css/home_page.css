@@ -2,7 +2,7 @@
   --buttons: #1f9c53;
   --darker-green: #12793d;
   --dark: #292929;
-  --light: #f5f5f5;
+  --light: #f3f3f3;
   --box-bg: #ffffff;
 }
 
@@ -280,6 +280,7 @@ body {
     padding-bottom: 6px;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    scrollbar-gutter: auto;
   }
 
   .units-grid::-webkit-scrollbar {
