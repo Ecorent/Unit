@@ -278,7 +278,7 @@ main {
 
   .extras {
     margin-top: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   .map iframe {
@@ -287,7 +287,7 @@ main {
 
   .contact-form input,
   .contact-form textarea {
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 2.4vw, 1rem);
     padding: 12px;
   }
 
