@@ -89,6 +89,7 @@ body {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  overflow: hidden;
 }
 
 .unit-card.in-view {
@@ -277,13 +278,16 @@ body {
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px;
     overflow-y: hidden;
+    touch-action: pan-y;
+  }
+
+  .units-grid:active {
     touch-action: pan-x;
   }
 
   .unit-card {
     flex: 0 0 70%;
     scroll-snap-align: start;
-    overflow: hidden;
   }
 
   .unit-carousel,
