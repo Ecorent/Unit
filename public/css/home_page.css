@@ -234,6 +234,29 @@ body {
     background-image: url("../images/landscape_mobile.png");
     background-size: 100% auto;
     height: 220px;
+    margin-bottom: 18px;
+  }
+
+  .map-cta {
+    padding: 0 14px;
+    margin-bottom: 24px;
+  }
+
+  .map-cta-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 18px;
+  }
+
+  .map-cta-inner p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .map-lower-button {
+    align-self: stretch;
+    justify-content: center;
   }
 }
 
