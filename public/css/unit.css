@@ -213,9 +213,68 @@ main {
   font-weight: 500;
 }
 
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #e1e1e1;
-  border-top: 1px solid #bebebe;
+@media (max-width: 768px) {
+
+  .section,
+  .extras {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .carousel,
+  .details,
+  .map,
+  .contact-form {
+    flex: 1 1 100%;
+  }
+
+  .carousel {
+    padding: 18px;
+  }
+
+  .details {
+    padding: 24px;
+  }
+
+  .map,
+  .contact-form {
+    padding: 22px;
+    height: auto;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+    margin-bottom: 16px;
+  }
+
+  .details li {
+    font-size: 1rem;
+    padding-left: 6px;
+  }
+
+  .price-badge {
+    font-size: 0.95rem;
+    padding: 6px 12px;
+  }
+
+  .carousel-controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .map iframe {
+    height: 300px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+    padding: 12px;
+  }
+
+  .contact-form button {
+    padding: 14px;
+    font-size: 1rem;
+  }
 }
