@@ -220,6 +220,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-image {
+    height: 100%;
     background-image: url("../images/landscape_mobile.png");
     background-size: 100% auto;
     background-repeat: no-repeat;
