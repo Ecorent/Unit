@@ -228,3 +228,11 @@ body {
   background: var(--buttons);
   color: white;
 }
+
+@media (max-width: 768px) {
+  .hero-image {
+    background-size: 125% auto;
+    background-position: center;
+  }
+}
+
