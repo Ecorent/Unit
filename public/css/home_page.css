@@ -280,7 +280,6 @@ body {
     padding-bottom: 6px;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    scrollbar-gutter: auto;
   }
 
   .units-grid::-webkit-scrollbar {
@@ -290,6 +289,7 @@ body {
   .unit-card {
     flex: 0 0 70%;
     scroll-snap-align: start;
+    box-shadow: none;
   }
 
   .unit-carousel,
