@@ -276,5 +276,36 @@ body {
   .map-lower-button .button-text {
     display: none;
   }
+
+  .units {
+    padding: 8px 14px 40px;
+  }
+
+  .units-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .unit-carousel {
+    margin: 10px;
+  }
+
+  .unit-info {
+    padding: 6px 14px 16px;
+  }
+
+  .unit-info h3 {
+    font-size: 1rem;
+  }
+
+  .unit-meta {
+    font-size: 0.8rem;
+    gap: 8px;
+  }
+
+  .view-button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
 }
 
