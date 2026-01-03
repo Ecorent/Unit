@@ -275,7 +275,7 @@ body {
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: none;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px;
     scrollbar-width: none;
@@ -288,7 +288,7 @@ body {
 
   .unit-card {
     flex: 0 0 69%;
-    scroll-snap-align: start;
+    scroll-snap-align: none;
     box-shadow: none;
   }
 
