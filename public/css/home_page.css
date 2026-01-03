@@ -231,8 +231,10 @@ body {
 
 @media (max-width: 768px) {
   .hero-image {
-    background-size: 125% auto;
+    background-image: url("../images/landscape_mobile.png");
+    background-size: 100% auto;
     background-position: center;
+    background-repeat: no-repeat;
   }
 }
 
