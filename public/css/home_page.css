@@ -64,6 +64,10 @@ body {
   color: white;
 }
 
+.cta-text-mobile {
+  display: none;
+}
+
 .units {
   max-width: 1200px;
   margin: 0 auto;
@@ -236,27 +240,35 @@ body {
     height: 220px;
     margin-bottom: 18px;
   }
-
   .map-cta {
     padding: 0 14px;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
   .map-cta-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 18px 18px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
   }
 
-  .map-cta-inner p {
+  .cta-text-desktop {
+    display: none;
+  }
+
+  .cta-text-mobile {
+    display: inline;
     font-size: 0.95rem;
-    line-height: 1.4;
   }
 
   .map-lower-button {
-    align-self: stretch;
+    padding: 10px;
+    min-width: 44px;
     justify-content: center;
+  }
+
+  .map-lower-button .button-text {
+    display: none;
   }
 }
 
