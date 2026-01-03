@@ -253,11 +253,11 @@ body {
 
   .cta-text-mobile {
     display: inline;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .map-lower-button {
-    padding: 12px 18px;
+    padding: 10px 20px;
     justify-content: center;
     border: 2px solid var(--buttons);
   }
