@@ -18,19 +18,21 @@ fetch("/partials/navbar.html")
     document.body.appendChild(authScript);
 
     const profileToggle = document.getElementById("profileToggle");
+    const mobileProfileToggle = document.getElementById("mobileProfileToggle");
     const profileDropdown = document.getElementById("profileDropdown");
 
     const hamburgerToggle = document.getElementById("hamburgerToggle");
     const mobileMenu = document.getElementById("mobileMenu");
 
     document.addEventListener("click", (e) => {
-      /* Profile dropdown */
-      if (profileToggle && profileDropdown) {
-        if (profileToggle.contains(e.target)) {
-          profileDropdown.classList.toggle("hidden");
-        } else if (!profileDropdown.contains(e.target)) {
-          profileDropdown.classList.add("hidden");
-        }
+      /* Profile dropdown (desktop + mobile) */
+      if (
+        (profileToggle && profileToggle.contains(e.target)) ||
+        (mobileProfileToggle && mobileProfileToggle.contains(e.target))
+      ) {
+        profileDropdown.classList.toggle("hidden");
+      } else if (profileDropdown && !profileDropdown.contains(e.target)) {
+        profileDropdown.classList.add("hidden");
       }
 
       /* Mobile menu */

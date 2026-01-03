@@ -14,11 +14,12 @@
         <a href="#" class="map-button nav-item item-3">Interactive map</a>
         <a href="#" class="maintenance-button nav-item item-4">Maintenance Requests</a>
 
-        <!-- Profile (always visible) -->
-        <div class="profile-wrapper nav-item item-5" id="profileIcon">
+        <!-- Desktop profile -->
+        <div class="profile-wrapper nav-item item-5 desktop-profile">
           <button class="profile-button" id="profileToggle">
             <i class="fas fa-user-circle"></i>
           </button>
+
           <div class="profile-dropdown hidden" id="profileDropdown">
             <a href="profile.html">Profile</a>
             <button id="logoutBtn">Log out</button>
@@ -26,10 +27,18 @@
         </div>
       </div>
 
-      <!-- Mobile hamburger -->
-      <button class="hamburger-button" id="hamburgerToggle">
-        <i class="fas fa-bars"></i>
-      </button>
+      <!-- Mobile profile + hamburger -->
+      <div class="mobile-actions">
+        <div class="profile-wrapper mobile-profile">
+          <button class="profile-button" id="mobileProfileToggle">
+            <i class="fas fa-user-circle"></i>
+          </button>
+        </div>
+
+        <button class="hamburger-button" id="hamburgerToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
     </div>
   </div>
 

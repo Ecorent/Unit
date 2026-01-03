@@ -29,7 +29,6 @@
 .nav-right {
   display: flex;
   align-items: center;
-  padding-right: 5px;
   gap: 12px;
 }
 
@@ -78,7 +77,6 @@
   padding: 0;
   color: var(--dark);
   cursor: pointer;
-  margin-top: 7px;
 }
 
 .profile-button i {
@@ -101,13 +99,10 @@
 
 .profile-dropdown a,
 .profile-dropdown button {
-  display: flex;
-  align-items: center;
   padding: 10px 14px;
   font-size: 0.95rem;
   background: none;
   border: none;
-  width: 100%;
   text-align: left;
   cursor: pointer;
   color: var(--dark);
@@ -143,7 +138,6 @@
 }
 
 .hamburger-button {
-  display: none;
   background: none;
   border: none;
   cursor: pointer;
@@ -154,33 +148,33 @@
   font-size: 1.6rem;
 }
 
+.mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 14px;
+}
+
 .mobile-menu {
   position: absolute;
-  top: 100%;           
+  top: 100%;
   left: 0;
   width: 100%;
   background: var(--box-bg);
   border-top: 1px solid #d1d1d1;
-  padding: 10px 20px 12px;
+  padding: 8px 20px 12px;
   display: flex;
   flex-direction: column;
-  z-index: 2500;       
+  z-index: 2500;
 }
 
-.mobile-menu a,
-.mobile-menu button {
+.mobile-menu a {
   padding: 12px 0;
   font-size: 1rem;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
   color: var(--dark);
   text-decoration: none;
 }
 
-.mobile-menu a:hover,
-.mobile-menu button:hover {
+.mobile-menu a:hover {
   color: var(--buttons);
 }
 
@@ -189,11 +183,11 @@
     display: none;
   }
 
-  .hamburger-button {
-    display: block;
+  .mobile-actions {
+    display: flex;
   }
 
   .nav-logo {
-    height: 52px; 
+    height: 52px;
   }
 }
