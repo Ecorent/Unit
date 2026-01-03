@@ -276,11 +276,14 @@ body {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 6px;
+    overflow-y: hidden;
+    touch-action: pan-x;
   }
 
   .unit-card {
     flex: 0 0 70%;
     scroll-snap-align: start;
+    overflow: hidden;
   }
 
   .unit-carousel,
