@@ -67,6 +67,10 @@
   color: var(--buttons);
 }
 
+.profile-button:hover .profile-circle {
+  border-color: var(--buttons);
+}
+
 .profile-wrapper {
   position: relative;
 }
@@ -126,6 +130,15 @@
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
   background: rgba(0, 0, 0, 0.05);
+}
+
+.profile-circle {
+  width: 1.35rem;
+  height: 1.35rem;
+  border: 2px solid var(--dark);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
 }
 
 .hidden {
@@ -199,6 +212,11 @@
 
   .mobile-actions {
     display: flex;
+  }
+
+  .profile-circle {
+    width: 1.55rem;
+    height: 1.55rem;
   }
 
   .nav-logo {
