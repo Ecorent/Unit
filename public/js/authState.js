@@ -19,13 +19,17 @@ onAuthStateChanged(auth, (user) => {
   if (!user) {
     /* ---------- NOT LOGGED IN ---------- */
 
+    // Explicit auth state
+    navbar.dataset.auth = "logged-out";
+
     profileIcons.forEach(icon => {
       icon.className = "fas fa-user-circle profile-icon";
     });
 
     profileDropdown?.classList.add("hidden");
 
-    const redirectToLogin = () => {
+    const redirectToLogin = (e) => {
+      e.stopPropagation(); // CRITICAL: prevents dropdown flash
       window.location.href = "/login.html";
     };
 
@@ -35,11 +39,13 @@ onAuthStateChanged(auth, (user) => {
   } else {
     /* ---------- LOGGED IN ---------- */
 
+    navbar.dataset.auth = "logged-in";
+
     profileIcons.forEach(icon => {
       icon.className = "profile-circle";
     });
 
-    /* Allow dropdown toggling (handled in navbar.js) */
+    // Dropdown toggling handled by navbar.js
     profileToggle.onclick = null;
     mobileProfileToggle.onclick = null;
   }
