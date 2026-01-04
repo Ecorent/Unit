@@ -76,7 +76,7 @@
 }
 
 .desktop-profile {
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .profile-button {
@@ -133,7 +133,7 @@
 }
 
 .profile-circle {
-  margin-top: 3px;
+  margin-top: 4px;
   width: 1.35rem;
   height: 1.35rem;
   border: 2px solid var(--dark);
