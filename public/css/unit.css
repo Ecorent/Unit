@@ -240,8 +240,8 @@ main {
   }
 
   .price-badge {
-    padding: 7px 14px;
-    font-size: 1rem;
+    padding: 6px 13px;
+    font-size: 0.95rem;
   }
 
   .details {
