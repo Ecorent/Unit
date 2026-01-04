@@ -25,10 +25,13 @@ fetch("/partials/navbar.html")
     const mobileMenu = document.getElementById("mobileMenu");
 
     document.addEventListener("click", (e) => {
-      /* Profile dropdown toggle (only works when enabled by authState.js) */
+      const navbar = document.querySelector(".navbar");
+      const isLoggedIn = navbar?.dataset.auth === "logged-in";
+
+      /* ---------- DESKTOP PROFILE DROPDOWN ---------- */
       if (
-        profileToggle?.contains(e.target) ||
-        mobileProfileToggle?.contains(e.target)
+        isLoggedIn &&
+        profileToggle?.contains(e.target)
       ) {
         profileDropdown?.classList.toggle("hidden");
         return;
@@ -38,7 +41,22 @@ fetch("/partials/navbar.html")
         profileDropdown.classList.add("hidden");
       }
 
-      /* Mobile menu */
+      /* ---------- MOBILE PROFILE MENU ---------- */
+      const mobileProfileMenu = document.getElementById("mobileProfileMenu");
+
+      if (
+        isLoggedIn &&
+        mobileProfileToggle?.contains(e.target)
+      ) {
+        mobileProfileMenu?.classList.toggle("hidden");
+        return;
+      }
+
+      if (mobileProfileMenu && !mobileProfileMenu.contains(e.target)) {
+        mobileProfileMenu.classList.add("hidden");
+      }
+
+      /* ---------- HAMBURGER MENU ---------- */
       if (hamburgerToggle?.contains(e.target)) {
         mobileMenu?.classList.toggle("hidden");
       } else if (!mobileMenu?.contains(e.target)) {

@@ -142,6 +142,37 @@
   box-sizing: border-box;
 }
 
+.mobile-profile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: var(--box-bg);
+  border-top: 1px solid #d1d1d1;
+  padding: 8px 20px 12px;
+  display: flex;
+  flex-direction: column;
+  z-index: 2500;
+}
+
+.mobile-profile-menu a,
+.mobile-profile-menu button {
+  padding: 12px 0;
+  font-size: 1rem;
+  color: var(--dark);
+  text-decoration: none;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.mobile-profile-menu a:hover,
+.mobile-profile-menu button:hover {
+  color: var(--buttons);
+}
+
 .hidden {
   display: none !important;
 }
