@@ -298,7 +298,7 @@ main {
 
   .contact-form form {
     justify-content: flex-start;
-    gap: 6px;
+    gap: 8px;
   }
 
   .form-message {
