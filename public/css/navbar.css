@@ -133,6 +133,7 @@
 }
 
 .profile-circle {
+  margin-top: 3px;
   width: 1.35rem;
   height: 1.35rem;
   border: 2px solid var(--dark);
