@@ -7,9 +7,9 @@ import {
 
 onAuthStateChanged(auth, (user) => {
   const navbar = document.querySelector(".navbar");
-  navbar?.classList.remove("auth-loading");
+  if (!navbar) return;
 
-  const profileIcons = document.querySelectorAll(".profile-icon");
+  const profileSlots = document.querySelectorAll(".profile-slot");
   const profileDropdown = document.getElementById("profileDropdown");
   const profileToggle = document.getElementById("profileToggle");
   const mobileProfileToggle = document.getElementById("mobileProfileToggle");
@@ -19,17 +19,16 @@ onAuthStateChanged(auth, (user) => {
   if (!user) {
     /* ---------- NOT LOGGED IN ---------- */
 
-    // Explicit auth state
     navbar.dataset.auth = "logged-out";
 
-    profileIcons.forEach(icon => {
-      icon.className = "fas fa-user-circle profile-icon";
+    profileSlots.forEach(slot => {
+      slot.innerHTML = `<i class="fas fa-user-circle profile-icon"></i>`;
     });
 
     profileDropdown?.classList.add("hidden");
 
     const redirectToLogin = (e) => {
-      e.stopPropagation(); // CRITICAL: prevents dropdown flash
+      e.stopPropagation();
       window.location.href = "/login.html";
     };
 
@@ -41,14 +40,16 @@ onAuthStateChanged(auth, (user) => {
 
     navbar.dataset.auth = "logged-in";
 
-    profileIcons.forEach(icon => {
-      icon.className = "profile-circle";
+    profileSlots.forEach(slot => {
+      slot.innerHTML = `<span class="profile-circle"></span>`;
     });
 
-    // Dropdown toggling handled by navbar.js
     profileToggle.onclick = null;
     mobileProfileToggle.onclick = null;
   }
+
+  /* Reveal navbar ONLY after final state */
+  navbar.classList.remove("auth-loading");
 });
 
 /* ---------- LOGOUT ---------- */
