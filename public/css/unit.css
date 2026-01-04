@@ -282,7 +282,7 @@ main {
   }
 
   .map iframe {
-    height: 300px;
+    height: 280px;
   }
 
   .contact-form input,
@@ -316,6 +316,7 @@ main {
 
   .form-message:not(:empty) {
     min-height: 16px;
-    margin-top: 6px;
+    margin-left: 2px;
+    margin-top: 8px;
   }
 }
