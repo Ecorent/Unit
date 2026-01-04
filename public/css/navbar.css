@@ -183,11 +183,11 @@
   animation: navFadeIn 0.45s ease forwards;
 }
 
-.item-1 { animation-delay: 0.20s; }
-.item-2 { animation-delay: 0.25s; }
-.item-3 { animation-delay: 0.30s; }
-.item-4 { animation-delay: 0.35s; }
-.item-5 { animation-delay: 0.40s; }
+.item-1 { animation-delay: 0.30s; }
+.item-2 { animation-delay: 0.35s; }
+.item-3 { animation-delay: 0.40s; }
+.item-4 { animation-delay: 0.45s; }
+.item-5 { animation-delay: 0.50s; }
 
 @keyframes navFadeIn {
   to {
