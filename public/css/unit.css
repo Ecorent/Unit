@@ -296,11 +296,26 @@ main {
     font-size: clamp(0.85rem, 2.4vw, 0.95rem);
   }
 
+  .contact-form form {
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
   .form-message {
-    min-height: 16px;
+    min-height: 0;
     font-size: clamp(0.85rem, 2.4vw, 0.95rem);
-    margin-left: 2px;
-    margin-top: 4px;
-    margin-bottom: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: min-height 0.2s ease, margin-top 0.2s ease;
+  }
+
+  .form-message:empty {
+    min-height: 0;
+    margin-top: 0;
+  }
+
+  .form-message:not(:empty) {
+    min-height: 16px;
+    margin-top: 6px;
   }
 }
