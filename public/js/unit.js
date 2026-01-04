@@ -128,6 +128,22 @@ function initCarousel(images) {
 }
 
 // 📩 CONTACT FORM (unchanged logic)
+const form = document.getElementById("contactForm");
+const sendButton = form.querySelector("button");
+const requiredFields = form.querySelectorAll("[required]");
+
+function updateSendButtonState() {
+  const allFilled = Array.from(requiredFields).every(
+    field => field.value.trim() !== ""
+  );
+
+  sendButton.classList.toggle("is-ready", allFilled);
+}
+
+requiredFields.forEach(field => {
+  field.addEventListener("input", updateSendButtonState);
+});
+
 document.getElementById("contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -151,6 +167,7 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
 
     messageEl.textContent = "Thank you! Your inquiry has been sent.";
     messageEl.style.color = "green";
+    sendButton.classList.remove("is-ready");
     e.target.reset();
   } catch {
     messageEl.textContent = "Something went wrong. Please try again.";

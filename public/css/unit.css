@@ -203,7 +203,7 @@ main {
   cursor: pointer;
 }
 
-.contact-form button:hover {
+.contact-form button.is-ready {
   background: var(--buttons);
   color: white;
 }
