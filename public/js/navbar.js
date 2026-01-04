@@ -28,36 +28,33 @@ fetch("/partials/navbar.html")
       const navbar = document.querySelector(".navbar");
       const isLoggedIn = navbar?.dataset.auth === "logged-in";
 
-      /* ---------- DESKTOP PROFILE DROPDOWN ---------- */
-      if (
-        isLoggedIn &&
-        profileToggle?.contains(e.target)
-      ) {
-        profileDropdown?.classList.toggle("hidden");
-        return;
-      }
+      const mobileProfileMenu = document.getElementById("mobileProfileMenu");
 
-      if (profileDropdown && !profileDropdown.contains(e.target)) {
+      /* ---------- DESKTOP PROFILE DROPDOWN ---------- */
+      if (isLoggedIn && profileToggle?.contains(e.target)) {
+        profileDropdown?.classList.toggle("hidden");
+      } else if (profileDropdown && !profileDropdown.contains(e.target)) {
         profileDropdown.classList.add("hidden");
       }
 
       /* ---------- MOBILE PROFILE MENU ---------- */
-      const mobileProfileMenu = document.getElementById("mobileProfileMenu");
+      if (isLoggedIn && mobileProfileToggle?.contains(e.target)) {
+        /* Close hamburger first */
+        mobileMenu?.classList.add("hidden");
 
-      if (
-        isLoggedIn &&
-        mobileProfileToggle?.contains(e.target)
-      ) {
         mobileProfileMenu?.classList.toggle("hidden");
-        return;
-      }
-
-      if (mobileProfileMenu && !mobileProfileMenu.contains(e.target)) {
+      } else if (
+        mobileProfileMenu &&
+        !mobileProfileMenu.contains(e.target)
+      ) {
         mobileProfileMenu.classList.add("hidden");
       }
 
       /* ---------- HAMBURGER MENU ---------- */
       if (hamburgerToggle?.contains(e.target)) {
+        /* Close profile menu first */
+        mobileProfileMenu?.classList.add("hidden");
+
         mobileMenu?.classList.toggle("hidden");
       } else if (!mobileMenu?.contains(e.target)) {
         mobileMenu?.classList.add("hidden");
