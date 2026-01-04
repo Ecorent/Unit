@@ -1,7 +1,9 @@
+// public/js/login.js
 import { auth, db } from "./firebase.js";
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   doc,
@@ -55,8 +57,15 @@ signupForm.addEventListener("submit", async (e) => {
       password
     );
 
-    const uid = userCredential.user.uid;
+    const user = userCredential.user;
+    const uid = user.uid;
 
+    /* 🔹 CRITICAL: store name in Firebase Auth */
+    await updateProfile(user, {
+      displayName: name
+    });
+
+    /* Firestore user record (unchanged behavior) */
     await setDoc(doc(db, "users", uid), {
       name,
       phone,
@@ -65,10 +74,9 @@ signupForm.addEventListener("submit", async (e) => {
       createdAt: new Date()
     });
 
-    // Sign out immediately after signup
+    /* Sign out immediately after signup (unchanged) */
     await auth.signOut();
 
-    // Reset only email + password after success as well
     signupNameInput.value = "";
     signupPhoneInput.value = "";
     signupEmailInput.value = "";
@@ -77,6 +85,7 @@ signupForm.addEventListener("submit", async (e) => {
 
   } catch (error) {
     alert(error.message);
+
     signupNameInput.value = "";
     signupPhoneInput.value = "";
     signupEmailInput.value = "";
@@ -115,14 +124,13 @@ loginForm.addEventListener("submit", async (e) => {
   } catch {
     alert("Invalid email or password");
 
-    // Clear incorrect credentials
     loginEmailInput.value = "";
     loginPasswordInput.value = "";
     loginEmailInput.focus();
   }
 });
 
-// ---------- FORGOT PASSWORD (DISABLED) ----------
+// ---------- FORGOT PASSWORD ----------
 forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
   window.location.href = "/forgot-password.html";

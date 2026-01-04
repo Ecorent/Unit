@@ -5,6 +5,21 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+/* ---------- HELPER ---------- */
+function getUserInitial(user) {
+  if (!user) return "";
+
+  if (user.displayName && user.displayName.trim()) {
+    return user.displayName.trim().charAt(0).toUpperCase();
+  }
+
+  if (user.email) {
+    return user.email.charAt(0).toUpperCase();
+  }
+
+  return "";
+}
+
 onAuthStateChanged(auth, (user) => {
   const navbar = document.querySelector(".navbar");
   if (!navbar) return;
@@ -40,15 +55,17 @@ onAuthStateChanged(auth, (user) => {
 
     navbar.dataset.auth = "logged-in";
 
+    const initial = getUserInitial(user);
+
     profileSlots.forEach(slot => {
-      slot.innerHTML = `<span class="profile-circle"></span>`;
+      slot.innerHTML = `<span class="profile-circle">${initial}</span>`;
     });
 
     profileToggle.onclick = null;
     mobileProfileToggle.onclick = null;
   }
 
-  /* Reveal navbar ONLY after final state */
+  /* Reveal navbar ONLY after auth is resolved */
   navbar.classList.remove("auth-loading");
 });
 
