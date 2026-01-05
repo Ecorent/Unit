@@ -294,10 +294,12 @@
   }
 
   .profile-button:focus,
-  .profile-button:focus-visible,
+  .profile-button:focus-visible {
+    color: var(--dark);
+  }
+
   .profile-button:focus .profile-circle,
   .profile-button:focus-visible .profile-circle {
-    color: var(--dark);
     border-color: var(--dark);
   }
 
