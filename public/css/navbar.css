@@ -264,3 +264,14 @@
     font-size: 1.55rem;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .profile-button:hover {
+    color: var(--dark);
+  }
+
+  .profile-button:hover .profile-circle {
+    border-color: var(--dark);
+  }
+}
+
