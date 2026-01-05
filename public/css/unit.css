@@ -201,6 +201,7 @@ main {
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .contact-form button.is-ready {
@@ -211,6 +212,10 @@ main {
 .form-message {
   min-height: 24px;
   font-weight: 500;
+}
+
+.contact-form button:active {
+  transform: scale(0.98);
 }
 
 @media (max-width: 768px) {
