@@ -161,7 +161,7 @@
   width: 100%;
   background: var(--box-bg);
   border-top: 1px solid #d1d1d1;
-  padding: 8px 20px 12px;
+  padding: 8px 0 12px;
   display: flex;
   flex-direction: column;
   z-index: 2500;
@@ -169,7 +169,7 @@
 
 .mobile-profile-menu a,
 .mobile-profile-menu button {
-  padding: 12px 0;
+  padding: 12px 20px;
   font-size: 1rem;
   color: var(--dark);
   background: none;
@@ -208,14 +208,14 @@
   width: 100%;
   background: var(--box-bg);
   border-top: 1px solid #d1d1d1;
-  padding: 8px 20px 12px;
+  padding: 8px 0 12px;
   display: flex;
   flex-direction: column;
   z-index: 2500;
 }
 
 .mobile-menu a {
-  padding: 12px 0;
+  padding: 12px 20px;
   font-size: 1rem;
   color: var(--dark);
   text-decoration: none;
