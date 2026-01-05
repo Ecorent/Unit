@@ -138,7 +138,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  vertical-align: middle;
 }
 
 .profile-circle {
@@ -150,7 +149,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -174,7 +172,6 @@
   padding: 12px 0;
   font-size: 1rem;
   color: var(--dark);
-  text-decoration: none;
   background: none;
   border: none;
   text-align: left;
@@ -182,32 +179,8 @@
   font-family: inherit;
 }
 
-.mobile-profile-menu a:hover,
-.mobile-profile-menu button:hover {
-  color: var(--buttons);
-}
-
 .hidden {
   display: none !important;
-}
-
-.nav-item {
-  opacity: 0;
-  transform: translateY(-6px);
-  animation: navFadeIn 0.45s ease forwards;
-}
-
-.item-1 { animation-delay: 0.30s; }
-.item-2 { animation-delay: 0.35s; }
-.item-3 { animation-delay: 0.40s; }
-.item-4 { animation-delay: 0.45s; }
-.item-5 { animation-delay: 0.50s; }
-
-@keyframes navFadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .hamburger-button {
@@ -247,8 +220,16 @@
   text-decoration: none;
 }
 
-.mobile-menu a:hover {
-  color: var(--buttons);
+.touch-active {
+  color: var(--buttons) !important;
+}
+
+.touch-active .profile-circle {
+  border-color: var(--buttons) !important;
+}
+
+.touch-bg {
+  background: rgba(0, 0, 0, 0.08) !important;
 }
 
 @media (max-width: 768px) {
@@ -281,31 +262,5 @@
 
   .mobile-profile .profile-button i {
     font-size: 1.55rem;
-  }
-
-  .hamburger-button:active,
-  .profile-button:active,
-  .nav-logo:active {
-    color: var(--buttons);
-  }
-
-  .profile-button:active .profile-circle {
-    border-color: var(--buttons);
-  }
-
-  .profile-button:focus,
-  .profile-button:focus-visible {
-    color: var(--dark);
-  }
-
-  .profile-button:focus .profile-circle,
-  .profile-button:focus-visible .profile-circle {
-    border-color: var(--dark);
-  }
-
-  .mobile-menu a:active,
-  .mobile-profile-menu a:active,
-  .mobile-profile-menu button:active {
-    background: rgba(0, 0, 0, 0.08);
   }
 }
