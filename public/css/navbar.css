@@ -177,6 +177,7 @@
   text-align: left;
   cursor: pointer;
   font-family: inherit;
+  text-decoration: none;
 }
 
 .hidden {
