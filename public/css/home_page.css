@@ -72,11 +72,6 @@ body {
   gap: 8px;
 }
 
-.map-lower-button:hover {
-  background: var(--buttons);
-  color: white;
-}
-
 .units {
   max-width: 1200px;
   margin: 0 auto;
@@ -226,9 +221,11 @@ body {
   content: ">";
 }
 
-.view-button:hover {
+.view-button:active,
+.map-lower-button:active {
   background: var(--buttons);
   color: white;
+  transform: scale(0.98);
 }
 
 @media (max-width: 768px) {
@@ -336,3 +333,15 @@ body {
     border: 2px solid var(--buttons);
   }
 }
+
+@media (hover: hover) and (pointer: fine) {
+  .view-button:hover,
+  .map-lower-button:hover {
+    background: var(--buttons);
+    color: white;
+  }
+}
+
+
+
+
