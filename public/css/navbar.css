@@ -252,6 +252,16 @@
 }
 
 @media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a {
+    outline: none;
+    -webkit-focus-ring-color: transparent;
+  }
+
   .desktop-nav {
     display: none;
   }
@@ -270,6 +280,22 @@
   }
 
   .mobile-profile .profile-button i {
-    font-size: 1.55rem; 
+    font-size: 1.55rem;
+  }
+
+  .hamburger-button:active,
+  .profile-button:active,
+  .nav-logo:active {
+    color: var(--buttons);
+  }
+
+  .profile-button:active .profile-circle {
+    border-color: var(--buttons);
+  }
+
+  .mobile-menu a:active,
+  .mobile-profile-menu a:active,
+  .mobile-profile-menu button:active {
+    background: rgba(0, 0, 0, 0.08);
   }
 }
