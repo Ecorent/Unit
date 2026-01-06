@@ -177,3 +177,18 @@ button:active {
   color: #777;
 }
 
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+  }
+
+  .auth-container {
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    padding: 30px 20px;
+    box-shadow: none;
+  }
+}
+
+
