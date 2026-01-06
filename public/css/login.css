@@ -1,6 +1,5 @@
 :root {
   --primary: #27ae60;
-  --google-btn: #1b944d;
   --dark: #2c3e50;
   --light: #f8f9fa;
   --box-bg: #ffffff;
@@ -109,9 +108,10 @@ button:active {
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  background: var(--google-btn);
+  background: var(--primary);
   color: white;
-  border-color: var(--google-btn);
+  border-color: var(--primary);
+  opacity: 0.9;
 }
 
 .google-icon {
