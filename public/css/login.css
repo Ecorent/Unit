@@ -5,11 +5,6 @@
   --box-bg: #ffffff;
 }
 
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
 body {
   margin: 0;
   min-height: 100vh;
@@ -17,6 +12,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .auth-container {
@@ -26,6 +22,7 @@ body {
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
 .auth-header {
@@ -78,6 +75,8 @@ input {
   border-radius: 6px;
   border: 2px solid #ddd;
   font-size: 0.95rem;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 input:focus {
@@ -88,20 +87,21 @@ input:focus {
 button {
   width: 100%;
   padding: 12px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.15s ease;
-}
-
-button:hover {
   background: white;
   color: var(--primary);
   border: 3px solid var(--primary);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: not-allowed;
+  transition: background 0.15s ease, color 0.15s ease;
+  box-sizing: border-box;
+}
+
+button.enabled {
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
 }
 
 .forgot-password {

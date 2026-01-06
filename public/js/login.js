@@ -1,4 +1,3 @@
-// public/js/login.js
 import { auth, db } from "./firebase.js";
 import {
   createUserWithEmailAndPassword,
@@ -11,7 +10,6 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ---------- ELEMENTS ----------
 const loginTab = document.getElementById("loginTab");
 const signupTab = document.getElementById("signupTab");
 const loginForm = document.getElementById("loginForm");
@@ -20,13 +18,44 @@ const forgotPasswordLink = document.getElementById("forgotPassword");
 
 const loginEmailInput = document.getElementById("loginEmail");
 const loginPasswordInput = document.getElementById("loginPassword");
+const loginButton = loginForm.querySelector("button");
 
 const signupNameInput = document.getElementById("signupName");
 const signupPhoneInput = document.getElementById("signupPhone");
 const signupEmailInput = document.getElementById("signupEmail");
 const signupPasswordInput = document.getElementById("signupPassword");
+const signupButton = signupForm.querySelector("button");
 
-// ---------- TAB SWITCHING ----------
+const updateButtonState = (form, button) => {
+  if (form.checkValidity()) {
+    button.classList.add("enabled");
+    button.disabled = false;
+  } else {
+    button.classList.remove("enabled");
+    button.disabled = true;
+  }
+};
+
+[loginEmailInput, loginPasswordInput].forEach(input => {
+  input.addEventListener("input", () => {
+    updateButtonState(loginForm, loginButton);
+  });
+});
+
+[
+  signupNameInput,
+  signupPhoneInput,
+  signupEmailInput,
+  signupPasswordInput
+].forEach(input => {
+  input.addEventListener("input", () => {
+    updateButtonState(signupForm, signupButton);
+  });
+});
+
+updateButtonState(loginForm, loginButton);
+updateButtonState(signupForm, signupButton);
+
 loginTab.onclick = () => {
   loginTab.classList.add("active");
   signupTab.classList.remove("active");
@@ -41,7 +70,6 @@ signupTab.onclick = () => {
   loginForm.classList.remove("active");
 };
 
-// ---------- SIGN UP ----------
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -51,22 +79,12 @@ signupForm.addEventListener("submit", async (e) => {
   const password = signupPasswordInput.value;
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    const uid = user.uid;
 
-    /* 🔹 CRITICAL: store name in Firebase Auth */
-    await updateProfile(user, {
-      displayName: name
-    });
+    await updateProfile(user, { displayName: name });
 
-    /* Firestore user record (unchanged behavior) */
-    await setDoc(doc(db, "users", uid), {
+    await setDoc(doc(db, "users", user.uid), {
       name,
       phone,
       email,
@@ -74,27 +92,20 @@ signupForm.addEventListener("submit", async (e) => {
       createdAt: new Date()
     });
 
-    /* Sign out immediately after signup (unchanged) */
     await auth.signOut();
 
-    signupNameInput.value = "";
-    signupPhoneInput.value = "";
-    signupEmailInput.value = "";
-    signupPasswordInput.value = "";
+    signupForm.reset();
+    updateButtonState(signupForm, signupButton);
     loginTab.click();
 
   } catch (error) {
     alert(error.message);
-
-    signupNameInput.value = "";
-    signupPhoneInput.value = "";
-    signupEmailInput.value = "";
-    signupPasswordInput.value = "";
+    signupForm.reset();
+    updateButtonState(signupForm, signupButton);
     signupNameInput.focus();
   }
 });
 
-// ---------- LOGIN ----------
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -102,12 +113,7 @@ loginForm.addEventListener("submit", async (e) => {
   const password = loginPasswordInput.value;
 
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
 
     const userDoc = await getDoc(doc(db, "users", uid));
@@ -116,21 +122,18 @@ loginForm.addEventListener("submit", async (e) => {
     if (role === "admin") {
       window.open("/sanity", "_blank");
       await auth.signOut();
-      window.location.href = "/index.html";
-    } else {
-      window.location.href = "/index.html";
     }
+
+    window.location.href = "/index.html";
 
   } catch {
     alert("Invalid email or password");
-
-    loginEmailInput.value = "";
-    loginPasswordInput.value = "";
+    loginForm.reset();
+    updateButtonState(loginForm, loginButton);
     loginEmailInput.focus();
   }
 });
 
-// ---------- FORGOT PASSWORD ----------
 forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
   window.location.href = "/forgot-password.html";
