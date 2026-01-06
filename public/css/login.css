@@ -94,13 +94,17 @@ button {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: transform 0.1s ease, background 0.2s ease, color 0.2s ease;
   box-sizing: border-box;
 }
 
 button.enabled {
   background: var(--primary);
   color: white;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 .forgot-password {

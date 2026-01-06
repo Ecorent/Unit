@@ -70,6 +70,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transition: transform 0.1s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .units {
@@ -215,6 +216,7 @@ body {
   text-decoration: none;
   display: flex;
   justify-content: space-between;
+  transition: transform 0.1s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .view-button::after {
