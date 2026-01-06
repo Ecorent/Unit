@@ -108,28 +108,29 @@ button:active {
 }
 
 .google-btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
   margin-bottom: 15px;
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
 }
 
 .google-icon {
-  width: 22px;
-  height: 22px;
-  border: 2px solid var(--primary);
-  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  border: 2px solid white;
+  border-radius: 5px;
   position: absolute;
   left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .google-text {
   pointer-events: none;
-}
-
-.google-btn {
-  position: relative;
 }
 
 .forgot-password {
