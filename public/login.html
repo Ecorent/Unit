@@ -20,7 +20,6 @@
       <h2>Welcome to Ecorentusa</h2>
     </div>
 
-    <!-- Tabs -->
     <div class="auth-tabs">
       <div class="auth-tab active" id="loginTab">Log In</div>
       <div class="auth-tab" id="signupTab">Sign Up</div>
@@ -28,6 +27,12 @@
 
     <!-- LOGIN FORM -->
     <form class="auth-form active" id="loginForm">
+
+      <button type="button" class="google-btn">
+        <span class="google-icon"></span>
+        <span class="google-text">Sign in with Google</span>
+      </button>
+
       <input
         id="loginEmail"
         type="email"
@@ -51,6 +56,12 @@
 
     <!-- SIGN UP FORM -->
     <form class="auth-form" id="signupForm">
+
+      <button type="button" class="google-btn">
+        <span class="google-icon"></span>
+        <span class="google-text">Sign in with Google</span>
+      </button>
+
       <input
         id="signupName"
         type="text"
@@ -62,7 +73,7 @@
         id="signupPhone"
         type="tel"
         placeholder="Phone Number"
-        required 
+        required
         pattern="[0-9\s\-\(\)]{9,20}"
         inputmode="tel"
       />
@@ -89,7 +100,6 @@
     </div>
   </div>
 
-  <!-- IMPORTANT: module -->
   <script type="module" src="/js/login.js"></script>
 </body>
 </html>
