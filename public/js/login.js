@@ -10,6 +10,9 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+/* =========================
+   ELEMENTS
+========================= */
 const loginTab = document.getElementById("loginTab");
 const signupTab = document.getElementById("signupTab");
 const loginForm = document.getElementById("loginForm");
@@ -18,14 +21,21 @@ const forgotPasswordLink = document.getElementById("forgotPassword");
 
 const loginEmailInput = document.getElementById("loginEmail");
 const loginPasswordInput = document.getElementById("loginPassword");
-const loginButton = loginForm.querySelector("button");
+const loginButton = loginForm.querySelector("button[type='submit']");
 
 const signupNameInput = document.getElementById("signupName");
 const signupPhoneInput = document.getElementById("signupPhone");
 const signupEmailInput = document.getElementById("signupEmail");
 const signupPasswordInput = document.getElementById("signupPassword");
-const signupButton = signupForm.querySelector("button");
+const signupButton = signupForm.querySelector("button[type='submit']");
 
+/* Google buttons */
+const loginGoogleText = loginForm.querySelector(".google-text");
+const signupGoogleText = signupForm.querySelector(".google-text");
+
+/* =========================
+   HELPERS
+========================= */
 const updateButtonState = (form, button) => {
   if (form.checkValidity()) {
     button.classList.add("enabled");
@@ -34,6 +44,18 @@ const updateButtonState = (form, button) => {
   }
 };
 
+const setGoogleButtonText = () => {
+  if (loginForm.classList.contains("active")) {
+    loginGoogleText.textContent = "Log in with Google";
+  }
+  if (signupForm.classList.contains("active")) {
+    signupGoogleText.textContent = "Sign up with Google";
+  }
+};
+
+/* =========================
+   INPUT LISTENERS
+========================= */
 [
   loginEmailInput,
   loginPasswordInput
@@ -57,11 +79,15 @@ const updateButtonState = (form, button) => {
 updateButtonState(loginForm, loginButton);
 updateButtonState(signupForm, signupButton);
 
+/* =========================
+   TAB SWITCHING
+========================= */
 loginTab.onclick = () => {
   loginTab.classList.add("active");
   signupTab.classList.remove("active");
   loginForm.classList.add("active");
   signupForm.classList.remove("active");
+  setGoogleButtonText();
 };
 
 signupTab.onclick = () => {
@@ -69,11 +95,14 @@ signupTab.onclick = () => {
   loginTab.classList.remove("active");
   signupForm.classList.add("active");
   loginForm.classList.remove("active");
+  setGoogleButtonText();
 };
 
+/* =========================
+   SIGN UP
+========================= */
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-
   if (!signupForm.reportValidity()) return;
 
   const name = signupNameInput.value.trim();
@@ -109,9 +138,11 @@ signupForm.addEventListener("submit", async (e) => {
   }
 });
 
+/* =========================
+   LOG IN
+========================= */
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-
   if (!loginForm.reportValidity()) return;
 
   const email = loginEmailInput.value.trim();
@@ -139,7 +170,15 @@ loginForm.addEventListener("submit", async (e) => {
   }
 });
 
+/* =========================
+   FORGOT PASSWORD
+========================= */
 forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
   window.location.href = "/forgot-password.html";
 });
+
+/* =========================
+   INITIAL STATE
+========================= */
+setGoogleButtonText();
