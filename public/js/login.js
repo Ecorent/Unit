@@ -29,29 +29,30 @@ const signupButton = signupForm.querySelector("button");
 const updateButtonState = (form, button) => {
   if (form.checkValidity()) {
     button.classList.add("enabled");
-    button.disabled = false;
   } else {
     button.classList.remove("enabled");
-    button.disabled = true;
   }
 };
 
-[loginEmailInput, loginPasswordInput].forEach(input => {
-  input.addEventListener("input", () => {
-    updateButtonState(loginForm, loginButton);
-  });
-});
+[
+  loginEmailInput,
+  loginPasswordInput
+].forEach(input =>
+  input.addEventListener("input", () =>
+    updateButtonState(loginForm, loginButton)
+  )
+);
 
 [
   signupNameInput,
   signupPhoneInput,
   signupEmailInput,
   signupPasswordInput
-].forEach(input => {
-  input.addEventListener("input", () => {
-    updateButtonState(signupForm, signupButton);
-  });
-});
+].forEach(input =>
+  input.addEventListener("input", () =>
+    updateButtonState(signupForm, signupButton)
+  )
+);
 
 updateButtonState(loginForm, loginButton);
 updateButtonState(signupForm, signupButton);
@@ -72,6 +73,8 @@ signupTab.onclick = () => {
 
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  if (!signupForm.reportValidity()) return;
 
   const name = signupNameInput.value.trim();
   const phone = signupPhoneInput.value.trim();
@@ -108,6 +111,8 @@ signupForm.addEventListener("submit", async (e) => {
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  if (!loginForm.reportValidity()) return;
 
   const email = loginEmailInput.value.trim();
   const password = loginPasswordInput.value;

@@ -93,7 +93,7 @@ button {
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 600;
-  cursor: not-allowed;
+  cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
   box-sizing: border-box;
 }
@@ -101,7 +101,6 @@ button {
 button.enabled {
   background: var(--primary);
   color: white;
-  cursor: pointer;
 }
 
 .forgot-password {
