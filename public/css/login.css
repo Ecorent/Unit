@@ -98,11 +98,6 @@ button {
   box-sizing: border-box;
 }
 
-button.enabled {
-  background: var(--primary);
-  color: white;
-}
-
 button:active {
   transform: scale(0.98);
 }
@@ -125,11 +120,11 @@ button:active {
   border-radius: 5px;
   position: absolute;
   left: 7.5px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(-50%);
-  top: 50%;
 }
 
 .google-icon img {
@@ -139,6 +134,26 @@ button:active {
 
 .google-text {
   pointer-events: none;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+.divider span {
+  padding: 0 12px;
 }
 
 .forgot-password {

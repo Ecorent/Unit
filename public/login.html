@@ -8,7 +8,6 @@
 
   <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="css/login.css" />
 </head>
 
@@ -25,7 +24,6 @@
       <div class="auth-tab" id="signupTab">Sign Up</div>
     </div>
 
-    <!-- LOGIN FORM -->
     <form class="auth-form active" id="loginForm">
 
       <button type="button" class="google-btn">
@@ -34,6 +32,10 @@
         </span>
         <span class="google-text">Sign in with Google</span>
       </button>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
 
       <input
         id="loginEmail"
@@ -56,15 +58,18 @@
       </a>
     </form>
 
-    <!-- SIGN UP FORM -->
     <form class="auth-form" id="signupForm">
 
       <button type="button" class="google-btn">
-          <span class="google-icon">
-            <img src="images/google-icon.png" alt="Google logo">
-          </span>
+        <span class="google-icon">
+          <img src="images/google-icon.png" alt="Google logo">
+        </span>
         <span class="google-text">Sign in with Google</span>
       </button>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
 
       <input
         id="signupName"
