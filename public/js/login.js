@@ -29,10 +29,6 @@ const signupEmailInput = document.getElementById("signupEmail");
 const signupPasswordInput = document.getElementById("signupPassword");
 const signupButton = signupForm.querySelector("button[type='submit']");
 
-/* Google buttons */
-const loginGoogleText = loginForm.querySelector(".google-text");
-const signupGoogleText = signupForm.querySelector(".google-text");
-
 /* =========================
    HELPERS
 ========================= */
@@ -41,15 +37,6 @@ const updateButtonState = (form, button) => {
     button.classList.add("enabled");
   } else {
     button.classList.remove("enabled");
-  }
-};
-
-const setGoogleButtonText = () => {
-  if (loginForm.classList.contains("active")) {
-    loginGoogleText.textContent = "Log in with Google";
-  }
-  if (signupForm.classList.contains("active")) {
-    signupGoogleText.textContent = "Sign up with Google";
   }
 };
 
@@ -87,7 +74,6 @@ loginTab.onclick = () => {
   signupTab.classList.remove("active");
   loginForm.classList.add("active");
   signupForm.classList.remove("active");
-  setGoogleButtonText();
 };
 
 signupTab.onclick = () => {
@@ -95,7 +81,6 @@ signupTab.onclick = () => {
   loginTab.classList.remove("active");
   signupForm.classList.add("active");
   loginForm.classList.remove("active");
-  setGoogleButtonText();
 };
 
 /* =========================
@@ -177,8 +162,3 @@ forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
   window.location.href = "/forgot-password.html";
 });
-
-/* =========================
-   INITIAL STATE
-========================= */
-setGoogleButtonText();
