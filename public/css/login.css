@@ -124,9 +124,14 @@ button:active {
   border: 2px solid white;
   border-radius: 5px;
   position: absolute;
-  left: 12px;
+  left: 8px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.google-icon img {
+  width: 27px;
+  height: 27px;
 }
 
 .google-text {
