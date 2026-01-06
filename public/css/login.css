@@ -15,6 +15,10 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .auth-container {
   background: var(--box-bg);
   width: 100%;
@@ -111,7 +115,7 @@ button:active {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .google-icon {
