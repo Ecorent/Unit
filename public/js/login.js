@@ -160,5 +160,12 @@ loginForm.addEventListener("submit", async (e) => {
 ========================= */
 forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
-  window.location.href = "/forgot-password.html";
+
+  const isDesktop = window.matchMedia("(min-width: 769px)").matches;
+
+  if (isDesktop) {
+    window.open("/forgot-password.html", "_blank");
+  } else {
+    window.location.href = "/forgot-password.html";
+  }
 });
