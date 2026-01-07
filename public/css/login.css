@@ -27,8 +27,8 @@ body {
   max-width: 480px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  max-height: calc(100vh - 75px);
-  height: calc(100vh - 75px);
+  max-height: calc(100vh - 80px);
+  height: calc(100vh - 80px);
   overflow: hidden;
 }
 
