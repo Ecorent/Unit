@@ -117,6 +117,11 @@ button {
   box-sizing: border-box;
 }
 
+button.enabled {
+  background: var(--desktop);
+  color: white;
+}
+
 button:active {
   transform: scale(0.98);
 }
