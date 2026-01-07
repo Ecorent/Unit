@@ -7,13 +7,13 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--light);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
-  padding: 40px 0;
+  overflow: hidden;
 }
 
 * {
@@ -28,13 +28,8 @@ body {
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   box-sizing: border-box;
-}
-
-@media (min-width: 769px) {
-  .auth-container {
-    max-height: calc(100vh - 80px);
-    overflow-y: auto;
-  }
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
 }
 
 .auth-header {
@@ -123,6 +118,7 @@ button:active {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
+  opacity: 0.95;
 }
 
 .google-icon {
@@ -191,16 +187,18 @@ button:active {
 
 @media (max-width: 768px) {
   body {
+    height: auto;
+    overflow: auto;
     align-items: flex-start;
-    padding: 0;
   }
 
   .auth-container {
     max-width: 100%;
     min-height: 100vh;
+    max-height: none;
+    overflow: visible;
     border-radius: 0;
     padding: 30px 35px;
     box-shadow: none;
   }
 }
-
