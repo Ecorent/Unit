@@ -170,3 +170,11 @@ forgotPasswordLink.addEventListener("click", (e) => {
   }
 });
 
+window.addEventListener("popstate", () => {
+  if (history.state?.authRoot) {
+    window.location.href = "/index.html";
+  }
+});
+
+
+

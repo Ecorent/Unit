@@ -39,3 +39,10 @@ resetForm.addEventListener("submit", async (e) => {
     resetEmailInput.focus();
   }
 });
+
+window.addEventListener("popstate", () => {
+  if (history.state?.authRoot) {
+    window.location.href = "/index.html";
+  }
+});
+
