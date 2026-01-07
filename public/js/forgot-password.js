@@ -32,7 +32,14 @@ resetForm.addEventListener("submit", async (e) => {
 
     resetForm.reset();
     updateButtonState();
-    window.location.href = "/login.html";
+
+    const isDesktop = window.matchMedia("(min-width: 769px)").matches;
+
+    if (isDesktop) {
+      window.close();
+    } else {
+      window.location.replace("/login.html");
+    }
 
   } catch (error) {
     alert(error.message);
