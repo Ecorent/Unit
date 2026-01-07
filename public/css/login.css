@@ -25,19 +25,13 @@ body {
   background: var(--box-bg);
   width: 100%;
   max-width: 420px;
-  padding: 0;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   box-sizing: border-box;
   max-height: calc(100vh - 75px);
-  overflow: hidden;
-}
-
-.auth-content {
-  padding: 40px;
-  box-sizing: border-box;
-  max-height: 100%;
   overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 .auth-header {
@@ -206,12 +200,8 @@ button:active {
     max-height: none;
     overflow: visible;
     border-radius: 0;
-    box-shadow: none;
-  }
-
-  .auth-content {
     padding: 30px 35px;
-    overflow: visible;
+    box-shadow: none;
   }
 
   .google-btn {
