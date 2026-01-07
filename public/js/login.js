@@ -33,7 +33,11 @@ const signupButton = signupForm.querySelector("button[type='submit']");
    HELPERS
 ========================= */
 const updateButtonState = (form, button) => {
-  button.classList.toggle("enabled", form.checkValidity());
+  if (form.checkValidity()) {
+    button.classList.add("enabled");
+  } else {
+    button.classList.remove("enabled");
+  }
 };
 
 /* =========================
@@ -86,31 +90,36 @@ signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!signupForm.reportValidity()) return;
 
+  const name = signupNameInput.value.trim();
+  const phone = signupPhoneInput.value.trim();
+  const email = signupEmailInput.value.trim();
+  const password = signupPasswordInput.value;
+
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      signupEmailInput.value.trim(),
-      signupPasswordInput.value
-    );
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-    await updateProfile(userCredential.user, {
-      displayName: signupNameInput.value.trim()
-    });
+    await updateProfile(user, { displayName: name });
 
-    await setDoc(doc(db, "users", userCredential.user.uid), {
-      name: signupNameInput.value.trim(),
-      phone: signupPhoneInput.value.trim(),
-      email: signupEmailInput.value.trim(),
+    await setDoc(doc(db, "users", user.uid), {
+      name,
+      phone,
+      email,
       role: "user",
       createdAt: new Date()
     });
 
     await auth.signOut();
+
     signupForm.reset();
+    updateButtonState(signupForm, signupButton);
     loginTab.click();
 
   } catch (error) {
     alert(error.message);
+    signupForm.reset();
+    updateButtonState(signupForm, signupButton);
+    signupNameInput.focus();
   }
 });
 
@@ -121,14 +130,14 @@ loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!loginForm.reportValidity()) return;
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      loginEmailInput.value.trim(),
-      loginPasswordInput.value
-    );
+  const email = loginEmailInput.value.trim();
+  const password = loginPasswordInput.value;
 
-    const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid;
+
+    const userDoc = await getDoc(doc(db, "users", uid));
     const role = userDoc.exists() ? userDoc.data().role : "user";
 
     if (role === "admin") {
@@ -140,6 +149,9 @@ loginForm.addEventListener("submit", async (e) => {
 
   } catch {
     alert("Invalid email or password");
+    loginForm.reset();
+    updateButtonState(loginForm, loginButton);
+    loginEmailInput.focus();
   }
 });
 
@@ -148,11 +160,12 @@ loginForm.addEventListener("submit", async (e) => {
 ========================= */
 forgotPasswordLink.addEventListener("click", (e) => {
   e.preventDefault();
+
   const isDesktop = window.matchMedia("(min-width: 769px)").matches;
 
   if (isDesktop) {
     window.open("/forgot-password.html", "_blank");
   } else {
-    window.location.replace("/forgot-password.html");
+    window.location.href = "/forgot-password.html";
   }
 });

@@ -8,12 +8,15 @@ import {
 /* ---------- HELPER ---------- */
 function getUserInitial(user) {
   if (!user) return "";
-  if (user.displayName?.trim()) {
+
+  if (user.displayName && user.displayName.trim()) {
     return user.displayName.trim().charAt(0).toUpperCase();
   }
+
   if (user.email) {
     return user.email.charAt(0).toUpperCase();
   }
+
   return "";
 }
 
@@ -29,6 +32,8 @@ onAuthStateChanged(auth, (user) => {
   if (!profileToggle || !mobileProfileToggle) return;
 
   if (!user) {
+    /* ---------- NOT LOGGED IN ---------- */
+
     navbar.dataset.auth = "logged-out";
 
     profileSlots.forEach(slot => {
@@ -39,16 +44,12 @@ onAuthStateChanged(auth, (user) => {
 
     const redirectToLogin = (e) => {
       e.stopPropagation();
+
       const isDesktop = window.matchMedia("(min-width: 769px)").matches;
 
       if (isDesktop) {
         window.open("/login.html", "_blank");
       } else {
-        history.pushState(
-          { from: window.location.pathname },
-          "",
-          "/login.html"
-        );
         window.location.href = "/login.html";
       }
     };
@@ -57,9 +58,12 @@ onAuthStateChanged(auth, (user) => {
     mobileProfileToggle.onclick = redirectToLogin;
 
   } else {
+    /* ---------- LOGGED IN ---------- */
+
     navbar.dataset.auth = "logged-in";
 
     const initial = getUserInitial(user);
+
     profileSlots.forEach(slot => {
       slot.innerHTML = `<span class="profile-circle">${initial}</span>`;
     });
@@ -68,6 +72,7 @@ onAuthStateChanged(auth, (user) => {
     mobileProfileToggle.onclick = null;
   }
 
+  /* Reveal navbar ONLY after auth is resolved */
   navbar.classList.remove("auth-loading");
 });
 
