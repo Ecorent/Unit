@@ -32,7 +32,7 @@ resetForm.addEventListener("submit", async (e) => {
 
     resetForm.reset();
     updateButtonState();
-    window.location.href = "/login.html";
+    window.location.replace("/login.html");
 
   } catch (error) {
     alert(error.message);

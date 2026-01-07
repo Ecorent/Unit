@@ -50,7 +50,7 @@ onAuthStateChanged(auth, (user) => {
       if (isDesktop) {
         window.open("/login.html", "_blank");
       } else {
-        window.location.href = "/login.html";
+        window.location.replace("/login.html");
       }
     };
 
