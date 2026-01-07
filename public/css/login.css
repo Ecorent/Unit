@@ -123,7 +123,6 @@ button:active {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
-  opacity: 0.95;
 }
 
 .google-icon {
