@@ -6,6 +6,7 @@ import {
 const resetForm = document.getElementById("resetForm");
 const resetEmailInput = document.getElementById("resetEmail");
 const resetButton = resetForm.querySelector("button[type='submit']");
+const backToLoginLink = document.querySelector(".forgot-password");
 
 const updateButtonState = () => {
   resetButton.classList.toggle(
@@ -17,6 +18,7 @@ const updateButtonState = () => {
 resetEmailInput.addEventListener("input", updateButtonState);
 updateButtonState();
 
+/* ---------- SUBMIT RESET ---------- */
 resetForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!resetForm.reportValidity()) return;
@@ -38,11 +40,24 @@ resetForm.addEventListener("submit", async (e) => {
     if (isDesktop) {
       window.close();
     } else {
-      window.location.replace("/login.html");
+      window.location.href = "/login.html";
     }
 
   } catch (error) {
     alert(error.message);
     resetEmailInput.focus();
+  }
+});
+
+/* ---------- BACK TO LOGIN LINK ---------- */
+backToLoginLink.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const isDesktop = window.matchMedia("(min-width: 769px)").matches;
+
+  if (isDesktop) {
+    window.close();
+  } else {
+    window.location.href = "/login.html";
   }
 });
