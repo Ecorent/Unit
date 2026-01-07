@@ -232,7 +232,6 @@ button:active {
 
   button.enabled {
     background: var(--mobile);
-    color: white;
   }
 
   .forgot-password {
