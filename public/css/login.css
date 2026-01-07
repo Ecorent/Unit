@@ -24,7 +24,7 @@ body {
 .auth-container {
   background: var(--box-bg);
   width: 100%;
-  max-width: 420px;
+  max-width: 500px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   max-height: calc(100vh - 75px);
@@ -37,7 +37,12 @@ body {
   padding: 40px;
   box-sizing: border-box;
   overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding-right: calc(40px - 8px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.25) transparent;
 }
+
 
 .auth-header {
   text-align: center;
