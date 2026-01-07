@@ -60,7 +60,7 @@ body {
 }
 
 .auth-subtext {
-  margin-top: 12px;
+  margin-top: 13px;
   margin-bottom: 12px;
   font-size: 0.95rem;
   color: #666;
@@ -68,8 +68,8 @@ body {
 }
 
 .auth-subtext-forgot {
-  margin-top: 12px;
-  margin-bottom: 20px;
+  margin-top: 2px;
+  margin-bottom: 22px;
   font-size: 0.95rem;
   color: #666;
   line-height: 1.4;
