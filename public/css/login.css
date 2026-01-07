@@ -31,7 +31,7 @@ body {
   box-sizing: border-box;
   max-height: calc(100vh - 75px);
   overflow-y: auto;
-  scrollbar-gutter: stable;
+  scrollbar-gutter: stable both-edges;
 }
 
 .auth-header {
@@ -210,7 +210,7 @@ button:active {
     opacity: 1;
   }
 
-  .auth-tab.active {
+ .auth-tab.active {
     color: var(--mobile);
     border-bottom: 3px solid var(--mobile);
   }
