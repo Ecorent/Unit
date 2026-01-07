@@ -1,5 +1,6 @@
 :root {
-  --primary: #1f9c53;
+  --mobile: #1f9c53;
+  --desktop: #27ae60;
   --dark: #2c3e50;
   --light: #f8f9fa;
   --box-bg: #ffffff;
@@ -63,8 +64,8 @@ body {
 }
 
 .auth-tab.active {
-  color: var(--primary);
-  border-bottom: 3px solid var(--primary);
+  color: var(--desktop);
+  border-bottom: 3px solid var(--desktop);
 }
 
 .auth-form {
@@ -88,15 +89,15 @@ input {
 
 input:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: var(--desktop);
 }
 
 button {
   width: 100%;
   padding: 12px;
   background: white;
-  color: var(--primary);
-  border: 2px solid var(--primary);
+  color: var(--desktop);
+  border: 2px solid var(--desktop);
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 600;
@@ -115,9 +116,9 @@ button:active {
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  background: var(--primary);
+  background: var(--desktop);
   color: white;
-  border-color: var(--primary);
+  border-color: var(--desktop);
   opacity: 0.95;
 }
 
@@ -169,7 +170,7 @@ button:active {
   text-align: center;
   margin-top: 15px;
   font-size: 0.9rem;
-  color: var(--primary);
+  color: var(--desktop);
   text-decoration: none;
   font-weight: 500;
 }
@@ -200,5 +201,29 @@ button:active {
     border-radius: 0;
     padding: 30px 35px;
     box-shadow: none;
+  }
+
+  .google-btn {
+    background: var(--mobile);
+    border-color: var(--mobile);
+    opacity: 1;
+  }
+
+ .auth-tab.active {
+    color: var(--mobile);
+    border-bottom: 3px solid var(--mobile);
+  }
+
+  input:focus {
+    border-color: var(--mobile);
+  }
+
+  button {
+    color: var(--mobile);
+    border: 2px solid var(--mobile);
+  }
+
+  .forgot-password {
+    color: var(--mobile);
   }
 }
