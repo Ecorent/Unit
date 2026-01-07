@@ -1,4 +1,3 @@
-// public/js/forgot-password.js
 import { auth } from "./firebase.js";
 import {
   sendPasswordResetEmail
@@ -6,9 +5,21 @@ import {
 
 const resetForm = document.getElementById("resetForm");
 const resetEmailInput = document.getElementById("resetEmail");
+const resetButton = resetForm.querySelector("button[type='submit']");
+
+const updateButtonState = () => {
+  resetButton.classList.toggle(
+    "enabled",
+    resetForm.checkValidity()
+  );
+};
+
+resetEmailInput.addEventListener("input", updateButtonState);
+updateButtonState();
 
 resetForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (!resetForm.reportValidity()) return;
 
   const email = resetEmailInput.value.trim();
 
@@ -19,10 +30,8 @@ resetForm.addEventListener("submit", async (e) => {
       "If an account with that email exists, a password reset link has been sent."
     );
 
-    // Clear input
-    resetEmailInput.value = "";
-
-    // Redirect back to login page
+    resetForm.reset();
+    updateButtonState();
     window.location.href = "/login.html";
 
   } catch (error) {
