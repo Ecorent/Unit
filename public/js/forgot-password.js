@@ -8,23 +8,23 @@ const resetEmailInput = document.getElementById("resetEmail");
 const resetButton = resetForm.querySelector("button[type='submit']");
 
 const updateButtonState = () => {
-  resetButton.classList.toggle(
-    "enabled",
-    resetForm.checkValidity()
-  );
+  resetButton.classList.toggle("enabled", resetForm.checkValidity());
 };
 
 resetEmailInput.addEventListener("input", updateButtonState);
 updateButtonState();
 
+/* FORCE BACK TO LOGIN */
+window.addEventListener("popstate", () => {
+  window.location.replace("/login.html");
+});
+
 resetForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!resetForm.reportValidity()) return;
 
-  const email = resetEmailInput.value.trim();
-
   try {
-    await sendPasswordResetEmail(auth, email);
+    await sendPasswordResetEmail(auth, resetEmailInput.value.trim());
 
     alert(
       "If an account with that email exists, a password reset link has been sent."
@@ -39,10 +39,3 @@ resetForm.addEventListener("submit", async (e) => {
     resetEmailInput.focus();
   }
 });
-
-window.addEventListener("popstate", () => {
-  if (history.state?.authRoot) {
-    window.location.href = "/index.html";
-  }
-});
-
