@@ -13,6 +13,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
+  padding: 40px 0;
 }
 
 * {
@@ -27,6 +28,13 @@ body {
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   box-sizing: border-box;
+}
+
+@media (min-width: 769px) {
+  .auth-container {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
 }
 
 .auth-header {
@@ -185,6 +193,7 @@ button:active {
 @media (max-width: 768px) {
   body {
     align-items: flex-start;
+    padding: 0;
   }
 
   .auth-container {
@@ -195,5 +204,4 @@ button:active {
     box-shadow: none;
   }
 }
-
 
