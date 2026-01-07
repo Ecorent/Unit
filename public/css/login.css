@@ -28,13 +28,14 @@ body {
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   max-height: calc(100vh - 75px);
+  height: calc(100vh - 75px);
   overflow: hidden;
 }
 
 .auth-scroll {
+  height: 100%;
   padding: 40px;
   box-sizing: border-box;
-  max-height: 100%;
   overflow-y: auto;
 }
 
@@ -190,6 +191,7 @@ button:active {
   .auth-container {
     max-width: 100%;
     min-height: 100vh;
+    height: auto;
     border-radius: 0;
     box-shadow: none;
   }
