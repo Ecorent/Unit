@@ -60,15 +60,15 @@ body {
 }
 
 .auth-subtext {
-  margin-top: 13px;
-  margin-bottom: 12px;
+  margin-top: 14px;
+  margin-bottom: 13px;
   font-size: 0.95rem;
   color: #666;
   line-height: 1.4;
 }
 
 .auth-subtext-forgot {
-  margin-top: 2px;
+  margin-top: 14px;
   margin-bottom: 22px;
   font-size: 0.95rem;
   color: #666;
@@ -228,7 +228,7 @@ button:active {
   }
 
   .auth-subtext {
-    margin-top: 10px;
+    margin-top: 11px;
     font-size: 0.9rem;
   }
 
