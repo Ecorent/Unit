@@ -25,13 +25,17 @@ body {
   background: var(--box-bg);
   width: 100%;
   max-width: 420px;
-  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  box-sizing: border-box;
   max-height: calc(100vh - 75px);
+  overflow: hidden;
+}
+
+.auth-scroll {
+  padding: 40px;
+  box-sizing: border-box;
+  max-height: 100%;
   overflow-y: auto;
-  scrollbar-gutter: stable;
 }
 
 .auth-header {
@@ -120,7 +124,6 @@ button:active {
   background: var(--desktop);
   color: white;
   border-color: var(--desktop);
-  opacity: 0.95;
 }
 
 .google-icon {
@@ -142,16 +145,11 @@ button:active {
   height: 20px;
 }
 
-.google-text {
-  pointer-events: none;
-}
-
 .divider {
   display: flex;
   align-items: center;
   margin: 20px 0;
   color: #999;
-  font-size: 0.9rem;
 }
 
 .divider::before,
@@ -173,11 +171,6 @@ button:active {
   font-size: 0.9rem;
   color: var(--desktop);
   text-decoration: none;
-  font-weight: 500;
-}
-
-.forgot-password:hover {
-  text-decoration: underline;
 }
 
 .auth-footer {
@@ -197,17 +190,18 @@ button:active {
   .auth-container {
     max-width: 100%;
     min-height: 100vh;
-    max-height: none;
-    overflow: visible;
     border-radius: 0;
-    padding: 30px 35px;
     box-shadow: none;
+  }
+
+  .auth-scroll {
+    padding: 30px 35px;
+    overflow: visible;
   }
 
   .google-btn {
     background: var(--mobile);
     border-color: var(--mobile);
-    opacity: 1;
   }
 
   .auth-tab.active {
