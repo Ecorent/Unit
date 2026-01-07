@@ -230,6 +230,11 @@ button:active {
     border: 2px solid var(--mobile);
   }
 
+  button.enabled {
+    background: var(--mobile);
+    color: white;
+  }
+
   .forgot-password {
     color: var(--mobile);
   }
