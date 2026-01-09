@@ -272,7 +272,7 @@
   }
 }
 
-@media (max-width: 1250px) {
+@media (min-width: 769px) and (max-width: 1300px) {
   .profile-circle {
     border: 1.5px solid var(--dark);
     font-weight: 400;
