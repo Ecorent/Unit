@@ -3,11 +3,24 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+/* ---------- MOBILE BACK CONTROL ---------- */
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+if (isMobile) {
+  history.pushState({ page: "forgot-password" }, "", window.location.href);
+
+  window.addEventListener("popstate", () => {
+    window.location.replace("/login.html");
+  });
+}
+
+/* ---------- ELEMENTS ---------- */
 const resetForm = document.getElementById("resetForm");
 const resetEmailInput = document.getElementById("resetEmail");
 const resetButton = resetForm.querySelector("button[type='submit']");
 const backToLoginLink = document.querySelector(".forgot-password");
 
+/* ---------- BUTTON STATE ---------- */
 const updateButtonState = () => {
   resetButton.classList.toggle(
     "enabled",
