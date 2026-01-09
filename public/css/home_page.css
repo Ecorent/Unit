@@ -347,8 +347,8 @@ body {
 @media (min-width: 769px) and (max-width: 1350px) {
   .map-cta,
   .units {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 55px;
+    padding-right: 55px;
   }
 }
 
