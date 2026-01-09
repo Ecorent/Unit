@@ -10,6 +10,13 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+/* ---------- PREVENT BACK TO FORGOT PASSWORD (MOBILE) ---------- */
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+if (isMobile && document.referrer.includes("forgot-password")) {
+  history.replaceState(null, "", "/login.html");
+}
+
 /* =========================
    ELEMENTS
 ========================= */
