@@ -48,5 +48,12 @@ resetForm.addEventListener("submit", async (e) => {
 /* ---------- BACK TO LOGIN ---------- */
 backToLoginLink.addEventListener("click", (e) => {
   e.preventDefault();
-  window.location.replace("/login.html");
+
+  const isDesktop = window.matchMedia("(min-width: 769px)").matches;
+
+  if (isDesktop) {
+    window.close();
+  } else {
+    window.location.replace("/login.html");
+  }
 });
