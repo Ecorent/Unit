@@ -277,6 +277,10 @@
     border: 1.5px solid var(--dark);
     font-weight: 400;
   }
+
+  .nav-container {
+    padding: 0 32px;
+  }
 }
 
 
