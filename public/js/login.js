@@ -176,7 +176,7 @@ forgotPasswordLink.addEventListener("click", (e) => {
   if (isDesktop) {
     window.open("/forgot-password.html", "_blank");
   } else {
-    window.location.href = "/forgot-password.html";
+    window.location.replace("/forgot-password.html");
   }
 });
 
