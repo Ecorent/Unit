@@ -44,6 +44,7 @@ onAuthStateChanged(auth, (user) => {
 
     const redirectToLogin = (e) => {
       e.stopPropagation();
+      sessionStorage.setItem("loginFrom", window.location.href);
       window.location.href = "/login.html";
     };
 

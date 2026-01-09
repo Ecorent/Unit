@@ -10,16 +10,13 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* ---------- PREVENT BACK TO FORGOT PASSWORD (MOBILE) ---------- */
+/* ---------- CLEAN FORGOT FROM BACK STACK (MOBILE SAFE) ---------- */
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-if (isMobile) {
-  history.pushState({ page: "login-lock" }, "", location.href);
-
-  window.addEventListener("popstate", () => {
-    history.pushState({ page: "login-lock" }, "", location.href);
-  });
+if (isMobile && document.referrer.includes("forgot-password")) {
+  history.replaceState(null, "", "/login.html");
 }
+
 
 /* =========================
    ELEMENTS
@@ -156,7 +153,9 @@ loginForm.addEventListener("submit", async (e) => {
       await auth.signOut();
     }
 
-    window.location.href = "/index.html";
+    const returnTo = sessionStorage.getItem("loginFrom") || "/index.html";
+    sessionStorage.removeItem("loginFrom");
+    window.location.href = returnTo;
 
   } catch {
     alert("Invalid email or password");

@@ -3,17 +3,6 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-/* ---------- MOBILE BACK CONTROL ---------- */
-const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-if (isMobile) {
-  history.pushState({ page: "forgot-password" }, "", window.location.href);
-
-  window.addEventListener("popstate", () => {
-    window.location.replace("/login.html");
-  });
-}
-
 /* ---------- ELEMENTS ---------- */
 const resetForm = document.getElementById("resetForm");
 const resetEmailInput = document.getElementById("resetEmail");
@@ -48,13 +37,7 @@ resetForm.addEventListener("submit", async (e) => {
     resetForm.reset();
     updateButtonState();
 
-    const isDesktop = window.matchMedia("(min-width: 769px)").matches;
-
-    if (isDesktop) {
-      window.close();
-    } else {
-      window.location.replace("/login.html");
-    }
+    window.location.replace("/login.html");
 
   } catch (error) {
     alert(error.message);
@@ -62,16 +45,8 @@ resetForm.addEventListener("submit", async (e) => {
   }
 });
 
-/* ---------- BACK TO LOGIN LINK ---------- */
+/* ---------- BACK TO LOGIN ---------- */
 backToLoginLink.addEventListener("click", (e) => {
   e.preventDefault();
-
-  const isDesktop = window.matchMedia("(min-width: 769px)").matches;
-
-  if (isDesktop) {
-    window.close();
-  } else {
-    window.location.replace("/login.html");
-  }
+  window.location.replace("/login.html");
 });
-
