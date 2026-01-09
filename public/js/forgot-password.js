@@ -40,7 +40,7 @@ resetForm.addEventListener("submit", async (e) => {
     if (isDesktop) {
       window.close();
     } else {
-      window.location.href = "/login.html";
+      window.location.replace("/login.html");
     }
 
   } catch (error) {
@@ -58,6 +58,7 @@ backToLoginLink.addEventListener("click", (e) => {
   if (isDesktop) {
     window.close();
   } else {
-    window.location.href = "/login.html";
+    window.location.replace("/login.html");
   }
 });
+
