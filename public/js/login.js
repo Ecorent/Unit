@@ -13,8 +13,12 @@ import {
 /* ---------- PREVENT BACK TO FORGOT PASSWORD (MOBILE) ---------- */
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-if (isMobile && document.referrer.includes("forgot-password")) {
-  history.replaceState(null, "", "/login.html");
+if (isMobile) {
+  history.pushState({ page: "login-lock" }, "", location.href);
+
+  window.addEventListener("popstate", () => {
+    history.pushState({ page: "login-lock" }, "", location.href);
+  });
 }
 
 /* =========================
