@@ -3,25 +3,11 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-/* ---------- FORCE BACK → LOGIN (MOBILE) ---------- */
-const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-if (isMobile) {
-  // Create a fake history entry so popstate WILL fire
-  history.pushState({ locked: true }, "", window.location.href);
-
-  window.addEventListener("popstate", () => {
-    window.location.replace("/login.html");
-  });
-}
-
-/* ---------- ELEMENTS ---------- */
 const resetForm = document.getElementById("resetForm");
 const resetEmailInput = document.getElementById("resetEmail");
 const resetButton = resetForm.querySelector("button[type='submit']");
 const backToLoginLink = document.querySelector(".forgot-password");
 
-/* ---------- BUTTON STATE ---------- */
 const updateButtonState = () => {
   resetButton.classList.toggle(
     "enabled",
@@ -49,7 +35,8 @@ resetForm.addEventListener("submit", async (e) => {
     resetForm.reset();
     updateButtonState();
 
-    window.location.replace("/login.html");
+    // EXPLICIT navigation, no history tricks
+    window.location.href = "/login.html";
 
   } catch (error) {
     alert(error.message);
@@ -60,5 +47,5 @@ resetForm.addEventListener("submit", async (e) => {
 /* ---------- BACK TO LOGIN ---------- */
 backToLoginLink.addEventListener("click", (e) => {
   e.preventDefault();
-  window.location.replace("/login.html");
+  window.location.href = "/login.html";
 });
