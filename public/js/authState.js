@@ -44,14 +44,7 @@ onAuthStateChanged(auth, (user) => {
 
     const redirectToLogin = (e) => {
       e.stopPropagation();
-
-      const isDesktop = window.matchMedia("(min-width: 769px)").matches;
-
-      if (isDesktop) {
-        window.location.href = "/login.html";
-      } else {
-        window.location.replace("/login.html");
-      }
+      window.location.href = "/login.html";
     };
 
     profileToggle.onclick = redirectToLogin;
