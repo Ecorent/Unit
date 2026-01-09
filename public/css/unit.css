@@ -141,7 +141,7 @@ main {
   gap: 10px;
   margin-bottom: 13px;
   padding-left: 10px;
-  font-size: clamp(1rem, 2.8vw, 1.1rem);
+  font-size: clamp(0.9rem, 2.8vw, 1.1rem);
 }
 
 .details li i {
