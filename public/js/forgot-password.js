@@ -3,11 +3,12 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-/* ---------- FORCE BACK → LOGIN (MOBILE ONLY) ---------- */
+/* ---------- FORCE BACK → LOGIN (MOBILE) ---------- */
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
 if (isMobile) {
-  history.replaceState({ page: "forgot" }, "", window.location.href);
+  // Create a fake history entry so popstate WILL fire
+  history.pushState({ locked: true }, "", window.location.href);
 
   window.addEventListener("popstate", () => {
     window.location.replace("/login.html");
