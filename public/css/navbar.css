@@ -272,3 +272,11 @@
   }
 }
 
+@media (max-width: 1100px) {
+  .profile-circle {
+    border: 1.5px solid var(--dark);
+    font-weight: 500;
+  }
+}
+
+
