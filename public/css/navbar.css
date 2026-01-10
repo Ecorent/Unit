@@ -74,14 +74,12 @@
 
 .profile-button,
 .language-button {
+  margin-top: 4px;
   background: none;
   border: none;
   padding: 0;
   color: var(--dark);
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .profile-button i {
