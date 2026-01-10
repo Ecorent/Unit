@@ -329,7 +329,7 @@
   .profile-circle {
     width: 1.55rem;
     height: 1.55rem;
-    transform: translateY(-1.75rem);
+    transform: translateY(-1.75px);
   }
 
   .profile-button {
