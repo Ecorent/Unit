@@ -2,7 +2,9 @@ import { auth, db } from "./firebase.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   doc,
@@ -10,13 +12,17 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+/* ---------- GOOGLE PROVIDER ---------- */
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+auth.useDeviceLanguage();
+
 /* ---------- CLEAN FORGOT FROM BACK STACK (MOBILE SAFE) ---------- */
 const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
 if (isMobile && document.referrer.includes("forgot-password")) {
   history.replaceState(null, "", "/login.html");
 }
-
 
 /* =========================
    ELEMENTS
@@ -30,12 +36,14 @@ const forgotPasswordLink = document.getElementById("forgotPassword");
 const loginEmailInput = document.getElementById("loginEmail");
 const loginPasswordInput = document.getElementById("loginPassword");
 const loginButton = loginForm.querySelector("button[type='submit']");
+const googleLoginBtn = loginForm.querySelector(".google-btn");
 
 const signupNameInput = document.getElementById("signupName");
 const signupPhoneInput = document.getElementById("signupPhone");
 const signupEmailInput = document.getElementById("signupEmail");
 const signupPasswordInput = document.getElementById("signupPassword");
 const signupButton = signupForm.querySelector("button[type='submit']");
+const googleSignupBtn = signupForm.querySelector(".google-btn");
 
 /* =========================
    HELPERS
@@ -92,7 +100,49 @@ signupTab.onclick = () => {
 };
 
 /* =========================
-   SIGN UP
+   GOOGLE AUTH (LOGIN + SIGNUP)
+========================= */
+const handleGoogleAuth = async () => {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, {
+        name: user.displayName || "",
+        phone: user.phoneNumber || "",
+        email: user.email,
+        role: "user",
+        createdAt: new Date()
+      });
+    }
+
+    const role = userSnap.exists() ? userSnap.data().role : "user";
+
+    if (role === "admin") {
+      window.open("/sanity", "_blank");
+      await auth.signOut();
+      return;
+    }
+
+    const returnTo = sessionStorage.getItem("loginFrom") || "/index.html";
+    sessionStorage.removeItem("loginFrom");
+    window.location.href = returnTo;
+
+  } catch (error) {
+    console.error(error);
+    alert("Google sign-in failed. Please try again.");
+  }
+};
+
+googleLoginBtn.addEventListener("click", handleGoogleAuth);
+googleSignupBtn.addEventListener("click", handleGoogleAuth);
+
+/* =========================
+   SIGN UP (EMAIL)
 ========================= */
 signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -132,7 +182,7 @@ signupForm.addEventListener("submit", async (e) => {
 });
 
 /* =========================
-   LOG IN
+   LOG IN (EMAIL)
 ========================= */
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -179,4 +229,3 @@ forgotPasswordLink.addEventListener("click", (e) => {
     window.location.replace("/forgot-password.html");
   }
 });
-
