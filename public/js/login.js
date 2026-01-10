@@ -1,5 +1,5 @@
 import { auth, db } from "./firebase.js";
-import { initI18n } from "/js/i18n.js";
+import { initI18n, t } from "/js/i18n.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -63,7 +63,6 @@ const updateButtonState = (form, button) => {
 const setAuthSubtext = key => {
   authSubtext.setAttribute("data-i18n", key);
 
-  // re-apply translations without re-initializing
   window.dispatchEvent(
     new CustomEvent("languageChanged", {
       detail: localStorage.getItem("lang") || "en"
@@ -151,7 +150,7 @@ const handleGoogleAuth = async () => {
 
   } catch (error) {
     console.error(error);
-    alert("Google sign-in failed. Please try again.");
+    alert(t("google_auth_failed"));
   }
 };
 
@@ -190,7 +189,15 @@ signupForm.addEventListener("submit", async e => {
     loginTab.click();
 
   } catch (error) {
-    alert(error.message);
+    console.error(error);
+
+    if (error.code === "auth/email-already-in-use") {
+      alert(t("email_already_in_use"));
+    } else if (error.code === "auth/weak-password") {
+      alert(t("weak_password"));
+    } else {
+      alert(t("signup_failed"));
+    }
   }
 });
 
@@ -221,7 +228,7 @@ loginForm.addEventListener("submit", async e => {
     window.location.href = returnTo;
 
   } catch {
-    alert("Invalid email or password");
+    alert(t("invalid_login"));
   }
 });
 

@@ -38,6 +38,11 @@ export const translations = {
     back_to_login: "Back to login",
     reset_email_sent: "If an account with that email exists, a password reset link has been sent.",
     reset_error: "Something went wrong. Please try again.",
+    google_auth_failed: "Google sign-in failed. Please try again.",
+    email_already_in_use: "An account with this email already exists.",
+    weak_password: "Password should be at least 6 characters.",
+    signup_failed: "Sign up failed. Please try again.",
+    invalid_login: "Invalid email or password."
   },
 
   es: {
@@ -80,6 +85,11 @@ export const translations = {
     back_to_login: "Volver al inicio de sesión",
     reset_email_sent: "Si existe una cuenta con ese correo, se ha enviado un enlace para restablecer la contraseña.",
     reset_error: "Algo salió mal. Inténtalo de nuevo.",
+    google_auth_failed: "El inicio de sesión con Google falló. Inténtalo de nuevo.",
+    email_already_in_use: "Ya existe una cuenta con este correo.",
+    weak_password: "La contraseña debe tener al menos 6 caracteres.",
+    signup_failed: "El registro falló. Por favor intenta de nuevo.",
+    invalid_login: "Correo o contraseña incorrectos."
   }
 };
 
