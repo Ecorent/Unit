@@ -1,5 +1,6 @@
 // public/js/navbar.js
 import { translations } from "/js/i18n.js";
+
 const navbarContainer = document.getElementById("navbar");
 
 fetch("/partials/navbar.html")
@@ -40,18 +41,19 @@ fetch("/partials/navbar.html")
       localStorage.setItem("lang", lang);
     }
 
-    // Initial load
     applyLanguage(currentLang);
 
     /* ---------- LANGUAGE DROPDOWN ---------- */
 
     languageToggle?.addEventListener("click", (e) => {
       e.stopPropagation();
+      profileDropdown?.classList.add("hidden"); // close profile when opening language
+      mobileProfileMenu?.classList.add("hidden");
       languageDropdown?.classList.toggle("hidden");
     });
 
     languageDropdown?.querySelectorAll("button").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", () => {
         const selectedLang = btn.dataset.lang;
         if (selectedLang) {
           currentLang = selectedLang;
@@ -61,21 +63,13 @@ fetch("/partials/navbar.html")
       });
     });
 
-    /* ---------- TOUCH FEEDBACK (MOBILE SAFE) ---------- */
+    /* ---------- TOUCH FEEDBACK ---------- */
+
     function addTouchFeedback(el) {
       if (!el) return;
-
-      el.addEventListener("pointerdown", () => {
-        el.classList.add("touch-active");
-      });
-
-      el.addEventListener("pointerup", () => {
-        el.classList.remove("touch-active");
-      });
-
-      el.addEventListener("pointerleave", () => {
-        el.classList.remove("touch-active");
-      });
+      el.addEventListener("pointerdown", () => el.classList.add("touch-active"));
+      el.addEventListener("pointerup", () => el.classList.remove("touch-active"));
+      el.addEventListener("pointerleave", () => el.classList.remove("touch-active"));
     }
 
     addTouchFeedback(hamburgerToggle);
@@ -85,24 +79,20 @@ fetch("/partials/navbar.html")
     document.querySelectorAll(
       ".mobile-menu a, .mobile-profile-menu a, .mobile-profile-menu button"
     ).forEach(el => {
-      el.addEventListener("pointerdown", () => {
-        el.classList.add("touch-bg");
-      });
-      el.addEventListener("pointerup", () => {
-        el.classList.remove("touch-bg");
-      });
-      el.addEventListener("pointerleave", () => {
-        el.classList.remove("touch-bg");
-      });
+      el.addEventListener("pointerdown", () => el.classList.add("touch-bg"));
+      el.addEventListener("pointerup", () => el.classList.remove("touch-bg"));
+      el.addEventListener("pointerleave", () => el.classList.remove("touch-bg"));
     });
 
     /* ---------- CLICK LOGIC ---------- */
+
     document.addEventListener("click", (e) => {
       const navbar = document.querySelector(".navbar");
       const isLoggedIn = navbar?.dataset.auth === "logged-in";
 
       /* DESKTOP PROFILE DROPDOWN */
       if (isLoggedIn && profileToggle?.contains(e.target)) {
+        languageDropdown?.classList.add("hidden"); // close language when opening profile
         profileDropdown?.classList.toggle("hidden");
       } else if (profileDropdown && !profileDropdown.contains(e.target)) {
         profileDropdown.classList.add("hidden");
@@ -112,10 +102,7 @@ fetch("/partials/navbar.html")
       if (isLoggedIn && mobileProfileToggle?.contains(e.target)) {
         mobileMenu?.classList.add("hidden");
         mobileProfileMenu?.classList.toggle("hidden");
-      } else if (
-        mobileProfileMenu &&
-        !mobileProfileMenu.contains(e.target)
-      ) {
+      } else if (mobileProfileMenu && !mobileProfileMenu.contains(e.target)) {
         mobileProfileMenu.classList.add("hidden");
       }
 
