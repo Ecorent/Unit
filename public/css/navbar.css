@@ -209,12 +209,11 @@
 .mobile-language-dropdown {
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
 }
 
 .mobile-language-dropdown button {
   font: inherit;
-  padding: 12px 0;
+  padding: 12px 20px;
   font-size: 1rem;
   background: none;
   border: none;
