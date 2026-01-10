@@ -3,7 +3,7 @@ const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 
-// 🌍 CURRENT LANGUAGE (defaults to saved or English)
+// 🌍 CURRENT LANGUAGE (saved or fallback)
 let currentLang = localStorage.getItem("lang") || "en";
 
 // 🧠 QUERY
@@ -37,16 +37,16 @@ function formatPrice(price) {
 fetch(SANITY_URL)
   .then(res => res.json())
   .then(({ result }) => {
-    unitsCache = result;
-    renderUnits(currentLang);
+    unitsCache = result || [];
+    renderUnits();
   });
 
-// 🖼️ RENDER
-function renderUnits(lang) {
+// 🖼️ RENDER (language-aware)
+function renderUnits() {
   unitsGrid.innerHTML = "";
 
   unitsCache.forEach(unit => {
-    unitsGrid.appendChild(createUnitCard(unit, lang));
+    unitsGrid.appendChild(createUnitCard(unit));
   });
 
   initCarousels();
@@ -54,11 +54,13 @@ function renderUnits(lang) {
 }
 
 // 🧱 CARD TEMPLATE
-function createUnitCard(unit, lang) {
+function createUnitCard(unit) {
   const card = document.createElement("div");
   card.className = "unit-card";
 
   const images = unit.images || [];
+  const title =
+    unit.title?.[currentLang] || unit.title?.en || "";
 
   card.innerHTML = `
     <div class="unit-carousel">
@@ -74,7 +76,7 @@ function createUnitCard(unit, lang) {
     </div>
 
     <div class="unit-info">
-      <h3>${unit.title[lang]}</h3>
+      <h3>${title}</h3>
 
       <div class="unit-meta address">
         <span>
@@ -90,12 +92,12 @@ function createUnitCard(unit, lang) {
         </span>
         <span>
           <i class="fas fa-bed"></i>
-          ${unit.bedrooms} Bedrooms
+          ${unit.bedrooms} ${currentLang === "es" ? "Habitaciones" : "Bedrooms"}
         </span>
       </div>
 
       <a href="unit.html?slug=${unit.slug.current}" class="view-button">
-        View Details
+        ${currentLang === "es" ? "Ver detalles" : "View Details"}
       </a>
     </div>
   `;
@@ -106,6 +108,9 @@ function createUnitCard(unit, lang) {
 // 🎠 CAROUSELS
 function initCarousels() {
   document.querySelectorAll(".unit-carousel").forEach(carousel => {
+    if (carousel.dataset.initialized) return;
+    carousel.dataset.initialized = "true";
+
     const track = carousel.querySelector(".carousel-track");
     const images = track.querySelectorAll("img");
     const blur = carousel.querySelector(".carousel-blur");
@@ -154,5 +159,5 @@ function initAnimations() {
 // 🌍 LANGUAGE CHANGE LISTENER
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
-  renderUnits(currentLang);
+  renderUnits();
 });
