@@ -130,6 +130,12 @@
   text-decoration: none;
 }
 
+.language-dropdown button,
+.mobile-language-dropdown button {
+  display: flex;
+  align-items: center;
+}
+
 .profile-dropdown button {
   width: 100%;
   line-height: 1.2;
@@ -141,6 +147,26 @@
 .profile-dropdown button:hover,
 .language-dropdown button:hover {
   background: rgba(0, 0, 0, 0.05);
+}
+
+.lang-flag {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.flag-us {
+  background-image: url("/images/flags/us.png");
+}
+
+.flag-es {
+  background-image: url("/images/flags/es.png");
 }
 
 .profile-slot {
