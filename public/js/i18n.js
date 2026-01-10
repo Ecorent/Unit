@@ -5,7 +5,9 @@ export const translations = {
     maintenance: "Maintenance Requests",
     profile: "Profile",
     logout: "Log out",
-    language: "Language"
+    language: "Language",
+    view_map: "View Map",
+    map_text: "Discover available apartments near you using our interactive rental map service",
   },
   es: {
     home: "Inicio",
@@ -13,6 +15,8 @@ export const translations = {
     maintenance: "Solicitudes de mantenimiento",
     profile: "Perfil",
     logout: "Cerrar sesión",
-    language: "Idioma"
+    language: "Idioma",
+    view_map: "Ver mapa",
+    map_text: "Descubre apartamentos disponibles cerca de ti utilizando nuestro mapa interactivo",
   }
 };
