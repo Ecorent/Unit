@@ -8,7 +8,7 @@
 }
 
 #navbar {
-  min-height: 106px;
+  min-height: 104px;
 }
 
 .nav-container {
@@ -107,6 +107,7 @@
 
 .language-dropdown {
   margin-top: 10px;
+  padding-bottom: 2px;
 }
 
 .profile-dropdown {
