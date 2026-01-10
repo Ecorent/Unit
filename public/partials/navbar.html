@@ -9,10 +9,20 @@
     <div class="nav-right">
       <!-- Desktop navigation -->
       <div class="header-wrapper desktop-nav">
-        <button
-          class="language-button nav-item item-1" id="languageToggle"
-          aria-label="Change language"><i class="fas fa-globe-americas language-icon"></i>
-        </button>
+        <div class="language-wrapper nav-item item-1">
+          <button
+            class="language-button"
+            id="languageToggle"
+            aria-label="Change language"
+          >
+            <i class="fas fa-globe-americas language-icon"></i>
+          </button>
+
+          <div class="language-dropdown hidden" id="languageDropdown">
+            <button data-lang="en">English</button>
+            <button data-lang="es">Español</button>
+          </div>
+        </div>
         <a href="index.html" class="home-button nav-item item-2" data-i18n="home">Home</a>
         <a href="#" class="map-button nav-item item-3" data-i18n="map">Interactive map</a>
         <a
@@ -20,7 +30,7 @@
           class="maintenance-button nav-item item-4"
           target="_blank"
           rel="noopener"
-          data-i18n="maintenance_requests"
+          data-i18n="maintenance"
         >Maintenance Requests</a>
 
         <!-- Desktop profile -->
@@ -31,7 +41,7 @@
 
           <div class="profile-dropdown hidden" id="profileDropdown">
             <a href="profile.html" data-i18n="profile">Profile</a>
-            <button id="logoutBtn" data-i18n="log_out">Log out</button>
+            <button class="logout-btn" data-i18n="log_out">Log out</button>
           </div>
         </div>
       </div>
@@ -59,7 +69,7 @@
       href="https://docs.google.com/forms/d/e/1FAIpQLScTDFaFwp2GOjrj9SK7HdLyD_-6zejxjzNzyA2sdJ2GNbOEdw/viewform"
       target="_blank"
       rel="noopener"
-      data-i18n="maintenance_requests"
+      data-i18n="maintenance"
     >Maintenance Requests</a>
     <a href="#" data-i18n="map">Interactive map</a>
   </div>
@@ -67,6 +77,6 @@
   <!-- Mobile profile menu (logged-in only) -->
   <div class="mobile-profile-menu hidden" id="mobileProfileMenu">
     <a href="profile.html" data-i18n="profile">Profile</a>
-    <button id="logoutBtn" data-i18n="log_out">Log out</button>
+    <button class="logout-btn" data-i18n="log_out">Log out</button>
   </div>
 </nav>

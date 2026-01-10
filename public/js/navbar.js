@@ -26,6 +26,7 @@ fetch("/partials/navbar.html")
     const mobileMenu = document.getElementById("mobileMenu");
 
     const languageToggle = document.getElementById("languageToggle");
+    const languageDropdown = document.getElementById("languageDropdown");
 
     /* ---------- Translation Handling ---------- */
 
@@ -46,10 +47,22 @@ fetch("/partials/navbar.html")
     // Initial load
     applyLanguage(currentLang);
 
-    // Toggle language
-    languageToggle?.addEventListener("click", () => {
-      currentLang = currentLang === "en" ? "es" : "en";
-      applyLanguage(currentLang);
+    /* ---------- LANGUAGE DROPDOWN ---------- */
+
+    languageToggle?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      languageDropdown?.classList.toggle("hidden");
+    });
+
+    languageDropdown?.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const selectedLang = btn.dataset.lang;
+        if (selectedLang) {
+          currentLang = selectedLang;
+          applyLanguage(currentLang);
+          languageDropdown.classList.add("hidden");
+        }
+      });
     });
 
     /* ---------- TOUCH FEEDBACK (MOBILE SAFE) ---------- */
@@ -116,6 +129,15 @@ fetch("/partials/navbar.html")
         mobileMenu?.classList.toggle("hidden");
       } else if (!mobileMenu?.contains(e.target)) {
         mobileMenu?.classList.add("hidden");
+      }
+
+      /* LANGUAGE DROPDOWN CLOSE */
+      if (
+        languageDropdown &&
+        !languageDropdown.contains(e.target) &&
+        !languageToggle?.contains(e.target)
+      ) {
+        languageDropdown.classList.add("hidden");
       }
     });
   })
