@@ -32,10 +32,19 @@ fetch("/partials/navbar.html")
     let currentLang = localStorage.getItem("lang") || "en";
 
     function applyLanguage(lang) {
+      // text content
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.dataset.i18n;
         if (translations[lang]?.[key]) {
           el.textContent = translations[lang][key];
+        }
+      });
+
+      // placeholders
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (translations[lang]?.[key]) {
+          el.placeholder = translations[lang][key];
         }
       });
 

@@ -43,8 +43,8 @@
     <div class="contact-form card">
       <h2 class="section-title" data-i18n="contacto">Contact Us</h2>
       <form id="contactForm">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
+        <input type="text" name="name" data-i18n-placeholder="name_placeholder" required />
+        <input type="email" name="email" data-i18n-placeholder="email_placeholder" required />
         <input 
         type="tel" 
         name="phone" 
@@ -52,9 +52,9 @@
         required 
         pattern="[0-9\s\-\(\)]{9,20}"
         inputmode="tel"
-        placeholder="Your Phone Number" 
+        data-i18n-placeholder="phone_placeholder" 
         />
-        <textarea name="message" placeholder="Message" rows="4" required></textarea>
+        <textarea name="message" data-i18n-placeholder="message_placeholder" rows="4" required></textarea>
         <button type="submit" data-i18n="mensaje">Send Message</button>
         <p class="form-message" id="form-message"></p>
       </form>

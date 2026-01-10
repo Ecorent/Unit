@@ -12,6 +12,10 @@ export const translations = {
     location: "Location & Directions",
     contacto: "Contact Us",
     mensaje: "Send Message",
+    name_placeholder: "Your Name",
+    email_placeholder: "Your Email",
+    phone_placeholder: "Your Phone Number",
+    message_placeholder: "Message",
   },
   es: {
     home: "Inicio",
@@ -26,5 +30,9 @@ export const translations = {
     location: "Ubicación y direcciones",
     contacto: "Contáctanos",
     mensaje: "Enviar mensaje",
+    name_placeholder: "Tu nombre",
+    email_placeholder: "Tu correo",
+    phone_placeholder: "Tu número de teléfono",
+    message_placeholder: "Mensaje",
   }
 };
