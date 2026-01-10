@@ -17,7 +17,6 @@ export const translations = {
     phone_placeholder: "Phone Number",
     message_placeholder: "Message",
     welcome_message: "Welcome to Ecorentusa",
-    login_subtext: "Log in to manage your account, access your rentals, and continue where you left off.",
     login: "Log In",
     signup: "Sign Up",
     login_with_google: "Log in with Google",
@@ -30,7 +29,9 @@ export const translations = {
     bedrooms: "Bedrooms",
     bathrooms: "Bathrooms",
     pet_friendly: "Pet friendly",
-    no_pets: "No pets allowed"
+    no_pets: "No pets allowed",
+    login_subtext_login: "Log in to manage your account, access your rentals, and continue where you left off.",
+    login_subtext_signup: "Create an account to start renting, manage your listings, and track your activity.",
   },
 
   es: {
@@ -64,7 +65,9 @@ export const translations = {
     bedrooms: "Habitaciones",
     bathrooms: "Baños",
     pet_friendly: "Se permiten mascotas",
-    no_pets: "No se permiten mascotas"
+    no_pets: "No se permiten mascotas",
+    login_subtext_login: "Inicia sesión para administrar tu cuenta, acceder a tus rentas y continuar donde lo dejaste.",
+    login_subtext_signup: "Crea una cuenta para comenzar a rentar, administrar tus propiedades y rastrear tu actividad.",
   }
 };
 

@@ -37,6 +37,8 @@ const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const forgotPasswordLink = document.getElementById("forgotPassword");
 
+const authSubtext = document.querySelector(".auth-subtext");
+
 const loginEmailInput = document.getElementById("loginEmail");
 const loginPasswordInput = document.getElementById("loginPassword");
 const loginButton = loginForm.querySelector("button[type='submit']");
@@ -56,6 +58,11 @@ const updateButtonState = (form, button) => {
   form.checkValidity()
     ? button.classList.add("enabled")
     : button.classList.remove("enabled");
+};
+
+const setAuthSubtext = key => {
+  authSubtext.setAttribute("data-i18n", key);
+  initI18n(); // re-apply translations safely
 };
 
 /* =========================
@@ -92,6 +99,7 @@ loginTab.onclick = () => {
   signupTab.classList.remove("active");
   loginForm.classList.add("active");
   signupForm.classList.remove("active");
+  setAuthSubtext("login_subtext");
 };
 
 signupTab.onclick = () => {
@@ -99,6 +107,7 @@ signupTab.onclick = () => {
   loginTab.classList.remove("active");
   signupForm.classList.add("active");
   loginForm.classList.remove("active");
+  setAuthSubtext("signup_subtext");
 };
 
 /* =========================
