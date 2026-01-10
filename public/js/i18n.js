@@ -17,6 +17,6 @@ export const translations = {
     logout: "Cerrar sesión",
     language: "Idioma",
     view_map: "Ver mapa",
-    map_text: "Descubre apartamentos disponibles cerca de ti utilizando nuestro mapa interactivo",
+    map_text: "Descubre casas disponibles cerca de ti utilizando nuestro mapa interactivo",
   }
 };
