@@ -1,3 +1,6 @@
+// /js/unit.js
+import { t } from "/js/i18n.js";
+
 // 🔑 SANITY CONFIG
 const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
@@ -54,10 +57,10 @@ fetch(url)
 
 // 💰 PRICE FORMATTER
 function formatPrice(price) {
-  return `$${Number(price).toLocaleString()} / month`;
+  return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
 }
 
-// 🧱 RENDER UNIT (LANG-AWARE)
+// 🧱 RENDER UNIT
 function renderUnit(lang) {
   if (!unitCache) return;
 
@@ -67,30 +70,23 @@ function renderUnit(lang) {
   document.getElementById("unitTitle").textContent = unit.title[lang];
   document.getElementById("unitPrice").textContent = formatPrice(unit.price);
 
-  const details = document.getElementById("unitDetails");
-  details.innerHTML = `
-    <li><i class="fas fa-bed"></i>${unit.bedrooms} ${lang === "es" ? "Habitaciones" : "Bedrooms"}</li>
-    <li><i class="fas fa-bath"></i>${unit.bathrooms} ${lang === "es" ? "Baño" : "Bathroom"}</li>
+  document.getElementById("unitDetails").innerHTML = `
+    <li><i class="fas fa-bed"></i>${unit.bedrooms} ${t("bedrooms")}</li>
+    <li><i class="fas fa-bath"></i>${unit.bathrooms} ${t("bathrooms")}</li>
     <li><i class="fas fa-ruler-combined"></i>${unit.sqft} sq ft</li>
     <li>
       <i class="fas ${unit.petFriendly ? "fa-dog" : "fa-ban"}"></i>
-      ${unit.petFriendly
-        ? (lang === "es" ? "Se permiten mascotas" : "Pet friendly")
-        : (lang === "es" ? "No se permiten mascotas" : "No pets allowed")}
+      ${unit.petFriendly ? t("pet_friendly") : t("no_pets")}
     </li>
     <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded[lang]}</li>
     <li><i class="fas fa-soap"></i>${unit.washerDryer[lang]}</li>
     <li><i class="fas fa-box-archive"></i>${unit.parking[lang]}</li>
-    <li>
-      <i class="fas fa-star"></i>
-      ${unit.locationHighlights[lang]}
-    </li>
+    <li><i class="fas fa-star"></i>${unit.locationHighlights[lang]}</li>
   `;
 
   document.getElementById("mapFrame").src =
     `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed`;
 
-  // Only initialize carousel once
   if (!document.querySelector(".carousel-track")) {
     initCarousel(unit.images || []);
   }
@@ -150,51 +146,3 @@ function initCarousel(images) {
     update();
   };
 }
-
-// 📩 CONTACT FORM (UNCHANGED)
-const form = document.getElementById("contactForm");
-const sendButton = form.querySelector("button");
-
-function updateSendButtonState() {
-  sendButton.classList.toggle("is-ready", form.checkValidity());
-}
-
-form.addEventListener("input", updateSendButtonState);
-
-document.getElementById("contactForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const messageEl = document.getElementById("form-message");
-
-  const data = {
-    name: e.target.name.value,
-    email: e.target.email.value,
-    phone: e.target.phone.value,
-    message: e.target.message.value
-  };
-
-  try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-
-    if (!res.ok) throw new Error();
-
-    messageEl.textContent =
-      currentLang === "es"
-        ? "¡Gracias! Tu mensaje ha sido enviado."
-        : "Thank you! Your inquiry has been sent.";
-    messageEl.style.color = "green";
-
-    e.target.reset();
-    updateSendButtonState();
-  } catch {
-    messageEl.textContent =
-      currentLang === "es"
-        ? "Algo salió mal. Inténtalo de nuevo."
-        : "Something went wrong. Please try again.";
-    messageEl.style.color = "red";
-  }
-});

@@ -1,9 +1,11 @@
+import { translations } from "/js/i18n.js";
+
 // 🔑 SANITY CONFIG
 const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 
-// 🌍 CURRENT LANGUAGE (saved or fallback)
+// 🌍 CURRENT LANGUAGE
 let currentLang = localStorage.getItem("lang") || "en";
 
 // 🧠 QUERY
@@ -30,7 +32,7 @@ let unitsCache = [];
 
 // 💰 PRICE FORMATTER
 function formatPrice(price) {
-  return `$${Number(price).toLocaleString()} / month`;
+  return `$${Number(price).toLocaleString()} / ${translations[currentLang].per_month}`;
 }
 
 // 🔄 FETCH ONCE
@@ -41,7 +43,7 @@ fetch(SANITY_URL)
     renderUnits();
   });
 
-// 🖼️ RENDER (language-aware)
+// 🖼️ RENDER
 function renderUnits() {
   unitsGrid.innerHTML = "";
 
@@ -92,12 +94,12 @@ function createUnitCard(unit) {
         </span>
         <span>
           <i class="fas fa-bed"></i>
-          ${unit.bedrooms} ${currentLang === "es" ? "Habitaciones" : "Bedrooms"}
+          ${unit.bedrooms} ${translations[currentLang].bedrooms}
         </span>
       </div>
 
       <a href="unit.html?slug=${unit.slug.current}" class="view-button">
-        ${currentLang === "es" ? "Ver detalles" : "View Details"}
+        ${translations[currentLang].view_details}
       </a>
     </div>
   `;

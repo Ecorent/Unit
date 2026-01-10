@@ -18,15 +18,15 @@
 
       <div class="auth-header">
         <img src="images/header_logo.png" alt="Ecorent logo">
-        <h2>Welcome to Ecorentusa</h2>
-        <p class="auth-subtext">
+        <h2 data-i18n="welcome_message">Welcome to Ecorentusa</h2>
+        <p class="auth-subtext" data-i18n="login_subtext">
           Log in to manage your account, access your rentals, and continue where you left off.
         </p>
       </div>
 
       <div class="auth-tabs">
-        <div class="auth-tab active" id="loginTab">Log In</div>
-        <div class="auth-tab" id="signupTab">Sign Up</div>
+        <div class="auth-tab active" id="loginTab" data-i18n="login">Log In</div>
+        <div class="auth-tab" id="signupTab" data-i18n="signup">Sign Up</div>
       </div>
 
       <form class="auth-form active" id="loginForm">
@@ -35,21 +35,19 @@
           <span class="google-icon">
             <img src="images/google-icon.png" alt="Google logo">
           </span>
-          <span class="google-text">Log in with Google</span>
+          <span class="google-text" data-i18n="login_with_google">Log in with Google</span>
         </button>
 
         <div class="divider">
-          <span>or</span>
+          <span data-i18n="or">or</span>
         </div>
 
-        <input id="loginEmail" type="email" placeholder="Email" required />
-        <input id="loginPassword" type="password" placeholder="Password" required />
+        <input id="loginEmail" type="email" data-i18n-placeholder="email_placeholder" required />
+        <input id="loginPassword" type="password" data-i18n-placeholder="password_placeholder" required />
 
-        <button type="submit">Log In</button>
+        <button type="submit" data-i18n="login">Log In</button>
 
-        <a href="#" class="forgot-password" id="forgotPassword">
-          Forgot my password
-        </a>
+        <a href="#" class="forgot-password" id="forgotPassword" data-i18n="forgot_password">Forgot my password</a>
       </form>
 
       <form class="auth-form" id="signupForm">
@@ -58,19 +56,19 @@
           <span class="google-icon">
             <img src="images/google-icon.png" alt="Google logo">
           </span>
-          <span class="google-text">Sign up with Google</span>
+          <span class="google-text" data-i18n="signup_with_google">Sign up with Google</span>
         </button>
 
         <div class="divider">
-          <span>or</span>
+          <span data-i18n="or">or</span>
         </div>
 
-        <input id="signupName" type="text" placeholder="Full Name" required />
-        <input id="signupPhone" type="tel" placeholder="Phone Number" required pattern="[0-9\s\-\(\)]{9,20}" inputmode="tel" />
-        <input id="signupEmail" type="email" placeholder="Email" required />
-        <input id="signupPassword" type="password" placeholder="Password" required />
+        <input id="signupName" type="text" data-i18n-placeholder="name_placeholder" required />
+        <input id="signupPhone" type="tel" data-i18n-placeholder="phone_placeholder" required pattern="[0-9\s\-\(\)]{9,20}" inputmode="tel" />
+        <input id="signupEmail" type="email" data-i18n-placeholder="email_placeholder" required />
+        <input id="signupPassword" type="password" data-i18n-placeholder="password_placeholder" required />
 
-        <button type="submit">Create Account</button>
+        <button type="submit" data-i18n="signup">Create Account</button>
       </form>
 
       <div class="auth-footer">

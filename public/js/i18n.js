@@ -1,3 +1,5 @@
+// /js/i18n.js
+
 export const translations = {
   en: {
     home: "Home",
@@ -12,11 +14,27 @@ export const translations = {
     location: "Location & Directions",
     contacto: "Contact Us",
     mensaje: "Send Message",
-    name_placeholder: "Your Name",
-    email_placeholder: "Your Email",
-    phone_placeholder: "Your Phone Number",
+    name_placeholder: "Full Name",
+    email_placeholder: "Email",
+    phone_placeholder: "Phone Number",
     message_placeholder: "Message",
+    welcome_message: "Welcome to Ecorentusa",
+    login_subtext: "Log in to manage your account, access your rentals, and continue where you left off.",
+    login: "Log In",
+    signup: "Sign Up",
+    login_with_google: "Log in with Google",
+    signup_with_google: "Sign up with Google",
+    or: "or",
+    forgot_password: "Forgot my password",
+    password_placeholder: "Password",
+    view_details: "View Details",
+    per_month: "month",
+    bedrooms: "Bedrooms",
+    bathrooms: "Bathrooms",
+    pet_friendly: "Pet friendly",
+    no_pets: "No pets allowed"
   },
+
   es: {
     home: "Inicio",
     map: "Mapa interactivo",
@@ -30,9 +48,70 @@ export const translations = {
     location: "Ubicación y direcciones",
     contacto: "Contáctanos",
     mensaje: "Enviar mensaje",
-    name_placeholder: "Tu nombre",
-    email_placeholder: "Tu correo",
-    phone_placeholder: "Tu número de teléfono",
+    name_placeholder: "Nombre completo",
+    email_placeholder: "Correo electrónico",
+    phone_placeholder: "Número de teléfono",
     message_placeholder: "Mensaje",
+    welcome_message: "Bienvenido a Ecorentusa",
+    login_subtext: "Inicia sesión para administrar tu cuenta, acceder a tus rentas y continuar donde lo dejaste.",
+    login: "Iniciar sesión",
+    signup: "Regístrate",
+    login_with_google: "Iniciar sesión con Google",
+    signup_with_google: "Regístrate con Google",
+    or: "o",
+    forgot_password: "Olvidé mi contraseña",
+    password_placeholder: "Contraseña",
+    view_details: "Ver detalles",
+    per_month: "mes",
+    bedrooms: "Habitaciones",
+    bathrooms: "Baños",
+    pet_friendly: "Se permiten mascotas",
+    no_pets: "No se permiten mascotas"
   }
 };
+
+/* =========================
+   INTERNAL APPLY
+========================= */
+function applyLanguage(lang) {
+  // text nodes
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[lang]?.[key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  // placeholders
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (translations[lang]?.[key]) {
+      el.placeholder = translations[lang][key];
+    }
+  });
+
+  document.documentElement.lang = lang;
+}
+
+/* =========================
+   PUBLIC INIT
+========================= */
+export function initI18n() {
+  let currentLang = localStorage.getItem("lang") || "en";
+
+  applyLanguage(currentLang);
+
+  window.addEventListener("languageChanged", e => {
+    currentLang = e.detail;
+    localStorage.setItem("lang", currentLang);
+    applyLanguage(currentLang);
+  });
+}
+
+/* =========================
+   JS HELPER (FOR unit.js, home_page.js, etc.)
+========================= */
+export function t(key) {
+  const lang = localStorage.getItem("lang") || "en";
+  return translations[lang]?.[key] ?? key;
+}
