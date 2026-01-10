@@ -24,6 +24,8 @@ fetch("/partials/navbar.html")
 
     const languageToggle = document.getElementById("languageToggle");
     const languageDropdown = document.getElementById("languageDropdown");
+    const mobileLanguageToggle = document.getElementById("mobileLanguageToggle");
+    const mobileLanguageDropdown = document.getElementById("mobileLanguageDropdown");
 
     /* ---------- Translation Handling ---------- */
 
@@ -52,6 +54,13 @@ fetch("/partials/navbar.html")
       languageDropdown?.classList.toggle("hidden");
     });
 
+    /* ---------- MOBILE LANGUAGE DROPDOWN ---------- */
+
+    mobileLanguageToggle?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mobileLanguageDropdown?.classList.toggle("hidden");
+    });
+
     languageDropdown?.querySelectorAll("button").forEach(btn => {
       btn.addEventListener("click", () => {
         const selectedLang = btn.dataset.lang;
@@ -59,6 +68,18 @@ fetch("/partials/navbar.html")
           currentLang = selectedLang;
           applyLanguage(currentLang);
           languageDropdown.classList.add("hidden");
+        }
+      });
+    });
+
+    mobileLanguageDropdown?.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const selectedLang = btn.dataset.lang;
+        if (selectedLang) {
+          currentLang = selectedLang;
+          applyLanguage(currentLang);
+          mobileLanguageDropdown.classList.add("hidden");
+          mobileMenu?.classList.add("hidden"); // optional: closes menu after selection
         }
       });
     });
@@ -122,6 +143,16 @@ fetch("/partials/navbar.html")
       ) {
         languageDropdown.classList.add("hidden");
       }
+
+      /* MOBILE LANGUAGE CLOSE */
+      if (
+        mobileLanguageDropdown &&
+        !mobileLanguageDropdown.contains(e.target) &&
+        !mobileLanguageToggle?.contains(e.target)
+      ) {
+        mobileLanguageDropdown.classList.add("hidden");
+      }
+
     });
   })
   .catch(err => console.error("Failed to load navbar:", err));

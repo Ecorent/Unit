@@ -64,13 +64,23 @@
   <!-- Mobile dropdown menu -->
   <div class="mobile-menu hidden" id="mobileMenu">
     <a href="index.html" data-i18n="home">Home</a>
-    <a href="#" data-i18n="language">Language</a>
+
+    <button class="mobile-language-toggle" id="mobileLanguageToggle">
+      Language
+    </button>
+
+    <div class="mobile-language-dropdown hidden" id="mobileLanguageDropdown">
+      <button data-lang="en">English</button>
+      <button data-lang="es">Español</button>
+    </div>
+
     <a
       href="https://docs.google.com/forms/d/e/1FAIpQLScTDFaFwp2GOjrj9SK7HdLyD_-6zejxjzNzyA2sdJ2GNbOEdw/viewform"
       target="_blank"
       rel="noopener"
       data-i18n="maintenance"
     >Maintenance Requests</a>
+
     <a href="#" data-i18n="map">Interactive map</a>
   </div>
 

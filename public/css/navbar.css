@@ -169,6 +169,38 @@
   color: var(--buttons);
 }
 
+.mobile-language-toggle {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--dark);
+  font-family: inherit;
+}
+
+.mobile-language-dropdown {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-bottom: 6px;
+}
+
+.mobile-language-dropdown button {
+  padding: 10px 0;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--dark);
+}
+
+.mobile-language-dropdown button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 .mobile-profile-menu {
   position: absolute;
   top: 100%;
@@ -270,7 +302,7 @@
   .profile-circle {
     width: 1.55rem;
     height: 1.55rem;
-    transform: translateY(-2px);
+    transform: translateY(-1.75rem);
   }
 
   .profile-button {
