@@ -1,7 +1,12 @@
 import { auth } from "./firebase.js";
+import { initI18n } from "/js/i18n.js";
+import { t } from "./i18n.js";
 import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+/* ---------- INIT I18N (ONCE) ---------- */
+initI18n();
 
 /* ---------- ELEMENTS ---------- */
 const resetForm = document.getElementById("resetForm");
@@ -21,7 +26,7 @@ resetEmailInput.addEventListener("input", updateButtonState);
 updateButtonState();
 
 /* ---------- SUBMIT RESET ---------- */
-resetForm.addEventListener("submit", async (e) => {
+resetForm.addEventListener("submit", async e => {
   e.preventDefault();
   if (!resetForm.reportValidity()) return;
 
@@ -30,9 +35,7 @@ resetForm.addEventListener("submit", async (e) => {
   try {
     await sendPasswordResetEmail(auth, email);
 
-    alert(
-      "If an account with that email exists, a password reset link has been sent."
-    );
+    alert(t("reset_email_sent"));
 
     resetForm.reset();
     updateButtonState();
@@ -46,13 +49,13 @@ resetForm.addEventListener("submit", async (e) => {
     }
 
   } catch (error) {
-    alert(error.message);
+    alert(t("reset_error"));
     resetEmailInput.focus();
   }
 });
 
 /* ---------- BACK TO LOGIN ---------- */
-backToLoginLink.addEventListener("click", (e) => {
+backToLoginLink.addEventListener("click", e => {
   e.preventDefault();
 
   const isDesktop = window.matchMedia("(min-width: 769px)").matches;

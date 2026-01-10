@@ -32,6 +32,12 @@ export const translations = {
     no_pets: "No pets allowed",
     login_subtext_login: "Log in to manage your account, access your rentals, and continue where you left off.",
     login_subtext_signup: "Create an account to start renting, manage your listings, and track your activity.",
+    reset_title: "Reset your password",
+    reset_subtext: "Enter the email associated with your account and we’ll send you a password reset link.",
+    reset_send: "Send reset link",
+    back_to_login: "Back to login",
+    reset_email_sent: "If an account with that email exists, a password reset link has been sent.",
+    reset_error: "Something went wrong. Please try again.",
   },
 
   es: {
@@ -68,6 +74,12 @@ export const translations = {
     no_pets: "No se permiten mascotas",
     login_subtext_login: "Inicia sesión para administrar tu cuenta, acceder a tus rentas y continuar donde lo dejaste.",
     login_subtext_signup: "Crea una cuenta para comenzar a rentar, administrar tus propiedades y rastrear tu actividad.",
+    reset_title: "Restablecer contraseña",
+    reset_subtext: "Ingresa el correo asociado a tu cuenta y te enviaremos un enlace para restablecer tu contraseña.",
+    reset_send: "Enviar enlace de restablecimiento",
+    back_to_login: "Volver al inicio de sesión",
+    reset_email_sent: "Si existe una cuenta con ese correo, se ha enviado un enlace para restablecer la contraseña.",
+    reset_error: "Algo salió mal. Inténtalo de nuevo.",
   }
 };
 
