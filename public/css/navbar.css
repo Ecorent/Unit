@@ -5,10 +5,11 @@
   border-bottom: 2px solid #d1d1d1;
   position: relative;
   z-index: 2000;
+  min-height: 104px;
 }
 
-#navbar.navbar-skeleton {
-  height: 104px;
+#navbar {
+  min-height: 104px;
 }
 
 .nav-container {

@@ -2,14 +2,10 @@
 import { translations } from "/js/i18n.js";
 const navbarContainer = document.getElementById("navbar");
 
-/* Reserve navbar space immediately */
-navbarContainer.classList.add("navbar-skeleton");
-
 fetch("/partials/navbar.html")
   .then(res => res.text())
   .then(html => {
     navbarContainer.innerHTML = html;
-    navbarContainer.classList.remove("navbar-skeleton");
 
     /* Load auth state logic AFTER navbar exists */
     const authScript = document.createElement("script");
