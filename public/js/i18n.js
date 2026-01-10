@@ -1,5 +1,3 @@
-// /js/i18n.js
-
 export const translations = {
   en: {
     home: "Home",
@@ -74,7 +72,6 @@ export const translations = {
    INTERNAL APPLY
 ========================= */
 function applyLanguage(lang) {
-  // text nodes
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
     if (translations[lang]?.[key]) {
