@@ -13,7 +13,7 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* ---------- INIT I18N ---------- */
+/* ---------- INIT I18N (ONCE) ---------- */
 initI18n();
 
 /* ---------- GOOGLE PROVIDER ---------- */
@@ -37,7 +37,7 @@ const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const forgotPasswordLink = document.getElementById("forgotPassword");
 
-const authSubtext = document.querySelector(".auth-subtext");
+const authSubtext = document.getElementById("authSubtext");
 
 const loginEmailInput = document.getElementById("loginEmail");
 const loginPasswordInput = document.getElementById("loginPassword");
@@ -62,7 +62,13 @@ const updateButtonState = (form, button) => {
 
 const setAuthSubtext = key => {
   authSubtext.setAttribute("data-i18n", key);
-  initI18n(); // re-apply translations safely
+
+  // re-apply translations without re-initializing
+  window.dispatchEvent(
+    new CustomEvent("languageChanged", {
+      detail: localStorage.getItem("lang") || "en"
+    })
+  );
 };
 
 /* =========================
@@ -99,7 +105,7 @@ loginTab.onclick = () => {
   signupTab.classList.remove("active");
   loginForm.classList.add("active");
   signupForm.classList.remove("active");
-  setAuthSubtext("login_subtext");
+  setAuthSubtext("login_subtext_login");
 };
 
 signupTab.onclick = () => {
@@ -107,7 +113,7 @@ signupTab.onclick = () => {
   loginTab.classList.remove("active");
   signupForm.classList.add("active");
   loginForm.classList.remove("active");
-  setAuthSubtext("signup_subtext");
+  setAuthSubtext("login_subtext_signup");
 };
 
 /* =========================
