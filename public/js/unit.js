@@ -146,3 +146,51 @@ function initCarousel(images) {
     update();
   };
 }
+
+// 📩 CONTACT FORM (UNCHANGED)
+const form = document.getElementById("contactForm");
+const sendButton = form.querySelector("button");
+
+function updateSendButtonState() {
+  sendButton.classList.toggle("is-ready", form.checkValidity());
+}
+
+form.addEventListener("input", updateSendButtonState);
+
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const messageEl = document.getElementById("form-message");
+
+  const data = {
+    name: e.target.name.value,
+    email: e.target.email.value,
+    phone: e.target.phone.value,
+    message: e.target.message.value
+  };
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    if (!res.ok) throw new Error();
+
+    messageEl.textContent =
+      currentLang === "es"
+        ? "¡Gracias! Tu mensaje ha sido enviado."
+        : "Thank you! Your inquiry has been sent.";
+    messageEl.style.color = "green";
+
+    e.target.reset();
+    updateSendButtonState();
+  } catch {
+    messageEl.textContent =
+      currentLang === "es"
+        ? "Algo salió mal. Inténtalo de nuevo."
+        : "Something went wrong. Please try again.";
+    messageEl.style.color = "red";
+  }
+});
