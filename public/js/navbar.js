@@ -98,7 +98,7 @@ fetch("/partials/navbar.html")
     addTouchFeedback(mobileProfileToggle);
 
     document.querySelectorAll(
-      ".mobile-menu a, .mobile-profile-menu a, .mobile-profile-menu button"
+      ".mobile-menu a, .mobile-menu button, .mobile-profile-menu a, .mobile-profile-menu button"
     ).forEach(el => {
       el.addEventListener("pointerdown", () => el.classList.add("touch-bg"));
       el.addEventListener("pointerup", () => el.classList.remove("touch-bg"));
