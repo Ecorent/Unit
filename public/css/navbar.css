@@ -7,7 +7,7 @@
   z-index: 2000;
 }
 
-.navbar-skeleton {
+#navbar.navbar-skeleton {
   height: 104px;
 }
 
