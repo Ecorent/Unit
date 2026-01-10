@@ -9,14 +9,18 @@
     <div class="nav-right">
       <!-- Desktop navigation -->
       <div class="header-wrapper desktop-nav">
-        <i class="fas fa-globe-americas language-icon nav-item item-1"></i>
-        <a href="index.html" class="home-button nav-item item-2">Home</a>
-        <a href="#" class="map-button nav-item item-3">Interactive map</a>
+        <button
+          class="language-button nav-item item-1" id="languageToggle"
+          aria-label="Change language"><i class="fas fa-globe-americas language-icon"></i>
+        </button>
+        <a href="index.html" class="home-button nav-item item-2" data-i18n="home">Home</a>
+        <a href="#" class="map-button nav-item item-3" data-i18n="map">Interactive map</a>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLScTDFaFwp2GOjrj9SK7HdLyD_-6zejxjzNzyA2sdJ2GNbOEdw/viewform"
           class="maintenance-button nav-item item-4"
           target="_blank"
           rel="noopener"
+          data-i18n="maintenance_requests"
         >Maintenance Requests</a>
 
         <!-- Desktop profile -->
@@ -26,8 +30,8 @@
           </button>
 
           <div class="profile-dropdown hidden" id="profileDropdown">
-            <a href="profile.html">Profile</a>
-            <button id="logoutBtn">Log out</button>
+            <a href="profile.html" data-i18n="profile">Profile</a>
+            <button id="logoutBtn" data-i18n="log_out">Log out</button>
           </div>
         </div>
       </div>

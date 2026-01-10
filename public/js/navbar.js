@@ -1,4 +1,5 @@
 // public/js/navbar.js
+import { translations } from "/js/i18n.js";
 const navbarContainer = document.getElementById("navbar");
 
 /* Reserve navbar space immediately */
@@ -24,6 +25,33 @@ fetch("/partials/navbar.html")
 
     const hamburgerToggle = document.getElementById("hamburgerToggle");
     const mobileMenu = document.getElementById("mobileMenu");
+
+    const languageToggle = document.getElementById("languageToggle");
+
+    /* ---------- Translation Handling ---------- */
+
+    let currentLang = localStorage.getItem("lang") || "en";
+
+    function applyLanguage(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[lang]?.[key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      document.documentElement.lang = lang;
+      localStorage.setItem("lang", lang);
+    }
+
+    // Initial load
+    applyLanguage(currentLang);
+
+    // Toggle language
+    languageToggle?.addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "es" : "en";
+      applyLanguage(currentLang);
+    });
 
     /* ---------- TOUCH FEEDBACK (MOBILE SAFE) ---------- */
     function addTouchFeedback(el) {
