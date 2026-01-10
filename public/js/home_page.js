@@ -3,11 +3,14 @@ const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 
-// 🧠 QUERY
+// 🌍 LANGUAGE
+const currentLang = localStorage.getItem("lang") || "en";
+
+// 🧠 QUERY (fetch BOTH languages)
 const query = encodeURIComponent(`
   *[_type == "unit" && published == true]
   | order(order asc, _createdAt desc) {
-    title{en},
+    title{en, es},
     price,
     address,
     sqft,
@@ -27,10 +30,26 @@ function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / month`;
 }
 
+// 🏷 UI LABELS (UI text ≠ CMS content)
+const labels = {
+  en: {
+    bedrooms: "Bedrooms",
+    viewDetails: "View Details",
+    sqft: "sqft"
+  },
+  es: {
+    bedrooms: "Habitaciones",
+    viewDetails: "Ver detalles",
+    sqft: "pies²"
+  }
+};
+
 // 🔄 FETCH & RENDER
 fetch(SANITY_URL)
   .then(res => res.json())
   .then(({ result }) => {
+    unitsGrid.innerHTML = "";
+
     result.forEach(unit => {
       unitsGrid.appendChild(createUnitCard(unit));
     });
@@ -45,6 +64,12 @@ function createUnitCard(unit) {
   card.className = "unit-card";
 
   const images = unit.images || [];
+  const t = labels[currentLang] || labels.en;
+
+  const title =
+    unit.title?.[currentLang] ||
+    unit.title?.en ||
+    "";
 
   card.innerHTML = `
     <div class="unit-carousel">
@@ -60,7 +85,7 @@ function createUnitCard(unit) {
     </div>
 
     <div class="unit-info">
-      <h3>${unit.title.en}</h3>
+      <h3>${title}</h3>
 
       <div class="unit-meta address">
         <span>
@@ -72,16 +97,16 @@ function createUnitCard(unit) {
       <div class="unit-meta">
         <span>
           <i class="fas fa-ruler-combined"></i>
-          ${unit.sqft} sqft
+          ${unit.sqft} ${t.sqft}
         </span>
         <span>
           <i class="fas fa-bed"></i>
-          ${unit.bedrooms} Bedrooms
+          ${unit.bedrooms} ${t.bedrooms}
         </span>
       </div>
 
       <a href="unit.html?slug=${unit.slug.current}" class="view-button">
-        View Details
+        ${t.viewDetails}
       </a>
     </div>
   `;
