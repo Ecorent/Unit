@@ -41,6 +41,10 @@ fetch("/partials/navbar.html")
 
       document.documentElement.lang = lang;
       localStorage.setItem("lang", lang);
+
+      window.dispatchEvent(
+        new CustomEvent("languageChanged", { detail: lang })
+      );
     }
 
     applyLanguage(currentLang);
@@ -49,7 +53,7 @@ fetch("/partials/navbar.html")
 
     languageToggle?.addEventListener("click", (e) => {
       e.stopPropagation();
-      profileDropdown?.classList.add("hidden"); // close profile when opening language
+      profileDropdown?.classList.add("hidden");
       mobileProfileMenu?.classList.add("hidden");
       languageDropdown?.classList.toggle("hidden");
     });
@@ -79,7 +83,7 @@ fetch("/partials/navbar.html")
           currentLang = selectedLang;
           applyLanguage(currentLang);
           mobileLanguageDropdown.classList.add("hidden");
-          mobileMenu?.classList.add("hidden"); // optional: closes menu after selection
+          mobileMenu?.classList.add("hidden");
         }
       });
     });
@@ -111,15 +115,13 @@ fetch("/partials/navbar.html")
       const navbar = document.querySelector(".navbar");
       const isLoggedIn = navbar?.dataset.auth === "logged-in";
 
-      /* DESKTOP PROFILE DROPDOWN */
       if (isLoggedIn && profileToggle?.contains(e.target)) {
-        languageDropdown?.classList.add("hidden"); // close language when opening profile
+        languageDropdown?.classList.add("hidden");
         profileDropdown?.classList.toggle("hidden");
       } else if (profileDropdown && !profileDropdown.contains(e.target)) {
         profileDropdown.classList.add("hidden");
       }
 
-      /* MOBILE PROFILE MENU */
       if (isLoggedIn && mobileProfileToggle?.contains(e.target)) {
         mobileMenu?.classList.add("hidden");
         mobileProfileMenu?.classList.toggle("hidden");
@@ -127,7 +129,6 @@ fetch("/partials/navbar.html")
         mobileProfileMenu.classList.add("hidden");
       }
 
-      /* HAMBURGER MENU */
       if (hamburgerToggle?.contains(e.target)) {
         mobileProfileMenu?.classList.add("hidden");
         mobileMenu?.classList.toggle("hidden");
@@ -135,7 +136,6 @@ fetch("/partials/navbar.html")
         mobileMenu?.classList.add("hidden");
       }
 
-      /* LANGUAGE DROPDOWN CLOSE */
       if (
         languageDropdown &&
         !languageDropdown.contains(e.target) &&
@@ -144,7 +144,6 @@ fetch("/partials/navbar.html")
         languageDropdown.classList.add("hidden");
       }
 
-      /* MOBILE LANGUAGE CLOSE */
       if (
         mobileLanguageDropdown &&
         !mobileLanguageDropdown.contains(e.target) &&
@@ -152,7 +151,6 @@ fetch("/partials/navbar.html")
       ) {
         mobileLanguageDropdown.classList.add("hidden");
       }
-
     });
   })
   .catch(err => console.error("Failed to load navbar:", err));
