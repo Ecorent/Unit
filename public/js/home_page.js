@@ -3,10 +3,10 @@ const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 
-// 🌍 LANGUAGE
-const currentLang = localStorage.getItem("lang") || "en";
+// 🌍 CURRENT LANGUAGE (defaults to saved or English)
+let currentLang = localStorage.getItem("lang") || "en";
 
-// 🧠 QUERY (fetch BOTH languages)
+// 🧠 QUERY
 const query = encodeURIComponent(`
   *[_type == "unit" && published == true]
   | order(order asc, _createdAt desc) {
@@ -25,51 +25,40 @@ const SANITY_URL =
 
 const unitsGrid = document.getElementById("unitsGrid");
 
+// 📦 CACHE
+let unitsCache = [];
+
 // 💰 PRICE FORMATTER
 function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / month`;
 }
 
-// 🏷 UI LABELS (UI text ≠ CMS content)
-const labels = {
-  en: {
-    bedrooms: "Bedrooms",
-    viewDetails: "View Details",
-    sqft: "sqft"
-  },
-  es: {
-    bedrooms: "Habitaciones",
-    viewDetails: "Ver detalles",
-    sqft: "pies²"
-  }
-};
-
-// 🔄 FETCH & RENDER
+// 🔄 FETCH ONCE
 fetch(SANITY_URL)
   .then(res => res.json())
   .then(({ result }) => {
-    unitsGrid.innerHTML = "";
-
-    result.forEach(unit => {
-      unitsGrid.appendChild(createUnitCard(unit));
-    });
-
-    initCarousels();
-    initAnimations();
+    unitsCache = result;
+    renderUnits(currentLang);
   });
 
+// 🖼️ RENDER
+function renderUnits(lang) {
+  unitsGrid.innerHTML = "";
+
+  unitsCache.forEach(unit => {
+    unitsGrid.appendChild(createUnitCard(unit, lang));
+  });
+
+  initCarousels();
+  initAnimations();
+}
+
 // 🧱 CARD TEMPLATE
-function createUnitCard(unit) {
+function createUnitCard(unit, lang) {
   const card = document.createElement("div");
   card.className = "unit-card";
 
   const images = unit.images || [];
-  const t = labels[currentLang] || labels.en;
-
-  const title =
-    unit.title?.[currentLang] ||
-    unit.title?.en ||
-    "";
 
   card.innerHTML = `
     <div class="unit-carousel">
@@ -85,7 +74,7 @@ function createUnitCard(unit) {
     </div>
 
     <div class="unit-info">
-      <h3>${title}</h3>
+      <h3>${unit.title[lang]}</h3>
 
       <div class="unit-meta address">
         <span>
@@ -97,16 +86,16 @@ function createUnitCard(unit) {
       <div class="unit-meta">
         <span>
           <i class="fas fa-ruler-combined"></i>
-          ${unit.sqft} ${t.sqft}
+          ${unit.sqft} sqft
         </span>
         <span>
           <i class="fas fa-bed"></i>
-          ${unit.bedrooms} ${t.bedrooms}
+          ${unit.bedrooms} Bedrooms
         </span>
       </div>
 
       <a href="unit.html?slug=${unit.slug.current}" class="view-button">
-        ${t.viewDetails}
+        View Details
       </a>
     </div>
   `;
@@ -161,3 +150,9 @@ function initAnimations() {
 
   cards.forEach(card => observer.observe(card));
 }
+
+// 🌍 LANGUAGE CHANGE LISTENER
+window.addEventListener("languageChanged", e => {
+  currentLang = e.detail;
+  renderUnits(currentLang);
+});
