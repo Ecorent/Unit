@@ -8,7 +8,7 @@
 }
 
 #navbar {
-  min-height: 104px;
+  min-height: 106px;
 }
 
 .nav-container {
@@ -74,7 +74,7 @@
 
 .profile-button,
 .language-button {
-  margin-top: 4px;
+  margin-top: 3px;
   background: none;
   border: none;
   padding: 0;
