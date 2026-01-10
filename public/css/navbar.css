@@ -79,10 +79,13 @@
   padding: 0;
   color: var(--dark);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-button i {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
 }
 
 .profile-button:hover .profile-circle {
@@ -256,7 +259,7 @@
     outline: none;
     -webkit-focus-ring-color: transparent;
   }
-  
+
   .desktop-nav {
     display: none;
   }
