@@ -3,6 +3,12 @@ const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 
+// 🌍 CURRENT LANGUAGE
+let currentLang = localStorage.getItem("lang") || "en";
+
+// 📦 CACHE
+let unitCache = null;
+
 // 🔎 GET SLUG
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
@@ -12,27 +18,28 @@ if (!slug) {
   throw new Error("Missing slug");
 }
 
-// 🧠 QUERY
+// 🧠 QUERY (BOTH LANGUAGES)
 const query = encodeURIComponent(`
   *[_type == "unit" && slug.current == "${slug}"][0]{
-    title{en},
+    title{en, es},
     price,
     address,
     bedrooms,
     bathrooms,
     sqft,
-    utilitiesIncluded{en},
+    utilitiesIncluded{en, es},
     petFriendly,
-    washerDryer{en},
-    locationHighlights{en},
-    parking{en},
+    washerDryer{en, es},
+    locationHighlights{en, es},
+    parking{en, es},
     images[]{asset->{url}}
   }
 `);
 
-const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
+const url =
+  `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-// 🔄 FETCH UNIT
+// 🔄 FETCH ONCE
 fetch(url)
   .then(res => res.json())
   .then(({ result }) => {
@@ -40,7 +47,9 @@ fetch(url)
       document.body.innerHTML = "<h1>Unit not found</h1>";
       return;
     }
-    renderUnit(result);
+
+    unitCache = result;
+    renderUnit(currentLang);
   });
 
 // 💰 PRICE FORMATTER
@@ -48,37 +57,52 @@ function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / month`;
 }
 
-// 🧱 RENDER UNIT
-function renderUnit(unit) {
-  document.getElementById("pageTitle").textContent = unit.title.en;
-  document.getElementById("unitTitle").textContent = unit.title.en;
+// 🧱 RENDER UNIT (LANG-AWARE)
+function renderUnit(lang) {
+  if (!unitCache) return;
+
+  const unit = unitCache;
+
+  document.getElementById("pageTitle").textContent = unit.title[lang];
+  document.getElementById("unitTitle").textContent = unit.title[lang];
   document.getElementById("unitPrice").textContent = formatPrice(unit.price);
 
   const details = document.getElementById("unitDetails");
   details.innerHTML = `
-    <li><i class="fas fa-bed"></i>${unit.bedrooms} Bedrooms</li>
-    <li><i class="fas fa-bath"></i>${unit.bathrooms} Bathroom</li>
+    <li><i class="fas fa-bed"></i>${unit.bedrooms} ${lang === "es" ? "Habitaciones" : "Bedrooms"}</li>
+    <li><i class="fas fa-bath"></i>${unit.bathrooms} ${lang === "es" ? "Baño" : "Bathroom"}</li>
     <li><i class="fas fa-ruler-combined"></i>${unit.sqft} sq ft</li>
     <li>
       <i class="fas ${unit.petFriendly ? "fa-dog" : "fa-ban"}"></i>
-      ${unit.petFriendly ? "Pet friendly" : "No pets allowed"}
+      ${unit.petFriendly
+        ? (lang === "es" ? "Se permiten mascotas" : "Pet friendly")
+        : (lang === "es" ? "No se permiten mascotas" : "No pets allowed")}
     </li>
-    <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded.en}</li>
-    <li><i class="fas fa-soap"></i>${unit.washerDryer.en}</li>
-    <li><i class="fas fa-box-archive"></i>${unit.parking.en}</li>
+    <li><i class="fas fa-tint"></i>${unit.utilitiesIncluded[lang]}</li>
+    <li><i class="fas fa-soap"></i>${unit.washerDryer[lang]}</li>
+    <li><i class="fas fa-box-archive"></i>${unit.parking[lang]}</li>
     <li>
       <i class="fas fa-star"></i>
-      ${unit.locationHighlights.en}
+      ${unit.locationHighlights[lang]}
     </li>
   `;
 
   document.getElementById("mapFrame").src =
     `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed`;
 
-  initCarousel(unit.images || []);
+  // Only initialize carousel once
+  if (!document.querySelector(".carousel-track")) {
+    initCarousel(unit.images || []);
+  }
 }
 
-// 🎠 CAROUSEL
+// 🌍 LANGUAGE CHANGE LISTENER
+window.addEventListener("languageChanged", e => {
+  currentLang = e.detail;
+  renderUnit(currentLang);
+});
+
+// 🎠 CAROUSEL (UNCHANGED)
 function initCarousel(images) {
   const carousel = document.getElementById("carousel");
   if (!images.length) return;
@@ -127,9 +151,10 @@ function initCarousel(images) {
   };
 }
 
-// 📩 CONTACT FORM (unchanged logic)
+// 📩 CONTACT FORM (UNCHANGED)
 const form = document.getElementById("contactForm");
 const sendButton = form.querySelector("button");
+
 function updateSendButtonState() {
   sendButton.classList.toggle("is-ready", form.checkValidity());
 }
@@ -157,12 +182,19 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
 
     if (!res.ok) throw new Error();
 
-    messageEl.textContent = "Thank you! Your inquiry has been sent.";
+    messageEl.textContent =
+      currentLang === "es"
+        ? "¡Gracias! Tu mensaje ha sido enviado."
+        : "Thank you! Your inquiry has been sent.";
     messageEl.style.color = "green";
+
     e.target.reset();
     updateSendButtonState();
   } catch {
-    messageEl.textContent = "Something went wrong. Please try again.";
+    messageEl.textContent =
+      currentLang === "es"
+        ? "Algo salió mal. Inténtalo de nuevo."
+        : "Something went wrong. Please try again.";
     messageEl.style.color = "red";
   }
 });

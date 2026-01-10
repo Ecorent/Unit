@@ -8,7 +8,10 @@ export const translations = {
     language: "Language",
     view_map: "View Map",
     map_text: "Discover available apartments near you using our interactive rental map service",
-    footer: "© 2026 Ecorentusa. All rights reserved."
+    footer: "© 2026 Ecorentusa. All rights reserved.",
+    location: "Location & Directions",
+    contacto: "Contact Us",
+    mensaje: "Send Message",
   },
   es: {
     home: "Inicio",
@@ -19,6 +22,9 @@ export const translations = {
     language: "Idioma",
     view_map: "Ver mapa",
     map_text: "Descubre unidades disponibles cerca de ti utilizando nuestro mapa interactivo",
-    footer: "© 2026 Ecorentusa. Todos los derechos reservados."
+    footer: "© 2026 Ecorentusa. Todos los derechos reservados.",
+    location: "Ubicación y direcciones",
+    contacto: "Contáctanos",
+    mensaje: "Enviar mensaje",
   }
 };
