@@ -247,6 +247,16 @@
 }
 
 @media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a {
+    outline: none;
+    -webkit-focus-ring-color: transparent;
+  }
+  
   .desktop-nav {
     display: none;
   }
@@ -262,6 +272,10 @@
 
   .nav-logo {
     height: 52px;
+  }
+
+  .mobile-profile .profile-button i {
+    font-size: 1.55rem;
   }
 }
 
