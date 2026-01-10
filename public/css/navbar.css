@@ -67,15 +67,13 @@
   color: var(--buttons);
 }
 
-.profile-button:hover .profile-circle {
-  border-color: var(--buttons);
-}
-
-.profile-wrapper {
+.profile-wrapper,
+.language-wrapper {
   position: relative;
 }
 
-.profile-button {
+.profile-button,
+.language-button {
   background: none;
   border: none;
   padding: 0;
@@ -83,14 +81,16 @@
   cursor: pointer;
 }
 
-.profile-button i {
-  font-size: 1.35rem;
+.profile-button:hover .profile-circle {
+  border-color: var(--buttons);
 }
 
-.profile-dropdown {
+.profile-dropdown,
+.language-dropdown {
   position: absolute;
-  top: 40px;
+  top: 100%;
   right: 0;
+  margin-top: 8px;
   background: var(--box-bg);
   border: 1px solid #d1d1d1;
   border-radius: 6px;
@@ -102,7 +102,8 @@
 }
 
 .profile-dropdown a,
-.profile-dropdown button {
+.profile-dropdown button,
+.language-dropdown button {
   display: block;
   padding: 10px 14px;
   font-size: 0.95rem;
@@ -111,52 +112,19 @@
   text-align: left;
   cursor: pointer;
   color: var(--dark);
+  font-family: inherit;
   text-decoration: none;
 }
 
 .profile-dropdown button {
   width: 100%;
-  font-family: inherit;
   line-height: 1.2;
   appearance: none;
   -webkit-appearance: none;
-  padding-bottom: 14px;
 }
 
 .profile-dropdown a:hover,
-.profile-dropdown button:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.language-wrapper {
-  position: relative;
-}
-
-.language-dropdown {
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background: var(--box-bg);
-  border: 1px solid #d1d1d1;
-  border-radius: 6px;
-  min-width: 140px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  z-index: 3000;
-}
-
-.language-dropdown button {
-  padding: 10px 14px;
-  font-size: 0.95rem;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  color: var(--dark);
-  font-family: inherit;
-}
-
+.profile-dropdown button:hover,
 .language-dropdown button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
@@ -181,14 +149,6 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-}
-
-.language-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: var(--dark);
 }
 
 .language-button:hover {
@@ -275,16 +235,6 @@
 }
 
 @media (max-width: 768px) {
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  button,
-  a {
-    outline: none;
-    -webkit-focus-ring-color: transparent;
-  }
-
   .desktop-nav {
     display: none;
   }
@@ -300,10 +250,6 @@
 
   .nav-logo {
     height: 52px;
-  }
-
-  .mobile-profile .profile-button i {
-    font-size: 1.55rem;
   }
 }
 
@@ -328,5 +274,3 @@
     padding-right: 55px;
   }
 }
-
-
