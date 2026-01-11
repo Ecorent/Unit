@@ -64,7 +64,6 @@ export const translations = {
     phone_placeholder: "Número de teléfono",
     message_placeholder: "Mensaje",
     welcome_message: "Bienvenido a Ecorentusa",
-    login_subtext: "Inicia sesión para administrar tu cuenta, acceder a tus rentas y continuar donde lo dejaste.",
     login: "Iniciar sesión",
     signup: "Regístrate",
     login_with_google: "Iniciar sesión con Google",
@@ -95,34 +94,24 @@ export const translations = {
   }
 };
 
-/* =========================
-   INTERNAL APPLY
-========================= */
+// Apply translations to DOM
 function applyLanguage(lang) {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
-    if (translations[lang]?.[key]) {
-      el.textContent = translations[lang][key];
-    }
+    if (translations[lang]?.[key]) el.textContent = translations[lang][key];
   });
 
-  // placeholders
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     const key = el.dataset.i18nPlaceholder;
-    if (translations[lang]?.[key]) {
-      el.placeholder = translations[lang][key];
-    }
+    if (translations[lang]?.[key]) el.placeholder = translations[lang][key];
   });
 
   document.documentElement.lang = lang;
 }
 
-/* =========================
-   PUBLIC INIT
-========================= */
+// Initialize i18n and listen for language changes
 export function initI18n() {
   let currentLang = localStorage.getItem("lang") || "en";
-
   applyLanguage(currentLang);
 
   window.addEventListener("languageChanged", e => {
@@ -132,9 +121,13 @@ export function initI18n() {
   });
 }
 
-/* =========================
-   JS HELPER (FOR unit.js, home_page.js, etc.)
-========================= */
+// Re-apply language on back/forward navigation
+window.addEventListener("pageshow", () => {
+  const lang = localStorage.getItem("lang") || "en";
+  applyLanguage(lang);
+});
+
+// Translation helper
 export function t(key) {
   const lang = localStorage.getItem("lang") || "en";
   return translations[lang]?.[key] ?? key;

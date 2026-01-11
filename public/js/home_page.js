@@ -166,7 +166,10 @@ window.addEventListener("languageChanged", e => {
 });
 
 // 🔁 HANDLE BROWSER BACK / FORWARD CACHE
-window.addEventListener("pageshow", () => {
+window.addEventListener("pageshow", (event) => {
   currentLang = localStorage.getItem("lang") || "en";
-  renderUnits();
+  if (event.persisted) {
+    renderUnits();
+  }
 });
+
