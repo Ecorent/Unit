@@ -212,6 +212,11 @@ main {
 .form-message {
   min-height: 24px;
   font-weight: 500;
+  transition: transform 0.15s ease;
+}
+
+.form-message:not(:empty) {
+  transform: translateY(-2px);
 }
 
 .contact-form button:active {
@@ -323,6 +328,7 @@ main {
     min-height: 16px;
     margin-left: 2px;
     margin-top: 8px;
+    transform: none;
   }
 }
 
