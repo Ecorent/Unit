@@ -308,6 +308,10 @@
     -webkit-focus-ring-color: transparent;
   }
 
+  .mobile-language-toggle .lang-flag {
+    display: none;
+  }
+
   .desktop-nav {
     display: none;
   }
@@ -356,3 +360,16 @@
     padding-right: 55px;
   }
 }
+
+@media (min-width: 769px) {
+  .language-button {
+    display: flex;
+    align-items: center;
+  }
+
+  .language-button .lang-flag {
+    width: 24px;
+    height: 24px;
+  }
+}
+
