@@ -1,4 +1,4 @@
-import { translations } from "/js/i18n.js";
+import { t } from "/js/i18n.js";
 
 // 🔑 SANITY CONFIG
 const SANITY_PROJECT_ID = "uxragbo5";
@@ -32,7 +32,7 @@ let unitsCache = [];
 
 // 💰 PRICE FORMATTER
 function formatPrice(price) {
-  return `$${Number(price).toLocaleString()} / ${translations[currentLang].per_month}`;
+  return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
 }
 
 // 🔄 FETCH ONCE
@@ -45,6 +45,7 @@ fetch(SANITY_URL)
 
 // 🖼️ RENDER
 function renderUnits() {
+  currentLang = localStorage.getItem("lang") || "en";
   unitsGrid.innerHTML = "";
 
   unitsCache.forEach(unit => {
@@ -94,12 +95,12 @@ function createUnitCard(unit) {
         </span>
         <span>
           <i class="fas fa-bed"></i>
-          ${unit.bedrooms} ${translations[currentLang].bedrooms}
+          ${unit.bedrooms} ${t("bedrooms")}
         </span>
       </div>
 
       <a href="unit.html?slug=${unit.slug.current}" class="view-button">
-        ${translations[currentLang].view_details}
+        ${t("view_details")}
       </a>
     </div>
   `;
@@ -161,5 +162,11 @@ function initAnimations() {
 // 🌍 LANGUAGE CHANGE LISTENER
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
+  renderUnits();
+});
+
+// 🔁 HANDLE BROWSER BACK / FORWARD CACHE
+window.addEventListener("pageshow", () => {
+  currentLang = localStorage.getItem("lang") || "en";
   renderUnits();
 });
