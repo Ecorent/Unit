@@ -1,4 +1,3 @@
-// /js/unit.js
 import { t } from "/js/i18n.js";
 
 // 🔑 SANITY CONFIG
@@ -11,6 +10,9 @@ let currentLang = localStorage.getItem("lang") || "en";
 
 // 📦 CACHE
 let unitCache = null;
+
+// 📩 CONTACT FORM MESSAGE STATE
+let formMessageState = null; // "success" | "error" | null
 
 // 🔎 GET SLUG
 const params = new URLSearchParams(window.location.search);
@@ -90,6 +92,9 @@ function renderUnit(lang) {
   if (!document.querySelector(".carousel-track")) {
     initCarousel(unit.images || []);
   }
+
+  // 🔁 re-render contact message on language change
+  renderFormMessage();
 }
 
 // 🌍 LANGUAGE CHANGE LISTENER
@@ -147,9 +152,10 @@ function initCarousel(images) {
   };
 }
 
-// 📩 CONTACT FORM (UNCHANGED)
+// 📩 CONTACT FORM
 const form = document.getElementById("contactForm");
 const sendButton = form.querySelector("button");
+const messageEl = document.getElementById("form-message");
 
 function updateSendButtonState() {
   sendButton.classList.toggle("is-ready", form.checkValidity());
@@ -157,10 +163,26 @@ function updateSendButtonState() {
 
 form.addEventListener("input", updateSendButtonState);
 
-document.getElementById("contactForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+// 🔁 Render translated form message
+function renderFormMessage() {
+  if (!formMessageState) {
+    messageEl.textContent = "";
+    return;
+  }
 
-  const messageEl = document.getElementById("form-message");
+  const key =
+    formMessageState === "success"
+      ? "contact_success"
+      : "reset_error";
+
+  messageEl.textContent = t(key);
+  messageEl.style.color =
+    formMessageState === "success" ? "green" : "red";
+}
+
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
   const data = {
     name: e.target.name.value,
@@ -178,19 +200,13 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
 
     if (!res.ok) throw new Error();
 
-    messageEl.textContent =
-      currentLang === "es"
-        ? "¡Gracias! Tu mensaje ha sido enviado."
-        : "Thank you! Your inquiry has been sent.";
-    messageEl.style.color = "green";
+    formMessageState = "success";
+    renderFormMessage();
 
     e.target.reset();
     updateSendButtonState();
   } catch {
-    messageEl.textContent =
-      currentLang === "es"
-        ? "Algo salió mal. Inténtalo de nuevo."
-        : "Something went wrong. Please try again.";
-    messageEl.style.color = "red";
+    formMessageState = "error";
+    renderFormMessage();
   }
 });
