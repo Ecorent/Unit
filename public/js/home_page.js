@@ -91,7 +91,7 @@ function createUnitCard(unit) {
       <div class="unit-meta">
         <span>
           <i class="fas fa-ruler-combined"></i>
-          ${unit.sqft} sqft
+          ${unit.sqft} ${t("sqft_unit")}
         </span>
         <span>
           <i class="fas fa-bed"></i>

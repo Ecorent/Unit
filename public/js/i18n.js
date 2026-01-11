@@ -43,7 +43,8 @@ export const translations = {
     email_already_in_use: "An account with this email already exists.",
     weak_password: "Password should be at least 6 characters.",
     signup_failed: "Sign up failed. Please try again.",
-    invalid_login: "Invalid email or password."
+    invalid_login: "Invalid email or password.",
+    sqft_unit: "sqft",
   },
 
   es: {
@@ -90,7 +91,8 @@ export const translations = {
     email_already_in_use: "Ya existe una cuenta con este correo.",
     weak_password: "La contraseña debe tener al menos 6 caracteres.",
     signup_failed: "El registro falló. Por favor intenta de nuevo.",
-    invalid_login: "Correo o contraseña incorrectos."
+    invalid_login: "Correo o contraseña incorrectos.",
+    sqft_unit: "pies²",
   }
 };
 

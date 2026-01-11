@@ -75,7 +75,7 @@ function renderUnit(lang) {
   document.getElementById("unitDetails").innerHTML = `
     <li><i class="fas fa-bed"></i>${unit.bedrooms} ${t("bedrooms")}</li>
     <li><i class="fas fa-bath"></i>${unit.bathrooms} ${t("bathrooms")}</li>
-    <li><i class="fas fa-ruler-combined"></i>${unit.sqft} sq ft</li>
+    <li><i class="fas fa-ruler-combined"></i>${unit.sqft} ${t("sqft_unit")}</li>
     <li>
       <i class="fas ${unit.petFriendly ? "fa-dog" : "fa-ban"}"></i>
       ${unit.petFriendly ? t("pet_friendly") : t("no_pets")}
