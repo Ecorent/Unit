@@ -1,4 +1,3 @@
-// public/js/navbar.js
 import { translations } from "/js/i18n.js";
 
 const navbarContainer = document.getElementById("navbar");
@@ -8,7 +7,6 @@ fetch("/partials/navbar.html")
   .then(html => {
     navbarContainer.innerHTML = html;
 
-    /* Load auth state logic AFTER navbar exists */
     const authScript = document.createElement("script");
     authScript.type = "module";
     authScript.src = "/js/authState.js";
@@ -27,12 +25,18 @@ fetch("/partials/navbar.html")
     const mobileLanguageToggle = document.getElementById("mobileLanguageToggle");
     const mobileLanguageDropdown = document.getElementById("mobileLanguageDropdown");
 
-    /* ---------- Translation Handling ---------- */
+    const currentLangFlag = document.getElementById("currentLangFlag");
+    const mobileCurrentLangFlag = document.getElementById("mobileCurrentLangFlag");
 
     let currentLang = localStorage.getItem("lang") || "en";
 
+    function updateLangIcons(lang) {
+      const className = lang === "es" ? "flag-es" : "flag-us";
+      currentLangFlag.className = `lang-flag ${className}`;
+      mobileCurrentLangFlag.className = `lang-flag ${className}`;
+    }
+
     function applyLanguage(lang) {
-      // text content
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.dataset.i18n;
         if (translations[lang]?.[key]) {
@@ -40,7 +44,6 @@ fetch("/partials/navbar.html")
         }
       });
 
-      // placeholders
       document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
         const key = el.dataset.i18nPlaceholder;
         if (translations[lang]?.[key]) {
@@ -48,6 +51,7 @@ fetch("/partials/navbar.html")
         }
       });
 
+      updateLangIcons(lang);
       document.documentElement.lang = lang;
       localStorage.setItem("lang", lang);
 
@@ -58,18 +62,14 @@ fetch("/partials/navbar.html")
 
     applyLanguage(currentLang);
 
-    /* ---------- LANGUAGE DROPDOWN ---------- */
-
-    languageToggle?.addEventListener("click", (e) => {
+    languageToggle?.addEventListener("click", e => {
       e.stopPropagation();
       profileDropdown?.classList.add("hidden");
       mobileProfileMenu?.classList.add("hidden");
       languageDropdown?.classList.toggle("hidden");
     });
 
-    /* ---------- MOBILE LANGUAGE DROPDOWN ---------- */
-
-    mobileLanguageToggle?.addEventListener("click", (e) => {
+    mobileLanguageToggle?.addEventListener("click", e => {
       e.stopPropagation();
       mobileLanguageDropdown?.classList.toggle("hidden");
     });
@@ -97,8 +97,6 @@ fetch("/partials/navbar.html")
       });
     });
 
-    /* ---------- TOUCH FEEDBACK ---------- */
-
     function addTouchFeedback(el) {
       if (!el) return;
       el.addEventListener("pointerdown", () => el.classList.add("touch-active"));
@@ -118,9 +116,7 @@ fetch("/partials/navbar.html")
       el.addEventListener("pointerleave", () => el.classList.remove("touch-bg"));
     });
 
-    /* ---------- CLICK LOGIC ---------- */
-
-    document.addEventListener("click", (e) => {
+    document.addEventListener("click", e => {
       const navbar = document.querySelector(".navbar");
       const isLoggedIn = navbar?.dataset.auth === "logged-in";
 

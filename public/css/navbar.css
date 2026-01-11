@@ -42,7 +42,6 @@
   gap: 18px;
 }
 
-.language-icon,
 .home-button,
 .map-button,
 .maintenance-button {
@@ -55,11 +54,6 @@
   cursor: pointer;
 }
 
-.language-icon {
-  font-size: 1.15rem;
-}
-
-.language-icon:hover,
 .home-button:hover,
 .map-button:hover,
 .maintenance-button:hover,
@@ -189,10 +183,6 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-}
-
-.language-button:hover {
-  color: var(--buttons);
 }
 
 .mobile-language-toggle {
