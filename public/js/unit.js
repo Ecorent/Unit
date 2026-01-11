@@ -87,7 +87,7 @@ function renderUnit(lang) {
   `;
 
   document.getElementById("mapFrame").src =
-    `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed`;
+    `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed&hl=${lang}`;
 
   if (!document.querySelector(".carousel-track")) {
     initCarousel(unit.images || []);
