@@ -158,6 +158,10 @@
   flex-shrink: 0;
   background-size: cover;
   background-position: center;
+  image-rendering: auto;
+  image-rendering: smooth;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
