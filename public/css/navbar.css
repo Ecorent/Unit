@@ -370,6 +370,7 @@
   .language-button .lang-flag {
     width: 20px;
     height: 20px;
+    box-shadow: 0 0 0 1px #292929;
   }
 }
 
