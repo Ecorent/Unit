@@ -80,6 +80,8 @@ body {
   aspect-ratio: 4 / 3;
   border-radius: 5px;
   overflow: hidden;
+  transform: scale(0.92);
+  transform-origin: top center;
 }
 
 .carousel-track {
