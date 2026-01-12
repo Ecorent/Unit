@@ -45,10 +45,11 @@ function priceIcon(price) {
   });
 }
 
-/* ===== FETCH ONCE ===== */
+/* ===== FETCH ===== */
 fetch(SANITY_URL)
   .then(res => res.json())
   .then(({ result }) => {
+    unitCache = result || [];
     render();
   });
 
@@ -142,7 +143,7 @@ window.addEventListener("languageChanged", e => {
   render();
 });
 
-/* ===== BFCACHE SUPPORT ===== */
+/* ===== BFCACHE ===== */
 window.addEventListener("pageshow", event => {
   if (event.persisted) {
     render();
