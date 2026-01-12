@@ -34,6 +34,7 @@ body {
   border-right: 2px solid #d1d1d1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .map-listings-header {
@@ -53,41 +54,23 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 24px;
 }
 
-.map-unit-card {
-  background: white;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.map-units .unit-card {
+  margin: 0;
 }
 
-.map-unit-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+.map-units .unit-carousel {
+  margin: 14px;
 }
 
-.map-unit-img {
-  height: 155px;
-  background-size: cover;
-  background-position: center;
+.map-units .unit-info {
+  padding: 6px 18px 18px;
 }
 
-.map-unit-info {
-  padding: 12px 14px 14px;
-}
-
-.map-unit-info h3 {
-  margin: 0 0 4px;
-  font-size: 1rem;
-}
-
-.map-unit-meta {
-  font-size: 0.85rem;
-  color: #555;
+.map-units .view-button {
+  margin-top: 10px;
 }
 
 .map-container {
