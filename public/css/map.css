@@ -13,11 +13,21 @@ body {
   color: var(--dark);
 }
 
+/* ===== PAGE WRAPPER (MATCH NAVBAR) ===== */
+
+.map-page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: calc(100vh - 104px);
+}
+
 /* ===== LAYOUT ===== */
 
 .map-layout {
   display: flex;
-  height: calc(100vh - 104px);
+  height: 100%;
+  background: var(--light);
 }
 
 /* ===== LISTINGS ===== */
@@ -109,11 +119,18 @@ body {
   white-space: nowrap;
 }
 
-/* ===== MOBILE ===== */
+/* ===== RESPONSIVE ===== */
 
 @media (max-width: 900px) {
+  .map-page-wrapper {
+    padding: 0;
+    max-width: none;
+    height: auto;
+  }
+
   .map-layout {
     flex-direction: column;
+    height: auto;
   }
 
   .map-listings {
@@ -125,5 +142,14 @@ body {
 
   .map-container {
     height: 55vh;
+  }
+}
+
+/* ===== MID WIDTH (MATCH NAVBAR BREAKPOINT) ===== */
+
+@media (min-width: 769px) and (max-width: 1350px) {
+  .map-page-wrapper {
+    padding-left: 55px;
+    padding-right: 55px;
   }
 }
