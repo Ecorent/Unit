@@ -37,15 +37,9 @@ body {
   overflow: hidden;
 }
 
-.map-title {
-  margin: 20px 22px 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
 .map-units {
   flex: 1;
-  padding: 20px 22px 20px;
+  padding: 20px 20px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
