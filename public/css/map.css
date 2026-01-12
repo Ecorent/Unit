@@ -16,10 +16,6 @@ body {
   color: var(--dark);
 }
 
-/* =========================
-   PAGE LAYOUT
-========================= */
-
 .map-page-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -41,21 +37,15 @@ body {
   overflow: hidden;
 }
 
-.map-listings-header {
-  background: white;
-  padding: 20px 22px;
-  border-bottom: 2px solid #d1d1d1;
-  flex-shrink: 0;
-}
-
-.map-listings-header h2 {
-  margin: 0;
+.map-title {
+  margin: 20px 22px 0;
   font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .map-units {
   flex: 1;
-  padding: 20px;
+  padding: 20px 22px 20px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -70,10 +60,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
-/* =========================
-   UNIT CARD (MATCHES HOME)
-========================= */
 
 .unit-card {
   background: white;
@@ -91,10 +77,6 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* =========================
-   IMAGE / CAROUSEL
-========================= */
 
 .unit-carousel {
   position: relative;
@@ -164,10 +146,6 @@ body {
   right: 10px;
 }
 
-/* =========================
-   INFO SECTION
-========================= */
-
 .unit-info {
   padding: 6px 22px 22px;
   display: flex;
@@ -199,10 +177,6 @@ body {
 .unit-meta i {
   margin-right: 6px;
 }
-
-/* =========================
-   VIEW BUTTON (MATCHES HOME)
-========================= */
 
 .view-button {
   margin-top: 14px;
