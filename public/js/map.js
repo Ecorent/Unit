@@ -12,9 +12,9 @@ let currentLang = localStorage.getItem("lang") || "en";
 let unitCache = [];
 const markers = {};
 
-/* ===== QUERY ===== */
+/* ===== QUERY (FIXED — NO LOCATION FILTER) ===== */
 const query = encodeURIComponent(`
-  *[_type == "unit" && published == true && defined(location)]{
+  *[_type == "unit" && published == true]{
     title{en, es},
     price,
     address,
@@ -27,7 +27,7 @@ const query = encodeURIComponent(`
 const SANITY_URL =
   `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-/* ===== MAP INIT ===== */
+/* ===== MAP INIT (UNCHANGED) ===== */
 const map = L.map("map", { zoomControl: false }).setView([39.5, -98.35], 4);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -62,7 +62,7 @@ function render() {
 
   unitCache.forEach(unit => {
     renderCard(unit);
-    renderMarker(unit);
+    renderMarker(unit); // unchanged
   });
 
   requestAnimationFrame(() => {
@@ -105,7 +105,7 @@ function renderCard(unit) {
 
   card.addEventListener("click", () => {
     map.setView(
-      [unit.location.lat, unit.location.lng],
+      [unit.location?.lat, unit.location?.lng],
       16,
       { animate: true }
     );
@@ -113,8 +113,10 @@ function renderCard(unit) {
   });
 }
 
-/* ===== MARKER ===== */
+/* ===== MARKER (UNCHANGED) ===== */
 function renderMarker(unit) {
+  if (!unit.location?.lat || !unit.location?.lng) return;
+
   const key = unit.slug.current;
   const title =
     unit.title?.[currentLang] || unit.title?.en || "";
