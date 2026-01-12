@@ -27,7 +27,7 @@ body {
 }
 
 .hero-desktop {
-  aspect-ratio: 1536 / 450;
+  aspect-ratio: 1584 / 591;
   object-position: center;
 }
 
@@ -244,7 +244,7 @@ body {
   .hero-mobile {
     display: block;
     width: 100%;
-    aspect-ratio: 1536 / 823;
+    aspect-ratio: 1469 / 672;
     object-fit: cover;
     object-position: center 45%;
   }
