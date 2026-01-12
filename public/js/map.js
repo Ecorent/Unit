@@ -14,7 +14,7 @@ const markers = {};
 
 /* ===== QUERY ===== */
 const query = encodeURIComponent(`
-  *[_type == "unit" && published == true]{
+  *[_type == "unit" && published == true && defined(location)]{
     title{en, es},
     price,
     address,
@@ -49,7 +49,6 @@ function priceIcon(price) {
 fetch(SANITY_URL)
   .then(res => res.json())
   .then(({ result }) => {
-    unitCache = (result || []).filter(u => u.location);
     render();
   });
 
