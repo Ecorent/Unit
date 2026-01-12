@@ -6,14 +6,15 @@
   --box-bg: #ffffff;
 }
 
+html,
 body {
   margin: 0;
+  height: 100%;
+  overflow: hidden;
   font-family: 'Poppins', sans-serif;
   background: var(--light);
   color: var(--dark);
 }
-
-/* ===== PAGE WRAPPER (MATCH NAVBAR) ===== */
 
 .map-page-wrapper {
   max-width: 1200px;
@@ -22,15 +23,10 @@ body {
   height: calc(100vh - 104px);
 }
 
-/* ===== LAYOUT ===== */
-
 .map-layout {
   display: flex;
   height: 100%;
-  background: var(--light);
 }
-
-/* ===== LISTINGS ===== */
 
 .map-listings {
   width: 420px;
@@ -44,6 +40,7 @@ body {
   background: white;
   padding: 20px 22px;
   border-bottom: 2px solid #d1d1d1;
+  flex-shrink: 0;
 }
 
 .map-listings-header h2 {
@@ -58,8 +55,6 @@ body {
   flex-direction: column;
   gap: 18px;
 }
-
-/* ===== CARD ===== */
 
 .map-unit-card {
   background: white;
@@ -95,8 +90,6 @@ body {
   color: #555;
 }
 
-/* ===== MAP ===== */
-
 .map-container {
   flex: 1;
 }
@@ -105,8 +98,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
-/* ===== PRICE PIN ===== */
 
 .price-pin {
   background: var(--buttons);
@@ -119,33 +110,28 @@ body {
   white-space: nowrap;
 }
 
-/* ===== RESPONSIVE ===== */
-
 @media (max-width: 900px) {
   .map-page-wrapper {
-    padding: 0;
     max-width: none;
-    height: auto;
+    padding: 0;
+    height: calc(100vh - 104px);
   }
 
   .map-layout {
     flex-direction: column;
-    height: auto;
   }
 
   .map-listings {
     width: 100%;
-    height: 45vh;
+    height: 45%;
     border-right: none;
     border-bottom: 2px solid #d1d1d1;
   }
 
   .map-container {
-    height: 55vh;
+    height: 55%;
   }
 }
-
-/* ===== MID WIDTH (MATCH NAVBAR BREAKPOINT) ===== */
 
 @media (min-width: 769px) and (max-width: 1350px) {
   .map-page-wrapper {
