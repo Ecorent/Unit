@@ -39,7 +39,7 @@ body {
 
 .map-units {
   flex: 1;
-  padding: 16px 16px 16px 12px;
+  padding: 16px 16px 16px 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -48,11 +48,14 @@ body {
 
 .map-container {
   flex: 1;
+  padding: 16px 0;
 }
 
 #map {
   width: 100%;
   height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .unit-card {
@@ -86,8 +89,6 @@ body {
   transition: transform 0.4s ease;
   position: relative;
   z-index: 1;
-  transform: scale(0.93);
-  transform-origin: center;
 }
 
 .carousel-track img {
