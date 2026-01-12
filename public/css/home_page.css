@@ -244,7 +244,7 @@ body {
   .hero-mobile {
     display: block;
     width: 100%;
-    aspect-ratio: 1469 / 672;
+    aspect-ratio: 1394 / 672;
     object-fit: cover;
     object-position: center 45%;
   }
