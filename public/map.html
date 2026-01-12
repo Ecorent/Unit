@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google" content="notranslate">
+  <title>Ecorentusa – Map</title>
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+  <link rel="stylesheet" href="/css/navbar.css"/>
+  <link rel="stylesheet" href="/css/footer.css"/>
+  <link rel="stylesheet" href="/css/map.css"/>
+</head>
+
+<body>
+
+  <div id="navbar"></div>
+
+  <main class="map-layout">
+
+    <!-- LISTINGS -->
+    <section class="map-listings">
+      <div class="map-listings-header">
+        <h2 data-i18n="available_units">Available Units</h2>
+      </div>
+
+      <div class="map-units" id="mapUnits"></div>
+    </section>
+
+    <!-- MAP -->
+    <section class="map-container">
+      <div id="map"></div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module" src="/js/navbar.js"></script>
+  <script src="/js/footer.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="/js/map.js"></script>
+
+</body>
+</html>
