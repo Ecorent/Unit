@@ -38,11 +38,11 @@ body {
 
 .map-units {
   flex: 1;
-  padding: 12px 12px 12px 8px;
+  padding: 16px 16px 16px 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 24px;
 }
 
 .map-container {
@@ -76,8 +76,8 @@ body {
 
 .unit-carousel {
   position: relative;
-  margin: 10px;
-  aspect-ratio: 16 / 11;
+  margin: 14px;
+  aspect-ratio: 4 / 3;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -102,22 +102,22 @@ body {
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: blur(16px);
-  transform: scale(1.1);
+  filter: blur(18px);
+  transform: scale(1.12);
   z-index: 0;
 }
 
 .price-badge {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 8px;
+  right: 8px;
   z-index: 4;
   background: var(--darker-green);
   color: white;
-  padding: 4px 8px;
+  padding: 5px 10px;
   border-radius: 5px;
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .carousel-btn {
@@ -128,22 +128,22 @@ body {
   background: rgba(0,0,0,0.55);
   color: white;
   border: none;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
 }
 
 .carousel-btn.prev {
-  left: 6px;
+  left: 8px;
 }
 
 .carousel-btn.next {
-  right: 6px;
+  right: 8px;
 }
 
 .unit-info {
-  padding: 4px 16px 14px;
+  padding: 6px 18px 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -159,7 +159,7 @@ body {
   padding-left: 2px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   font-size: 0.85rem;
   color: #555;
 }
@@ -175,14 +175,14 @@ body {
 }
 
 .view-button {
-  margin-top: 10px;
+  margin-top: 12px;
   background: white;
   color: var(--buttons);
-  border: 2px solid var(--buttons);
-  padding: 6px 12px;
+  border: 2.5px solid var(--buttons);
+  padding: 8px 14px;
   border-radius: 5px;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-decoration: none;
   display: flex;
   justify-content: space-between;
