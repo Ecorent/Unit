@@ -35,6 +35,7 @@ body {
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+  margin-bottom: 50px;
 }
 
 .map-units {
