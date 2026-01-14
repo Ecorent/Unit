@@ -37,34 +37,20 @@ body {
   min-height: 0;
 }
 
-.map-units::before,
-.map-units::after {
-  content: "";
-  display: block;
-  height: 16px;
-  position: sticky;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.map-units::before {
-  top: 0;
-}
-
-.map-units::after {
-  bottom: 0;
-  height: 22px;
+.map-units {
+  flex: 1;
+  padding: 16px 16px 16px 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .map-units::-webkit-scrollbar {
   display: none;
-}
-
-.map-units-inner {
-  padding: 0 16px 0 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
 }
 
 .map-container {
