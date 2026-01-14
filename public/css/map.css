@@ -38,8 +38,8 @@ body {
 }
 
 .map-units-wrapper {
+  flex: 1;
   padding: 16px 16px 22px 10px;
-  height: 100%;
   box-sizing: border-box;
 }
 
