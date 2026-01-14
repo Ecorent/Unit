@@ -52,8 +52,8 @@ body {
 
 .map-units {
   flex: none;
-  height: calc(100% - 22px);
-  padding: 0 16px 0 10px;
+  height: 100%
+  padding: 16px 16px 0 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
