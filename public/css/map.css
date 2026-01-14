@@ -41,7 +41,7 @@ body {
 .map-listings::before {
   content: "";
   position: absolute;
-  height: 16px;
+  height: 15px;
   background: var(--light);
   pointer-events: none;
   z-index: 10;
@@ -64,12 +64,12 @@ body {
 
 .map-units {
   flex: 1;
-  height: calc(100% - 50px);
+  height: calc(100% - 38px);
   padding: 0 16px 0 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 22px;
   min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
