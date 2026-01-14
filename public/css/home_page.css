@@ -65,7 +65,7 @@ body {
   border: 3px solid var(--buttons);
   text-decoration: none;
   padding: 8px 18px;
-  border-radius: 6px;
+  border-radius: 6px; 
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -76,7 +76,7 @@ body {
 .units {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 20px 55px;
+  padding: 0 20px 35px;
 }
 
 .units-grid {
@@ -85,7 +85,6 @@ body {
   gap: 30px;
   justify-content: start;
 }
-
 
 .unit-card {
   background: white;
