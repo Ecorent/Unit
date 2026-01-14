@@ -14,7 +14,7 @@ body {
 }
 
 .navbar {
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 }
 
 .container {
@@ -43,11 +43,11 @@ body {
 .section-title {
   color: var(--details-title);
   margin: 0 0 21px;
-  font-size: 1.6rem;
+  font-size: 1.6rem; 
 }
 
 main {
-  margin: 0 auto 55px;
+  margin: 0 auto 30px;
 }
 
 .carousel {
@@ -151,7 +151,7 @@ main {
 
 .extras {
   max-width: 1200px;
-  margin: 40px auto 55px;
+  margin: 30px auto 30px;
   padding: 0 20px;
   display: flex;
   gap: 40px;
