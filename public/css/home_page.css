@@ -16,7 +16,7 @@ body {
 .hero {
   width: 100%;
   overflow: hidden;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 }
 
 .hero-img {
@@ -37,7 +37,7 @@ body {
 
 .map-cta {
   max-width: 1200px;
-  margin: 0 auto 35px;
+  margin: 0 auto 30px;
   padding: 0 20px 0 18px;
 }
 
