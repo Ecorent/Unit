@@ -45,6 +45,9 @@ body {
   background: var(--light);
   pointer-events: none;
   z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .map-listings::after {
@@ -54,12 +57,15 @@ body {
   background: var(--light);
   pointer-events: none;
   z-index: 10;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .map-units {
-  flex: none;
+  flex: 1;
   height: calc(100% - 38px);
-  padding: 16px 16px 0 10px;
+  padding: 0 16px 0 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
