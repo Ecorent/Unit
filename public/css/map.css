@@ -29,7 +29,7 @@ body {
 }
 
 .map-listings {
-  width: 400px;
+  width: 350px;
   background: var(--light);
   display: flex;
   flex-direction: column;
@@ -37,21 +37,17 @@ body {
   min-height: 0;
 }
 
-.map-units-wrapper {
-  flex: 1;
-  padding: 16px 16px 22px 10px;
-  box-sizing: border-box;
-}
-
 .map-units {
   flex: 1;
+  padding: 16px 16px 22px 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  scroll-padding-bottom: 16px;
 }
 
 .map-units::-webkit-scrollbar {
