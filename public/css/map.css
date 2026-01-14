@@ -54,6 +54,11 @@ body {
   display: none;
 }
 
+.units-bottom-spacer {
+  height: 22px; 
+  flex-shrink: 0;
+}
+
 .map-container {
   flex: 1;
   padding: 16px 0 22px 0;
