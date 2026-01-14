@@ -45,6 +45,12 @@ body {
   flex-direction: column;
   gap: 24px;
   min-height: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.map-units::-webkit-scrollbar {
+  display: none;
 }
 
 .map-container {
@@ -209,4 +215,3 @@ body {
     color: white;
   }
 }
-
