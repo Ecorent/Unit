@@ -35,16 +35,16 @@ body {
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
-  margin: 16px 0 22px 0;
+  margin: 30px 0 36px 0;
 }
 
 .map-units {
   flex: 1;
-  padding: 0 16px 0 10px;
+  padding: 0 30px 0 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 30px;
   min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -57,7 +57,7 @@ body {
 
 .map-container {
   flex: 1;
-  padding: 16px 0 22px 0;
+  padding: 30px 0 36px 0;
 }
 
 #map {
