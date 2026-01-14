@@ -35,10 +35,25 @@ body {
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+  position: relative;
+}
+
+.map-listings::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: var(--light);
+  pointer-events: none;
+  z-index: 10;
 }
 
 .map-units {
-  padding: 16px 16px 22px 10px;
+  flex: none;
+  height: calc(100% - 22px);
+  padding: 16px 16px 16px 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -46,8 +61,6 @@ body {
   min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  flex: none;
-  height: calc(100% - 22px);
 }
 
 .map-units::-webkit-scrollbar {
