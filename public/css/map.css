@@ -33,37 +33,21 @@ body {
   background: var(--light);
   display: flex;
   flex-direction: column;
-  overflow: clip;
+  overflow: hidden;
   min-height: 0;
-  position: relative;
-}
-
-.map-listings::after {
-  content: "";
-  position: absolute;
-  height: 16px;
-  background: var(--light);
-  pointer-events: none;
-  z-index: 10;
 }
 
 .map-units {
-  flex: none;
-  height: calc(100% - 22px);
-  padding: 16px 16px 0 10px;
+  flex: 1;
+  padding: 16px 16px 22px 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
-}
-
-.map-units::after {
-  content: "";
-  display: block;
-  flex-shrink: 0;
+  scroll-padding-bottom: 16px;
 }
 
 .map-units::-webkit-scrollbar {
