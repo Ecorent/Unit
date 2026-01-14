@@ -67,11 +67,6 @@ function render() {
     renderMarker(unit);
   });
 
-  // ✅ ADD THIS
-  const spacer = document.createElement("div");
-  spacer.className = "units-bottom-spacer";
-  container.appendChild(spacer);
-
   initCarousels();
   initAnimations();
 
