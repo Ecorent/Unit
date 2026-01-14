@@ -53,7 +53,7 @@ body {
 .map-units {
   flex: none;
   height: calc(100% - 22px);
-  padding: 16px 16px 38px 10px;
+  padding: 16px 16px 16px 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -61,6 +61,13 @@ body {
   min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+.map-units::after {
+  content: "";
+  display: block;
+  height: 22px;
+  flex-shrink: 0;
 }
 
 .map-units::-webkit-scrollbar {
