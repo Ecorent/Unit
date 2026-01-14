@@ -33,9 +33,12 @@ const SANITY_URL =
 /* ===== MAP INIT ===== */
 const map = L.map("map", { zoomControl: false }).setView([39.5, -98.35], 4);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "&copy; OpenStreetMap"
-}).addTo(map);
+L.tileLayer(
+  "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+  {
+    attribution: "&copy; OpenStreetMap &copy; CARTO"
+  }
+).addTo(map);
 
 L.control.zoom({ position: "bottomright" }).addTo(map);
 
