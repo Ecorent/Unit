@@ -38,18 +38,6 @@ body {
   position: relative;
 }
 
-.map-listings::before {
-  content: "";
-  position: absolute;
-  height: 15px;
-  background: var(--light);
-  pointer-events: none;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
 .map-listings::after {
   content: "";
   position: absolute;
@@ -57,19 +45,16 @@ body {
   background: var(--light);
   pointer-events: none;
   z-index: 10;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .map-units {
-  flex: 1;
-  height: calc(100% - 38px);
-  padding: 0 16px 0 10px;
+  flex: none;
+  height: calc(100% - 22px);
+  padding: 16px 16px 0 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 16px;
   min-height: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
