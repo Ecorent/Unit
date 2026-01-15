@@ -63,12 +63,9 @@ export default {
     {
       name: "location",
       title: "Location",
-      type: "object",
-      readOnly: true,
-      fields: [
-        { name: "lat", type: "number" },
-        { name: "lng", type: "number" }
-      ]
+      type: "geopoint",
+      description: "This is taken care of automatically.",
+      readOnly: true
     },
 
     { name: "bedrooms", title: "Bedrooms", type: "number", validation: Rule => Rule.required() },

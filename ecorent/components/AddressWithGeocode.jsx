@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Stack, TextInput } from "@sanity/ui";
-import { PatchEvent, set, unset } from "sanity";
+import { PatchEvent, set } from "sanity";
 
 export default function AddressWithGeocode(props) {
   const { value, onChange } = props;
@@ -13,7 +13,12 @@ export default function AddressWithGeocode(props) {
         const res = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=${encodeURIComponent(
             value
-          )}`
+          )}`,
+          {
+            headers: {
+              "User-Agent": "ecorentusa.com (admin@ecorentusa.com)"
+            }
+          }
         );
 
         const data = await res.json();
@@ -23,9 +28,9 @@ export default function AddressWithGeocode(props) {
 
         onChange(
           PatchEvent.from(
-            set(value),
             set(
               {
+                _type: "geopoint",
                 lat: Number(lat),
                 lng: Number(lon)
               },
@@ -53,4 +58,3 @@ export default function AddressWithGeocode(props) {
     </Stack>
   );
 }
-
