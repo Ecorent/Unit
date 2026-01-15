@@ -19,7 +19,8 @@ const query = encodeURIComponent(`
     bedrooms,
     slug,
     images[]{asset->{url}},
-    location
+    latitude,
+    longitude
   }
 `);
 
@@ -66,6 +67,7 @@ function render() {
   bindMapFiltering();
 
   requestAnimationFrame(() => map.invalidateSize());
+  fitMapToMarkers();
 }
 
 function createUnitCard(unit) {
@@ -145,12 +147,15 @@ const activeIcon = L.icon({
 });
 
 function renderMarker(unit) {
-  if (!unit.location?.lat || !unit.location?.lng) return;
+  if (
+    typeof unit.latitude !== "number" ||
+    typeof unit.longitude !== "number"
+  ) return;
 
   const key = unit.slug.current;
 
   const marker = L.marker(
-    [unit.location.lat, unit.location.lng],
+    [unit.latitude, unit.longitude],
     { icon: defaultIcon }
   ).addTo(map);
 
@@ -192,6 +197,13 @@ function bindMapFiltering() {
 
   map.on("moveend zoomend", updateVisibility);
   updateVisibility();
+}
+
+function fitMapToMarkers() {
+  const latLngs = Object.values(markers).map(m => m.getLatLng());
+  if (latLngs.length) {
+    map.fitBounds(latLngs, { padding: [60, 60] });
+  }
 }
 
 function initCarousels() {
