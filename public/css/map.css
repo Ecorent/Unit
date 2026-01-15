@@ -303,7 +303,7 @@ body {
     flex-direction: column;
     z-index: 10;
     touch-action: pan-y;
-  }
+  } 
 
   .map-listings::before {
     content: "";
