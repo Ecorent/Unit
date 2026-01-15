@@ -6,6 +6,7 @@ const SANITY_API_VERSION = "2023-10-01";
 
 let currentLang = localStorage.getItem("lang") || "en";
 let unitCache = [];
+
 const markers = {};
 const cards = {};
 
@@ -148,7 +149,10 @@ function createUnitCard(unit) {
 }
 
 function renderMarker(unit) {
-  if (typeof unit.latitude !== "number" || typeof unit.longitude !== "number") return;
+  if (
+    typeof unit.latitude !== "number" ||
+    typeof unit.longitude !== "number"
+  ) return;
 
   const key = unit.slug.current;
 
@@ -248,3 +252,8 @@ function initAnimations() {
     observer.observe(card)
   );
 }
+
+window.addEventListener("languageChanged", e => {
+  currentLang = e.detail;
+  render();
+});
