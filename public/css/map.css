@@ -36,7 +36,6 @@ body {
   overflow: hidden;
   min-height: 0;
   margin: 30px 0 36px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .map-units {
@@ -79,6 +78,7 @@ body {
   transform: translateY(24px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .unit-card.in-view {
