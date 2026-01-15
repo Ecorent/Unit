@@ -217,3 +217,9 @@ body {
     color: white;
   }
 }
+
+@media (min-width: 769px) and (max-width: 1350px) {
+  .map-page-wrapper
+    padding-left: 55px;
+    padding-right: 55px;
+}

@@ -96,10 +96,10 @@ main {
   z-index: 4;
   background: var(--details-title);
   color: white;
-  padding: 7px 15px;
+  padding: 7px 14px;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .carousel-controls button {
@@ -251,7 +251,7 @@ main {
   }
 
   .price-badge {
-    padding: 6px 13px;
+    padding: 6px 12px;
     font-size: 0.95rem;
   }
 
@@ -274,11 +274,6 @@ main {
     font-size: clamp(0.85rem, 2.4vw, 0.95rem);
     padding-left: 6px;
     margin-bottom: 7px;
-  }
-
-  .price-badge {
-    font-size: 0.95rem;
-    padding: 6px 12px;
   }
 
   .carousel-controls button {
