@@ -106,7 +106,7 @@ body {
 }
 
 .unit-card.active {
-  padding-top: 1px;
+  padding-top: 2px;
   outline: 2px solid var(--buttons);
   transform: scale(1.01);
 }
