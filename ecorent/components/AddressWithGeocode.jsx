@@ -5,14 +5,22 @@ import { PatchEvent, set } from "sanity";
 export default function AddressWithGeocode(props) {
   const { value, onChange } = props;
 
+  // 🔒 Normalize bad legacy data
+  const safeValue =
+    typeof value === "string"
+      ? value
+      : typeof value === "object" && value !== null
+      ? ""
+      : "";
+
   useEffect(() => {
-    if (!value || typeof value !== "string") return;
+    if (!safeValue) return;
 
     const timeout = setTimeout(async () => {
       try {
         const res = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=${encodeURIComponent(
-            value
+            safeValue
           )}`,
           {
             headers: {
@@ -44,12 +52,12 @@ export default function AddressWithGeocode(props) {
     }, 800);
 
     return () => clearTimeout(timeout);
-  }, [value, onChange]);
+  }, [safeValue, onChange]);
 
   return (
     <Stack space={2}>
       <TextInput
-        value={value || ""}
+        value={safeValue}
         onChange={e =>
           onChange(PatchEvent.from(set(e.currentTarget.value)))
         }
