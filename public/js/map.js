@@ -257,3 +257,36 @@ window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
   render();
 });
+
+if (window.innerWidth <= 768) {
+  const sheet = document.querySelector(".map-listings");
+  const handle = sheet.querySelector(".sheet-handle");
+
+  let startY = 0;
+  let currentState = "collapsed";
+
+  const setState = state => {
+    sheet.classList.remove("half", "full");
+    if (state !== "collapsed") sheet.classList.add(state);
+    currentState = state;
+  };
+
+  handle.addEventListener("touchstart", e => {
+    startY = e.touches[0].clientY;
+  });
+
+  handle.addEventListener("touchend", e => {
+    const delta = startY - e.changedTouches[0].clientY;
+
+    if (delta > 80) {
+      if (currentState === "collapsed") setState("half");
+      else if (currentState === "half") setState("full");
+    }
+
+    if (delta < -80) {
+      if (currentState === "full") setState("half");
+      else if (currentState === "half") setState("collapsed");
+    }
+  });
+}
+

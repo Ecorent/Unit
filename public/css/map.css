@@ -271,15 +271,14 @@ body {
   }
 
   .map-layout {
-    flex-direction: column;
     height: 100%;
     position: relative;
+    overflow: hidden;
   }
 
   .map-container {
+    height: 60vh;
     padding: 0;
-    height: 40vh;
-    flex: none;
   }
 
   #map {
@@ -290,23 +289,26 @@ body {
 
   .map-listings {
     position: absolute;
-    bottom: 0;
     left: 0;
     right: 0;
-    width: 100%;
-    height: 47vh;
-    margin: 0;
+    bottom: 0;
+
+    height: 40vh;
     background: var(--light);
     border-radius: 16px 16px 0 0;
-    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -6px 18px rgba(0,0,0,0.15);
+
     display: flex;
     flex-direction: column;
+
+    transform: translateY(0);
+    transition: transform 0.25s ease;
+    will-change: transform;
+
     z-index: 10;
-    touch-action: pan-y;
   }
 
-  .map-listings::before {
-    content: "";
+  .sheet-handle {
     width: 42px;
     height: 4px;
     background: #ccc;
@@ -316,9 +318,21 @@ body {
   }
 
   .map-units {
+    flex: 1;
+    overflow-y: hidden; 
     padding: 10px 16px 24px;
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
-}
 
+  .map-listings.half {
+    transform: translateY(-20vh);
+  }
+
+  .map-listings.full {
+    transform: translateY(-60vh);
+  }
+
+  .map-listings.full .map-units {
+    overflow-y: auto;
+  }
+}
