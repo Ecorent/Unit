@@ -106,7 +106,9 @@ body {
 }
 
 .unit-card.active {
-  outline: 2px solid var(--buttons);
+  box-shadow:
+    0 0 0 2px var(--buttons),
+    0 6px 14px rgba(0, 0, 0, 0.12);
   transform: scale(1.01);
 }
 
