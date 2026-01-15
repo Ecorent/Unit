@@ -207,41 +207,43 @@ function initMobileSheet() {
   const sheet = document.querySelector(".map-listings");
   const mapContainer = document.querySelector(".map-container");
   const navbarHeight = 104;
-  const peek = 64;
+  const peekHeight = 64;
 
-  const maxY = navbarHeight;
-  const midY = window.innerHeight / 2;
-  const minY = window.innerHeight - peek;
+  const viewportHeight = window.innerHeight;
+  const maxTranslate = viewportHeight - navbarHeight;
+  const minTranslate = peekHeight;
+  const midTranslate = (maxTranslate + minTranslate) / 2;
 
-  let currentY = minY;
-  let startY = 0;
+  let current = maxTranslate;
+  let start = 0;
 
   function apply(y) {
-    currentY = y;
-    sheet.style.transform = `translateY(${y}px)`;
-    mapContainer.style.height = `${y}px`;
+    current = y;
+    sheet.style.transform = `translateY(${y - viewportHeight}px)`;
+    mapContainer.style.height = `${y - navbarHeight}px`;
     map.invalidateSize();
-    sheet.classList.toggle("open", y === maxY);
+    sheet.classList.toggle("open", y === minTranslate);
   }
 
-  apply(minY);
+  apply(maxTranslate);
 
   sheet.addEventListener("touchstart", e => {
-    startY = e.touches[0].clientY - currentY;
+    start = e.touches[0].clientY;
   });
 
   sheet.addEventListener("touchmove", e => {
-    const y = Math.min(minY, Math.max(maxY, e.touches[0].clientY - startY));
-    apply(y);
+    const delta = e.touches[0].clientY - start;
+    const next = Math.min(maxTranslate, Math.max(minTranslate, current + delta));
+    apply(next);
   });
 
   sheet.addEventListener("touchend", () => {
     const snap =
-      Math.abs(currentY - minY) < Math.abs(currentY - midY)
-        ? minY
-        : Math.abs(currentY - midY) < Math.abs(currentY - maxY)
-        ? midY
-        : maxY;
+      Math.abs(current - minTranslate) < Math.abs(current - midTranslate)
+        ? minTranslate
+        : Math.abs(current - midTranslate) < Math.abs(current - maxTranslate)
+        ? midTranslate
+        : maxTranslate;
     apply(snap);
   });
 }
