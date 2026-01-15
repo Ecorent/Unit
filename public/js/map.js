@@ -8,7 +8,6 @@ let currentLang = localStorage.getItem("lang") || "en";
 let unitCache = [];
 const markers = {};
 const cards = {};
-let hasFitInitialBounds = false;
 
 const query = encodeURIComponent(`
   *[_type == "unit" && published == true]
@@ -28,7 +27,6 @@ const query = encodeURIComponent(`
 const SANITY_URL =
   `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-/* IMPORTANT: Leaflet needs an initial view */
 const map = L.map("map", { zoomControl: false })
   .setView([39.5, -98.35], 4);
 
@@ -80,10 +78,7 @@ function render() {
 
   requestAnimationFrame(() => {
     map.invalidateSize();
-    if (!hasFitInitialBounds) {
-      fitMapToMarkers();
-      hasFitInitialBounds = true;
-    }
+    fitMapToMarkers();
     updateVisibility();
   });
 }
@@ -91,7 +86,6 @@ function render() {
 function createUnitCard(unit) {
   const card = document.createElement("div");
   card.className = "unit-card";
-  card.dataset.slug = unit.slug.current;
 
   const images = unit.images || [];
   const title = unit.title?.[currentLang] || unit.title?.en || "";
@@ -163,17 +157,17 @@ function renderMarker(unit) {
     { icon: createPriceMarker(unit.price) }
   ).addTo(map);
 
-  const getBubble = () =>
+  const bubble = () =>
     marker.getElement()?.querySelector(".price-marker");
 
   marker.on("mouseover", () => {
-    getBubble()?.classList.add("active");
+    bubble()?.classList.add("active");
     cards[key]?.classList.add("active");
     cards[key]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
 
   marker.on("mouseout", () => {
-    getBubble()?.classList.remove("active");
+    bubble()?.classList.remove("active");
     cards[key]?.classList.remove("active");
   });
 
@@ -182,6 +176,13 @@ function renderMarker(unit) {
   });
 
   markers[key] = marker;
+}
+
+function fitMapToMarkers() {
+  const latLngs = Object.values(markers).map(m => m.getLatLng());
+  if (latLngs.length) {
+    map.fitBounds(latLngs, { padding: [60, 60] });
+  }
 }
 
 function updateVisibility() {
@@ -197,13 +198,6 @@ function updateVisibility() {
     card.style.display = visible ? "" : "none";
     marker.setOpacity(visible ? 1 : 0);
   });
-}
-
-function fitMapToMarkers() {
-  const latLngs = Object.values(markers).map(m => m.getLatLng());
-  if (latLngs.length) {
-    map.fitBounds(latLngs, { padding: [60, 60] });
-  }
 }
 
 map.on("moveend zoomend", updateVisibility);
@@ -254,16 +248,3 @@ function initAnimations() {
     observer.observe(card)
   );
 }
-
-window.addEventListener("languageChanged", e => {
-  currentLang = e.detail;
-  hasFitInitialBounds = false;
-  render();
-});
-
-window.addEventListener("pageshow", e => {
-  if (e.persisted) {
-    hasFitInitialBounds = false;
-    render();
-  }
-});
