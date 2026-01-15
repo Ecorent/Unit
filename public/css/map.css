@@ -261,9 +261,7 @@ body {
 
 @media (max-width: 768px) {
 
-  html,
   body {
-    height: 100%;
     overflow: hidden;
   }
 
@@ -280,32 +278,47 @@ body {
 
   .map-container {
     flex: none;
-    height: 45vh;
+    height: 40vh;
     padding: 0;
   }
 
   #map {
     height: 100%;
-    width: 100%;
     border-radius: 0;
     box-shadow: none;
   }
 
   .map-listings {
-    flex: 1;
+    position: relative;
     width: 100%;
     margin: 0;
     background: var(--light);
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
+    flex: 1;           
     overflow: hidden;
+    z-index: 1;
+    touch-action: pan-y;
+  }
+
+  .map-listings::before {
+    content: "";
+    width: 42px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 999px;
+    margin: 10px auto 8px;
+    flex-shrink: 0;
   }
 
   .map-units {
-    flex: 1;
-    padding: 14px 16px 24px;
+    padding: 10px 16px 24px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    min-height: 0;
   }
 }
+
 
