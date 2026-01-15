@@ -258,38 +258,3 @@ window.addEventListener("languageChanged", e => {
   render();
 });
 
-if (window.innerWidth <= 768) {
-  const sheet = document.querySelector(".map-listings");
-  const handle = sheet.querySelector(".sheet-handle");
-
-  let startY = 0;
-  let state = "collapsed";
-
-  const setState = s => {
-    sheet.classList.remove("half", "full");
-    if (s !== "collapsed") sheet.classList.add(s);
-    state = s;
-  };
-
-  setState("collapsed");
-
-  handle.addEventListener("touchstart", e => {
-    startY = e.touches[0].clientY;
-  });
-
-  handle.addEventListener("touchend", e => {
-    const delta = startY - e.changedTouches[0].clientY;
-
-    if (delta > 100) {
-      if (state === "collapsed") setState("half");
-      else if (state === "half") setState("full");
-    }
-
-    if (delta < -100) {
-      if (state === "full") setState("half");
-      else if (state === "half") setState("collapsed");
-    }
-  });
-}
-
-
