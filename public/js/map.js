@@ -40,6 +40,14 @@ function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
 }
 
+function createPriceMarker(price) {
+  return L.divIcon({
+    className: "",
+    html: `<div class="price-marker">$${Number(price).toLocaleString()}</div>`,
+    iconSize: null
+  });
+}
+
 fetch(SANITY_URL)
   .then(res => res.json())
   .then(({ result }) => {
@@ -120,31 +128,24 @@ function createUnitCard(unit) {
 
   card.addEventListener("mouseenter", () => {
     const marker = markers[unit.slug.current];
-    if (!marker) return;
-    marker.setIcon(activeIcon);
-    map.panTo(marker.getLatLng(), { animate: true, duration: 0.4 });
+    marker?.getElement()
+      ?.querySelector(".price-marker")
+      ?.classList.add("active");
+
+    if (marker) {
+      map.panTo(marker.getLatLng(), { animate: true, duration: 0.4 });
+    }
   });
 
   card.addEventListener("mouseleave", () => {
     const marker = markers[unit.slug.current];
-    if (!marker) return;
-    marker.setIcon(defaultIcon);
+    marker?.getElement()
+      ?.querySelector(".price-marker")
+      ?.classList.remove("active");
   });
 
   return card;
 }
-
-const defaultIcon = L.icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41]
-});
-
-const activeIcon = L.icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconSize: [30, 50],
-  iconAnchor: [15, 50]
-});
 
 function renderMarker(unit) {
   if (
@@ -156,18 +157,21 @@ function renderMarker(unit) {
 
   const marker = L.marker(
     [unit.latitude, unit.longitude],
-    { icon: defaultIcon }
+    { icon: createPriceMarker(unit.price) }
   ).addTo(map);
 
-  marker.on("mouseenter", () => {
-    marker.setIcon(activeIcon);
+  const getBubble = () =>
+    marker.getElement()?.querySelector(".price-marker");
+
+  marker.on("mouseover", () => {
+    getBubble()?.classList.add("active");
     const card = cards[key];
     card.classList.add("active");
     card.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
 
-  marker.on("mouseleave", () => {
-    marker.setIcon(defaultIcon);
+  marker.on("mouseout", () => {
+    getBubble()?.classList.remove("active");
     cards[key].classList.remove("active");
   });
 
@@ -190,8 +194,7 @@ function bindMapFiltering() {
 
       const visible = bounds.contains(marker.getLatLng());
       card.style.display = visible ? "" : "none";
-      if (!visible) marker.setOpacity(0);
-      else marker.setOpacity(1);
+      marker.setOpacity(visible ? 1 : 0);
     });
   };
 
@@ -248,7 +251,9 @@ function initAnimations() {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll(".unit-card").forEach(card => observer.observe(card));
+  document.querySelectorAll(".unit-card").forEach(card =>
+    observer.observe(card)
+  );
 }
 
 window.addEventListener("languageChanged", e => {
