@@ -28,7 +28,9 @@ const query = encodeURIComponent(`
 const SANITY_URL =
   `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-const map = L.map("map", { zoomControl: false });
+/* IMPORTANT: Leaflet needs an initial view */
+const map = L.map("map", { zoomControl: false })
+  .setView([39.5, -98.35], 4);
 
 L.tileLayer(
   "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
@@ -135,15 +137,15 @@ function createUnitCard(unit) {
   `;
 
   card.addEventListener("mouseenter", () => {
-    const marker = markers[unit.slug.current];
-    marker?.getElement()
+    markers[unit.slug.current]
+      ?.getElement()
       ?.querySelector(".price-marker")
       ?.classList.add("active");
   });
 
   card.addEventListener("mouseleave", () => {
-    const marker = markers[unit.slug.current];
-    marker?.getElement()
+    markers[unit.slug.current]
+      ?.getElement()
       ?.querySelector(".price-marker")
       ?.classList.remove("active");
   });
@@ -152,10 +154,7 @@ function createUnitCard(unit) {
 }
 
 function renderMarker(unit) {
-  if (
-    typeof unit.latitude !== "number" ||
-    typeof unit.longitude !== "number"
-  ) return;
+  if (typeof unit.latitude !== "number" || typeof unit.longitude !== "number") return;
 
   const key = unit.slug.current;
 
@@ -169,14 +168,13 @@ function renderMarker(unit) {
 
   marker.on("mouseover", () => {
     getBubble()?.classList.add("active");
-    const card = cards[key];
-    card.classList.add("active");
-    card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    cards[key]?.classList.add("active");
+    cards[key]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   });
 
   marker.on("mouseout", () => {
     getBubble()?.classList.remove("active");
-    cards[key].classList.remove("active");
+    cards[key]?.classList.remove("active");
   });
 
   marker.on("click", () => {
