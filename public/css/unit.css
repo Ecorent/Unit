@@ -28,7 +28,7 @@ body {
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
-  gap: 40px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
@@ -151,10 +151,10 @@ main {
 
 .extras {
   max-width: 1200px;
-  margin: 30px auto 30px;
+  margin: 30px auto 35px;
   padding: 0 20px;
   display: flex;
-  gap: 40px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
