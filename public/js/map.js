@@ -236,7 +236,7 @@ function initCarousels() {
       update();
     };
   });
-} 
+}  
 
 function initAnimations() {
   const observer = new IntersectionObserver(entries => {
