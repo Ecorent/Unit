@@ -5,13 +5,8 @@ import { PatchEvent, set } from "sanity";
 export default function AddressWithGeocode(props) {
   const { value, onChange } = props;
 
-  // 🔒 Normalize bad legacy data
-  const safeValue =
-    typeof value === "string"
-      ? value
-      : typeof value === "object" && value !== null
-      ? ""
-      : "";
+  // ✅ HARD normalize: address can ONLY be a string
+  const safeValue = typeof value === "string" ? value : "";
 
   useEffect(() => {
     if (!safeValue) return;
@@ -38,7 +33,6 @@ export default function AddressWithGeocode(props) {
           PatchEvent.from(
             set(
               {
-                _type: "geopoint",
                 lat: Number(lat),
                 lng: Number(lon)
               },
@@ -59,7 +53,11 @@ export default function AddressWithGeocode(props) {
       <TextInput
         value={safeValue}
         onChange={e =>
-          onChange(PatchEvent.from(set(e.currentTarget.value)))
+          onChange(
+            PatchEvent.from(
+              set(e.currentTarget.value, ["address"])
+            )
+          )
         }
         placeholder="123 Main St, Grand Rapids, MI"
       />
