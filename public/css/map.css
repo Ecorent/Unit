@@ -271,13 +271,14 @@ body {
   }
 
   .map-layout {
-    height: 100%;
     position: relative;
+    height: 100%;
     overflow: hidden;
   }
 
+  /* MAP */
   .map-container {
-    height: 60vh;
+    height: 100%;
     padding: 0;
   }
 
@@ -287,23 +288,27 @@ body {
     box-shadow: none;
   }
 
+  /* BOTTOM SHEET */
   .map-listings {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
 
-    height: 40vh;
+    width: 100%;
+    margin: 0;
+
+    height: 55vh;
     background: var(--light);
+
     border-radius: 16px 16px 0 0;
     box-shadow: 0 -6px 18px rgba(0,0,0,0.15);
 
     display: flex;
     flex-direction: column;
 
-    transform: translateY(0);
-    transition: transform 0.25s ease;
-    will-change: transform;
+    transform: translateY(35vh); /* collapsed */
+    transition: transform 0.3s ease;
 
     z-index: 10;
   }
@@ -319,17 +324,18 @@ body {
 
   .map-units {
     flex: 1;
-    overflow-y: hidden; 
     padding: 10px 16px 24px;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
   }
 
+  /* STATES */
   .map-listings.half {
-    transform: translateY(-20vh);
+    transform: translateY(15vh);
   }
 
   .map-listings.full {
-    transform: translateY(-60vh);
+    transform: translateY(0);
   }
 
   .map-listings.full .map-units {

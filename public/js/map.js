@@ -263,13 +263,15 @@ if (window.innerWidth <= 768) {
   const handle = sheet.querySelector(".sheet-handle");
 
   let startY = 0;
-  let currentState = "collapsed";
+  let state = "collapsed";
 
-  const setState = state => {
+  const setState = s => {
     sheet.classList.remove("half", "full");
-    if (state !== "collapsed") sheet.classList.add(state);
-    currentState = state;
+    if (s !== "collapsed") sheet.classList.add(s);
+    state = s;
   };
+
+  setState("collapsed");
 
   handle.addEventListener("touchstart", e => {
     startY = e.touches[0].clientY;
@@ -278,15 +280,16 @@ if (window.innerWidth <= 768) {
   handle.addEventListener("touchend", e => {
     const delta = startY - e.changedTouches[0].clientY;
 
-    if (delta > 80) {
-      if (currentState === "collapsed") setState("half");
-      else if (currentState === "half") setState("full");
+    if (delta > 100) {
+      if (state === "collapsed") setState("half");
+      else if (state === "half") setState("full");
     }
 
-    if (delta < -80) {
-      if (currentState === "full") setState("half");
-      else if (currentState === "half") setState("collapsed");
+    if (delta < -100) {
+      if (state === "full") setState("half");
+      else if (state === "half") setState("collapsed");
     }
   });
 }
+
 
