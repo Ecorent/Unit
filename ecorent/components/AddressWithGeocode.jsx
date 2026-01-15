@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { set, unset } from "sanity";
-import { TextInput, Stack, Text } from "@sanity/ui";
+import { Stack, TextInput } from "@sanity/ui";
+import { PatchEvent, set, unset } from "sanity";
 
 export default function AddressWithGeocode(props) {
   const { value, onChange } = props;
@@ -11,28 +11,30 @@ export default function AddressWithGeocode(props) {
     const timeout = setTimeout(async () => {
       try {
         const res = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`
+          `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=${encodeURIComponent(
+            value
+          )}`
         );
-        const data = await res.json();
 
-        if (!data?.length) {
-          onChange(unset(["location"]));
-          return;
-        }
+        const data = await res.json();
+        if (!data?.length) return;
 
         const { lat, lon } = data[0];
 
         onChange(
-          set(
-            {
-              lat: Number(lat),
-              lng: Number(lon)
-            },
-            ["location"]
+          PatchEvent.from(
+            set(value),
+            set(
+              {
+                lat: Number(lat),
+                lng: Number(lon)
+              },
+              ["location"]
+            )
           )
         );
-      } catch (e) {
-        console.error("Geocoding failed", e);
+      } catch (err) {
+        console.error("Geocoding failed", err);
       }
     }, 800);
 
@@ -43,12 +45,12 @@ export default function AddressWithGeocode(props) {
     <Stack space={2}>
       <TextInput
         value={value || ""}
-        onChange={e => onChange(set(e.currentTarget.value))}
-        placeholder="123 Main St, Austin TX"
+        onChange={e =>
+          onChange(PatchEvent.from(set(e.currentTarget.value)))
+        }
+        placeholder="123 Main St, Grand Rapids, MI"
       />
-      <Text size={1} muted>
-        Location is generated automatically
-      </Text>
     </Stack>
   );
 }
+

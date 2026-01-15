@@ -66,8 +66,8 @@ export default {
       type: "object",
       readOnly: true,
       fields: [
-        { name: "lat", title: "Latitude", type: "number" },
-        { name: "lng", title: "Longitude", type: "number" }
+        { name: "lat", type: "number" },
+        { name: "lng", type: "number" }
       ]
     },
 
