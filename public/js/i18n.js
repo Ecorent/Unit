@@ -109,6 +109,10 @@ function applyLanguage(lang) {
   });
 
   document.documentElement.lang = lang;
+
+  window.dispatchEvent(
+    new CustomEvent("languageApplied", { detail: lang })
+  );
 }
 
 // Initialize i18n and listen for language changes

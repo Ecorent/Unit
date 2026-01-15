@@ -28,7 +28,9 @@ fetch("/partials/navbar.html")
     const currentLangFlag = document.getElementById("currentLangFlag");
     const mobileCurrentLangFlag = document.getElementById("mobileCurrentLangFlag");
 
-    let currentLang = localStorage.getItem("lang") || "en";
+    /* ------------------------------------------------------------------
+       LANGUAGE FLAG SYNC (reactive only — no direct language application)
+    ------------------------------------------------------------------ */
 
     function updateLangIcons(lang) {
       const className = lang === "es" ? "flag-es" : "flag-us";
@@ -36,31 +38,17 @@ fetch("/partials/navbar.html")
       mobileCurrentLangFlag.className = `lang-flag ${className}`;
     }
 
-    function applyLanguage(lang) {
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.dataset.i18n;
-        if (translations[lang]?.[key]) {
-          el.textContent = translations[lang][key];
-        }
-      });
+    // Sync flags whenever language is actually applied
+    window.addEventListener("languageApplied", e => {
+      updateLangIcons(e.detail);
+    });
 
-      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
-        const key = el.dataset.i18nPlaceholder;
-        if (translations[lang]?.[key]) {
-          el.placeholder = translations[lang][key];
-        }
-      });
+    // Initial sync in case navbar loads after i18n applied language
+    updateLangIcons(localStorage.getItem("lang") || "en");
 
-      updateLangIcons(lang);
-      document.documentElement.lang = lang;
-      localStorage.setItem("lang", lang);
-
-      window.dispatchEvent(
-        new CustomEvent("languageChanged", { detail: lang })
-      );
-    }
-
-    applyLanguage(currentLang);
+    /* ------------------------------------------------------------------
+       LANGUAGE TOGGLES (intent only)
+    ------------------------------------------------------------------ */
 
     languageToggle?.addEventListener("click", e => {
       e.stopPropagation();
@@ -77,25 +65,35 @@ fetch("/partials/navbar.html")
     languageDropdown?.querySelectorAll("button").forEach(btn => {
       btn.addEventListener("click", () => {
         const selectedLang = btn.dataset.lang;
-        if (selectedLang) {
-          currentLang = selectedLang;
-          applyLanguage(currentLang);
-          languageDropdown.classList.add("hidden");
-        }
+        if (!selectedLang) return;
+
+        localStorage.setItem("lang", selectedLang);
+        languageDropdown.classList.add("hidden");
+
+        window.dispatchEvent(
+          new CustomEvent("languageChanged", { detail: selectedLang })
+        );
       });
     });
 
     mobileLanguageDropdown?.querySelectorAll("button").forEach(btn => {
       btn.addEventListener("click", () => {
         const selectedLang = btn.dataset.lang;
-        if (selectedLang) {
-          currentLang = selectedLang;
-          applyLanguage(currentLang);
-          mobileLanguageDropdown.classList.add("hidden");
-          mobileMenu?.classList.add("hidden");
-        }
+        if (!selectedLang) return;
+
+        localStorage.setItem("lang", selectedLang);
+        mobileLanguageDropdown.classList.add("hidden");
+        mobileMenu?.classList.add("hidden");
+
+        window.dispatchEvent(
+          new CustomEvent("languageChanged", { detail: selectedLang })
+        );
       });
     });
+
+    /* ------------------------------------------------------------------
+       TOUCH FEEDBACK
+    ------------------------------------------------------------------ */
 
     function addTouchFeedback(el) {
       if (!el) return;
@@ -115,6 +113,10 @@ fetch("/partials/navbar.html")
       el.addEventListener("pointerup", () => el.classList.remove("touch-bg"));
       el.addEventListener("pointerleave", () => el.classList.remove("touch-bg"));
     });
+
+    /* ------------------------------------------------------------------
+       GLOBAL CLICK HANDLER
+    ------------------------------------------------------------------ */
 
     document.addEventListener("click", e => {
       const navbar = document.querySelector(".navbar");
