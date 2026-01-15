@@ -1,5 +1,3 @@
-import AddressWithGeocode from "../components/AddressWithGeocode";
-
 export default {
   name: "unit",
   title: "Rental Unit",
@@ -54,18 +52,22 @@ export default {
       name: "address",
       title: "Address",
       type: "string",
-      components: {
-        input: AddressWithGeocode
-      },
       validation: Rule => Rule.required()
     },
 
     {
-      name: "location",
-      title: "Location",
-      type: "geopoint",
-      description: "This is taken care of automatically.",
-      readOnly: true
+      name: "latitude",
+      title: "Latitude",
+      type: "number",
+      description: "Example: 42.9634",
+      validation: Rule => Rule.required().min(-90).max(90)
+    },
+    {
+      name: "longitude",
+      title: "Longitude",
+      type: "number",
+      description: "Example: -85.6681",
+      validation: Rule => Rule.required().min(-180).max(180)
     },
 
     { name: "bedrooms", title: "Bedrooms", type: "number", validation: Rule => Rule.required() },
