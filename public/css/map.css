@@ -33,27 +33,30 @@ body {
   background: var(--light);
   display: flex;
   flex-direction: column;
-  overflow: visible;
-  min-height: 0;
   margin: 30px 0 36px 0;
+  min-height: 0;
+  overflow: hidden; 
 }
 
 .map-units {
   flex: 1;
-  padding: 0 30px 0 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 30px;
-  min-height: 0;
+
+  /* THE FIX */
+  padding: 0 60px 0 10px;   /* create gutter */
+  margin-right: -40px;      /* pull content back */
+
   scrollbar-width: none;
   -ms-overflow-style: none;
-  scroll-padding-bottom: 16px;
 }
 
 .map-units::-webkit-scrollbar {
   display: none;
 }
+
 
 .map-container {
   flex: 1;
@@ -106,7 +109,7 @@ body {
 }
 
 .unit-card.active {
-  padding-top: 5px;
+
   outline: 2px solid var(--buttons);
   transform: scale(1.01);
 }
