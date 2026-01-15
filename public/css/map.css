@@ -36,7 +36,6 @@ body {
   overflow: hidden;
   min-height: 0;
   margin: 30px 0 36px 0;
-  box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.08);
 }
 
 .map-units {
@@ -85,6 +84,11 @@ body {
 .unit-card.in-view {
   opacity: 1;
   transform: translateY(0);
+}
+
+.unit-card.active {
+  outline: 2px solid var(--buttons);
+  transform: scale(1.01);
 }
 
 .unit-carousel {

@@ -1,18 +1,14 @@
 import { t } from "/js/i18n.js";
 
-/* ===== SANITY CONFIG ===== */
 const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
 
-/* ===== LANGUAGE ===== */
 let currentLang = localStorage.getItem("lang") || "en";
-
-/* ===== STATE ===== */
 let unitCache = [];
 const markers = {};
+const cards = {};
 
-/* ===== QUERY ===== */
 const query = encodeURIComponent(`
   *[_type == "unit" && published == true]
   | order(order asc, _createdAt desc) {
@@ -30,24 +26,19 @@ const query = encodeURIComponent(`
 const SANITY_URL =
   `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-/* ===== MAP INIT ===== */
 const map = L.map("map", { zoomControl: false }).setView([39.5, -98.35], 4);
 
 L.tileLayer(
   "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-  {
-    attribution: "&copy; OpenStreetMap &copy; CARTO"
-  }
+  { attribution: "&copy; OpenStreetMap &copy; CARTO" }
 ).addTo(map);
 
 L.control.zoom({ position: "bottomright" }).addTo(map);
 
-/* ===== PRICE FORMAT ===== */
 function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
 }
 
-/* ===== FETCH ===== */
 fetch(SANITY_URL)
   .then(res => res.json())
   .then(({ result }) => {
@@ -55,34 +46,35 @@ fetch(SANITY_URL)
     render();
   });
 
-/* ===== RENDER ===== */
 function render() {
   currentLang = localStorage.getItem("lang") || "en";
 
   const container = document.getElementById("mapUnits");
   container.innerHTML = "";
 
+  Object.values(markers).forEach(m => map.removeLayer(m));
+
   unitCache.forEach(unit => {
-    container.appendChild(createUnitCard(unit));
+    const card = createUnitCard(unit);
+    container.appendChild(card);
+    cards[unit.slug.current] = card;
     renderMarker(unit);
   });
 
   initCarousels();
   initAnimations();
+  bindMapFiltering();
 
-  requestAnimationFrame(() => {
-    map.invalidateSize();
-  });
+  requestAnimationFrame(() => map.invalidateSize());
 }
 
-/* ===== CARD (HOME STYLE) ===== */
 function createUnitCard(unit) {
   const card = document.createElement("div");
   card.className = "unit-card";
+  card.dataset.slug = unit.slug.current;
 
   const images = unit.images || [];
-  const title =
-    unit.title?.[currentLang] || unit.title?.en || "";
+  const title = unit.title?.[currentLang] || unit.title?.en || "";
 
   card.innerHTML = `
     <div class="unit-carousel">
@@ -124,24 +116,84 @@ function createUnitCard(unit) {
     </div>
   `;
 
+  card.addEventListener("mouseenter", () => {
+    const marker = markers[unit.slug.current];
+    if (!marker) return;
+    marker.setIcon(activeIcon);
+    map.panTo(marker.getLatLng(), { animate: true, duration: 0.4 });
+  });
+
+  card.addEventListener("mouseleave", () => {
+    const marker = markers[unit.slug.current];
+    if (!marker) return;
+    marker.setIcon(defaultIcon);
+  });
+
   return card;
 }
 
-/* ===== MARKER (UNCHANGED) ===== */
+const defaultIcon = L.icon({
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41]
+});
+
+const activeIcon = L.icon({
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconSize: [30, 50],
+  iconAnchor: [15, 50]
+});
+
 function renderMarker(unit) {
   if (!unit.location?.lat || !unit.location?.lng) return;
 
   const key = unit.slug.current;
-  if (markers[key]) return;
 
   const marker = L.marker(
-    [unit.location.lat, unit.location.lng]
+    [unit.location.lat, unit.location.lng],
+    { icon: defaultIcon }
   ).addTo(map);
+
+  marker.on("mouseenter", () => {
+    marker.setIcon(activeIcon);
+    const card = cards[key];
+    card.classList.add("active");
+    card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  marker.on("mouseleave", () => {
+    marker.setIcon(defaultIcon);
+    cards[key].classList.remove("active");
+  });
+
+  marker.on("click", () => {
+    window.location.href = `/unit.html?slug=${key}`;
+  });
 
   markers[key] = marker;
 }
 
-/* ===== CAROUSELS ===== */
+function bindMapFiltering() {
+  const updateVisibility = () => {
+    const bounds = map.getBounds();
+
+    unitCache.forEach(unit => {
+      const key = unit.slug.current;
+      const card = cards[key];
+      const marker = markers[key];
+      if (!marker) return;
+
+      const visible = bounds.contains(marker.getLatLng());
+      card.style.display = visible ? "" : "none";
+      if (!visible) marker.setOpacity(0);
+      else marker.setOpacity(1);
+    });
+  };
+
+  map.on("moveend zoomend", updateVisibility);
+  updateVisibility();
+}
+
 function initCarousels() {
   document.querySelectorAll(".unit-carousel").forEach(carousel => {
     if (carousel.dataset.initialized) return;
@@ -152,8 +204,6 @@ function initCarousels() {
     const blur = carousel.querySelector(".carousel-blur");
     const prev = carousel.querySelector(".prev");
     const next = carousel.querySelector(".next");
-
-    if (!images.length) return;
 
     let index = 0;
 
@@ -170,16 +220,13 @@ function initCarousels() {
     };
 
     next.onclick = () => {
-      index = (index + images.length + 1) % images.length;
+      index = (index + 1) % images.length;
       update();
     };
   });
 }
 
-/* ===== ANIMATIONS ===== */
 function initAnimations() {
-  const cards = document.querySelectorAll(".unit-card");
-
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -189,16 +236,14 @@ function initAnimations() {
     });
   }, { threshold: 0.15 });
 
-  cards.forEach(card => observer.observe(card));
+  document.querySelectorAll(".unit-card").forEach(card => observer.observe(card));
 }
 
-/* ===== LANGUAGE CHANGE ===== */
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
   render();
 });
 
-/* ===== BFCACHE ===== */
-window.addEventListener("pageshow", event => {
-  if (event.persisted) render();
+window.addEventListener("pageshow", e => {
+  if (e.persisted) render();
 });
