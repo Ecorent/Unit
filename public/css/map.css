@@ -271,38 +271,39 @@ body {
   }
 
   .map-layout {
-    flex-direction: column;
-    height: 100%;
     position: relative;
+    height: 100%;
+    overflow: hidden;
   }
 
   .map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     padding: 0;
-    height: 40vh;
-    flex: none;
+    z-index: 1;
   }
 
   #map {
-    height: 100%;
     border-radius: 0;
     box-shadow: none;
   }
 
   .map-listings {
     position: absolute;
-    bottom: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     width: 100%;
-    height: 47vh;
-    margin: 0;
     background: var(--light);
     border-radius: 16px 16px 0 0;
     box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     z-index: 10;
-    touch-action: pan-y;
+    touch-action: none;
+    will-change: transform;
   }
 
   .map-listings::before {
@@ -317,7 +318,11 @@ body {
 
   .map-units {
     padding: 10px 16px 24px;
-    overflow-y: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .map-listings.open .map-units {
+    overflow-y: auto;
   }
 }

@@ -28,8 +28,7 @@ const query = encodeURIComponent(`
 const SANITY_URL =
   `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-const map = L.map("map", { zoomControl: false })
-  .setView([39.5, -98.35], 4);
+const map = L.map("map", { zoomControl: false }).setView([39.5, -98.35], 4);
 
 L.tileLayer(
   "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
@@ -55,6 +54,7 @@ fetch(SANITY_URL)
   .then(({ result }) => {
     unitCache = result || [];
     render();
+    if (window.innerWidth <= 768) initMobileSheet();
   });
 
 function render() {
@@ -95,64 +95,32 @@ function createUnitCard(unit) {
     <div class="unit-carousel">
       <div class="carousel-blur"></div>
       <div class="price-badge">${formatPrice(unit.price)}</div>
-
       <div class="carousel-track">
         ${images.map(img => `<img src="${img.asset.url}" alt="">`).join("")}
       </div>
-
       <button class="carousel-btn prev">&#10094;</button>
       <button class="carousel-btn next">&#10095;</button>
     </div>
-
     <div class="unit-info">
       <h3>${title}</h3>
-
       <div class="unit-meta address">
-        <span>
-          <i class="fas fa-map-marker-alt"></i>
-          ${unit.address}
-        </span>
+        <span><i class="fas fa-map-marker-alt"></i>${unit.address}</span>
       </div>
-
       <div class="unit-meta">
-        <span>
-          <i class="fas fa-ruler-combined"></i>
-          ${unit.sqft} ${t("sqft_unit")}
-        </span>
-        <span>
-          <i class="fas fa-bed"></i>
-          ${unit.bedrooms} ${t("bedrooms")}
-        </span>
+        <span><i class="fas fa-ruler-combined"></i>${unit.sqft} ${t("sqft_unit")}</span>
+        <span><i class="fas fa-bed"></i>${unit.bedrooms} ${t("bedrooms")}</span>
       </div>
-
       <a href="/unit.html?slug=${unit.slug.current}" class="view-button">
         ${t("view_details")}
       </a>
     </div>
   `;
 
-  card.addEventListener("mouseenter", () => {
-    markers[unit.slug.current]
-      ?.getElement()
-      ?.querySelector(".price-marker")
-      ?.classList.add("active");
-  });
-
-  card.addEventListener("mouseleave", () => {
-    markers[unit.slug.current]
-      ?.getElement()
-      ?.querySelector(".price-marker")
-      ?.classList.remove("active");
-  });
-
   return card;
 }
 
 function renderMarker(unit) {
-  if (
-    typeof unit.latitude !== "number" ||
-    typeof unit.longitude !== "number"
-  ) return;
+  if (typeof unit.latitude !== "number" || typeof unit.longitude !== "number") return;
 
   const key = unit.slug.current;
 
@@ -160,20 +128,6 @@ function renderMarker(unit) {
     [unit.latitude, unit.longitude],
     { icon: createPriceMarker(unit.price) }
   ).addTo(map);
-
-  const bubble = () =>
-    marker.getElement()?.querySelector(".price-marker");
-
-  marker.on("mouseover", () => {
-    bubble()?.classList.add("active");
-    cards[key]?.classList.add("active");
-    cards[key]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  });
-
-  marker.on("mouseout", () => {
-    bubble()?.classList.remove("active");
-    cards[key]?.classList.remove("active");
-  });
 
   marker.on("click", () => {
     window.location.href = `/unit.html?slug=${key}`;
@@ -184,20 +138,16 @@ function renderMarker(unit) {
 
 function fitMapToMarkers() {
   const latLngs = Object.values(markers).map(m => m.getLatLng());
-  if (latLngs.length) {
-    map.fitBounds(latLngs, { padding: [60, 60] });
-  }
+  if (latLngs.length) map.fitBounds(latLngs, { padding: [60, 60] });
 }
 
 function updateVisibility() {
   const bounds = map.getBounds();
-
   unitCache.forEach(unit => {
     const key = unit.slug.current;
     const marker = markers[key];
     const card = cards[key];
     if (!marker || !card) return;
-
     const visible = bounds.contains(marker.getLatLng());
     card.style.display = visible ? "" : "none";
     marker.setOpacity(visible ? 1 : 0);
@@ -253,8 +203,50 @@ function initAnimations() {
   );
 }
 
+function initMobileSheet() {
+  const sheet = document.querySelector(".map-listings");
+  const mapContainer = document.querySelector(".map-container");
+  const navbarHeight = 104;
+  const peek = 64;
+
+  const maxY = navbarHeight;
+  const midY = window.innerHeight / 2;
+  const minY = window.innerHeight - peek;
+
+  let currentY = minY;
+  let startY = 0;
+
+  function apply(y) {
+    currentY = y;
+    sheet.style.transform = `translateY(${y}px)`;
+    mapContainer.style.height = `${y}px`;
+    map.invalidateSize();
+    sheet.classList.toggle("open", y === maxY);
+  }
+
+  apply(minY);
+
+  sheet.addEventListener("touchstart", e => {
+    startY = e.touches[0].clientY - currentY;
+  });
+
+  sheet.addEventListener("touchmove", e => {
+    const y = Math.min(minY, Math.max(maxY, e.touches[0].clientY - startY));
+    apply(y);
+  });
+
+  sheet.addEventListener("touchend", () => {
+    const snap =
+      Math.abs(currentY - minY) < Math.abs(currentY - midY)
+        ? minY
+        : Math.abs(currentY - midY) < Math.abs(currentY - maxY)
+        ? midY
+        : maxY;
+    apply(snap);
+  });
+}
+
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
   render();
 });
-
