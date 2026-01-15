@@ -28,7 +28,7 @@ const query = encodeURIComponent(`
 const SANITY_URL =
   `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-const map = L.map("map", { zoomControl: false }).setView([39.5, -98.35], 4);
+const map = L.map("map", { zoomControl: false });
 
 L.tileLayer(
   "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
@@ -75,7 +75,6 @@ function render() {
 
   initCarousels();
   initAnimations();
-  bindMapFiltering();
 
   requestAnimationFrame(() => {
     map.invalidateSize();
@@ -83,6 +82,7 @@ function render() {
       fitMapToMarkers();
       hasFitInitialBounds = true;
     }
+    updateVisibility();
   });
 }
 
@@ -136,11 +136,9 @@ function createUnitCard(unit) {
 
   card.addEventListener("mouseenter", () => {
     const marker = markers[unit.slug.current];
-    const bubble = marker?.getElement()?.querySelector(".price-marker");
-    bubble?.classList.add("active");
-    if (marker) {
-      map.panTo(marker.getLatLng(), { animate: true, duration: 0.4 });
-    }
+    marker?.getElement()
+      ?.querySelector(".price-marker")
+      ?.classList.add("active");
   });
 
   card.addEventListener("mouseleave", () => {
@@ -188,24 +186,19 @@ function renderMarker(unit) {
   markers[key] = marker;
 }
 
-function bindMapFiltering() {
-  const updateVisibility = () => {
-    const bounds = map.getBounds();
+function updateVisibility() {
+  const bounds = map.getBounds();
 
-    unitCache.forEach(unit => {
-      const key = unit.slug.current;
-      const card = cards[key];
-      const marker = markers[key];
-      if (!marker) return;
+  unitCache.forEach(unit => {
+    const key = unit.slug.current;
+    const marker = markers[key];
+    const card = cards[key];
+    if (!marker || !card) return;
 
-      const visible = bounds.contains(marker.getLatLng());
-      card.style.display = visible ? "" : "none";
-      marker.setOpacity(visible ? 1 : 0);
-    });
-  };
-
-  map.on("moveend zoomend", updateVisibility);
-  updateVisibility();
+    const visible = bounds.contains(marker.getLatLng());
+    card.style.display = visible ? "" : "none";
+    marker.setOpacity(visible ? 1 : 0);
+  });
 }
 
 function fitMapToMarkers() {
@@ -214,6 +207,8 @@ function fitMapToMarkers() {
     map.fitBounds(latLngs, { padding: [60, 60] });
   }
 }
+
+map.on("moveend zoomend", updateVisibility);
 
 function initCarousels() {
   document.querySelectorAll(".unit-carousel").forEach(carousel => {
