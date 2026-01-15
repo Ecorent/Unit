@@ -1,29 +1,24 @@
 import { useEffect } from "react";
-import { set } from "sanity";
+import { set, unset } from "sanity";
 import { TextInput, Stack, Text } from "@sanity/ui";
 
 export default function AddressWithGeocode(props) {
-  const { value, onChange, document } = props;
+  const { value, onChange } = props;
 
   useEffect(() => {
-    if (!value) return;
-    if (document?.location?.lat && document?.location?.lng) return;
+    if (!value || typeof value !== "string") return;
 
     const timeout = setTimeout(async () => {
       try {
         const res = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`,
-          {
-            headers: {
-              "User-Agent": "Ecorent Sanity Studio"
-            }
-          }
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`
         );
-
-        if (!res.ok) return;
-
         const data = await res.json();
-        if (!data.length) return;
+
+        if (!data?.length) {
+          onChange(unset(["location"]));
+          return;
+        }
 
         const { lat, lon } = data[0];
 
@@ -36,23 +31,23 @@ export default function AddressWithGeocode(props) {
             ["location"]
           )
         );
-      } catch (err) {
-        console.error("Address geocoding failed:", err);
+      } catch (e) {
+        console.error("Geocoding failed", e);
       }
     }, 800);
 
     return () => clearTimeout(timeout);
-  }, [value]);
+  }, [value, onChange]);
 
   return (
     <Stack space={2}>
       <TextInput
         value={value || ""}
         onChange={e => onChange(set(e.currentTarget.value))}
-        placeholder="123 Main St, City, State"
+        placeholder="123 Main St, Austin TX"
       />
       <Text size={1} muted>
-        Map location will be set automatically
+        Location is generated automatically
       </Text>
     </Stack>
   );

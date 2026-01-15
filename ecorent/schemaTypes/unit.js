@@ -62,9 +62,13 @@ export default {
 
     {
       name: "location",
-      title: "Map Location",
-      type: "geopoint",
-      validation: Rule => Rule.required()
+      title: "Location",
+      type: "object",
+      readOnly: true,
+      fields: [
+        { name: "lat", title: "Latitude", type: "number" },
+        { name: "lng", title: "Longitude", type: "number" }
+      ]
     },
 
     { name: "bedrooms", title: "Bedrooms", type: "number", validation: Rule => Rule.required() },
