@@ -8,6 +8,7 @@ let currentLang = localStorage.getItem("lang") || "en";
 let unitCache = [];
 const markers = {};
 const cards = {};
+let hasFitInitialBounds = false;
 
 const query = encodeURIComponent(`
   *[_type == "unit" && published == true]
@@ -62,6 +63,8 @@ function render() {
   container.innerHTML = "";
 
   Object.values(markers).forEach(m => map.removeLayer(m));
+  Object.keys(markers).forEach(k => delete markers[k]);
+  Object.keys(cards).forEach(k => delete cards[k]);
 
   unitCache.forEach(unit => {
     const card = createUnitCard(unit);
@@ -74,8 +77,13 @@ function render() {
   initAnimations();
   bindMapFiltering();
 
-  requestAnimationFrame(() => map.invalidateSize());
-  fitMapToMarkers();
+  requestAnimationFrame(() => {
+    map.invalidateSize();
+    if (!hasFitInitialBounds) {
+      fitMapToMarkers();
+      hasFitInitialBounds = true;
+    }
+  });
 }
 
 function createUnitCard(unit) {
@@ -128,10 +136,8 @@ function createUnitCard(unit) {
 
   card.addEventListener("mouseenter", () => {
     const marker = markers[unit.slug.current];
-    marker?.getElement()
-      ?.querySelector(".price-marker")
-      ?.classList.add("active");
-
+    const bubble = marker?.getElement()?.querySelector(".price-marker");
+    bubble?.classList.add("active");
     if (marker) {
       map.panTo(marker.getLatLng(), { animate: true, duration: 0.4 });
     }
@@ -258,9 +264,13 @@ function initAnimations() {
 
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
+  hasFitInitialBounds = false;
   render();
 });
 
 window.addEventListener("pageshow", e => {
-  if (e.persisted) render();
+  if (e.persisted) {
+    hasFitInitialBounds = false;
+    render();
+  }
 });
