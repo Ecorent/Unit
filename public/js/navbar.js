@@ -56,10 +56,10 @@ fetch("/partials/navbar.html")
       );
     }
 
-    updateLangIcons(currentLang); // sync flags only on load
+    applyLanguage(currentLang);
 
     window.addEventListener("pageshow", () => {
-      updateLangIcons(localStorage.getItem("lang") || "en"); // resync flags on back/forward
+      applyLanguage(localStorage.getItem("lang") || "en");
     });
 
     languageToggle?.addEventListener("click", e => {
