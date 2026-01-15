@@ -29,7 +29,7 @@ body {
 }
 
 .map-listings {
-  width: 350px;
+  width: 375px;
   background: var(--light);
   display: flex;
   flex-direction: column;
