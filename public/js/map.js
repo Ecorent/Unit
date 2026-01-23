@@ -280,15 +280,14 @@ function setPosition(y) {
   const sheetStyle = getComputedStyle(sheet);
   const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
 
-  // Get the actual sheet height
-  const sheetHeight = sheet.offsetHeight;
+  // Include sheet margin if needed
+  const sheetMarginTop = parseFloat(sheetStyle.marginTop) || 0;
 
-  // Map height so its bottom touches sheet top
-  const mapHeight = y + sheetHeight - topOffset;
+  // Subtract padding from map container
+  const mapStyle = getComputedStyle(mapContainer);
+  const mapPaddingBottom = parseFloat(mapStyle.paddingBottom) || 0;
 
-  mapContainer.style.height = `${mapHeight}px`;
-
-  map.invalidateSize(); // refresh map rendering
+  mapContainer.style.height = `${y - mapPaddingBottom - sheetMarginTop}px`;
 }
 
 function snapTo(y) {
