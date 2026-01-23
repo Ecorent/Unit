@@ -287,7 +287,7 @@ function setPosition(y) {
   const mapStyle = getComputedStyle(mapContainer);
   const mapPaddingBottom = parseFloat(mapStyle.paddingBottom) || 0;
 
-  mapContainer.style.height = `${y - mapPaddingBottom - sheetMarginTop}px`;
+  mapContainer.style.height = `${y}px`;
 }
 
 function snapTo(y) {
