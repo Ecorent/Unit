@@ -258,3 +258,57 @@ window.addEventListener("languageChanged", e => {
   render();
 });
 
+const sheet = document.querySelector(".map-listings");
+const content = sheet.querySelector(".map-units");
+
+let startY = 0;
+let currentY = 0;
+let dragging = false;
+
+const positions = {
+  collapsed: window.innerHeight * 0.55,
+  half: window.innerHeight * 0.3,
+  expanded: 0
+};
+
+function setPosition(y) {
+  sheet.style.transform = `translateY(${y}px)`;
+  currentY = y;
+}
+
+function snapTo(y) {
+  sheet.style.transition = "transform 0.25s ease";
+  setPosition(y);
+  setTimeout(() => (sheet.style.transition = ""), 250);
+
+  sheet.classList.toggle("expanded", y === positions.expanded);
+}
+
+sheet.addEventListener("touchstart", e => {
+  startY = e.touches[0].clientY;
+  dragging = true;
+  sheet.style.transition = "none";
+});
+
+sheet.addEventListener("touchmove", e => {
+  if (!dragging) return;
+
+  const delta = e.touches[0].clientY - startY;
+  const next = Math.max(0, currentY + delta);
+
+  setPosition(next);
+});
+
+sheet.addEventListener("touchend", () => {
+  dragging = false;
+
+  const distances = Object.values(positions).map(p => ({
+    pos: p,
+    dist: Math.abs(currentY - p)
+  }));
+
+  distances.sort((a, b) => a.dist - b.dist);
+  snapTo(distances[0].pos);
+});
+
+
