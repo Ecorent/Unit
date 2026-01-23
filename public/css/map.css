@@ -279,7 +279,8 @@ body {
 
   .map-container {
     padding: 0;
-    height: 40vh;
+    height: auto;
+    transition: height 0.25s ease;
     flex: none;
   }
 
