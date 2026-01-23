@@ -268,7 +268,7 @@ let currentY = 0;
 let dragging = false;
 
 const positions = {
-  collapsed: Math.round(window.innerHeight * 0.75),
+  collapsed: Math.round(window.innerHeight * 0.55),
   half: Math.round(window.innerHeight * 0.3),
   expanded: 0
 };
@@ -276,18 +276,11 @@ const positions = {
 function setPosition(y) {
   currentY = y;
   sheet.style.transform = `translateY(${y}px)`;
+  mapContainer.style.height = `${y}px`;
 
-  const sheetStyle = getComputedStyle(sheet);
-  const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
-
-  // Include sheet margin if needed
-  const sheetMarginTop = parseFloat(sheetStyle.marginTop) || 0;
-
-  // Subtract padding from map container
-  const mapStyle = getComputedStyle(mapContainer);
-  const mapPaddingBottom = parseFloat(mapStyle.paddingBottom) || 0;
-
-  mapContainer.style.height = `${y - mapPaddingBottom - sheetMarginTop}px`;
+  requestAnimationFrame(() => {
+    map.invalidateSize();
+  });
 }
 
 function snapTo(y) {

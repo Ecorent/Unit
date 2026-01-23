@@ -278,9 +278,9 @@ body {
   }
 
   .map-container {
-    padding: 0;
-    height: auto;
-    flex: none;
+    padding: 0 !important;
+    height: 100%;
+    flex: 1;
   }
 
   #map {
