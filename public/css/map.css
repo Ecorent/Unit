@@ -307,6 +307,7 @@ body {
     touch-action: none;
     pointer-events: auto;
     contain: layout paint;
+    padding-top: 0;
   }
 
   .map-listings:not(.expanded) .map-units {
@@ -331,5 +332,6 @@ body {
   .map-units {
     padding: 10px 16px 24px;
     min-height: 0;
+    padding-top: 0;
   }
 }
