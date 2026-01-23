@@ -280,7 +280,6 @@ body {
   .map-container {
     padding: 0;
     height: auto;
-    transition: height 0.25s ease;
     flex: none;
   }
 

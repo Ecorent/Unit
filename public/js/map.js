@@ -260,7 +260,7 @@ window.addEventListener("languageChanged", e => {
 
 const sheet = document.querySelector(".map-listings");
 const content = sheet.querySelector(".map-units");
-const mapContainer = document.querySelector(".map-container"); // map wrapper
+const mapContainer = document.querySelector(".map-container");
 
 let startY = 0;
 let startTranslate = 0;
@@ -277,10 +277,12 @@ const positions = {
 function setPosition(y) {
   currentY = y;
   sheet.style.transform = `translateY(${y}px)`;
-  
-  // Map bottom aligned with sheet top
-  const mapHeight = y; // top of sheet = bottom of map
-  mapContainer.style.height = `${mapHeight}px`;
+
+  // Map bottom = top of sheet
+  // Adjust for any top margin or border-radius of sheet
+  const sheetStyle = getComputedStyle(sheet);
+  const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
+  mapContainer.style.height = `${y + topOffset}px`; // immediate update
 }
 
 function snapTo(y) {
@@ -325,7 +327,7 @@ sheet.addEventListener("touchmove", e => {
   );
 
   setPosition(next);
-  e.preventDefault();
+  e.preventDefault(); // prevent scroll
 }, { passive: false });
 
 sheet.addEventListener("touchend", () => {
@@ -338,4 +340,5 @@ sheet.addEventListener("touchend", () => {
 
   snapTo(snapPoints[0].pos);
 });
+
 
