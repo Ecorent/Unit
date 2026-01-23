@@ -273,16 +273,21 @@ const positions = {
   expanded: 0
 };
 
-// Update sheet position and align map bottom with sheet top
 function setPosition(y) {
   currentY = y;
   sheet.style.transform = `translateY(${y}px)`;
 
-  // Map bottom = top of sheet
-  // Adjust for any top margin or border-radius of sheet
   const sheetStyle = getComputedStyle(sheet);
   const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
-  mapContainer.style.height = `${y + topOffset}px`; // immediate update
+
+  // Include sheet margin if needed
+  const sheetMarginTop = parseFloat(sheetStyle.marginTop) || 0;
+
+  // Subtract padding from map container
+  const mapStyle = getComputedStyle(mapContainer);
+  const mapPaddingBottom = parseFloat(mapStyle.paddingBottom) || 0;
+
+  mapContainer.style.height = `${y - mapPaddingBottom - sheetMarginTop}px`;
 }
 
 function snapTo(y) {
