@@ -273,13 +273,16 @@ const positions = {
   expanded: 0
 };
 
+// Update sheet position and align map bottom with sheet top
 function setPosition(y) {
   currentY = y;
   sheet.style.transform = `translateY(${y}px)`;
 
-  // Pixel-perfect: map bottom = sheet top
-  const sheetTop = sheet.getBoundingClientRect().top;
-  mapContainer.style.height = `${sheetTop}px`;
+  // Map bottom = top of sheet
+  // Adjust for any top margin or border-radius of sheet
+  const sheetStyle = getComputedStyle(sheet);
+  const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
+  mapContainer.style.height = `${y + topOffset}px`; // immediate update
 }
 
 function snapTo(y) {
