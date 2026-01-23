@@ -276,17 +276,6 @@ const positions = {
 function setPosition(y) {
   currentY = y;
   sheet.style.transform = `translateY(${y}px)`;
-
-  const sheetStyle = getComputedStyle(sheet);
-  const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
-
-  // Include sheet margin if needed
-  const sheetMarginTop = parseFloat(sheetStyle.marginTop) || 0;
-
-  // Subtract padding from map container
-  const mapStyle = getComputedStyle(mapContainer);
-  const mapPaddingBottom = parseFloat(mapStyle.paddingBottom) || 0;
-
   mapContainer.style.height = `${y}px`;
 }
 
