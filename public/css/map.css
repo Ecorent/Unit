@@ -304,9 +304,9 @@ body {
     flex-direction: column;
     z-index: 10;
     will-change: transform;
-    transform: translateY(55vh);
     touch-action: none;
     pointer-events: auto;
+    contain: layout paint;
   }
 
   .map-listings:not(.expanded) .map-units {
@@ -316,10 +316,6 @@ body {
   .map-listings.expanded .map-units {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .map-listings.expanded {
-    touch-action: pan-y;
   }
 
   .map-listings::before {

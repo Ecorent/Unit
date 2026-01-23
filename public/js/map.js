@@ -262,53 +262,73 @@ const sheet = document.querySelector(".map-listings");
 const content = sheet.querySelector(".map-units");
 
 let startY = 0;
+let startTranslate = 0;
 let currentY = 0;
 let dragging = false;
 
 const positions = {
-  collapsed: window.innerHeight * 0.55,
-  half: window.innerHeight * 0.3,
+  collapsed: Math.round(window.innerHeight * 0.55),
+  half: Math.round(window.innerHeight * 0.3),
   expanded: 0
 };
 
 function setPosition(y) {
-  sheet.style.transform = `translateY(${y}px)`;
   currentY = y;
+  sheet.style.transform = `translateY(${y}px)`;
 }
 
 function snapTo(y) {
   sheet.style.transition = "transform 0.25s ease";
   setPosition(y);
-  setTimeout(() => (sheet.style.transition = ""), 250);
 
   sheet.classList.toggle("expanded", y === positions.expanded);
+
+  setTimeout(() => {
+    sheet.style.transition = "";
+  }, 250);
 }
 
+setPosition(positions.collapsed);
+
 sheet.addEventListener("touchstart", e => {
-  startY = e.touches[0].clientY;
-  dragging = true;
-  sheet.style.transition = "none";
-});
+  const touch = e.touches[0];
+  startY = touch.clientY;
+  startTranslate = currentY;
+
+  const isExpanded = sheet.classList.contains("expanded");
+  const contentAtTop = content.scrollTop === 0;
+
+  if (!isExpanded || contentAtTop) {
+    dragging = true;
+    sheet.style.transition = "none";
+  } else {
+    dragging = false;
+  }
+}, { passive: true });
 
 sheet.addEventListener("touchmove", e => {
   if (!dragging) return;
 
-  const delta = e.touches[0].clientY - startY;
-  const next = Math.max(0, currentY + delta);
+  const touch = e.touches[0];
+  const delta = touch.clientY - startY;
+
+  const next = Math.min(
+    positions.collapsed,
+    Math.max(positions.expanded, startTranslate + delta)
+  );
 
   setPosition(next);
-});
+  e.preventDefault();
+}, { passive: false });
 
 sheet.addEventListener("touchend", () => {
+  if (!dragging) return;
   dragging = false;
 
-  const distances = Object.values(positions).map(p => ({
-    pos: p,
-    dist: Math.abs(currentY - p)
-  }));
+  const snapPoints = Object.values(positions)
+    .map(p => ({ pos: p, dist: Math.abs(currentY - p) }))
+    .sort((a, b) => a.dist - b.dist);
 
-  distances.sort((a, b) => a.dist - b.dist);
-  snapTo(distances[0].pos);
+  snapTo(snapPoints[0].pos);
 });
-
 
