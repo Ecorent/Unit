@@ -273,27 +273,32 @@ const positions = {
   expanded: 0
 };
 
-// Set position of sheet and map
+// Update sheet position and align map bottom with sheet top
 function setPosition(y) {
   currentY = y;
   sheet.style.transform = `translateY(${y}px)`;
 
-  // Map fills space above sheet
-  mapContainer.style.height = `calc(100vh - ${y}px)`;
+  // Map bottom = top of sheet
+  // Adjust for any top margin or border-radius of sheet
+  const sheetStyle = getComputedStyle(sheet);
+  const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
+  mapContainer.style.height = `${y + topOffset}px`; // immediate update
 }
 
 function snapTo(y) {
   sheet.style.transition = "transform 0.25s ease";
   setPosition(y);
+
   sheet.classList.toggle("expanded", y === positions.expanded);
 
-  setTimeout(() => sheet.style.transition = "", 250);
+  setTimeout(() => {
+    sheet.style.transition = "";
+  }, 250);
 }
 
-// Initialize sheet
+// Initialize sheet and map
 setPosition(positions.collapsed);
 
-// Touch dragging
 sheet.addEventListener("touchstart", e => {
   const touch = e.touches[0];
   startY = touch.clientY;
@@ -302,28 +307,33 @@ sheet.addEventListener("touchstart", e => {
   const isExpanded = sheet.classList.contains("expanded");
   const contentAtTop = content.scrollTop === 0;
 
-  dragging = !isExpanded || contentAtTop; // only drag if collapsed or scroll at top
-  if (dragging) sheet.style.transition = "none";
+  if (!isExpanded || contentAtTop) {
+    dragging = true;
+    sheet.style.transition = "none";
+  } else {
+    dragging = false;
+  }
 }, { passive: true });
 
 sheet.addEventListener("touchmove", e => {
   if (!dragging) return;
 
-  const delta = e.touches[0].clientY - startY;
-  let next = startTranslate + delta;
+  const touch = e.touches[0];
+  const delta = touch.clientY - startY;
 
-  // Clamp within positions
-  next = Math.max(positions.expanded, Math.min(positions.collapsed, next));
+  const next = Math.min(
+    positions.collapsed,
+    Math.max(positions.expanded, startTranslate + delta)
+  );
 
   setPosition(next);
-  e.preventDefault(); // prevent scroll while dragging
+  e.preventDefault(); // prevent scroll
 }, { passive: false });
 
 sheet.addEventListener("touchend", () => {
   if (!dragging) return;
   dragging = false;
 
-  // Snap to nearest position
   const snapPoints = Object.values(positions)
     .map(p => ({ pos: p, dist: Math.abs(currentY - p) }))
     .sort((a, b) => a.dist - b.dist);
@@ -331,9 +341,4 @@ sheet.addEventListener("touchend", () => {
   snapTo(snapPoints[0].pos);
 });
 
-// Handle window resize
-window.addEventListener("resize", () => {
-  positions.collapsed = Math.round(window.innerHeight * 0.55);
-  positions.half = Math.round(window.innerHeight * 0.3);
-  setPosition(Math.min(currentY, positions.collapsed));
-});
+
