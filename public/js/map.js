@@ -268,7 +268,7 @@ let currentY = 0;
 let dragging = false;
 
 const positions = {
-  collapsed: Math.round(window.innerHeight * 0.55),
+  collapsed: Math.round(window.innerHeight * 0.75),
   half: Math.round(window.innerHeight * 0.3),
   expanded: 0
 };
@@ -277,12 +277,18 @@ function setPosition(y) {
   currentY = y;
   sheet.style.transform = `translateY(${y}px)`;
 
-  // Optional: include sheet top border-radius so map peeks slightly under rounded corners
   const sheetStyle = getComputedStyle(sheet);
   const topOffset = parseFloat(sheetStyle.borderTopLeftRadius) || 0;
 
-  // Set map container height so it reaches exactly to the sheet top
-  mapContainer.style.height = `${y + topOffset}px`;
+  // Get the actual sheet height
+  const sheetHeight = sheet.offsetHeight;
+
+  // Map height so its bottom touches sheet top
+  const mapHeight = y + sheetHeight - topOffset;
+
+  mapContainer.style.height = `${mapHeight}px`;
+
+  map.invalidateSize(); // refresh map rendering
 }
 
 function snapTo(y) {
