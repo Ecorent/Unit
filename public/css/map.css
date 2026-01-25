@@ -110,11 +110,6 @@ body {
   margin-bottom: 0;
 }
 
-.unit-card.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .unit-card.active {
   box-shadow:
     inset 0 0 0 2px var(--buttons),

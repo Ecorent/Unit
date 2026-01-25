@@ -76,7 +76,6 @@ function render() {
   });
 
   initCarousels();
-  initAnimations();
 
   requestAnimationFrame(() => {
     map.invalidateSize();
@@ -256,21 +255,6 @@ function initCarousels() {
   });
 }  
 
-function initAnimations() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("in-view");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll(".unit-card").forEach(card =>
-    observer.observe(card)
-  );
-}
-
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
   render();
@@ -340,7 +324,7 @@ if (window.innerWidth <= 768) {
     );
 
     setPosition(next);
-    e.preventDefault(); // prevent scroll
+    e.preventDefault();
   }, { passive: false });
 
   sheet.addEventListener("touchend", () => {
