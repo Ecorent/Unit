@@ -295,6 +295,7 @@ if (window.innerWidth <= 768) {
   function setPosition(y) {
     currentY = y;
     sheet.style.transform = `translateY(${y}px)`;
+    mapContainer.style.height = `${y + 15}px`; 
   }
 
   function snapTo(y) {

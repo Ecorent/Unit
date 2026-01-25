@@ -18,6 +18,10 @@ body {
   overscroll-behavior: none;
 }
 
+.navbar {
+  position: fixed !important;
+}
+
 .map-page-wrapper {
   max-width: 1200px;
   margin: 0 auto;
