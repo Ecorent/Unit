@@ -28,15 +28,16 @@ const query = encodeURIComponent(`
 const SANITY_URL =
   `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
-const map = L.map("map", { zoomControl: false })
-  .setView([39.5, -98.35], 4);
+const map = L.map("map", { 
+  zoomControl: false,      
+  attributionControl: false 
+})
+.setView([39.5, -98.35], 4);
 
 L.tileLayer(
   "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
   { attribution: "&copy; OpenStreetMap &copy; CARTO" }
 ).addTo(map);
-
-L.control.zoom({ position: "bottomright" }).addTo(map);
 
 function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
