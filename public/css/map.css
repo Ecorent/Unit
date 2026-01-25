@@ -293,11 +293,11 @@ body {
 
   .map-listings {
     position: absolute;
-    top: 0;
+    top: 104px;
+    height: calc(100% - 104px);
     left: 0;
     right: 0;
     width: 100%;
-    height: 100%;
     margin: 0;
     background: var(--light-mobile);
     border-radius: 16px 16px 0 0;
