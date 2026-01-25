@@ -185,19 +185,25 @@ function renderMarker(unit) {
 
 function fitMapToMarkers() {
   const latLngs = Object.values(markers).map(m => m.getLatLng());
-  
   if (!latLngs.length) return;
 
   let boundsOptions = { padding: [60, 60] };
 
   if (window.innerWidth <= 768) {
-    const obscuredHeight = window.innerHeight * 0.6;
+    const sheetHeight = window.innerHeight * 0.6; 
+    const adjustments = {
+      top: 100,  
+      left: 100, 
+      right: 50, 
+      bottomBuffer: 50 
+    };
 
     boundsOptions = {
-      paddingTopLeft: [60, 60],
-      paddingBottomRight: [60, obscuredHeight + 60] 
+      paddingTopLeft: [adjustments.left, adjustments.top],
+      paddingBottomRight: [adjustments.right, sheetHeight + adjustments.bottomBuffer]
     };
   }
+
   map.fitBounds(latLngs, boundsOptions);
 }
 
