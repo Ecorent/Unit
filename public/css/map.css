@@ -18,15 +18,12 @@ body {
   overscroll-behavior: none;
 }
 
-.navbar {
-  position: fixed !important;
-}
-
 .map-page-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   height: calc(100vh - 104px);
+  height: calc(100dvh - 104px);
   overflow: hidden;
 }
 
