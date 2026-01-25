@@ -3,6 +3,7 @@
   --darker-green: #12793d;
   --dark: #292929;
   --light: #f1f1f1;
+  --light-mobile: #f4f4f4;
   --box-bg: #ffffff;
 }
 
@@ -298,7 +299,7 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    background: var(--light);
+    background: var(--light-mobile);
     border-radius: 16px 16px 0 0;
     box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.15);
     display: flex;
@@ -324,7 +325,7 @@ body {
     content: "";
     width: 42px;
     height: 4px;
-    background: #ccc;
+    background: #d1d1d1;
     border-radius: 999px;
     margin: 11px auto 11px;
     flex-shrink: 0;
