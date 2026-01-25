@@ -185,21 +185,21 @@ function renderMarker(unit) {
 
 function fitMapToMarkers() {
   const latLngs = Object.values(markers).map(m => m.getLatLng());
+  
   if (!latLngs.length) return;
 
-  const bounds = L.latLngBounds(latLngs);
-  map.fitBounds(bounds, { padding: [60, 60] });
+  let boundsOptions = { padding: [60, 60] };
 
   if (window.innerWidth <= 768) {
-    const mapBounds = map.getBounds();
-    const center = map.getCenter();
-    const latDiff = mapBounds.getNorth() - mapBounds.getSouth();
-    const shift = latDiff * 0.25;
+    const obscuredHeight = window.innerHeight * 0.6;
 
-    map.setView([center.lat + shift, center.lng], map.getZoom(), { animate: false });
+    boundsOptions = {
+      paddingTopLeft: [60, 60],
+      paddingBottomRight: [60, obscuredHeight + 60] 
+    };
   }
+  map.fitBounds(latLngs, boundsOptions);
 }
-
 
 function updateVisibility() {
   const bounds = map.getBounds();
