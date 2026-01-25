@@ -270,19 +270,15 @@ if (window.innerWidth <= 768) {
   let dragging = false;
 
   const positions = {
-    collapsed: Math.round(window.innerHeight * 0.55),
-    half: Math.round(window.innerHeight * 0.3),
+    collapsed: Math.round(window.innerHeight * 0.7),
+    half: Math.round(window.innerHeight * 0.4),
     expanded: 0
   };
 
   function setPosition(y) {
     currentY = y;
     sheet.style.transform = `translateY(${y}px)`;
-    mapContainer.style.height = `${y + 30}px`;
-
-    requestAnimationFrame(() => {
-      map.invalidateSize(true);
-    });
+    mapContainer.style.height = `${y + 15}px`; 
   }
 
   function snapTo(y) {
@@ -298,11 +294,6 @@ if (window.innerWidth <= 768) {
 
   // Initialize sheet and map
   setPosition(positions.collapsed);
-
-  requestAnimationFrame(() => {
-    map.invalidateSize(true);
-    fitMapToMarkers();
-  });
 
   sheet.addEventListener("touchstart", e => {
     const touch = e.touches[0];
