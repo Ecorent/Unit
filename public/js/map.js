@@ -270,15 +270,15 @@ if (window.innerWidth <= 768) {
   let dragging = false;
 
   const positions = {
-    collapsed: Math.round(window.innerHeight * 0.65),
-    half: Math.round(window.innerHeight * 0.4),
+    collapsed: Math.round(window.innerHeight * 0.55),
+    half: Math.round(window.innerHeight * 0.3),
     expanded: 0
   };
 
   function setPosition(y) {
     currentY = y;
     sheet.style.transform = `translateY(${y}px)`;
-    mapContainer.style.height = `${y}px`;
+    mapContainer.style.height = `${y + 30}px`; 
   }
 
   function snapTo(y) {
@@ -293,7 +293,7 @@ if (window.innerWidth <= 768) {
   }
 
   // Initialize sheet and map
-  setPosition(positions.half);
+  setPosition(positions.collapsed);
 
   sheet.addEventListener("touchstart", e => {
     const touch = e.touches[0];
