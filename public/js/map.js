@@ -270,8 +270,8 @@ if (window.innerWidth <= 768) {
   let dragging = false;
 
   const positions = {
-    collapsed: Math.round(window.innerHeight * 0.55),
-    half: Math.round(window.innerHeight * 0.3),
+    collapsed: Math.round(window.innerHeight * 0.65),
+    half: Math.round(window.innerHeight * 0.4),
     expanded: 0
   };
 
@@ -293,7 +293,7 @@ if (window.innerWidth <= 768) {
   }
 
   // Initialize sheet and map
-  setPosition(positions.collapsed);
+  setPosition(positions.half);
 
   sheet.addEventListener("touchstart", e => {
     const touch = e.touches[0];
