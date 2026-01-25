@@ -293,7 +293,7 @@ if (window.innerWidth <= 768) {
   }
 
   // Initialize sheet and map
-  setPosition(positions.collapsed);
+  setPosition(positions.half);
 
   sheet.addEventListener("touchstart", e => {
     const touch = e.touches[0];
