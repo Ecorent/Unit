@@ -193,9 +193,9 @@ function fitMapToMarkers() {
     const sheetHeight = window.innerHeight * 0.45; 
     
     const adjustments = {
-      top: 80,
+      top: 75,
       left: 70, 
-      right: 40, 
+      right: 35, 
       bottomBuffer: 20 
     };
 
@@ -288,7 +288,7 @@ if (window.innerWidth <= 768) {
   let dragging = false;
 
   const positions = {
-    collapsed: Math.round(window.innerHeight * 0.75),
+    collapsed: Math.round(window.innerHeight * 0.78),
     half: Math.round(window.innerHeight * 0.42),
     expanded: 0
   };
