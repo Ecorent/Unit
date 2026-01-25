@@ -276,17 +276,8 @@ if (window.innerWidth <= 768) {
 
   function setPosition(y) {
     currentY = y;
-
     sheet.style.transform = `translateY(${y}px)`;
-
-    const viewportHeight = window.innerHeight;
-    const mapHeight = viewportHeight - y;
-
-    mapContainer.style.height = `${mapHeight}px`;
-
-    requestAnimationFrame(() => {
-      map.invalidateSize();
-    });
+    mapContainer.style.height = `${y}px`;
   }
 
   function snapTo(y) {
