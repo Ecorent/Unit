@@ -270,7 +270,7 @@ if (window.innerWidth <= 768) {
   let dragging = false;
 
   const positions = {
-    collapsed: Math.round(window.innerHeight * 0.7),
+    collapsed: Math.round(window.innerHeight * 0.75),
     half: Math.round(window.innerHeight * 0.4),
     expanded: 0
   };
