@@ -185,23 +185,10 @@ function renderMarker(unit) {
 
 function fitMapToMarkers() {
   const latLngs = Object.values(markers).map(m => m.getLatLng());
-  if (!latLngs.length) return;
-
-  if (window.innerWidth <= 768) {
-    const sheet = document.querySelector(".map-listings");
-    const sheetHeight = sheet ? sheet.offsetHeight : 0;
-    const mapHeight = map.getSize().y;
-    const topPadding = mapHeight - sheetHeight + 30;
-
-    map.fitBounds(latLngs, { 
-      paddingTopLeft: [0, topPadding], 
-      paddingBottomRight: [0, 60] 
-    });
-  } else {
+  if (latLngs.length) {
     map.fitBounds(latLngs, { padding: [60, 60] });
   }
 }
-
 
 function updateVisibility() {
   const bounds = map.getBounds();
@@ -283,7 +270,7 @@ if (window.innerWidth <= 768) {
   let dragging = false;
 
   const positions = {
-    collapsed: Math.round(window.innerHeight * 0.85),
+    collapsed: Math.round(window.innerHeight * 0.80),
     half: Math.round(window.innerHeight * 0.4),
     expanded: 0
   };
