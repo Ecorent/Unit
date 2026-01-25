@@ -190,12 +190,13 @@ function fitMapToMarkers() {
   let boundsOptions = { padding: [60, 60] };
 
   if (window.innerWidth <= 768) {
-    const sheetHeight = window.innerHeight * 0.6; 
+    const sheetHeight = window.innerHeight * 0.45; 
+    
     const adjustments = {
-      top: 80,  
-      left: 40, 
-      right: 20, 
-      bottomBuffer: 10 
+      top: 140,
+      left: 60, 
+      right: 60, 
+      bottomBuffer: 20 
     };
 
     boundsOptions = {
@@ -204,7 +205,7 @@ function fitMapToMarkers() {
     };
   }
 
-  map.fitBounds(latLngs, boundsOptions);
+  map.fitBounds(latLngs, { ...boundsOptions, maxZoom: 15 });
 }
 
 function updateVisibility() {
