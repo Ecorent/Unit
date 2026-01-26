@@ -75,14 +75,18 @@ function formatDeposit(amount) {
 
 // 📅 AVAILABILITY FORMATTER
 function formatAvailability(availability, lang) {
-  if (!availability) return t("available_now");
+  if (!availability || availability.availableNow) {
+    return t("available_now");
+  }
 
-  if (availability.availableNow) return t("available_now");
-  if (availability.availableFrom)
-    return new Date(availability.availableFrom).toLocaleDateString(
+  if (availability.availableFrom) {
+    const date = new Date(availability.availableFrom).toLocaleDateString(
       lang === "es" ? "es-ES" : "en-US",
       { year: "numeric", month: "long", day: "numeric" }
     );
+
+    return `${t("available_from")} ${date}`;
+  }
 
   return t("available_now");
 }
@@ -109,8 +113,12 @@ function renderUnit(lang) {
     <li><i class="fas fa-soap"></i>${unit.washerDryer[lang]}</li>
     <li><i class="fas fa-box-archive"></i>${unit.parking[lang]}</li>
     <li><i class="fas fa-star"></i>${unit.locationHighlights[lang]}</li>
-    <li><i class="fas fa-money-bill-wave"></i>${t("Safety deposit")}: ${formatDeposit(unit.deposit)}</li>
-    <li><i class="fas fa-calendar-check"></i>${t("available_from")}: ${formatAvailability(unit.availability, lang)}</li>
+    <li>
+      <i class="fas fa-money-bill-wave"></i>
+      ${t("Safety deposit of")} ${formatDeposit(unit.deposit)}
+      ${unit.deposit ? t("required") : ""}
+    </li>
+    <li><i class="fas fa-calendar-check"></i>${formatAvailability(unit.availability, lang)}</li>
   `;
 
   document.getElementById("mapFrame").src =

@@ -119,7 +119,7 @@ export default {
       title: "Security Deposit",
       description: "Amount required to move in.",
       type: "number",
-      validation: Rule => Rule.min(0)
+      validation: Rule => Rule.required().min(0)
     },
 
     {
@@ -144,7 +144,6 @@ export default {
       ],
       validation: Rule =>
         Rule.custom(value => {
-          // Require at least one of the two to be set
           if (!value?.availableFrom && !value?.availableNow) {
             return "Either pick a date or check Available Now";
           }

@@ -45,6 +45,8 @@ export const translations = {
     signup_failed: "Sign up failed. Please try again.",
     invalid_login: "Invalid email or password.",
     sqft_unit: "sqft",
+    available_now: "Available now",
+    available_from: "Available from",
   },
 
   es: {
@@ -93,6 +95,8 @@ export const translations = {
     signup_failed: "El registro falló. Por favor intenta de nuevo.",
     invalid_login: "Correo o contraseña incorrectos.",
     sqft_unit: "pies²",
+    available_now: "Disponible ahora",
+    available_from: "Disponible desde",
   }
 };
 
