@@ -193,9 +193,9 @@ function fitMapToMarkers() {
     const sheetHeight = window.innerHeight * 0.45; 
     
     const adjustments = {
-      top: 75,
+      top: 80,
       left: 70, 
-      right: 35, 
+      right: 40, 
       bottomBuffer: 20 
     };
 
