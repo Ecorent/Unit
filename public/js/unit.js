@@ -69,8 +69,12 @@ function formatPrice(price) {
 
 // 💵 DEPOSIT FORMATTER
 function formatDeposit(amount) {
-  if (amount == null) return t("not_required");
-  return `$${Number(amount).toLocaleString()}`;
+  if (amount == null) {
+    return t("security_deposit_not_required");
+  }
+
+  const formatted = `$${Number(amount).toLocaleString()}`;
+  return t("security_deposit_required").replace("{{amount}}", formatted);
 }
 
 // 📅 AVAILABILITY FORMATTER
@@ -113,11 +117,7 @@ function renderUnit(lang) {
     <li><i class="fas fa-soap"></i>${unit.washerDryer[lang]}</li>
     <li><i class="fas fa-box-archive"></i>${unit.parking[lang]}</li>
     <li><i class="fas fa-star"></i>${unit.locationHighlights[lang]}</li>
-    <li>
-      <i class="fas fa-money-bill-wave"></i>
-      ${t("Safety deposit of")} ${formatDeposit(unit.deposit)}
-      ${unit.deposit ? t("required") : ""}
-    </li>
+    <li><i class="fas fa-money-bill-wave"></i>${formatDeposit(unit.deposit)}</li>
     <li><i class="fas fa-calendar-check"></i>${formatAvailability(unit.availability, lang)}</li>
   `;
 
