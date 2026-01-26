@@ -308,7 +308,7 @@ body {
     flex-direction: column;
     z-index: 20;
     will-change: transform;
-    touch-action: none;
+    touch-action: pan-y;
     pointer-events: auto;
     contain: layout paint;
     padding-top: 0;
@@ -321,6 +321,7 @@ body {
   .map-listings.expanded .map-units {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   .map-listings::before {

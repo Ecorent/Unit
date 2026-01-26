@@ -309,7 +309,6 @@ if (window.innerWidth <= 768) {
     }, 250);
   }
 
-  // Initialize sheet and map
   setPosition(positions.half);
 
   sheet.addEventListener("touchstart", e => {
@@ -330,17 +329,20 @@ if (window.innerWidth <= 768) {
 
   sheet.addEventListener("touchmove", e => {
     if (!dragging) return;
-
     const touch = e.touches[0];
     const delta = touch.clientY - startY;
-
+    const isExpanded = sheet.classList.contains("expanded");
+    const isAtTop = content.scrollTop === 0;
+    if (isExpanded && isAtTop && delta < 0) {
+      return;
+    }
     const next = Math.min(
       positions.collapsed,
       Math.max(positions.expanded, startTranslate + delta)
     );
 
     setPosition(next);
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
   }, { passive: false });
 
   sheet.addEventListener("touchend", () => {
