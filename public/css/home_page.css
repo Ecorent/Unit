@@ -315,13 +315,13 @@ body {
   }
 
   .unit-info h3 {
-    font-size: clamp(0.8rem, 3.2vw, 0.9rem);
+    font-size: clamp(0.85rem, 3.6vw, 0.95rem);
     line-height: 1.25;
     text-wrap: balance;
   }
 
   .unit-meta {
-    font-size: clamp(0.67rem, 2.9vw, 0.73rem);
+    font-size: clamp(0.68rem, 3vw, 0.75rem);
     gap: clamp(6px, 2.5vw, 8px);
   }
 
@@ -353,4 +353,6 @@ body {
     padding-right: 55px;
   }
 }
+
+
 

@@ -58,7 +58,7 @@ main {
 .carousel-inner {
   position: relative;
   width: 100%;
-  aspect-ratio: 23 / 20;
+  aspect-ratio: 11 / 10;
   overflow: hidden;
   border-radius: 6px;
   background: #eee;

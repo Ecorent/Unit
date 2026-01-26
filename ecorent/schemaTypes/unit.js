@@ -140,8 +140,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(36) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(36) }
       ]
     },
 
