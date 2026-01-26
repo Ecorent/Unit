@@ -266,7 +266,7 @@ main {
   }
 
   .section-title {
-    font-size: clamp(1.25rem, 3.5vw, 1.6rem);
+    font-size: clamp(1.25rem, 3.4vw, 1.55rem);
     margin-bottom: 16px;
   }
 

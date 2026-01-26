@@ -38,7 +38,10 @@ const query = encodeURIComponent(`
     locationHighlights{en, es},
     parking{en, es},
     deposit,
-    availableFrom,
+    availability {
+      availableFrom,
+      availableNow
+    },
     images[]{asset->{url}}
   }
 `);
@@ -71,13 +74,17 @@ function formatDeposit(amount) {
 }
 
 // 📅 AVAILABILITY FORMATTER
-function formatAvailability(dateStr, lang) {
-  if (!dateStr) return t("available_now");
+function formatAvailability(availability, lang) {
+  if (!availability) return t("available_now");
 
-  return new Date(dateStr).toLocaleDateString(
-    lang === "es" ? "es-ES" : "en-US",
-    { year: "numeric", month: "long", day: "numeric" }
-  );
+  if (availability.availableNow) return t("available_now");
+  if (availability.availableFrom)
+    return new Date(availability.availableFrom).toLocaleDateString(
+      lang === "es" ? "es-ES" : "en-US",
+      { year: "numeric", month: "long", day: "numeric" }
+    );
+
+  return t("available_now");
 }
 
 // 🧱 RENDER UNIT
@@ -102,8 +109,8 @@ function renderUnit(lang) {
     <li><i class="fas fa-soap"></i>${unit.washerDryer[lang]}</li>
     <li><i class="fas fa-box-archive"></i>${unit.parking[lang]}</li>
     <li><i class="fas fa-star"></i>${unit.locationHighlights[lang]}</li>
-    <li><i class="fas fa-money-bill-wave"></i>${t("deposit")}: ${formatDeposit(unit.deposit)}</li>
-    <li><i class="fas fa-calendar-check"></i>${t("available_from")}: ${formatAvailability(unit.availableFrom, lang)}</li>
+    <li><i class="fas fa-money-bill-wave"></i>${t("Safety deposit")}: ${formatDeposit(unit.deposit)}</li>
+    <li><i class="fas fa-calendar-check"></i>${t("available_from")}: ${formatAvailability(unit.availability, lang)}</li>
   `;
 
   document.getElementById("mapFrame").src =

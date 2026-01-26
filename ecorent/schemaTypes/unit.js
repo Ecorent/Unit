@@ -17,8 +17,8 @@ export default {
       title: "Title",
       type: "object",
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required(), validation: Rule => Rule.max(30), },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required(), validation: Rule => Rule.max(30), }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(30) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(30) }
       ]
     },
 
@@ -51,8 +51,7 @@ export default {
       name: "address",
       title: "Address",
       type: "string",
-      validation: Rule => Rule.required(),
-      validation: Rule => Rule.max(40)
+      validation: Rule => Rule.required().max(40)
     },
 
     {
@@ -124,13 +123,33 @@ export default {
     },
 
     {
-      name: "availableFrom",
-      title: "Available From",
-      description: "Date when this unit becomes available.",
-      type: "date",
-      options: {
-        dateFormat: "YYYY-MM-DD"
-      }
+      name: "availability",
+      title: "Availability",
+      type: "object",
+      fields: [
+        {
+          name: "availableFrom",
+          title: "Available From",
+          type: "date",
+          options: {
+            dateFormat: "YYYY-MM-DD"
+          }
+        },
+        {
+          name: "availableNow",
+          title: "Available Now",
+          type: "boolean",
+          description: "Check this if the unit is available immediately."
+        }
+      ],
+      validation: Rule =>
+        Rule.custom(value => {
+          // Require at least one of the two to be set
+          if (!value?.availableFrom && !value?.availableNow) {
+            return "Either pick a date or check Available Now";
+          }
+          return true;
+        })
     },
 
     {
@@ -140,8 +159,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(36) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(36) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(39) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(39) }
       ]
     },
 
