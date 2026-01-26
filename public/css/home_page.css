@@ -184,7 +184,7 @@ body {
 
 .unit-info h3 {
   margin: 0 0 4px 0;
-  font-size: 1.20rem;
+  font-size: 1.15rem;
   color: var(--dark);
 }
 
@@ -193,7 +193,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #555;
 }
 
@@ -315,13 +315,13 @@ body {
   }
 
   .unit-info h3 {
-    font-size: clamp(0.85rem, 3.6vw, 0.95rem);
+    font-size: clamp(0.8rem, 3.2vw, 0.9rem);
     line-height: 1.25;
     text-wrap: balance;
   }
 
   .unit-meta {
-    font-size: clamp(0.68rem, 3vw, 0.75rem);
+    font-size: clamp(0.67rem, 2.9vw, 0.73rem);
     gap: clamp(6px, 2.5vw, 8px);
   }
 

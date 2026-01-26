@@ -37,6 +37,8 @@ const query = encodeURIComponent(`
     washerDryer{en, es},
     locationHighlights{en, es},
     parking{en, es},
+    deposit,
+    availableFrom,
     images[]{asset->{url}}
   }
 `);
@@ -62,6 +64,22 @@ function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
 }
 
+// 💵 DEPOSIT FORMATTER
+function formatDeposit(amount) {
+  if (amount == null) return t("not_required");
+  return `$${Number(amount).toLocaleString()}`;
+}
+
+// 📅 AVAILABILITY FORMATTER
+function formatAvailability(dateStr, lang) {
+  if (!dateStr) return t("available_now");
+
+  return new Date(dateStr).toLocaleDateString(
+    lang === "es" ? "es-ES" : "en-US",
+    { year: "numeric", month: "long", day: "numeric" }
+  );
+}
+
 // 🧱 RENDER UNIT
 function renderUnit(lang) {
   if (!unitCache) return;
@@ -84,6 +102,8 @@ function renderUnit(lang) {
     <li><i class="fas fa-soap"></i>${unit.washerDryer[lang]}</li>
     <li><i class="fas fa-box-archive"></i>${unit.parking[lang]}</li>
     <li><i class="fas fa-star"></i>${unit.locationHighlights[lang]}</li>
+    <li><i class="fas fa-money-bill-wave"></i>${t("deposit")}: ${formatDeposit(unit.deposit)}</li>
+    <li><i class="fas fa-calendar-check"></i>${t("available_from")}: ${formatAvailability(unit.availableFrom, lang)}</li>
   `;
 
   document.getElementById("mapFrame").src =

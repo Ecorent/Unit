@@ -16,10 +16,9 @@ export default {
       name: "title",
       title: "Title",
       type: "object",
-      validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required(), validation: Rule => Rule.max(30), },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required(), validation: Rule => Rule.max(30), }
       ]
     },
 
@@ -52,7 +51,8 @@ export default {
       name: "address",
       title: "Address",
       type: "string",
-      validation: Rule => Rule.required()
+      validation: Rule => Rule.required(),
+      validation: Rule => Rule.max(40)
     },
 
     {
@@ -113,6 +113,24 @@ export default {
         { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
         { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
       ]
+    },
+
+    {
+      name: "deposit",
+      title: "Security Deposit",
+      description: "Amount required to move in.",
+      type: "number",
+      validation: Rule => Rule.min(0)
+    },
+
+    {
+      name: "availableFrom",
+      title: "Available From",
+      description: "Date when this unit becomes available.",
+      type: "date",
+      options: {
+        dateFormat: "YYYY-MM-DD"
+      }
     },
 
     {
