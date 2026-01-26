@@ -47,7 +47,7 @@ export const translations = {
     sqft_unit: "sqft",
     available_now: "Available now!",
     available_from: "Available from",
-    security_deposit_required: "Security deposit of {{amount}} required",
+    security_deposit_required: "Security deposit of {{amount}}",
     security_deposit_not_required: "No security deposit required",
   },
 
@@ -99,7 +99,7 @@ export const translations = {
     sqft_unit: "pies²",
     available_now: "Disponible ahora!",
     available_from: "Disponible desde el",
-    security_deposit_required: "Depósito de seguridad de {{amount}} requerido",
+    security_deposit_required: "Depósito de seguridad de {{amount}}",
     security_deposit_not_required: "No se requiere depósito de seguridad",
   }
 };

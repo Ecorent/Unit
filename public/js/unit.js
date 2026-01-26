@@ -86,7 +86,7 @@ function formatAvailability(availability, lang) {
   if (availability.availableFrom) {
     const date = new Date(availability.availableFrom).toLocaleDateString(
       lang === "es" ? "es-ES" : "en-US",
-      { year: "numeric", month: "long", day: "numeric" }
+      { month: "long", day: "numeric" }
     );
 
     return `${t("available_from")} ${date}`;
