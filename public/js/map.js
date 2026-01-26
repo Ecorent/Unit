@@ -286,9 +286,10 @@ if (window.innerWidth <= 768) {
   let startTranslate = 0;
   let currentY = 0;
   let dragging = false;
+  let isHandleDrag = false;
 
   const positions = {
-    collapsed: Math.round(window.innerHeight * 0.78),
+    collapsed: Math.round(window.innerHeight * 0.75),
     half: Math.round(window.innerHeight * 0.42),
     expanded: 0
   };
@@ -319,7 +320,9 @@ if (window.innerWidth <= 768) {
     const isExpanded = sheet.classList.contains("expanded");
     const contentAtTop = content.scrollTop === 0;
 
-    if (!isExpanded || contentAtTop) {
+    isHandleDrag = e.target === sheet; 
+
+    if (isHandleDrag || !isExpanded || contentAtTop) {
       dragging = true;
       sheet.style.transition = "none";
     } else {
@@ -329,19 +332,26 @@ if (window.innerWidth <= 768) {
 
   sheet.addEventListener("touchmove", e => {
     if (!dragging) return;
+
     const touch = e.touches[0];
     const delta = touch.clientY - startY;
-    const isExpanded = sheet.classList.contains("expanded");
-    const isAtTop = content.scrollTop === 0;
-    if (isExpanded && isAtTop && delta < 0) {
-      return;
+
+    if (!isHandleDrag) {
+      const isExpanded = sheet.classList.contains("expanded");
+      const isAtTop = content.scrollTop === 0;
+
+      if (isExpanded && isAtTop && delta < 0) {
+        return; 
+      }
     }
+
     const next = Math.min(
       positions.collapsed,
       Math.max(positions.expanded, startTranslate + delta)
     );
 
     setPosition(next);
+    
     if (e.cancelable) e.preventDefault();
   }, { passive: false });
 
