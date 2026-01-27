@@ -40,8 +40,8 @@ export default {
       title: "Title",
       type: "object",
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 20)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 20)) }
       ]
     },
 
@@ -67,7 +67,7 @@ export default {
       name: "price",
       title: "Monthly Price",
       type: "number",
-      validation: Rule => Rule.required().custom(value => validateWidth(value, 30))
+      validation: Rule => Rule.required().min(0)
     },
 
     {
@@ -102,8 +102,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) }
       ]
     },
 
@@ -121,8 +121,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) }
       ]
     },
 
@@ -132,8 +132,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) }
       ]
     },
 
@@ -180,8 +180,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 33)) }
       ]
     },
 
