@@ -164,7 +164,7 @@ main {
   padding: 28px;
   display: flex;
   flex-direction: column;
-  height: 495px;
+  height: 600px;
 }
 
 .map iframe {
@@ -210,7 +210,7 @@ main {
 }
 
 .form-message {
-  min-height: 40px;
+  min-height: 24px;
   font-weight: 500;
   transition: transform 0.15s ease;
 }
