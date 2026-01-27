@@ -40,8 +40,8 @@ export default {
       title: "Title",
       type: "object",
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 25)) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 25)) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 26)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 26)) }
       ]
     },
 
