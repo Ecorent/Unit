@@ -164,7 +164,7 @@ main {
   padding: 28px;
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: 550px;
 }
 
 .map iframe {
@@ -179,7 +179,7 @@ main {
   flex-direction: column;
   gap: 12px;
   flex-grow: 1;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .contact-form input,
@@ -210,7 +210,10 @@ main {
 }
 
 .form-message {
-  min-height: 24px;
+  min-height: 56px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
   font-weight: 500;
   transition: transform 0.15s ease;
 }
@@ -303,7 +306,6 @@ main {
   }
 
   .contact-form form {
-    justify-content: flex-start;
     gap: 8px;
   }
 
