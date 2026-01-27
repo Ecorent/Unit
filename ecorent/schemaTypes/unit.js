@@ -17,8 +17,8 @@ export default {
       title: "Title",
       type: "object",
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(30) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(30) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(35) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(35) }
       ]
     },
 
@@ -51,7 +51,7 @@ export default {
       name: "address",
       title: "Address",
       type: "string",
-      validation: Rule => Rule.required().max(40)
+      validation: Rule => Rule.required().max(50)
     },
 
     {
@@ -79,8 +79,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(40) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(40) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
       ]
     },
 
@@ -98,8 +98,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(40) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(40) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
       ]
     },
 
@@ -109,8 +109,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(40) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(40) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
       ]
     },
 
@@ -157,8 +157,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(39) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(39) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
       ]
     },
 
