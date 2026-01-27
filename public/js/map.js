@@ -1,4 +1,4 @@
-import { t } from "/js/i18n.js";
+import { t, tPlural } from "/js/i18n.js";
 
 const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";

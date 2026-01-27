@@ -1,4 +1,4 @@
-import { t } from "/js/i18n.js";
+import { t, tPlural } from "/js/i18n.js";
 
 // 🔑 SANITY CONFIG
 const SANITY_PROJECT_ID = "uxragbo5";
