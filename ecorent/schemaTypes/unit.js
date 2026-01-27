@@ -1,3 +1,26 @@
+function validateWidth(value, maxWidth = 25) {
+  if (!value) return true;
+
+  const charWidths = {
+    i: 0.5, l: 0.5, j: 0.5, t: 0.6, f: 0.6,
+    m: 1.5, w: 1.5, q: 1.4, g: 1.3,
+    a: 1, b: 1, c: 1, d: 1, e: 1, h: 1, k: 1, n: 1, o: 1, p: 1, r: 1, s: 1, u: 1, v: 1, x: 1, y: 1, z: 1,
+    "0": 1, "1": 0.8, "2": 1, "3": 1, "4": 1, "5": 1, "6": 1, "7": 0.9, "8": 1, "9": 1,
+    " ": 0.5, ",": 0.4, ".": 0.4, "?": 1, "!": 0.5, ":": 0.4, ";": 0.4, "-": 0.6, "_": 1, "'": 0.3, '"': 0.5,
+    "(": 0.5, ")": 0.5, "[": 0.5, "]": 0.5, "{": 0.6, "}": 0.6, "/": 0.5, "\\": 0.5, "&": 1.2, "@": 1.5, "#": 1, "$": 1, "%": 1.5, "^": 0.8, "*": 0.8, "+": 0.8, "=": 1
+  };
+
+  const defaultWidth = 1;
+
+  let width = 0;
+  for (let char of value.toLowerCase()) {
+    width += charWidths[char] || defaultWidth;
+  }
+
+  if (width > maxWidth) return `Text too wide for display (approx. width ${width.toFixed(1)} > ${maxWidth})`;
+  return true;
+}
+
 export default {
   name: "unit",
   title: "Rental Unit",
@@ -17,8 +40,8 @@ export default {
       title: "Title",
       type: "object",
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(35) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(35) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
       ]
     },
 
@@ -44,14 +67,14 @@ export default {
       name: "price",
       title: "Monthly Price",
       type: "number",
-      validation: Rule => Rule.required().min(0)
+      validation: Rule => Rule.required().custom(value => validateWidth(value, 30))
     },
 
     {
       name: "address",
       title: "Address",
       type: "string",
-      validation: Rule => Rule.required().max(50)
+      validation: Rule => Rule.required().custom(value => validateWidth(value, 30))
     },
 
     {
@@ -79,8 +102,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
       ]
     },
 
@@ -98,8 +121,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
       ]
     },
 
@@ -109,8 +132,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
       ]
     },
 
@@ -152,13 +175,13 @@ export default {
 
     {
       name: "locationHighlights",
-      title: "What is attractive about this location? (no more than 6 words)",
+      title: "What is attractive about this location?",
       description: "Example: schools nearby, walkability, hospitals, public transit",
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(50) },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(50) }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().custom(value => validateWidth(value, 30)) }
       ]
     },
 
