@@ -95,7 +95,7 @@ function createUnitCard(unit) {
         </span>
         <span>
           <i class="fas fa-bed"></i>
-          ${unit.bedrooms} ${t("bedrooms")}
+          ${unit.bedrooms} ${tPlural("bedroom", unit.bedrooms)}
         </span>
       </div>
 

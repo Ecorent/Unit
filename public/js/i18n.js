@@ -26,8 +26,10 @@ export const translations = {
     password_placeholder: "Password",
     view_details: "View Details",
     per_month: "month",
-    bedrooms: "Bedrooms",
-    bathrooms: "Bathrooms",
+    bedroom_singular: "Bedroom",
+    bedroom_plural: "Bedrooms",
+    bathroom_singular: "Bathroom",
+    bathroom_plural: "Bathrooms",
     pet_friendly: "Pet friendly",
     no_pets: "No pets allowed",
     login_subtext_login: "Log in to manage your account, access your rentals, and continue where you left off.",
@@ -78,8 +80,10 @@ export const translations = {
     password_placeholder: "Contraseña",
     view_details: "Ver detalles",
     per_month: "mes",
-    bedrooms: "Habitaciones",
-    bathrooms: "Baños",
+    bedroom_singular: "Habitación",
+    bedroom_plural: "Habitaciones",
+    bathroom_singular: "Baño",
+    bathroom_plural: "Baños",
     pet_friendly: "Se permiten mascotas",
     no_pets: "No se permiten mascotas",
     login_subtext_login: "Inicia sesión para administrar tu cuenta, acceder a tus rentas y continuar donde lo dejaste.",
@@ -142,3 +146,13 @@ export function t(key) {
   const lang = localStorage.getItem("lang") || "en";
   return translations[lang]?.[key] ?? key;
 }
+
+export function tPlural(key, count) {
+  const lang = localStorage.getItem("lang") || "en";
+
+  let suffix = count === 1 ? "_singular" : "_plural";
+  const translationKey = key + suffix;
+
+  return translations[lang]?.[translationKey] ?? key;
+}
+

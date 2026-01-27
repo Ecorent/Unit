@@ -106,8 +106,8 @@ function renderUnit(lang) {
   document.getElementById("unitPrice").textContent = formatPrice(unit.price);
 
   document.getElementById("unitDetails").innerHTML = `
-    <li><i class="fas fa-bed"></i>${unit.bedrooms} ${t("bedrooms")}</li>
-    <li><i class="fas fa-bath"></i>${unit.bathrooms} ${t("bathrooms")}</li>
+    <li><i class="fas fa-bed"></i>${unit.bedrooms} ${tPlural("bedroom", unit.bedrooms)}</li>
+    <li><i class="fas fa-bath"></i>${unit.bathrooms} ${tPlural("bathroom", unit.bathrooms)}</li>
     <li><i class="fas fa-ruler-combined"></i>${unit.sqft} ${t("sqft_unit")}</li>
     <li>
       <i class="fas ${unit.petFriendly ? "fa-dog" : "fa-ban"}"></i>

@@ -79,8 +79,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(40) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(40) }
       ]
     },
 
@@ -98,8 +98,8 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(40) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(40) }
       ]
     },
 
@@ -109,17 +109,16 @@ export default {
       type: "object",
       validation: Rule => Rule.required(),
       fields: [
-        { name: "en", title: "English", type: "string", validation: Rule => Rule.required() },
-        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required() }
+        { name: "en", title: "English", type: "string", validation: Rule => Rule.required().max(40) },
+        { name: "es", title: "Spanish", type: "string", validation: Rule => Rule.required().max(40) }
       ]
     },
 
     {
       name: "deposit",
       title: "Security Deposit",
-      description: "Amount required to move in.",
+      description: "If no deposit required, leave blank.",
       type: "number",
-      validation: Rule => Rule.required().min(0)
     },
 
     {
@@ -168,7 +167,7 @@ export default {
       title: "Images",
       type: "array",
       of: [{ type: "image", options: { hotspot: true } }],
-      validation: Rule => Rule.required().min(1)
+      validation: Rule => Rule.required().min(2)
     },
 
     {

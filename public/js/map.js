@@ -115,16 +115,16 @@ function createUnitCard(unit) {
         </span>
       </div>
 
-      <div class="unit-meta">
-        <span>
-          <i class="fas fa-ruler-combined"></i>
-          ${unit.sqft} ${t("sqft_unit")}
-        </span>
-        <span>
-          <i class="fas fa-bed"></i>
-          ${unit.bedrooms} ${t("bedrooms")}
-        </span>
-      </div>
+    <div class="unit-meta">
+      <span>
+        <i class="fas fa-ruler-combined"></i>
+        ${unit.sqft} ${t("sqft_unit")}
+      </span>
+      <span>
+        <i class="fas fa-bed"></i>
+        ${unit.bedrooms} ${tPlural("bedroom", unit.bedrooms)}
+      </span>
+    </div>
 
       <a href="/unit.html?slug=${unit.slug.current}" class="view-button">
         ${t("view_details")}
