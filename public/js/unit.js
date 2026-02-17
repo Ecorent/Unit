@@ -101,6 +101,7 @@ function renderUnit(lang) {
 
   const unit = unitCache;
 
+  document.getElementById("unitTitleField").value = unit.title[lang];
   document.getElementById("pageTitle").textContent = unit.title[lang];
   document.getElementById("unitTitle").textContent = unit.title[lang];
   document.getElementById("unitPrice").textContent = formatPrice(unit.price);
@@ -223,7 +224,8 @@ form.addEventListener("submit", async (e) => {
     name: e.target.name.value,
     email: e.target.email.value,
     phone: e.target.phone.value,
-    message: e.target.message.value
+    message: e.target.message.value,
+    unitTitle: e.target.unitTitle.value
   };
 
   try {

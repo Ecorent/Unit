@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, phone, message } = req.body;
+  const { name, email, phone, message, unitTitle } = req.body;
 
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -18,11 +18,15 @@ export default async function handler(req, res) {
   try {
     const { error } = await resend.emails.send({
       from: 'ECOrent <contact@ecorentusa.com>',
-      to: ['emmirongolo0804@gmail.com'],          
+      to: [
+        'emmirongolo0804@gmail.com',
+        'christelle7777@icloud.com'
+      ],          
       reply_to: email,
-      subject: `New Inquiry from ${name}`,
+      subject: `New Inquiry — ${unitTitle} — from ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
+        <p><strong>Unit:</strong> ${unitTitle}</p>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
