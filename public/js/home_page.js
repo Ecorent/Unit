@@ -71,7 +71,10 @@ function createUnitCard(unit) {
       <div class="price-badge">${formatPrice(unit.price)}</div>
 
       <div class="carousel-track">
-        ${images.map(img => `<img src="${img.asset.url}" alt="">`).join("")}
+        ${images
+          .filter(img => img?.asset?.url)
+          .map(img => `<img src="${img.asset.url}" alt="">`)
+          .join("")}
       </div>
 
       <button class="carousel-btn prev">&#10094;</button>
