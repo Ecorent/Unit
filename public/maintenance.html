@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google" content="notranslate">
+  <title>Ecorentusa - Maintenance Request</title>
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/maintenance.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <main class="maintenance-container">
+    <div class="form-card">
+      <h1 data-i18n="maint_title">Maintenance Request Form</h1>
+      
+      <div class="emergency-banner">
+        <p class="banner-alert"><i class="fas fa-exclamation-triangle"></i> <span data-i18n="maint_emergency_alert">For emergencies such as active flooding, fire, or gas smell, call (616)477-2400 immediately — do NOT wait for this form to be reviewed.</span></p>
+      </div>
+
+      <form id="maintenanceForm" novalidate>
+        
+        <div class="form-group">
+          <label for="tenantName"><span data-i18n="maint_label_name">Tenant Name</span> <span class="required">*</span></label>
+          <input type="text" id="tenantName" required data-i18n-placeholder="name_placeholder">
+        </div>
+
+        <div class="form-group">
+          <label for="tenantPhone"><span data-i18n="maint_label_phone">Tenant Phone Number</span> <span class="required">*</span></label>
+          <input type="tel" id="tenantPhone" required data-i18n-placeholder="phone_placeholder">
+        </div>
+
+        <div class="form-group">
+          <label for="tenantEmail"><span data-i18n="maint_label_email">Tenant Email</span> <span class="required">*</span></label>
+          <input type="email" id="tenantEmail" required data-i18n-placeholder="email_placeholder">
+        </div>
+
+        <div class="form-group">
+          <label for="propertyAddress"><span data-i18n="maint_label_address">Property Address</span> <span class="required">*</span></label>
+          <input type="text" id="propertyAddress" required>
+        </div>
+
+        <div class="form-group">
+          <label for="unitNumber"><span data-i18n="maint_label_unit">Unit Number (if applicable)</span></label>
+          <input type="text" id="unitNumber">
+        </div>
+
+        <div class="form-group">
+          <label for="issueDescription"><span data-i18n="maint_label_desc">Description of the Issue</span> <span class="required">*</span></label>
+          <textarea id="issueDescription" rows="4" required data-i18n-placeholder="message_placeholder"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="startDate"><span data-i18n="maint_label_date">When Did the Issue Start?</span> <span class="required">*</span></label>
+          <input type="date" id="startDate" required>
+        </div>
+
+        <div class="form-group">
+          <label><span data-i18n="maint_label_permission">Permission to Enter the Unit if You Are Not Home?</span> <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="permissionEnter" value="Yes" checked>
+              <span data-i18n="maint_opt_perm_yes">Yes, maintenance may enter</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="permissionEnter" value="No">
+              <span data-i18n="maint_opt_perm_no">No, please contact me first</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bestTime"><span data-i18n="maint_label_time">Best Times for Maintenance to Come</span> <span class="required">*</span></label>
+          <select id="bestTime" required>
+            <option value="Weekday mornings" data-i18n="maint_opt_time_morning">Weekday mornings</option>
+            <option value="Weekday afternoons" data-i18n="maint_opt_time_afternoon">Weekday afternoons</option>
+            <option value="Evenings" data-i18n="maint_opt_time_evening">Evenings</option>
+            <option value="Weekends" data-i18n="maint_opt_time_weekend">Weekends</option>
+            <option value="Please contact me to schedule" data-i18n="maint_opt_time_contact">Please contact me to schedule</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label><span data-i18n="maint_label_water">Does This Issue Involve Water or a Leak?</span> <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="waterIssue" value="Yes" checked>
+              <span data-i18n="maint_opt_yes">Yes</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="waterIssue" value="No">
+              <span data-i18n="maint_opt_no">No</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="waterIssue" value="Not sure">
+              <span data-i18n="maint_opt_unsure">Not sure</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label><span data-i18n="maint_label_pets">Are There Pets in the Unit?</span> <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="petsPresent" value="Yes">
+              <span data-i18n="maint_opt_yes">Yes</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="petsPresent" value="No" checked>
+              <span data-i18n="maint_opt_no">No</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="acknowledgment" required>
+            <span data-i18n="maint_label_ack">I understand that non-emergency repairs may take 24–72 hours depending on urgency and contractor availability.</span> <span class="required">*</span>
+          </label>
+        </div>
+
+        <button type="submit" class="submit-button" id="submitBtn">
+          <span class="button-text" data-i18n="mensaje">Send Message</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+
+        <div id="formFeedback" class="form-feedback hidden"></div>
+      </form>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module" src="/js/navbar.js"></script>
+  <script src="js/footer.js"></script>
+  <script type="module" src="/js/maintenance.js"></script>
+
+</body>
+</html>
