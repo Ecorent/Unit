@@ -243,7 +243,7 @@ function initCarousels() {
 
     let index = 0;
 
-    const update = () => {
+    const update = () => { 
       if (!images[index]) return;
       track.style.transform = `translateX(-${index * 100}%)`;
       blur.style.backgroundImage = `url(${images[index].src})`;
