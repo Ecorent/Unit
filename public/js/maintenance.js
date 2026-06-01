@@ -4,6 +4,13 @@ let currentLang = localStorage.getItem("lang") || "en";
 
 const form = document.getElementById("maintenanceForm");
 const feedback = document.getElementById("formFeedback");
+const urgencyInput = document.getElementById("urgencyRating");
+const urgencyOutput = document.getElementById("urgencyOutput");
+
+// Keep UI counter aligned dynamically with user interactions
+urgencyInput.addEventListener("input", (e) => {
+  urgencyOutput.textContent = e.target.value;
+});
 
 // Handle Form Submission
 form.addEventListener("submit", async (e) => {
@@ -15,12 +22,16 @@ form.addEventListener("submit", async (e) => {
 
   // 2. CHECK VALIDITY & ACCUSE INVALID FIELDS INDIVIDUALLY
   if (!form.checkValidity()) {
-    // This natively focuses, scrolls to, and triggers a tooltip on the first invalid field
     form.reportValidity(); 
-    return; // Stop execution right here so the user can fix the input
+    return;
   }
 
-  // 3. Build Form Object Payload (Only runs if all fields are valid)
+  // Helper variables to prevent errors when elements aren't chosen
+  const permissionSelection = document.querySelector('input[name="permissionEnter"]:checked');
+  const waterSelection = document.querySelector('input[name="waterIssue"]:checked');
+  const petsSelection = document.querySelector('input[name="petsPresent"]:checked');
+
+  // 3. Build Form Object Payload
   const formData = {
     tenantName: document.getElementById("tenantName").value.trim(),
     tenantPhone: document.getElementById("tenantPhone").value.trim(),
@@ -29,10 +40,11 @@ form.addEventListener("submit", async (e) => {
     unitNumber: document.getElementById("unitNumber").value.trim(),
     issueDescription: document.getElementById("issueDescription").value.trim(),
     startDate: document.getElementById("startDate").value,
-    permissionToEnter: document.querySelector('input[name="permissionEnter"]:checked').value,
+    permissionToEnter: permissionSelection ? permissionSelection.value : "",
     bestTime: document.getElementById("bestTime").value,
-    waterIssue: document.querySelector('input[name="waterIssue"]:checked').value,
-    petsPresent: document.querySelector('input[name="petsPresent"]:checked').value,
+    waterIssue: waterSelection ? waterSelection.value : "",
+    petsPresent: petsSelection ? petsSelection.value : "",
+    urgencyRating: urgencyInput.value,
     acknowledged: document.getElementById("acknowledgment").checked
   };
 
@@ -57,6 +69,7 @@ form.addEventListener("submit", async (e) => {
 
     showFeedback(t("contact_success"), "success");
     form.reset();
+    urgencyOutput.textContent = "5"; // Reset visible badge layout back to default baseline
 
   } catch (error) {
     document.getElementById("submitBtn").disabled = false;
@@ -69,7 +82,6 @@ function showFeedback(message, type) {
   feedback.className = `form-feedback ${type}`;
 }
 
-// 🌍 Language hook configurations mirroring home page pipeline logic
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
 });

@@ -66,11 +66,11 @@
           <label><span data-i18n="maint_label_permission">Permission to Enter the Unit if You Are Not Home?</span> <span class="required">*</span></label>
           <div class="radio-group">
             <label class="radio-label">
-              <input type="radio" name="permissionEnter" value="Yes" checked>
+              <input type="radio" name="permissionEnter" value="Yes" required>
               <span data-i18n="maint_opt_perm_yes">Yes, maintenance may enter</span>
             </label>
             <label class="radio-label">
-              <input type="radio" name="permissionEnter" value="No">
+              <input type="radio" name="permissionEnter" value="No" required>
               <span data-i18n="maint_opt_perm_no">No, please contact me first</span>
             </label>
           </div>
@@ -79,6 +79,7 @@
         <div class="form-group">
           <label for="bestTime"><span data-i18n="maint_label_time">Best Times for Maintenance to Come</span> <span class="required">*</span></label>
           <select id="bestTime" required>
+            <option value="" disabled selected data-i18n="maint_opt_time_placeholder">Choose a time option...</option>
             <option value="Weekday mornings" data-i18n="maint_opt_time_morning">Weekday mornings</option>
             <option value="Weekday afternoons" data-i18n="maint_opt_time_afternoon">Weekday afternoons</option>
             <option value="Evenings" data-i18n="maint_opt_time_evening">Evenings</option>
@@ -91,15 +92,15 @@
           <label><span data-i18n="maint_label_water">Does This Issue Involve Water or a Leak?</span> <span class="required">*</span></label>
           <div class="radio-group">
             <label class="radio-label">
-              <input type="radio" name="waterIssue" value="Yes" checked>
+              <input type="radio" name="waterIssue" value="Yes" required>
               <span data-i18n="maint_opt_yes">Yes</span>
             </label>
             <label class="radio-label">
-              <input type="radio" name="waterIssue" value="No">
+              <input type="radio" name="waterIssue" value="No" required>
               <span data-i18n="maint_opt_no">No</span>
             </label>
             <label class="radio-label">
-              <input type="radio" name="waterIssue" value="Not sure">
+              <input type="radio" name="waterIssue" value="Not sure" required>
               <span data-i18n="maint_opt_unsure">Not sure</span>
             </label>
           </div>
@@ -109,13 +110,23 @@
           <label><span data-i18n="maint_label_pets">Are There Pets in the Unit?</span> <span class="required">*</span></label>
           <div class="radio-group">
             <label class="radio-label">
-              <input type="radio" name="petsPresent" value="Yes">
+              <input type="radio" name="petsPresent" value="Yes" required>
               <span data-i18n="maint_opt_yes">Yes</span>
             </label>
             <label class="radio-label">
-              <input type="radio" name="petsPresent" value="No" checked>
+              <input type="radio" name="petsPresent" value="No" required>
               <span data-i18n="maint_opt_no">No</span>
             </label>
+          </div>
+        </div>
+
+        <div class="form-group Range-container">
+          <label for="urgencyRating">
+            <span data-i18n="maint_label_urgency">Urgency Priority Rating (1 = Minor, 10 = Severe Routine)</span> <span class="required">*</span>
+          </label>
+          <div class="range-wrapper">
+            <input type="range" id="urgencyRating" name="urgencyRating" min="1" max="10" value="5" step="1">
+            <span id="urgencyOutput" class="range-badge">5</span>
           </div>
         </div>
 

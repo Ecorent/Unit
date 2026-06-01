@@ -73,6 +73,7 @@ body {
   color: var(--error);
 }
 
+/* 📱 Ensures perfect full-width display on iOS and Android devices natively */
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"],
@@ -88,6 +89,8 @@ body {
   color: var(--dark);
   transition: border-color 0.2s ease;
   outline: none;
+  width: 100%;
+  box-sizing: border-box; 
 }
 
 .form-group input:focus,
@@ -121,6 +124,32 @@ body {
   height: 18px;
   margin: 2px 0 0 0;
   flex-shrink: 0;
+}
+
+/* 🔟 Urgency Range UI Elements */
+.range-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.range-wrapper input[type="range"] {
+  flex: 1;
+  accent-color: var(--buttons);
+  cursor: pointer;
+  height: 6px;
+}
+
+.range-badge {
+  background: var(--buttons);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 20px;
+  text-align: center;
 }
 
 .checkbox-group {
@@ -173,7 +202,6 @@ body {
   display: none !important;
 }
 
-/* Responsive Overrides matching index.html core components */
 @media (max-width: 768px) {
   .maintenance-container {
     margin: 16px auto;
