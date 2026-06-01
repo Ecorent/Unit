@@ -36,26 +36,33 @@ form.addEventListener("submit", async (e) => {
     acknowledged: document.getElementById("acknowledgment").checked
   };
 
-  try {
-    /* 🚀 CONNECT TO YOUR BACKEND API SYSTEM HERE
-       Example pipeline wiring:
-       
-       const response = await fetch("https://your-api-endpoint.com/maintenance", {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify(formData)
-       });
-       if (!response.ok) throw new Error();
-    */
+try {
+    // Show a loading state on the button if desired
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
 
-    // Simulating database transaction delay
-    await new Promise(resolve => setTimeout(resolve, 800));
+    // 🚀 CONNECT TO YOUR BACKEND API SYSTEM HERE
+    const response = await fetch("/api/maintenance", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+    submitBtn.disabled = false;
+
+    if (!response.ok || result.error) {
+      throw new Error(result.error || "Failed to send");
+    }
 
     // Show interactive completion block
     showFeedback(t("contact_success"), "success");
     form.reset();
 
   } catch (error) {
+    document.getElementById("submitBtn").disabled = false;
     showFeedback(t("reset_error"), "error");
   }
 });
