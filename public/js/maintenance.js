@@ -1,6 +1,5 @@
 import { t } from "/js/i18n.js";
 
-// Global language state tracking local behavior
 let currentLang = localStorage.getItem("lang") || "en";
 
 const form = document.getElementById("maintenanceForm");
@@ -10,17 +9,18 @@ const feedback = document.getElementById("formFeedback");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   
-  // Clear any existing global states
+  // 1. Reset any existing global message states
   feedback.className = "form-feedback hidden";
   feedback.textContent = "";
 
-  // HTML Validation fallback check
+  // 2. CHECK VALIDITY & ACCUSE INVALID FIELDS INDIVIDUALLY
   if (!form.checkValidity()) {
-    showFeedback(t("reset_error"), "error");
-    return;
+    // This natively focuses, scrolls to, and triggers a tooltip on the first invalid field
+    form.reportValidity(); 
+    return; // Stop execution right here so the user can fix the input
   }
 
-  // Build Form Object Payload
+  // 3. Build Form Object Payload (Only runs if all fields are valid)
   const formData = {
     tenantName: document.getElementById("tenantName").value.trim(),
     tenantPhone: document.getElementById("tenantPhone").value.trim(),
@@ -36,12 +36,10 @@ form.addEventListener("submit", async (e) => {
     acknowledged: document.getElementById("acknowledgment").checked
   };
 
-try {
-    // Show a loading state on the button if desired
+  try {
     const submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
 
-    // 🚀 CONNECT TO YOUR BACKEND API SYSTEM HERE
     const response = await fetch("/api/maintenance", {
       method: "POST",
       headers: { 
@@ -57,7 +55,6 @@ try {
       throw new Error(result.error || "Failed to send");
     }
 
-    // Show interactive completion block
     showFeedback(t("contact_success"), "success");
     form.reset();
 
