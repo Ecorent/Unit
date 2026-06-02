@@ -93,25 +93,32 @@ body {
   box-sizing: border-box; 
 }
 
+/* 🛠️ SPECIFIC COMPONENT OVERRIDES */
+
+/* Disables user resizing on the description text box */
 .form-group textarea {
   resize: none;
 }
 
+/* Fixes arrow styling and right-edge spacing for dropdown selects */
 .form-group select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  padding-right: 40px !important; 
+  padding-right: 40px !important; /* Generates breathing room for the custom arrow */
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 4 5'><path fill='%23292929' d='M0 1h4L2 3z'/></svg>");
   background-repeat: no-repeat;
-  background-position: calc(100% - 16px) 50%; 
+  background-position: calc(100% - 16px) 50%; /* Holds the arrow 16px inward from the right edge */
   background-size: 12px;
 }
 
+/* 📅 Establishes relative context on the date input box container */
 .form-group input[type="date"] {
   position: relative;
+  padding-right: 40px !important; /* Matches select padding so text bounds are uniform */
 }
 
+/* Forces the native browser calendar trigger to align identically with the select arrow on mobile */
 .form-group input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   right: 14px;
@@ -168,6 +175,13 @@ body {
   accent-color: var(--buttons);
   cursor: pointer;
   height: 6px;
+}
+
+.badge-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .range-badge {
