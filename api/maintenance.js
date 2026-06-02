@@ -21,13 +21,20 @@ export default async function handler(req, res) {
     bestTime,
     waterIssue,
     petsPresent,
+    urgencyRating, // 🔟 Added to capture payload from maintenance.js
     acknowledged
   } = req.body;
 
-  // Validate critical fields
-  if (!tenantName || !tenantEmail || !propertyAddress || !issueDescription || !startDate) {
+  // Validate critical fields (including urgency profile status validation rules)
+  if (!tenantName || !tenantEmail || !propertyAddress || !issueDescription || !startDate || !urgencyRating) {
     return res.status(400).json({ error: 'Missing required parameters' });
   }
+
+  // Determine a color metric state for the email alert pill based on priority numbers
+  const priorityInt = parseInt(urgencyRating, 10);
+  let badgeColor = '#1f9c53'; // Default green (1-4)
+  if (priorityInt >= 5 && priorityInt <= 7) badgeColor = '#f2994a'; // Orange warning (5-7)
+  if (priorityInt >= 8) badgeColor = '#d93025'; // Red critical hazard level (8-10)
 
   try {
     const { error } = await resend.emails.send({
@@ -37,10 +44,10 @@ export default async function handler(req, res) {
         'emmanuelhenao0816@gmail.com'
       ],          
       reply_to: tenantEmail,
-      subject: `🛠️ Maintenance Request: ${propertyAddress} ${unitNumber ? `#${unitNumber}` : ''} — ${tenantName}`,
+      subject: `🛠️ [Priority ${urgencyRating}/10] Maintenance Request: ${propertyAddress} ${unitNumber ? `#${unitNumber}` : ''} — ${tenantName}`,
       html: `
         <div style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 600px; color: #292929; border: 1px solid #e1e1e1; border-radius: 6px; overflow: hidden;">
-          <div style="background-color: #1f9c53; padding: 20px; color: white;">
+          <div style="background-color: #1f9c53; padding: 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
             <h2 style="margin: 0; font-size: 20px;">New Maintenance Request</h2>
           </div>
           
@@ -56,6 +63,7 @@ export default async function handler(req, res) {
             
             <h3 style="margin-top: 24px; color: #12793d; border-bottom: 2px solid #f1f1f1; padding-bottom: 8px;">Issue Details</h3>
             <p><strong>When did it start?:</strong> ${startDate}</p>
+            <p><strong>Urgency Level:</strong> <span style="background-color: ${badgeColor}; color: white; padding: 3px 10px; border-radius: 12px; font-weight: bold; font-size: 14px;">${urgencyRating} / 10</span></p>
             <p><strong>Involves water/leak?:</strong> <span style="color: ${waterIssue === 'Yes' ? '#d93025' : '#292929'}; font-weight: bold;">${waterIssue}</span></p>
             <p><strong>Are there pets present?:</strong> ${petsPresent}</p>
             
