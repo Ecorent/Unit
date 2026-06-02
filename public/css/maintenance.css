@@ -93,6 +93,21 @@ body {
   box-sizing: border-box; 
 }
 
+.form-group textarea {
+  resize: none;
+}
+
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 40px !important; /* Generates breathing room for the custom arrow */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 4 5'><path fill='%23292929' d='M0 1h4L2 3z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 16px) 50%; /* Holds the arrow 16px inward from the right edge */
+  background-size: 12px;
+}
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
