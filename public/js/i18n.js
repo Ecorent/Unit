@@ -75,6 +75,8 @@ export const translations = {
     maint_opt_unsure: "Not sure",
     maint_label_pets: "Are There Pets in the Unit?",
     maint_label_ack: "I understand that non-emergency repairs may take 24–72 hours depending on urgency and contractor availability.",
+    maint_label_urgency: "Urgency Priority Rating (1 = Minor, 10 = Severe)",
+    maint_urgency_prefix: "Level:",
   },
 
   es: {
@@ -153,6 +155,8 @@ export const translations = {
     maint_opt_unsure: "No estoy seguro",
     maint_label_pets: "¿Hay mascotas en la unidad?",
     maint_label_ack: "Entiendo que las reparaciones que no son de emergencia pueden tomar de 24 a 72 horas dependiendo de la urgencia y la disponibilidad del contratista.",
+    maint_label_urgency: "Nivel de Urgencia (1 = Menor, 10 = Grave)",
+    maint_urgency_prefix: "Nivel:",
   }
 };
 

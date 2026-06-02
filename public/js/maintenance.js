@@ -6,6 +6,14 @@ const form = document.getElementById("maintenanceForm");
 const feedback = document.getElementById("formFeedback");
 const urgencyInput = document.getElementById("urgencyRating");
 const urgencyOutput = document.getElementById("urgencyOutput");
+const urgencyPrefix = document.getElementById("urgencyPrefix");
+
+// Update dynamic severity layout label items
+function updateUrgencyUI() {
+  if (urgencyPrefix) {
+    urgencyPrefix.textContent = t("maint_urgency_prefix") + " ";
+  }
+}
 
 // Keep UI counter aligned dynamically with user interactions
 urgencyInput.addEventListener("input", (e) => {
@@ -69,7 +77,8 @@ form.addEventListener("submit", async (e) => {
 
     showFeedback(t("contact_success"), "success");
     form.reset();
-    urgencyOutput.textContent = "5"; // Reset visible badge layout back to default baseline
+    urgencyInput.value = "5";
+    urgencyOutput.textContent = "5"; 
 
   } catch (error) {
     document.getElementById("submitBtn").disabled = false;
@@ -84,8 +93,15 @@ function showFeedback(message, type) {
 
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
+  updateUrgencyUI();
 });
 
 window.addEventListener("pageshow", (event) => {
   currentLang = localStorage.getItem("lang") || "en";
+  updateUrgencyUI();
+});
+
+// Setup dynamic texts immediately upon load
+document.addEventListener("DOMContentLoaded", () => {
+  updateUrgencyUI();
 });

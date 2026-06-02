@@ -122,11 +122,14 @@
 
         <div class="form-group Range-container">
           <label for="urgencyRating">
-            <span data-i18n="maint_label_urgency">Urgency Priority Rating (1 = Minor, 10 = Severe Routine)</span> <span class="required">*</span>
+            <span data-i18n="maint_label_urgency">Urgency Priority Rating (1 = Minor, 10 = Severe)</span> <span class="required">*</span>
           </label>
           <div class="range-wrapper">
             <input type="range" id="urgencyRating" name="urgencyRating" min="1" max="10" value="5" step="1">
-            <span id="urgencyOutput" class="range-badge">5</span>
+            <div class="badge-container">
+              <span id="urgencyPrefix" style="font-size: 0.85rem; font-weight: 600; color: var(--darker-green);"></span>
+              <span id="urgencyOutput" class="range-badge">5</span>
+            </div>
           </div>
         </div>
 
