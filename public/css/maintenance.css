@@ -101,11 +101,25 @@ body {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  padding-right: 40px !important; /* Generates breathing room for the custom arrow */
+  padding-right: 40px !important; 
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 4 5'><path fill='%23292929' d='M0 1h4L2 3z'/></svg>");
   background-repeat: no-repeat;
-  background-position: calc(100% - 16px) 50%; /* Holds the arrow 16px inward from the right edge */
+  background-position: calc(100% - 16px) 50%; 
   background-size: 12px;
+}
+
+.form-group input[type="date"] {
+  position: relative;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .form-group input:focus,
