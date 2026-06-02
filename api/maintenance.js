@@ -41,7 +41,9 @@ export default async function handler(req, res) {
       from: 'ECOrent Maintenance <contact@ecorentusa.com>',
       to: [ 
         'emmanuelhenao0816@gmail.com',
-        'ecorentusa@gmail.com'
+        'dr43@calvin.edu',
+        'eh49@calvin.edu',
+
       ],          
       reply_to: tenantEmail,
       subject: `🛠️ [Priority ${urgencyRating}/10] Maintenance Request: ${propertyAddress} ${unitNumber ? `#${unitNumber}` : ''} — ${tenantName}`,
