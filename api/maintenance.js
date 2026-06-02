@@ -41,8 +41,7 @@ export default async function handler(req, res) {
       from: 'ECOrent Maintenance <contact@ecorentusa.com>',
       to: [ 
         'emmanuelhenao0816@gmail.com',
-        'dr43@calvin.edu',
-        'eh49@calvin.edu',
+        'ecorentusa@gmail.com'
 
       ],          
       reply_to: tenantEmail,
