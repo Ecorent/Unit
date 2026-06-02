@@ -40,8 +40,8 @@ export default async function handler(req, res) {
     const { error } = await resend.emails.send({
       from: 'ECOrent Maintenance <contact@ecorentusa.com>',
       to: [ 
-        'emmirongolo0804@gmail.com',
-        'emmanuelhenao0816@gmail.com'
+        'emmanuelhenao0816@gmail.com',
+        'ecorentusa@gmail.com'
       ],          
       reply_to: tenantEmail,
       subject: `🛠️ [Priority ${urgencyRating}/10] Maintenance Request: ${propertyAddress} ${unitNumber ? `#${unitNumber}` : ''} — ${tenantName}`,
