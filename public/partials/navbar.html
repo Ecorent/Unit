@@ -1,7 +1,7 @@
 <nav class="navbar auth-loading">
   <div class="nav-container">
     <div class="nav-left">
-      <a href="index.html" class="logo-link">
+      <a href="index.html" class="logo-link" aria-label="EcoRent USA home">
         <img src="images/header_logo.png" class="nav-logo" alt="ECOrent logo">
       </a>
     </div>
@@ -12,17 +12,19 @@
           <button
             class="language-button"
             id="languageToggle"
+            type="button"
             aria-label="Change language"
+            aria-expanded="false"
           >
             <span class="lang-flag flag-us" id="currentLangFlag"></span>
           </button>
 
-          <div class="language-dropdown hidden" id="languageDropdown">
-            <button data-lang="en">
+          <div class="language-dropdown hidden" id="languageDropdown" aria-label="Language options">
+            <button type="button" data-lang="en">
               <span class="lang-flag flag-us"></span>
               English
             </button>
-            <button data-lang="es">
+            <button type="button" data-lang="es">
               <span class="lang-flag flag-es"></span>
               Español
             </button>
@@ -33,25 +35,25 @@
         <a href="map.html" class="map-button nav-item item-3" data-i18n="map">Interactive map</a>
         <a href="maintenance.html" class="maintenance-button nav-item item-4" data-i18n="maintenance">Maintenance Requests</a>
         <div class="profile-wrapper nav-item item-5 desktop-profile">
-          <button class="profile-button" id="profileToggle">
+          <button class="profile-button" id="profileToggle" type="button" aria-label="Open profile menu" aria-expanded="false">
             <span class="profile-slot"></span>
           </button>
 
           <div class="profile-dropdown hidden" id="profileDropdown">
             <a href="#" data-i18n="profile">Profile</a>
-            <button id="logoutBtn" data-i18n="logout">Log out</button>
+            <button id="logoutBtn" type="button" data-i18n="logout">Log out</button>
           </div>
         </div>
       </div>
 
       <div class="mobile-actions">
         <div class="profile-wrapper mobile-profile">
-          <button class="profile-button" id="mobileProfileToggle">
+          <button class="profile-button" id="mobileProfileToggle" type="button" aria-label="Open profile menu" aria-expanded="false">
             <span class="profile-slot"></span>
           </button>
         </div>
 
-        <button class="hamburger-button" id="hamburgerToggle">
+        <button class="hamburger-button" id="hamburgerToggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -61,7 +63,7 @@
   <div class="mobile-menu hidden" id="mobileMenu">
     <a href="index.html" data-i18n="home">Home</a>
 
-    <button class="mobile-language-toggle" id="mobileLanguageToggle">
+    <button class="mobile-language-toggle" id="mobileLanguageToggle" type="button" aria-label="Change language" aria-expanded="false">
       <span class="lang-flag flag-us" id="mobileCurrentLangFlag"></span>
       <span data-i18n="language">Language</span>
     </button>
@@ -83,6 +85,6 @@
 
   <div class="mobile-profile-menu hidden" id="mobileProfileMenu">
     <a href="#" data-i18n="profile">Profile</a>
-    <button id="logoutBtn" data-i18n="logout">Log out</button>
+    <button id="mobileLogoutBtn" type="button" data-logout-button data-i18n="logout">Log out</button>
   </div>
 </nav>

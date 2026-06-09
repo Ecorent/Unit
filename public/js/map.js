@@ -1,32 +1,10 @@
 import { t, tPlural } from "/js/i18n.js";
 
-const SANITY_PROJECT_ID = "uxragbo5";
-const SANITY_DATASET = "production";
-const SANITY_API_VERSION = "2023-10-01";
-
 let currentLang = localStorage.getItem("lang") || "en";
 let unitCache = [];
 
 const markers = {};
 const cards = {};
-
-const query = encodeURIComponent(`
-  *[_type == "unit" && published == true]
-  | order(order asc, _createdAt desc) {
-    title{en, es},
-    price,
-    address,
-    sqft,
-    bedrooms,
-    slug,
-    images[]{asset->{url}},
-    latitude,
-    longitude
-  }
-`);
-
-const SANITY_URL =
-  `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
 const map = L.map("map", { 
   zoomControl: false,      
@@ -43,6 +21,12 @@ function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
 }
 
+function sanityImageUrl(url, width, quality = 78) {
+  if (!url) return "";
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}auto=format&w=${width}&q=${quality}&fit=max`;
+}
+
 function createPriceMarker(price) {
   return L.divIcon({
     className: "",
@@ -51,7 +35,7 @@ function createPriceMarker(price) {
   });
 }
 
-fetch(SANITY_URL)
+fetch("/api/units")
   .then(res => res.json())
   .then(({ result }) => {
     unitCache = result || [];
@@ -76,7 +60,6 @@ function render() {
   });
 
   initCarousels();
-  initAnimations();
 
   requestAnimationFrame(() => {
     map.invalidateSize();
@@ -100,7 +83,11 @@ function createUnitCard(unit) {
       <div class="carousel-track">
         ${images
           .filter(img => img?.asset?.url)
-          .map(img => `<img src="${img.asset.url}" alt="">`)
+          .map((img, index) => {
+            const fullUrl = sanityImageUrl(img.asset.url, 700);
+            const previewUrl = sanityImageUrl(img.asset.url, 80, 45);
+            return `<img src="${fullUrl}" data-preview-src="${previewUrl}" alt="${title}" loading="${index === 0 ? "eager" : "lazy"}" decoding="async">`;
+          })
           .join("")}
       </div>
 
@@ -246,10 +233,10 @@ function initCarousels() {
     const update = () => { 
       if (!images[index]) return;
       track.style.transform = `translateX(-${index * 100}%)`;
-      blur.style.backgroundImage = `url(${images[index].src})`;
+      blur.style.backgroundImage = `url(${images[index].dataset.previewSrc || images[index].src})`;
     };
 
-    blur.style.backgroundImage = `url(${images[0].src})`;
+    blur.style.backgroundImage = `url(${images[0].dataset.previewSrc || images[0].src})`;
 
     prev.onclick = () => {
       index = (index - 1 + images.length) % images.length;
@@ -262,21 +249,6 @@ function initCarousels() {
     };
   });
 }  
-
-function initAnimations() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("in-view");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.01 });
-
-  document.querySelectorAll(".unit-card").forEach(card =>
-    observer.observe(card)
-  );
-}
 
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;

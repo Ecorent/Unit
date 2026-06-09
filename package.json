@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "local": "vercel dev --local --yes"
+  },
   "dependencies": {
     "resend": "^6.6.0"
+  },
+  "devDependencies": {
+    "vercel": "^54.10.1"
   }
 }

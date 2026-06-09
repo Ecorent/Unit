@@ -72,7 +72,7 @@ onAuthStateChanged(auth, (user) => {
 
 /* ---------- LOGOUT ---------- */
 document.addEventListener("click", async (e) => {
-  if (e.target.id === "logoutBtn") {
+  if (e.target.id === "logoutBtn" || e.target.matches("[data-logout-button]")) {
     await signOut(auth);
     window.location.href = "/index.html";
   }

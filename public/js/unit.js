@@ -1,10 +1,6 @@
 import { t, tPlural } from "/js/i18n.js";
 
 // 🔑 SANITY CONFIG
-const SANITY_PROJECT_ID = "uxragbo5";
-const SANITY_DATASET = "production";
-const SANITY_API_VERSION = "2023-10-01";
-
 // 🌍 CURRENT LANGUAGE
 let currentLang = localStorage.getItem("lang") || "en";
 
@@ -24,33 +20,8 @@ if (!slug) {
 }
 
 // 🧠 QUERY (BOTH LANGUAGES)
-const query = encodeURIComponent(`
-  *[_type == "unit" && slug.current == "${slug}"][0]{
-    title{en, es},
-    price,
-    address,
-    bedrooms,
-    bathrooms,
-    sqft,
-    utilitiesIncluded{en, es},
-    petFriendly,
-    washerDryer{en, es},
-    locationHighlights{en, es},
-    parking{en, es},
-    deposit,
-    availability {
-      availableFrom,
-      availableNow
-    },
-    images[]{asset->{url}}
-  }
-`);
-
-const url =
-  `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
-
 // 🔄 FETCH ONCE
-fetch(url)
+fetch(`/api/unit?slug=${encodeURIComponent(slug)}`)
   .then(res => res.json())
   .then(({ result }) => {
     if (!result) {
@@ -65,6 +36,12 @@ fetch(url)
 // 💰 PRICE FORMATTER
 function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
+}
+
+function sanityImageUrl(url, width, quality = 82) {
+  if (!url) return "";
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}auto=format&w=${width}&q=${quality}&fit=max`;
 }
 
 // 💵 DEPOSIT FORMATTER
@@ -152,10 +129,13 @@ function initCarousel(images) {
   track.className = "carousel-track";
   carousel.appendChild(track);
 
-  images.forEach(img => {
+  images.forEach((img, index) => {
     const image = document.createElement("img");
-    image.src = img.asset.url;
-    image.loading = "lazy";
+    image.src = sanityImageUrl(img.asset.url, 1200);
+    image.dataset.previewSrc = sanityImageUrl(img.asset.url, 100, 45);
+    image.alt = unitCache?.title?.[currentLang] || unitCache?.title?.en || "";
+    image.loading = index === 0 ? "eager" : "lazy";
+    image.decoding = "async";
     track.appendChild(image);
   });
 
@@ -170,11 +150,11 @@ function initCarousel(images) {
   const imgs = track.querySelectorAll("img");
   let index = 0;
 
-  blur.style.backgroundImage = `url(${imgs[0].src})`;
+  blur.style.backgroundImage = `url(${imgs[0].dataset.previewSrc || imgs[0].src})`;
 
   function update() {
     track.style.transform = `translateX(-${index * 100}%)`;
-    blur.style.backgroundImage = `url(${imgs[index].src})`;
+    blur.style.backgroundImage = `url(${imgs[index].dataset.previewSrc || imgs[index].src})`;
   }
 
   document.getElementById("prev").onclick = () => {

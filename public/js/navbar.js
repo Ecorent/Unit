@@ -30,6 +30,15 @@ fetch("/partials/navbar.html")
 
     let currentLang = localStorage.getItem("lang") || "en";
 
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    document.querySelectorAll(".desktop-nav a, .mobile-menu a").forEach(link => {
+      const linkPage = link.getAttribute("href")?.split("?")[0];
+      if (linkPage === currentPage) {
+        link.classList.add("is-active");
+        link.setAttribute("aria-current", "page");
+      }
+    });
+
     function updateLangIcons(lang) {
       const className = lang === "es" ? "flag-es" : "flag-us";
       currentLangFlag.className = `lang-flag ${className}`;
@@ -67,11 +76,13 @@ fetch("/partials/navbar.html")
       profileDropdown?.classList.add("hidden");
       mobileProfileMenu?.classList.add("hidden");
       languageDropdown?.classList.toggle("hidden");
+      languageToggle.setAttribute("aria-expanded", String(!languageDropdown?.classList.contains("hidden")));
     });
 
     mobileLanguageToggle?.addEventListener("click", e => {
       e.stopPropagation();
       mobileLanguageDropdown?.classList.toggle("hidden");
+      mobileLanguageToggle.setAttribute("aria-expanded", String(!mobileLanguageDropdown?.classList.contains("hidden")));
     });
 
     languageDropdown?.querySelectorAll("button").forEach(btn => {
@@ -81,6 +92,7 @@ fetch("/partials/navbar.html")
           currentLang = selectedLang;
           applyLanguage(currentLang);
           languageDropdown.classList.add("hidden");
+          languageToggle?.setAttribute("aria-expanded", "false");
         }
       });
     });
@@ -93,6 +105,8 @@ fetch("/partials/navbar.html")
           applyLanguage(currentLang);
           mobileLanguageDropdown.classList.add("hidden");
           mobileMenu?.classList.add("hidden");
+          mobileLanguageToggle?.setAttribute("aria-expanded", "false");
+          hamburgerToggle?.setAttribute("aria-expanded", "false");
         }
       });
     });
@@ -123,22 +137,30 @@ fetch("/partials/navbar.html")
       if (isLoggedIn && profileToggle?.contains(e.target)) {
         languageDropdown?.classList.add("hidden");
         profileDropdown?.classList.toggle("hidden");
+        profileToggle.setAttribute("aria-expanded", String(!profileDropdown?.classList.contains("hidden")));
       } else if (profileDropdown && !profileDropdown.contains(e.target)) {
         profileDropdown.classList.add("hidden");
+        profileToggle?.setAttribute("aria-expanded", "false");
       }
 
       if (isLoggedIn && mobileProfileToggle?.contains(e.target)) {
         mobileMenu?.classList.add("hidden");
         mobileProfileMenu?.classList.toggle("hidden");
+        hamburgerToggle?.setAttribute("aria-expanded", "false");
+        mobileProfileToggle.setAttribute("aria-expanded", String(!mobileProfileMenu?.classList.contains("hidden")));
       } else if (mobileProfileMenu && !mobileProfileMenu.contains(e.target)) {
         mobileProfileMenu.classList.add("hidden");
+        mobileProfileToggle?.setAttribute("aria-expanded", "false");
       }
 
       if (hamburgerToggle?.contains(e.target)) {
         mobileProfileMenu?.classList.add("hidden");
         mobileMenu?.classList.toggle("hidden");
+        mobileProfileToggle?.setAttribute("aria-expanded", "false");
+        hamburgerToggle.setAttribute("aria-expanded", String(!mobileMenu?.classList.contains("hidden")));
       } else if (!mobileMenu?.contains(e.target)) {
         mobileMenu?.classList.add("hidden");
+        hamburgerToggle?.setAttribute("aria-expanded", "false");
       }
 
       if (
@@ -147,6 +169,7 @@ fetch("/partials/navbar.html")
         !languageToggle?.contains(e.target)
       ) {
         languageDropdown.classList.add("hidden");
+        languageToggle?.setAttribute("aria-expanded", "false");
       }
 
       if (
@@ -155,6 +178,7 @@ fetch("/partials/navbar.html")
         !mobileLanguageToggle?.contains(e.target)
       ) {
         mobileLanguageDropdown.classList.add("hidden");
+        mobileLanguageToggle?.setAttribute("aria-expanded", "false");
       }
     });
   })

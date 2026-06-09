@@ -1,30 +1,10 @@
 import { t, tPlural } from "/js/i18n.js";
 
 // 🔑 SANITY CONFIG
-const SANITY_PROJECT_ID = "uxragbo5";
-const SANITY_DATASET = "production";
-const SANITY_API_VERSION = "2023-10-01";
-
 // 🌍 CURRENT LANGUAGE
 let currentLang = localStorage.getItem("lang") || "en";
 
 // 🧠 QUERY
-const query = encodeURIComponent(`
-  *[_type == "unit" && published == true]
-  | order(order asc, _createdAt desc) {
-    title{en, es},
-    price,
-    address,
-    sqft,
-    bedrooms,
-    slug,
-    images[]{asset->{url}}
-  }
-`);
-
-const SANITY_URL =
-  `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
-
 const unitsGrid = document.getElementById("unitsGrid");
 
 // 📦 CACHE
@@ -35,8 +15,14 @@ function formatPrice(price) {
   return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
 }
 
+function sanityImageUrl(url, width, quality = 78) {
+  if (!url) return "";
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}auto=format&w=${width}&q=${quality}&fit=max`;
+}
+
 // 🔄 FETCH ONCE
-fetch(SANITY_URL)
+fetch("/api/units")
   .then(res => res.json())
   .then(({ result }) => {
     unitsCache = result || [];
@@ -53,7 +39,6 @@ function renderUnits() {
   });
 
   initCarousels();
-  initAnimations();
 }
 
 // 🧱 CARD TEMPLATE
@@ -73,7 +58,11 @@ function createUnitCard(unit) {
       <div class="carousel-track">
         ${images
           .filter(img => img?.asset?.url)
-          .map(img => `<img src="${img.asset.url}" alt="">`)
+          .map((img, index) => {
+            const fullUrl = sanityImageUrl(img.asset.url, 760);
+            const previewUrl = sanityImageUrl(img.asset.url, 80, 45);
+            return `<img src="${fullUrl}" data-preview-src="${previewUrl}" alt="${title}" loading="${index === 0 ? "eager" : "lazy"}" decoding="async">`;
+          })
           .join("")}
       </div>
 
@@ -129,10 +118,10 @@ function initCarousels() {
 
     const update = () => {
       track.style.transform = `translateX(-${index * 100}%)`;
-      blur.style.backgroundImage = `url(${images[index].src})`;
+      blur.style.backgroundImage = `url(${images[index].dataset.previewSrc || images[index].src})`;
     };
 
-    blur.style.backgroundImage = `url(${images[0].src})`;
+    blur.style.backgroundImage = `url(${images[0].dataset.previewSrc || images[0].src})`;
 
     prev.onclick = () => {
       index = (index - 1 + images.length) % images.length;
@@ -144,22 +133,6 @@ function initCarousels() {
       update();
     };
   });
-}
-
-// ✨ ANIMATIONS
-function initAnimations() {
-  const cards = document.querySelectorAll(".unit-card");
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("in-view");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  cards.forEach(card => observer.observe(card));
 }
 
 // 🌍 LANGUAGE CHANGE LISTENER
