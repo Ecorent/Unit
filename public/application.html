@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google" content="notranslate">
+  <title>EcoRent USA | Rental Application</title>
+  <meta name="description" content="Complete the EcoRent USA residential rental application.">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/application.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main class="application-shell">
+    <section class="application-hero">
+      <div>
+        <p class="hero-kicker">ECO LLC</p>
+        <h1>Residential Rental Application</h1>
+        <p class="hero-copy">Apply for the selected apartment and complete the residential questionnaire in one organized flow.</p>
+      </div>
+      <aside class="score-panel" aria-live="polite">
+        <span class="score-label">Application status</span>
+        <strong id="scoreValue">0%</strong>
+        <span id="scoreBand">Application incomplete</span>
+      </aside>
+    </section>
+
+    <section class="selected-unit">
+      <i class="fas fa-building"></i>
+      <div>
+        <span>Apartment</span>
+        <strong id="selectedUnit">Selected apartment</strong>
+      </div>
+    </section>
+
+    <form id="rentalApplication" class="application-card" novalidate>
+      <section class="form-section">
+        <div class="section-heading">
+          <span>01</span>
+          <div>
+            <h2>Applicant Information</h2>
+            <p>Each adult applicant age 18 or older should provide their information.</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <label>Full Legal Name <input name="fullName" type="text" required></label>
+          <label>Date of Birth <input name="dateOfBirth" type="date" required></label>
+          <label>Phone Number <input name="phone" type="tel" required></label>
+          <label>Email Address <input name="email" type="email" required></label>
+          <label>Government ID Type & Number <input name="governmentId" type="text" required></label>
+          <label>Social Security Number <input name="ssn" type="text" inputmode="numeric" autocomplete="off" required></label>
+          <label class="wide">Social Media Links <textarea name="socialMedia" rows="3" required placeholder="Facebook, LinkedIn, Instagram, or N/A"></textarea></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span>02</span>
+          <div>
+            <h2>Occupancy Details</h2>
+            <p>List everyone who will live in the apartment.</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <label class="wide">All Occupants <textarea name="occupants" rows="5" required placeholder="Name / Age / Relationship"></textarea></label>
+          <label>Total Number of Occupants <input name="occupantCount" type="number" min="1" required></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span>03</span>
+          <div>
+            <h2>Current Housing</h2>
+            <p>Share current residency and rental history information.</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <label class="wide">Current Address <input name="currentAddress" type="text" required></label>
+          <label>Landlord Name & Contact <input name="landlordContact" type="text" required></label>
+          <label>Monthly Rent/Mortgage <input name="monthlyRent" type="number" min="0" step="1" required></label>
+          <label>Length of Residency <input name="residencyLength" type="text" required placeholder="Example: 2 years"></label>
+          <label class="wide">Reason for Leaving <textarea name="leavingReason" rows="3" required></textarea></label>
+          <label>Evicted? <select name="evicted" required><option value="">Choose...</option><option>No</option><option>Yes</option></select></label>
+          <label>Eviction Explanation <input name="evictionExplanation" type="text" required placeholder="Explain, or enter N/A"></label>
+          <label>Broken Lease? <select name="brokenLease" required><option value="">Choose...</option><option>No</option><option>Yes</option></select></label>
+          <label>Broken Lease Explanation <input name="brokenLeaseExplanation" type="text" required placeholder="Explain, or enter N/A"></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span>04</span>
+          <div>
+            <h2>Employment & Income</h2>
+            <p>Each adult applicant should provide employment and income details.</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <label>Employer Name <input name="employer" type="text" required></label>
+          <label>Job Title <input name="jobTitle" type="text" required></label>
+          <label>Length of Employment <input name="employmentLength" type="text" required placeholder="Example: 18 months"></label>
+          <label>Monthly Gross Income <input name="monthlyIncome" type="number" min="0" step="1" required></label>
+          <label class="wide">Other Income <input name="otherIncome" type="text" required placeholder="Describe, or enter N/A"></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span>05</span>
+          <div>
+            <h2>Financial & Background Disclosure</h2>
+            <p>Disclosures are flagged for review and are not an automatic decision.</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <label class="wide">Anything we should expect on credit/background check <textarea name="backgroundNotes" rows="4" required placeholder="Explain, or enter N/A"></textarea></label>
+          <label>Bankruptcy? <select name="bankruptcy" required><option value="">Choose...</option><option>No</option><option>Yes</option></select></label>
+          <label>Bankruptcy Explanation <input name="bankruptcyExplanation" type="text" required placeholder="Explain, or enter N/A"></label>
+          <label>Criminal Conviction? <select name="criminalConviction" required><option value="">Choose...</option><option>No</option><option>Yes</option></select></label>
+          <label>Conviction Explanation <input name="convictionExplanation" type="text" required placeholder="Explain, or enter N/A"></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span>06</span>
+          <div>
+            <h2>Pet Information</h2>
+            <p>Complete if pets will live in the apartment.</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <label>Pets? <select name="pets" required><option value="">Choose...</option><option>No</option><option>Yes</option></select></label>
+          <label>Type <input name="petType" type="text" required placeholder="Type, or enter N/A"></label>
+          <label>Breed <input name="petBreed" type="text" required placeholder="Breed, or enter N/A"></label>
+          <label>Weight <input name="petWeight" type="text" required placeholder="Weight, or enter N/A"></label>
+          <label>Number of Pets <input name="petCount" type="number" min="0" required></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span>07</span>
+          <div>
+            <h2>Screening Authorization</h2>
+            <p>Authorize ECO LLC to verify the information provided.</p>
+          </div>
+        </div>
+        <label class="checkbox-card">
+          <input name="screeningAuthorization" type="checkbox" required>
+          <span>I authorize ECO LLC to conduct credit, background, rental, and employment verification.</span>
+        </label>
+        <div class="form-grid">
+          <label>Signature <input name="screeningSignature" type="text" required></label>
+          <label>Date <input name="screeningDate" type="date" required></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-heading">
+          <span>08</span>
+          <div>
+            <h2>Acknowledgments & Authorization</h2>
+            <p>Review the rental application terms before submitting.</p>
+          </div>
+        </div>
+        <div class="terms-box">
+          I hereby authorize ECO LLC to perform a credit check on all persons 18 years of age and older, a landlord check, criminal background check, and an employment verification. Any falsification of the information can be grounds for denial and/or terms of lease. I agree to provide a copy of my driver's license/identification card and Social Security card upon application. I agree to pay a reservation fee of $250. If the application is denied, the reservation fee will be refunded. If the application is approved, the reservation fee will be applied to the security deposit equivalent to one month's rent, unless a higher security deposit is required, not to exceed 1.5x monthly rent. All applications are subject to management approval.
+        </div>
+        <label class="checkbox-card">
+          <input name="acknowledgment" type="checkbox" required>
+          <span>I have read and agree to the acknowledgments and authorization above.</span>
+        </label>
+        <div class="form-grid">
+          <label>Applicant(s) Signature(s) <input name="finalSignature" type="text" required></label>
+          <label>Date <input name="finalDate" type="date" required></label>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <button type="submit" class="submit-button">
+          <span>Review application</span>
+          <i class="fas fa-clipboard-check"></i>
+        </button>
+        <button type="button" class="secondary-button" id="printApplication">
+          <span>Print application</span>
+          <i class="fas fa-print"></i>
+        </button>
+      </div>
+
+      <div id="applicationFeedback" class="application-feedback hidden"></div>
+    </form>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module" src="/js/navbar.js"></script>
+  <script src="js/footer.js"></script>
+  <script type="module" src="/js/application.js"></script>
+</body>
+</html>

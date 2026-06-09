@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="google" content="notranslate">
   <title id="pageTitle">Rental Unit</title>
+  <meta name="description" content="View EcoRent USA rental details, photos, location, amenities, and begin the rental application.">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
@@ -18,49 +19,57 @@
 <body>
   <div id="navbar"></div>
 
-  <main class="section container">
-    <div class="carousel card"> 
-      <div class="carousel-inner" id="carousel">
-        <div class="price-badge" id="unitPrice"></div>
+  <main class="unit-layout container">
+    <div class="left-column">
+      <div class="carousel card"> 
+        <div class="carousel-inner" id="carousel">
+          <div class="price-badge" id="unitPrice"></div>
+        </div>
+      </div>
+
+      <div class="map card">
+        <h2 class="section-title section-title-small" data-i18n="location">Location & Directions</h2>
+        <iframe
+          id="mapFrame"
+          loading="lazy">
+        </iframe>
       </div>
     </div>
 
     <div class="details card">
-      <h2 class="section-title" id="unitTitle"></h2>
+      <p class="unit-kicker">Available residence</p>
+      <h1 class="section-title" id="unitTitle"></h1>
       <ul id="unitDetails"></ul>
+      <div class="apply-panel-inline">
+        <p class="unit-kicker">Next step</p>
+        <h2 class="section-title">Start your application</h2>
+        <p class="apply-copy">Apply for this apartment through EcoRent USA's residential rental application.</p>
+        <div class="application-notes" aria-label="Application details">
+          <div>
+            <i class="fas fa-user-group"></i>
+            <span>Tell us about everyone who will be making this apartment home.</span>
+          </div>
+          <div>
+            <i class="fas fa-id-card"></i>
+            <span>Have identification, housing history, and employment details ready.</span>
+          </div>
+          <div>
+            <i class="fas fa-receipt"></i>
+            <span>Your reservation fee helps hold the apartment while we review your application.</span>
+          </div>
+          <div>
+            <i class="fas fa-file-signature"></i>
+            <span>We will review your application carefully and follow up with the next steps.</span>
+          </div>
+        </div>
+        <a class="apply-button apply-button-large" id="applyTopLink" href="application.html">
+          <span>Apply to apartment</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <a class="hidden-apply-link" id="applyPanelLink" href="application.html" aria-hidden="true" tabindex="-1"></a>
+      </div>
     </div>
   </main>
-
-  <section class="extras section container">
-    <div class="map card">
-      <h2 class="section-title" data-i18n="location">Location & Directions</h2>
-      <iframe
-        id="mapFrame"
-        loading="lazy">
-      </iframe>
-    </div>
-
-    <div class="contact-form card">
-      <h2 class="section-title" data-i18n="contacto">Contact Us</h2>
-      <form id="contactForm">
-        <input type="hidden" name="unitTitle" id="unitTitleField">
-        <input type="text" name="name" data-i18n-placeholder="name_placeholder" required />
-        <input type="email" name="email" data-i18n-placeholder="email_placeholder" required />
-        <input 
-        type="tel" 
-        name="phone" 
-        id="phone" 
-        required 
-        pattern="[0-9\s\-\(\)]{9,20}"
-        inputmode="tel"
-        data-i18n-placeholder="phone_placeholder" 
-        />
-        <textarea name="message" data-i18n-placeholder="message_placeholder" rows="6" required></textarea>
-        <button type="submit" data-i18n="mensaje">Send Message</button>
-        <p class="form-message" id="form-message"></p>
-      </form>
-    </div>
-  </section>
 
   <div id="footer"></div>
 

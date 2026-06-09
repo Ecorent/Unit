@@ -133,9 +133,9 @@ body {
 
 .quick-action {
   min-height: 76px;
-  background: rgba(255, 255, 255, 0.94);
+  background: #ffffff;
   color: var(--dark);
-  border: 1px solid rgba(223, 231, 225, 0.88);
+  border: 1px solid #dfe7e1;
   border-radius: 8px;
   box-shadow: 0 12px 32px rgba(23, 45, 31, 0.1);
   padding: 0 20px;

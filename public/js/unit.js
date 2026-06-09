@@ -6,9 +6,9 @@ let currentLang = localStorage.getItem("lang") || "en";
 
 // 📦 CACHE
 let unitCache = null;
+let formMessageState = null; // "success" | "error" | null
 
 // 📩 CONTACT FORM MESSAGE STATE
-let formMessageState = null; // "success" | "error" | null
 
 // 🔎 GET SLUG
 const params = new URLSearchParams(window.location.search);
@@ -78,10 +78,10 @@ function renderUnit(lang) {
 
   const unit = unitCache;
 
-  document.getElementById("unitTitleField").value = unit.title[lang];
   document.getElementById("pageTitle").textContent = unit.title[lang];
   document.getElementById("unitTitle").textContent = unit.title[lang];
   document.getElementById("unitPrice").textContent = formatPrice(unit.price);
+  updateApplicationLinks(unit, lang);
 
   document.getElementById("unitDetails").innerHTML = `
     <li><i class="fas fa-bed"></i>${unit.bedrooms} ${tPlural("bedroom", unit.bedrooms)}</li>
@@ -106,9 +106,28 @@ function renderUnit(lang) {
     initCarousel(unit.images || []);
   }
 
+  syncLeftColumnHeight();
+
   // 🔁 re-render contact message on language change
-  renderFormMessage();
 }
+
+function syncLeftColumnHeight() {
+  const leftColumn = document.querySelector(".left-column");
+  const details = document.querySelector(".details");
+
+  if (!leftColumn || !details) return;
+
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    leftColumn.style.height = "";
+    return;
+  }
+
+  requestAnimationFrame(() => {
+    leftColumn.style.height = `${details.offsetHeight}px`;
+  });
+}
+
+window.addEventListener("resize", syncLeftColumnHeight);
 
 // 🌍 LANGUAGE CHANGE LISTENER
 window.addEventListener("languageChanged", e => {
@@ -169,6 +188,7 @@ function initCarousel(images) {
 }
 
 // 📩 CONTACT FORM
+if (document.getElementById("contactForm")) {
 const form = document.getElementById("contactForm");
 const sendButton = form.querySelector("button");
 const messageEl = document.getElementById("form-message");
@@ -227,3 +247,15 @@ form.addEventListener("submit", async (e) => {
     renderFormMessage();
   }
 });
+}
+
+function updateApplicationLinks(unit, lang) {
+  const query = new URLSearchParams({
+    slug,
+    unit: unit.title[lang] || unit.title.en || ""
+  });
+
+  const href = `application.html?${query.toString()}`;
+  document.getElementById("applyTopLink").href = href;
+  document.getElementById("applyPanelLink").href = href;
+}
