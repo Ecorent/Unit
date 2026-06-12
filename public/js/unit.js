@@ -15,7 +15,7 @@ const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
 
 if (!slug) {
-  document.body.innerHTML = "<h1>Unit not found</h1>";
+  document.body.innerHTML = `<h1>${t("unit_not_found")}</h1>`;
   throw new Error("Missing slug");
 }
 
@@ -25,7 +25,7 @@ fetch(`/api/unit?slug=${encodeURIComponent(slug)}`)
   .then(res => res.json())
   .then(({ result }) => {
     if (!result) {
-      document.body.innerHTML = "<h1>Unit not found</h1>";
+      document.body.innerHTML = `<h1>${t("unit_not_found")}</h1>`;
       return;
     }
 
@@ -104,6 +104,8 @@ function renderUnit(lang) {
 
   if (!document.querySelector(".carousel-track")) {
     initCarousel(unit.images || []);
+  } else {
+    updateCarouselAltText(unit, lang);
   }
 
   syncLeftColumnHeight();
@@ -185,6 +187,13 @@ function initCarousel(images) {
     index = (index + 1) % imgs.length;
     update();
   };
+}
+
+function updateCarouselAltText(unit, lang) {
+  const alt = unit.title?.[lang] || unit.title?.en || "";
+  document.querySelectorAll(".carousel-track img").forEach(img => {
+    img.alt = alt;
+  });
 }
 
 // 📩 CONTACT FORM

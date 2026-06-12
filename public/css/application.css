@@ -176,6 +176,17 @@ label {
   font-weight: 600;
 }
 
+.field-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.required-marker {
+  color: var(--error);
+  font-weight: 700;
+}
+
 .wide {
   grid-column: 1 / -1;
 }

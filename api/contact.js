@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       from: 'ECOrent <contact@ecorentusa.com>',
       to: [ 
         'emmanuelhenao0816@gmail.com',
-        'ecorentusa@gmail.com'
+        'none@gmail.com'
       ],          
       reply_to: email,
       subject: `📧 New Inquiry — ${unitTitle || 'General'} — from ${name}`,

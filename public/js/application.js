@@ -1,3 +1,5 @@
+import { t } from "/js/i18n.js";
+
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
 const unitName = params.get("unit");
@@ -7,10 +9,12 @@ const selectedUnit = document.getElementById("selectedUnit");
 const scoreValue = document.getElementById("scoreValue");
 const scoreBand = document.getElementById("scoreBand");
 const feedback = document.getElementById("applicationFeedback");
-const printButton = document.getElementById("printApplication");
+let currentLang = localStorage.getItem("lang") || "en";
+let selectedUnitTitle = null;
 
 if (unitName) {
   selectedUnit.textContent = unitName;
+  selectedUnit.removeAttribute("data-i18n");
 }
 
 if (slug) {
@@ -18,33 +22,52 @@ if (slug) {
     .then(res => res.json())
     .then(({ result }) => {
       if (!result) return;
-      selectedUnit.textContent = result.title?.en || unitName || "Selected apartment";
+      selectedUnitTitle = result.title || null;
+      updateSelectedUnit();
     })
     .catch(() => {
-      selectedUnit.textContent = unitName || "Selected apartment";
+      updateSelectedUnit();
     });
 }
-
-printButton.addEventListener("click", () => {
-  window.print();
-});
 
 form.addEventListener("input", updateCompletionStatus);
 form.addEventListener("change", updateCompletionStatus);
 
-form.addEventListener("submit", event => {
+form.addEventListener("submit", async event => {
   event.preventDefault();
 
   if (!form.checkValidity()) {
     form.reportValidity();
     updateCompletionStatus();
-    showFeedback("error", "Please complete every required field before reviewing the application.");
+    showFeedback("error", t("application_error_required"));
     return;
   }
 
-  scoreValue.textContent = "100%";
-  scoreBand.textContent = "Ready for review";
-  showFeedback("success", "Application complete. All required questions have been answered and the application is ready for review.");
+  const submitButton = form.querySelector(".submit-button");
+  submitButton.disabled = true;
+  showFeedback("success", t("application_sending"));
+
+  try {
+    const response = await fetch("/api/application", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(buildApplicationPayload())
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.error) {
+      throw new Error(result.error || "Application failed to send");
+    }
+
+    scoreValue.textContent = "100%";
+    scoreBand.textContent = t("application_ready");
+    showFeedback("success", t("application_success"));
+  } catch {
+    showFeedback("error", t("application_submit_error"));
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 function updateCompletionStatus() {
@@ -56,8 +79,8 @@ function updateCompletionStatus() {
 
   scoreValue.textContent = `${percent}%`;
   scoreBand.textContent = percent === 100
-    ? "Ready for review"
-    : "Application incomplete";
+    ? t("application_ready")
+    : t("application_incomplete");
 }
 
 function isFieldComplete(field) {
@@ -70,4 +93,100 @@ function showFeedback(type, message) {
   feedback.textContent = message;
 }
 
+function buildApplicationPayload() {
+  const formData = new FormData(form);
+  const payload = {
+    slug,
+    unitName: selectedUnit.textContent.trim()
+  };
+
+  formData.forEach((value, key) => {
+    payload[key] = typeof value === "string" ? value.trim() : value;
+  });
+
+  payload.screeningAuthorization = form.elements.screeningAuthorization.checked;
+  payload.acknowledgment = form.elements.acknowledgment.checked;
+
+  return payload;
+}
+
+function updateSelectedUnit() {
+  if (selectedUnitTitle) {
+    selectedUnit.textContent = selectedUnitTitle[currentLang] || selectedUnitTitle.en || unitName || t("application_selected_apartment");
+    selectedUnit.removeAttribute("data-i18n");
+    return;
+  }
+
+  if (unitName) {
+    selectedUnit.textContent = unitName;
+    selectedUnit.removeAttribute("data-i18n");
+    return;
+  }
+
+  selectedUnit.textContent = t("application_selected_apartment");
+}
+
+function updatePageTitle() {
+  document.title = t("application_page_title");
+}
+
+function markRequiredFields() {
+  const requiredFields = Array.from(form.querySelectorAll("[required]"));
+
+  requiredFields.forEach(field => {
+    const label = field.closest("label");
+    if (!label || label.querySelector(".required-marker")) return;
+
+    const marker = document.createElement("span");
+    marker.className = "required-marker";
+    marker.setAttribute("aria-hidden", "true");
+    marker.textContent = "*";
+
+    if (label.classList.contains("checkbox-card")) {
+      const textSpan = label.querySelector("span");
+      if (!textSpan) return;
+      textSpan.append(" ", marker);
+      return;
+    }
+
+    const existingLabelText = label.querySelector(".field-label");
+    if (existingLabelText) {
+      existingLabelText.append(" ", marker);
+      return;
+    }
+
+    const labelText = document.createElement("span");
+    labelText.className = "field-label";
+
+    const textNode = Array.from(label.childNodes).find(node =>
+      node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+    );
+
+    if (!textNode) return;
+
+    labelText.textContent = textNode.textContent.trim();
+    labelText.append(" ", marker);
+    label.replaceChild(labelText, textNode);
+  });
+}
+
+window.addEventListener("languageChanged", e => {
+  currentLang = e.detail;
+  updatePageTitle();
+  updateSelectedUnit();
+  updateCompletionStatus();
+  markRequiredFields();
+});
+
+window.addEventListener("pageshow", () => {
+  currentLang = localStorage.getItem("lang") || "en";
+  updatePageTitle();
+  updateSelectedUnit();
+  updateCompletionStatus();
+  markRequiredFields();
+});
+
+updatePageTitle();
+markRequiredFields();
+updateSelectedUnit();
 updateCompletionStatus();

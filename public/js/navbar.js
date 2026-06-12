@@ -56,6 +56,11 @@ fetch("/partials/navbar.html")
         if (translations[lang]?.[key]) el.placeholder = translations[lang][key];
       });
 
+      document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+        const key = el.dataset.i18nAriaLabel;
+        if (translations[lang]?.[key]) el.setAttribute("aria-label", translations[lang][key]);
+      });
+
       updateLangIcons(lang);
       document.documentElement.lang = lang;
       localStorage.setItem("lang", lang);
