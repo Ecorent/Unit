@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 const recipients = [
   'emmanuelhenao0816@gmail.com',
-  'none@gmail.com'
+  'ecorentusa@gmail.com'
 ];
 
 const sections = [
