@@ -245,9 +245,6 @@ function renderCandidateRank(candidateRank) {
       <span style="background-color: ${badgeColor}; color: white; padding: 3px 10px; border-radius: 12px; font-weight: bold; font-size: 14px;">${candidateRank.score} / 100</span>
       <span style="color: #5d665f;">${escapeHtml(candidateRank.band)}</span>
     </p>
-    <p style="margin: 8px 0; color: #777; font-size: 12px;">
-      Internal screening aid only. Do not use as an automatic approval or denial decision.
-    </p>
     <ul style="margin-top: 8px; padding-left: 20px;">
       ${candidateRank.factors.map(factor => `
         <li style="margin: 4px 0;">
