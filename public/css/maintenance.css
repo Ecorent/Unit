@@ -240,7 +240,13 @@ body {
   line-height: 1.4;
 }
 
-#issuePhotos {
+.mobile-photo-actions {
+  display: none;
+  gap: 10px;
+}
+
+#issuePhotos,
+#issueCameraPhoto {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -455,6 +461,15 @@ body {
   .radio-label,
   .checkbox-label {
     font-size: 0.86rem;
+  }
+
+  .desktop-photo-upload {
+    display: none;
+  }
+
+  .mobile-photo-actions {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .range-wrapper {

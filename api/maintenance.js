@@ -114,7 +114,7 @@ function buildPhotoAttachments(issuePhotos) {
       typeof photo.contentType === 'string' &&
       photo.contentType.startsWith('image/')
     )
-    .slice(0, 3)
+    .slice(0, 1)
     .map(photo => ({
       filename: photo.filename,
       content: Buffer.from(photo.content, 'base64'),

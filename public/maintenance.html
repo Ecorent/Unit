@@ -63,12 +63,25 @@
 
         <div class="form-group photo-upload-group">
           <label for="issuePhotos"><span data-i18n="maint_label_photos">Photos of the Issue</span></label>
-          <label class="photo-upload-card" for="issuePhotos">
+          <label class="photo-upload-card desktop-photo-upload" for="issuePhotos">
             <i class="fas fa-camera"></i>
-            <span data-i18n="maint_photo_upload">Add up to 3 photos</span>
-            <small data-i18n="maint_photo_hint">JPG, PNG, or WebP. 2MB max per photo.</small>
+            <span data-i18n="maint_photo_upload">Add one photo</span>
+            <small data-i18n="maint_photo_hint">JPG, PNG, or WebP. 6MB max.</small>
           </label>
-          <input type="file" id="issuePhotos" accept="image/jpeg,image/png,image/webp" multiple>
+          <div class="mobile-photo-actions">
+            <label class="photo-upload-card" for="issuePhotos">
+              <i class="fas fa-image"></i>
+              <span data-i18n="maint_photo_choose">Upload photo</span>
+              <small data-i18n="maint_photo_hint">JPG, PNG, or WebP. 6MB max.</small>
+            </label>
+            <label class="photo-upload-card" for="issueCameraPhoto">
+              <i class="fas fa-camera"></i>
+              <span data-i18n="maint_photo_take">Take photo</span>
+              <small data-i18n="maint_photo_camera_hint">Use your camera.</small>
+            </label>
+          </div>
+          <input type="file" id="issuePhotos" accept="image/jpeg,image/png,image/webp">
+          <input type="file" id="issueCameraPhoto" accept="image/*" capture="environment">
           <div class="photo-file-list" id="photoFileList" aria-live="polite"></div>
         </div>
 

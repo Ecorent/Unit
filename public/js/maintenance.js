@@ -8,9 +8,10 @@ const urgencyInput = document.getElementById("urgencyRating");
 const urgencyOutput = document.getElementById("urgencyOutput");
 const urgencyPrefix = document.getElementById("urgencyPrefix");
 const photoInput = document.getElementById("issuePhotos");
+const cameraPhotoInput = document.getElementById("issueCameraPhoto");
 const photoFileList = document.getElementById("photoFileList");
-const maxPhotos = 3;
-const maxPhotoBytes = 2 * 1024 * 1024;
+const maxPhotos = 1;
+const maxPhotoBytes = 6 * 1024 * 1024;
 let selectedPhotos = [];
 
 // Update dynamic severity layout label items
@@ -26,7 +27,15 @@ urgencyInput.addEventListener("input", (e) => {
 });
 
 photoInput.addEventListener("change", () => {
-  const files = Array.from(photoInput.files || []);
+  handlePhotoSelection(photoInput);
+});
+
+cameraPhotoInput.addEventListener("change", () => {
+  handlePhotoSelection(cameraPhotoInput);
+});
+
+function handlePhotoSelection(input) {
+  const files = Array.from(input.files || []);
   const acceptedFiles = [];
   let errorMessage = "";
 
@@ -50,7 +59,7 @@ photoInput.addEventListener("change", () => {
 
   selectedPhotos = acceptedFiles;
   renderPhotoFileList(errorMessage);
-});
+}
 
 // Handle Form Submission
 form.addEventListener("submit", async (e) => {
@@ -111,6 +120,8 @@ form.addEventListener("submit", async (e) => {
     showFeedback(t("contact_success"), "success");
     form.reset();
     selectedPhotos = [];
+    photoInput.value = "";
+    cameraPhotoInput.value = "";
     renderPhotoFileList();
     urgencyInput.value = "5";
     urgencyOutput.textContent = "5"; 
