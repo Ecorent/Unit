@@ -22,7 +22,8 @@ export default async function handler(req, res) {
     waterIssue,
     petsPresent,
     urgencyRating, // 🔟 Added to capture payload from maintenance.js
-    acknowledged
+    acknowledged,
+    issuePhotos = []
   } = req.body;
 
   // Validate critical fields (including urgency profile status validation rules)
@@ -46,6 +47,7 @@ export default async function handler(req, res) {
       ],          
       reply_to: tenantEmail,
       subject: `🛠️ [Priority ${urgencyRating}/10] Maintenance Request: ${propertyAddress} ${unitNumber ? `#${unitNumber}` : ''} — ${tenantName}`,
+      attachments: buildPhotoAttachments(issuePhotos),
       html: `
         <div style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 600px; color: #292929; border: 1px solid #e1e1e1; border-radius: 6px; overflow: hidden;">
           <div style="background-color: #1f9c53; padding: 20px; color: white; display: flex; justify-content: space-between; align-items: center;">
@@ -67,6 +69,7 @@ export default async function handler(req, res) {
             <p><strong>Urgency Level:</strong> <span style="background-color: ${badgeColor}; color: white; padding: 3px 10px; border-radius: 12px; font-weight: bold; font-size: 14px;">${urgencyRating} / 10</span></p>
             <p><strong>Involves water/leak?:</strong> <span style="color: ${waterIssue === 'Yes' ? '#d93025' : '#292929'}; font-weight: bold;">${waterIssue}</span></p>
             <p><strong>Are there pets present?:</strong> ${petsPresent}</p>
+            <p><strong>Photos attached?:</strong> ${Array.isArray(issuePhotos) && issuePhotos.length ? `${issuePhotos.length} photo(s)` : 'No photos attached'}</p>
             
             <div style="background-color: #f9f9f9; padding: 16px; border-left: 4px solid #1f9c53; margin: 16px 0; border-radius: 4px;">
               <p style="margin: 0;"><strong>Description of the issue:</strong></p>
@@ -98,4 +101,23 @@ export default async function handler(req, res) {
     console.error("🔥 Internal Server Failure:", err);
     return res.status(500).json({ error: 'Internal server error encountered' });
   }
+}
+
+function buildPhotoAttachments(issuePhotos) {
+  if (!Array.isArray(issuePhotos)) return [];
+
+  return issuePhotos
+    .filter(photo =>
+      photo &&
+      typeof photo.filename === 'string' &&
+      typeof photo.content === 'string' &&
+      typeof photo.contentType === 'string' &&
+      photo.contentType.startsWith('image/')
+    )
+    .slice(0, 3)
+    .map(photo => ({
+      filename: photo.filename,
+      content: Buffer.from(photo.content, 'base64'),
+      contentType: photo.contentType
+    }));
 }

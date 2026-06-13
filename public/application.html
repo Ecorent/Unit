@@ -39,8 +39,43 @@
       </div>
     </section>
 
+    <nav id="applicationStepper" class="application-stepper" aria-label="Application sections" data-i18n-aria-label="application_sections_nav">
+      <button type="button" data-section-target="applicantInfo">
+        <span>01</span>
+        <strong data-i18n="application_section_applicant">Applicant Information</strong>
+      </button>
+      <button type="button" data-section-target="occupancyDetails">
+        <span>02</span>
+        <strong data-i18n="application_section_occupancy">Occupancy Details</strong>
+      </button>
+      <button type="button" data-section-target="currentHousing">
+        <span>03</span>
+        <strong data-i18n="application_section_housing">Current Housing</strong>
+      </button>
+      <button type="button" data-section-target="employmentIncome">
+        <span>04</span>
+        <strong data-i18n="application_section_income">Employment & Income</strong>
+      </button>
+      <button type="button" data-section-target="backgroundDisclosure">
+        <span>05</span>
+        <strong data-i18n="application_section_background">Financial & Background Disclosure</strong>
+      </button>
+      <button type="button" data-section-target="petInformation">
+        <span>06</span>
+        <strong data-i18n="application_section_pets">Pet Information</strong>
+      </button>
+      <button type="button" data-section-target="screeningAuthorization">
+        <span>07</span>
+        <strong data-i18n="application_section_screening">Screening Authorization</strong>
+      </button>
+      <button type="button" data-section-target="acknowledgments">
+        <span>08</span>
+        <strong data-i18n="application_section_acknowledgments">Acknowledgments & Authorization</strong>
+      </button>
+    </nav>
+
     <form id="rentalApplication" class="application-card" novalidate>
-      <section class="form-section">
+      <section class="form-section" id="applicantInfo">
         <div class="section-heading">
           <span>01</span>
           <div>
@@ -59,7 +94,7 @@
         </div>
       </section>
 
-      <section class="form-section">
+      <section class="form-section" id="occupancyDetails">
         <div class="section-heading">
           <span>02</span>
           <div>
@@ -73,7 +108,7 @@
         </div>
       </section>
 
-      <section class="form-section">
+      <section class="form-section" id="currentHousing">
         <div class="section-heading">
           <span>03</span>
           <div>
@@ -87,14 +122,14 @@
           <label><span class="field-label" data-i18n="application_monthly_rent">Monthly Rent/Mortgage</span><input name="monthlyRent" type="number" min="0" step="1" required></label>
           <label><span class="field-label" data-i18n="application_residency_length">Length of Residency</span><input name="residencyLength" type="text" required placeholder="Example: 2 years" data-i18n-placeholder="application_residency_placeholder"></label>
           <label class="wide"><span class="field-label" data-i18n="application_leaving_reason">Reason for Leaving</span><textarea name="leavingReason" rows="3" required></textarea></label>
-          <label><span class="field-label" data-i18n="application_evicted">Evicted?</span><select name="evicted" required><option value="" data-i18n="application_choose">Choose...</option><option data-i18n="application_no">No</option><option data-i18n="application_yes">Yes</option></select></label>
+          <label><span class="field-label" data-i18n="application_evicted">Evicted?</span><select name="evicted" required><option value="" data-i18n="application_choose">Choose...</option><option value="No" data-i18n="application_no">No</option><option value="Yes" data-i18n="application_yes">Yes</option></select></label>
           <label><span class="field-label" data-i18n="application_eviction_explanation">Eviction Explanation</span><input name="evictionExplanation" type="text" required placeholder="Explain, or enter N/A" data-i18n-placeholder="application_explain_placeholder"></label>
-          <label><span class="field-label" data-i18n="application_broken_lease">Broken Lease?</span><select name="brokenLease" required><option value="" data-i18n="application_choose">Choose...</option><option data-i18n="application_no">No</option><option data-i18n="application_yes">Yes</option></select></label>
+          <label><span class="field-label" data-i18n="application_broken_lease">Broken Lease?</span><select name="brokenLease" required><option value="" data-i18n="application_choose">Choose...</option><option value="No" data-i18n="application_no">No</option><option value="Yes" data-i18n="application_yes">Yes</option></select></label>
           <label><span class="field-label" data-i18n="application_broken_lease_explanation">Broken Lease Explanation</span><input name="brokenLeaseExplanation" type="text" required placeholder="Explain, or enter N/A" data-i18n-placeholder="application_explain_placeholder"></label>
         </div>
       </section>
 
-      <section class="form-section">
+      <section class="form-section" id="employmentIncome">
         <div class="section-heading">
           <span>04</span>
           <div>
@@ -111,24 +146,24 @@
         </div>
       </section>
 
-      <section class="form-section">
+      <section class="form-section" id="backgroundDisclosure">
         <div class="section-heading">
           <span>05</span>
           <div>
-            <h2 data-i18n="application_section_background">Financial & Background Disclosure</h2>
+            <h2 data-i18n="application_section_background">Financial Disclosure</h2>
             <p data-i18n="application_section_background_help">Disclosures are subject to review and are not an automatic decision.</p>
           </div>
         </div>
         <div class="form-grid">
           <label class="wide"><span class="field-label" data-i18n="application_background_notes">Anything we should expect on credit/background check</span><textarea name="backgroundNotes" rows="4" required placeholder="Explain, or enter N/A" data-i18n-placeholder="application_explain_placeholder"></textarea></label>
-          <label><span class="field-label" data-i18n="application_bankruptcy">Bankruptcy?</span><select name="bankruptcy" required><option value="" data-i18n="application_choose">Choose...</option><option data-i18n="application_no">No</option><option data-i18n="application_yes">Yes</option></select></label>
+          <label><span class="field-label" data-i18n="application_bankruptcy">Bankruptcy?</span><select name="bankruptcy" required><option value="" data-i18n="application_choose">Choose...</option><option value="No" data-i18n="application_no">No</option><option value="Yes" data-i18n="application_yes">Yes</option></select></label>
           <label><span class="field-label" data-i18n="application_bankruptcy_explanation">Bankruptcy Explanation</span><input name="bankruptcyExplanation" type="text" required placeholder="Explain, or enter N/A" data-i18n-placeholder="application_explain_placeholder"></label>
-          <label><span class="field-label" data-i18n="application_criminal_conviction">Criminal Conviction?</span><select name="criminalConviction" required><option value="" data-i18n="application_choose">Choose...</option><option data-i18n="application_no">No</option><option data-i18n="application_yes">Yes</option></select></label>
+          <label><span class="field-label" data-i18n="application_criminal_conviction">Criminal Conviction?</span><select name="criminalConviction" required><option value="" data-i18n="application_choose">Choose...</option><option value="No" data-i18n="application_no">No</option><option value="Yes" data-i18n="application_yes">Yes</option></select></label>
           <label><span class="field-label" data-i18n="application_conviction_explanation">Conviction Explanation</span><input name="convictionExplanation" type="text" required placeholder="Explain, or enter N/A" data-i18n-placeholder="application_explain_placeholder"></label>
         </div>
       </section>
 
-      <section class="form-section">
+      <section class="form-section" id="petInformation">
         <div class="section-heading">
           <span>06</span>
           <div>
@@ -137,7 +172,7 @@
           </div>
         </div>
         <div class="form-grid">
-          <label><span class="field-label" data-i18n="application_pets">Pets?</span><select name="pets" required><option value="" data-i18n="application_choose">Choose...</option><option data-i18n="application_no">No</option><option data-i18n="application_yes">Yes</option></select></label>
+          <label><span class="field-label" data-i18n="application_pets">Pets?</span><select name="pets" required><option value="" data-i18n="application_choose">Choose...</option><option value="No" data-i18n="application_no">No</option><option value="Yes" data-i18n="application_yes">Yes</option></select></label>
           <label><span class="field-label" data-i18n="application_pet_type">Type</span><input name="petType" type="text" required placeholder="Type, or enter N/A" data-i18n-placeholder="application_type_placeholder"></label>
           <label><span class="field-label" data-i18n="application_pet_breed">Breed</span><input name="petBreed" type="text" required placeholder="Breed, or enter N/A" data-i18n-placeholder="application_breed_placeholder"></label>
           <label><span class="field-label" data-i18n="application_pet_weight">Weight</span><input name="petWeight" type="text" required placeholder="Weight, or enter N/A" data-i18n-placeholder="application_weight_placeholder"></label>
@@ -145,7 +180,7 @@
         </div>
       </section>
 
-      <section class="form-section">
+      <section class="form-section" id="screeningAuthorization">
         <div class="section-heading">
           <span>07</span>
           <div>
@@ -163,11 +198,11 @@
         </div>
       </section>
 
-      <section class="form-section">
+      <section class="form-section" id="acknowledgments">
         <div class="section-heading">
           <span>08</span>
           <div>
-            <h2 data-i18n="application_section_acknowledgments">Acknowledgments & Authorization</h2>
+            <h2 data-i18n="application_section_acknowledgments">Acknowledgments</h2>
             <p data-i18n="application_section_acknowledgments_help">Review the rental application terms before submitting.</p>
           </div>
         </div>
