@@ -92,7 +92,6 @@ body {
 
 .form-group:has(textarea),
 .form-group:has(.radio-group),
-.photo-upload-group,
 .Range-container,
 .checkbox-group {
   grid-column: 1 / -1;
@@ -202,92 +201,6 @@ body {
   border-color: #94cfa9;
   background: #fff;
   box-shadow: 0 0 0 4px rgba(31, 156, 83, 0.12);
-}
-
-.photo-upload-card {
-  border: 1px dashed #bdd8c7;
-  border-radius: 8px;
-  background: #f7faf8;
-  min-height: 88px;
-  padding: 16px;
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 4px 12px;
-  align-items: center;
-  cursor: pointer;
-}
-
-.photo-upload-card i {
-  grid-row: span 2;
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  background: #e8f6ed;
-  color: var(--darker-green);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.photo-upload-card span {
-  color: #303832;
-  font-weight: 600;
-}
-
-.photo-upload-card small {
-  color: var(--ink-soft);
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-.mobile-photo-actions {
-  display: none;
-  gap: 10px;
-}
-
-#issuePhotos,
-#issueCameraPhoto {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.photo-file-list {
-  display: grid;
-  gap: 8px;
-}
-
-.photo-file-item {
-  border: 1px solid #e4ece6;
-  border-radius: 8px;
-  background: #fbfcfb;
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  color: #303832;
-  font-size: 0.86rem;
-}
-
-.photo-file-item span {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.photo-file-item small {
-  color: var(--ink-soft);
-  flex-shrink: 0;
-}
-
-.photo-upload-error {
-  color: var(--error);
-  font-weight: 600;
-  font-size: 0.86rem;
 }
 
 .radio-group {
@@ -461,15 +374,6 @@ body {
   .radio-label,
   .checkbox-label {
     font-size: 0.86rem;
-  }
-
-  .desktop-photo-upload {
-    display: none;
-  }
-
-  .mobile-photo-actions {
-    display: grid;
-    grid-template-columns: 1fr;
   }
 
   .range-wrapper {

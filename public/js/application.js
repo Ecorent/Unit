@@ -9,7 +9,9 @@ const selectedUnit = document.getElementById("selectedUnit");
 const scoreValue = document.getElementById("scoreValue");
 const scoreBand = document.getElementById("scoreBand");
 const feedback = document.getElementById("applicationFeedback");
-const stepperButtons = Array.from(document.querySelectorAll(".application-stepper button"));
+const stepper = document.getElementById("applicationStepper");
+const stepperToggle = document.getElementById("applicationStepperToggle");
+const stepperButtons = Array.from(document.querySelectorAll(".application-stepper button[data-section-target]"));
 let currentLang = localStorage.getItem("lang") || "en";
 let selectedUnitTitle = null;
 
@@ -292,8 +294,19 @@ function updatePageTitle() {
   document.title = t("application_page_title");
 }
 
+function updateStepperToggleLabel() {
+  if (!stepper || !stepperToggle) return;
+
+  const isCollapsed = stepper.classList.contains("is-collapsed");
+  stepperToggle.setAttribute("aria-expanded", String(!isCollapsed));
+  stepperToggle.setAttribute(
+    "aria-label",
+    t(isCollapsed ? "application_menu_expand" : "application_menu_collapse")
+  );
+  stepper.dataset.menuLabel = t("application_menu_label");
+}
+
 function scrollToSection(section) {
-  const stepper = document.getElementById("applicationStepper");
   const stickyOffset = (stepper?.offsetHeight || 0) + 56;
   const sectionTop = section.getBoundingClientRect().top + window.scrollY;
 
@@ -361,10 +374,16 @@ stepperButtons.forEach(button => {
   });
 });
 
+stepperToggle?.addEventListener("click", () => {
+  stepper?.classList.toggle("is-collapsed");
+  updateStepperToggleLabel();
+});
+
 window.addEventListener("languageChanged", e => {
   currentLang = e.detail;
   updatePageTitle();
   updateSelectedUnit();
+  updateStepperToggleLabel();
   updateCompletionStatus();
   markRequiredFields();
   updateStepper();
@@ -374,12 +393,14 @@ window.addEventListener("pageshow", () => {
   currentLang = localStorage.getItem("lang") || "en";
   updatePageTitle();
   updateSelectedUnit();
+  updateStepperToggleLabel();
   updateCompletionStatus();
   markRequiredFields();
   updateStepper();
 });
 
 updatePageTitle();
+updateStepperToggleLabel();
 markRequiredFields();
 restoreDraft();
 applyConditionalFields();

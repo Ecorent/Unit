@@ -7,12 +7,6 @@ const feedback = document.getElementById("formFeedback");
 const urgencyInput = document.getElementById("urgencyRating");
 const urgencyOutput = document.getElementById("urgencyOutput");
 const urgencyPrefix = document.getElementById("urgencyPrefix");
-const photoInput = document.getElementById("issuePhotos");
-const cameraPhotoInput = document.getElementById("issueCameraPhoto");
-const photoFileList = document.getElementById("photoFileList");
-const maxPhotos = 1;
-const maxPhotoBytes = 6 * 1024 * 1024;
-let selectedPhotos = [];
 
 // Update dynamic severity layout label items
 function updateUrgencyUI() {
@@ -25,41 +19,6 @@ function updateUrgencyUI() {
 urgencyInput.addEventListener("input", (e) => {
   urgencyOutput.textContent = e.target.value;
 });
-
-photoInput.addEventListener("change", () => {
-  handlePhotoSelection(photoInput);
-});
-
-cameraPhotoInput.addEventListener("change", () => {
-  handlePhotoSelection(cameraPhotoInput);
-});
-
-function handlePhotoSelection(input) {
-  const files = Array.from(input.files || []);
-  const acceptedFiles = [];
-  let errorMessage = "";
-
-  files.slice(0, maxPhotos).forEach(file => {
-    if (!file.type.startsWith("image/")) {
-      errorMessage = t("maint_photo_type_error");
-      return;
-    }
-
-    if (file.size > maxPhotoBytes) {
-      errorMessage = t("maint_photo_size_error");
-      return;
-    }
-
-    acceptedFiles.push(file);
-  });
-
-  if (files.length > maxPhotos) {
-    errorMessage = t("maint_photo_count_error");
-  }
-
-  selectedPhotos = acceptedFiles;
-  renderPhotoFileList(errorMessage);
-}
 
 // Handle Form Submission
 form.addEventListener("submit", async (e) => {
@@ -94,8 +53,7 @@ form.addEventListener("submit", async (e) => {
     waterIssue: waterSelection ? waterSelection.value : "",
     petsPresent: petsSelection ? petsSelection.value : "",
     urgencyRating: urgencyInput.value,
-    acknowledged: document.getElementById("acknowledgment").checked,
-    issuePhotos: await serializePhotos(selectedPhotos)
+    acknowledged: document.getElementById("acknowledgment").checked
   };
 
   try {
@@ -119,10 +77,6 @@ form.addEventListener("submit", async (e) => {
 
     showFeedback(t("contact_success"), "success");
     form.reset();
-    selectedPhotos = [];
-    photoInput.value = "";
-    cameraPhotoInput.value = "";
-    renderPhotoFileList();
     urgencyInput.value = "5";
     urgencyOutput.textContent = "5"; 
 
@@ -135,54 +89,6 @@ form.addEventListener("submit", async (e) => {
 function showFeedback(message, type) {
   feedback.textContent = message;
   feedback.className = `form-feedback ${type}`;
-}
-
-function renderPhotoFileList(errorMessage = "") {
-  photoFileList.innerHTML = "";
-
-  selectedPhotos.forEach(file => {
-    const item = document.createElement("div");
-    item.className = "photo-file-item";
-
-    const name = document.createElement("span");
-    name.textContent = file.name;
-
-    const size = document.createElement("small");
-    size.textContent = formatFileSize(file.size);
-
-    item.append(name, size);
-    photoFileList.appendChild(item);
-  });
-
-  if (errorMessage) {
-    const error = document.createElement("div");
-    error.className = "photo-upload-error";
-    error.textContent = errorMessage;
-    photoFileList.appendChild(error);
-  }
-}
-
-function serializePhotos(files) {
-  return Promise.all(files.map(file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const result = String(reader.result || "");
-      resolve({
-        filename: file.name,
-        contentType: file.type,
-        content: result.includes(",") ? result.split(",")[1] : result
-      });
-    };
-
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
-  })));
-}
-
-function formatFileSize(bytes) {
-  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 window.addEventListener("languageChanged", e => {

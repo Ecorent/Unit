@@ -124,7 +124,7 @@ body {
   top: 10px;
   z-index: 5;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 10px 54px 10px 10px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
@@ -133,9 +133,10 @@ body {
   border-radius: 10px;
   box-shadow: 0 12px 28px rgba(23, 45, 31, 0.1);
   backdrop-filter: blur(10px);
+  transition: padding 0.2s ease, box-shadow 0.2s ease;
 }
 
-.application-stepper button {
+.application-stepper button[data-section-target] {
   min-height: 48px;
   padding: 8px 10px;
   display: grid;
@@ -154,11 +155,11 @@ body {
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.1s ease;
 }
 
-.application-stepper button:active {
+.application-stepper button[data-section-target]:active {
   transform: scale(0.98);
 }
 
-.application-stepper span {
+.application-stepper button[data-section-target] span {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -171,26 +172,88 @@ body {
   font-weight: 700;
 }
 
-.application-stepper strong {
+.application-stepper button[data-section-target] strong {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.application-stepper button.is-complete {
+.application-stepper button[data-section-target].is-complete {
   border-color: rgba(31, 156, 83, 0.45);
   background: #f1fbf4;
 }
 
-.application-stepper button.is-complete span {
+.application-stepper button[data-section-target].is-complete span {
   background: var(--buttons);
   color: white;
 }
 
-.application-stepper button.is-current {
+.application-stepper button[data-section-target].is-current {
   border-color: var(--darker-green);
   box-shadow: 0 0 0 3px rgba(31, 156, 83, 0.12);
+}
+
+.stepper-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(18, 121, 61, 0.22);
+  border-radius: 8px;
+  background: #e8f6ed;
+  color: var(--darker-green);
+  box-shadow: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.stepper-toggle i {
+  font-size: 0.86rem;
+  transition: transform 0.2s ease;
+}
+
+.stepper-toggle:focus-visible {
+  outline: 3px solid rgba(31, 156, 83, 0.24);
+  outline-offset: 3px;
+}
+
+.stepper-toggle:active {
+  transform: scale(0.95);
+}
+
+.application-stepper.is-collapsed {
+  grid-template-columns: 1fr;
+  min-height: 50px;
+  align-items: center;
+  padding: 8px 54px 8px 28px;
+}
+
+.application-stepper.is-collapsed button[data-section-target] {
+  display: none;
+}
+
+.application-stepper.is-collapsed::before {
+  content: attr(data-menu-label);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: left;
+}
+
+.application-stepper.is-collapsed .stepper-toggle {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.application-stepper.is-collapsed .stepper-toggle i {
+  transform: rotate(180deg);
 }
 
 .form-section {
@@ -442,20 +505,32 @@ textarea[readonly]:focus {
   .application-stepper {
     top: 6px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 8px;
+    padding: 8px 48px 8px 8px;
     gap: 7px;
   }
 
-  .application-stepper button {
+  .application-stepper button[data-section-target] {
     min-height: 42px;
     grid-template-columns: 25px minmax(0, 1fr);
     padding: 7px 8px;
     font-size: 0.72rem;
   }
 
-  .application-stepper span {
+  .application-stepper button[data-section-target] span {
     width: 25px;
     height: 25px;
+  }
+
+  .stepper-toggle {
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .application-stepper.is-collapsed {
+    min-height: 48px;
+    padding: 8px 48px 8px 22px;
   }
 
   .form-section {
@@ -502,9 +577,14 @@ textarea[readonly]:focus {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .application-stepper button:hover {
+  .application-stepper button[data-section-target]:hover {
     border-color: var(--darker-green);
     background: #f7faf8;
+  }
+
+  .stepper-toggle:hover {
+    background: var(--buttons);
+    color: #fff;
   }
 
   .submit-button:hover {
@@ -516,6 +596,17 @@ textarea[readonly]:focus {
     border-color: var(--darker-green);
   }
 
+}
+
+@media (min-width: 769px) {
+  .stepper-toggle {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .stepper-toggle:active {
+    transform: translateY(-50%) scale(0.95);
+  }
 }
 
 @media print {
