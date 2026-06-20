@@ -14,8 +14,6 @@ const sections = [
       ['Date of Birth', 'dateOfBirth'],
       ['Phone Number', 'phone'],
       ['Email Address', 'email'],
-      ['Government ID Type & Number', 'governmentId'],
-      ['Social Security Number', 'ssn'],
       ['Social Media Links', 'socialMedia']
     ]
   },
@@ -23,7 +21,8 @@ const sections = [
     title: 'Occupancy Details',
     fields: [
       ['All Occupants', 'occupants'],
-      ['Total Number of Occupants', 'occupantCount']
+      ['Total Number of Occupants', 'occupantCount'],
+      ['Desired Move-In Date', 'moveInDate']
     ]
   },
   {
