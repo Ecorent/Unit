@@ -116,7 +116,7 @@ form.addEventListener("submit", async event => {
   } catch {
     showFeedback("error", t("application_submit_error"));
   } finally {
-    submitButton.disabled = false;
+    submitButton.disabled = false; 
   }
 });
 
