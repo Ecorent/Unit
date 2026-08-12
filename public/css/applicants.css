@@ -137,7 +137,7 @@ body {
   margin-bottom: 16px;
   padding: 16px;
   display: grid;
-  grid-template-columns: 170px 170px 170px minmax(0, 1fr);
+  grid-template-columns: 220px 160px 225px minmax(0, 1fr);
   gap: 14px;
   align-items: end;
 }
@@ -170,9 +170,16 @@ body {
   appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 4 5'><path fill='%23292929' d='M0 1h4L2 3z'/></svg>");
   background-repeat: no-repeat;
-  background-position: calc(100% - 14px) 50%;
+  background-position: calc(100% - 16px) 50%;
   background-size: 12px;
-  padding-right: 38px;
+  padding-left: 14px;
+  padding-right: 44px;
+  line-height: 1.4;
+}
+
+.filters-panel select option,
+.status-select option {
+  padding: 8px 12px;
 }
 
 .filters-panel select:focus,
@@ -202,7 +209,7 @@ body {
 .applicant-summary {
   padding: 18px;
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) 128px 170px 112px;
+  grid-template-columns: minmax(0, 1fr) 220px 170px 112px;
   gap: 16px;
   align-items: center;
 }
@@ -239,7 +246,6 @@ body {
 
 .rank-badge {
   width: max-content;
-  max-width: 100%;
   min-height: 34px;
   border-radius: 999px;
   display: inline-flex;
@@ -248,6 +254,7 @@ body {
   padding: 0 12px;
   font-size: 0.84rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .rank-badge.strong {
