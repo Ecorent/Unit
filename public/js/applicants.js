@@ -21,6 +21,7 @@ const applicantsList = document.getElementById("applicantsList");
 const listStatus = document.getElementById("listStatus");
 const rankingFilter = document.getElementById("rankingFilter");
 const statusFilter = document.getElementById("statusFilter");
+const sortOrder = document.getElementById("sortOrder");
 const searchInput = document.getElementById("searchInput");
 
 const totalCount = document.getElementById("totalCount");
@@ -55,7 +56,7 @@ onAuthStateChanged(auth, async user => {
   subscribeToApplications();
 });
 
-[rankingFilter, statusFilter, searchInput].forEach(control => {
+[rankingFilter, statusFilter, sortOrder, searchInput].forEach(control => {
   control.addEventListener("input", renderApplicants);
 });
 
@@ -158,13 +159,24 @@ function getFilteredApplications() {
   const status = statusFilter.value;
   const search = searchInput.value.trim().toLowerCase();
 
-  return applications.filter(application => {
+  const filteredApplications = applications.filter(application => {
     const matchesRanking = ranking === "all" || application.rankingBand === ranking;
     const matchesStatus = status === "all" || normalizeStatus(application.status) === status;
     const searchText = buildSearchText(application);
     const matchesSearch = !search || searchText.includes(search);
 
     return matchesRanking && matchesStatus && matchesSearch;
+  });
+
+  const direction = sortOrder.value === "oldest" ? 1 : -1;
+
+  return filteredApplications.sort((first, second) => {
+    const firstDate = getSubmittedDate(first)?.getTime();
+    const secondDate = getSubmittedDate(second)?.getTime();
+
+    if (firstDate == null) return secondDate == null ? 0 : 1;
+    if (secondDate == null) return -1;
+    return (firstDate - secondDate) * direction;
   });
 }
 
@@ -198,7 +210,7 @@ function countApplicationsThisMonth() {
 }
 
 function renderApplicantRow(application) {
-  const name = application.applicantName || application.fullName || "Unnamed applicant";
+  const name = formatApplicantName(application.applicantName || application.fullName) || "Unnamed applicant";
   const email = application.applicantEmail || application.email || "";
   const phone = application.applicantPhone || application.phone || "";
   const unit = application.unitName || t("applicants_no_unit");
@@ -275,6 +287,12 @@ function renderDetail(label, value, isWide = false) {
       <span>${escapeHtml(value || "N/A")}</span>
     </div>
   `;
+}
+
+function formatApplicantName(value) {
+  return String(value || "")
+    .trim()
+    .replace(/(^|[-\s'’])\p{L}/gu, letter => letter.toLocaleUpperCase());
 }
 
 function getRankClass(band) {

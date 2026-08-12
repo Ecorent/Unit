@@ -137,7 +137,7 @@ body {
   margin-bottom: 16px;
   padding: 16px;
   display: grid;
-  grid-template-columns: 190px 190px minmax(0, 1fr);
+  grid-template-columns: 170px 170px 170px minmax(0, 1fr);
   gap: 14px;
   align-items: end;
 }
