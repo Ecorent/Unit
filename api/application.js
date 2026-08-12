@@ -14,6 +14,8 @@ const sections = [
       ['Date of Birth', 'dateOfBirth'],
       ['Phone Number', 'phone'],
       ['Email Address', 'email'],
+      ['Preferred Contact Method', 'preferredContact'],
+      ['Contact Method Details', 'preferredContactOther'],
       ['Social Media Links', 'socialMedia']
     ]
   },
@@ -91,8 +93,12 @@ export default async function handler(req, res) {
 
   const application = req.body || {};
 
-  if (!application.fullName || !application.email || !application.phone || !application.finalSignature) {
+  if (!application.fullName || !application.email || !application.phone || !application.preferredContact || !application.finalSignature) {
     return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  if (application.preferredContact === 'Other' && !application.preferredContactOther) {
+    return res.status(400).json({ error: 'Missing other contact method' });
   }
 
   try {

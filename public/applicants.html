@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google" content="notranslate">
+  <title>EcoRent USA | Applicants List</title>
+  <meta name="description" content="Review EcoRent USA rental applicants, rankings, and application statuses.">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/applicants.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main class="applicants-shell">
+    <section class="applicants-hero">
+      <div>
+        <p class="hero-kicker" data-i18n="applicants_kicker">Admin workspace</p>
+        <h1 data-i18n="applicants_title">Applicants list</h1>
+        <p class="hero-copy" data-i18n="applicants_intro">Review incoming rental applications, compare ranking bands, and keep each applicant moving through the decision process.</p>
+      </div>
+    </section>
+
+    <section class="access-panel hidden" id="accessPanel" aria-live="polite">
+      <i class="fas fa-lock"></i>
+      <div>
+        <h2 id="accessTitle">Admin access required</h2>
+        <p id="accessMessage" data-i18n="applicants_login">Please log in with an admin account to view the applicants list.</p>
+        <a href="/login.html" class="access-link">Log in</a>
+      </div>
+    </section>
+
+    <section class="applicants-dashboard hidden" id="applicantsDashboard">
+      <div class="summary-grid" aria-label="Applicant summary">
+        <article class="summary-tile">
+          <span data-i18n="applicants_total">Total applicants</span>
+          <strong id="totalCount">0</strong>
+        </article>
+        <article class="summary-tile">
+          <span data-i18n="applicants_strong">Strong</span>
+          <strong id="strongCount">0</strong>
+        </article>
+        <article class="summary-tile">
+          <span data-i18n="applicants_review">Review</span>
+          <strong id="reviewCount">0</strong>
+        </article>
+        <article class="summary-tile">
+          <span data-i18n="applicants_open">Open items</span>
+          <strong id="openCount">0</strong>
+        </article>
+      </div>
+
+      <section class="filters-panel" aria-label="Applicant filters">
+        <label>
+          <span data-i18n="applicants_filter_ranking">Ranking</span>
+          <select id="rankingFilter">
+            <option value="all" data-i18n="applicants_filter_all">All</option>
+            <option value="Strong">Strong</option>
+            <option value="Review">Review</option>
+            <option value="Needs careful review">Needs careful review</option>
+            <option value="High concern">High concern</option>
+          </select>
+        </label>
+
+        <label>
+          <span data-i18n="applicants_filter_status">Status</span>
+          <select id="statusFilter">
+            <option value="all" data-i18n="applicants_filter_all">All</option>
+            <option value="New" data-i18n="applicants_status_new">New</option>
+            <option value="Reviewing" data-i18n="applicants_status_reviewing">Reviewing</option>
+            <option value="Approved" data-i18n="applicants_status_approved">Approved</option>
+            <option value="Denied" data-i18n="applicants_status_denied">Denied</option>
+          </select>
+        </label>
+
+        <label class="search-field">
+          <span data-i18n="applicants_search">Search applicants</span>
+          <input id="searchInput" type="search" data-i18n-placeholder="applicants_search_placeholder" placeholder="Name, email, phone, or apartment">
+        </label>
+      </section>
+
+      <div class="list-status" id="listStatus" data-i18n="applicants_loading">Loading applicants...</div>
+      <section class="applicants-list" id="applicantsList" aria-live="polite"></section>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module" src="/js/navbar.js"></script>
+  <script src="js/footer.js"></script>
+  <script type="module" src="/js/applicants.js"></script>
+</body>
+</html>

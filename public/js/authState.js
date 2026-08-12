@@ -1,9 +1,13 @@
 // public/js/authState.js
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 /* ---------- HELPER ---------- */
 function getUserInitial(user) {
@@ -20,7 +24,27 @@ function getUserInitial(user) {
   return "";
 }
 
-onAuthStateChanged(auth, (user) => {
+function setAdminMenuVisible(isAdmin) {
+  document.querySelectorAll(".admin-menu-item").forEach(item => {
+    item.classList.toggle("hidden", !isAdmin);
+  });
+
+  document.querySelectorAll(".user-menu-item").forEach(item => {
+    item.classList.toggle("hidden", isAdmin);
+  });
+}
+
+async function getUserRole(user) {
+  try {
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    return userDoc.exists() ? userDoc.data().role : "user";
+  } catch (error) {
+    console.error("Failed to load user role:", error);
+    return "user";
+  }
+}
+
+onAuthStateChanged(auth, async (user) => {
   const navbar = document.querySelector(".navbar");
   if (!navbar) return;
 
@@ -35,12 +59,15 @@ onAuthStateChanged(auth, (user) => {
     /* ---------- NOT LOGGED IN ---------- */
 
     navbar.dataset.auth = "logged-out";
+    navbar.dataset.role = "guest";
+    setAdminMenuVisible(false);
 
     profileSlots.forEach(slot => {
       slot.innerHTML = `<i class="fas fa-user-circle profile-icon"></i>`;
     });
 
     profileDropdown?.classList.add("hidden");
+    document.getElementById("mobileProfileMenu")?.classList.add("hidden");
 
     const redirectToLogin = (e) => {
       e.stopPropagation();
@@ -54,7 +81,12 @@ onAuthStateChanged(auth, (user) => {
   } else {
     /* ---------- LOGGED IN ---------- */
 
+    const role = await getUserRole(user);
+    const isAdmin = role === "admin";
+
     navbar.dataset.auth = "logged-in";
+    navbar.dataset.role = role;
+    setAdminMenuVisible(isAdmin);
 
     const initial = getUserInitial(user);
 

@@ -136,14 +136,6 @@ const handleGoogleAuth = async () => {
       });
     }
 
-    const role = userSnap.exists() ? userSnap.data().role : "user";
-
-    if (role === "admin") {
-      window.open("/sanity", "_blank");
-      await auth.signOut();
-      return;
-    }
-
     const returnTo = sessionStorage.getItem("loginFrom") || "/index.html";
     sessionStorage.removeItem("loginFrom");
     window.location.href = returnTo;
@@ -214,15 +206,6 @@ loginForm.addEventListener("submit", async e => {
       loginEmailInput.value.trim(),
       loginPasswordInput.value
     );
-
-    const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
-    const role = userDoc.exists() ? userDoc.data().role : "user";
-
-    if (role === "admin") {
-      window.open("/sanity", "_blank");
-      await auth.signOut();
-    }
-
     const returnTo = sessionStorage.getItem("loginFrom") || "/index.html";
     sessionStorage.removeItem("loginFrom");
     window.location.href = returnTo;

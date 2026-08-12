@@ -28,6 +28,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # -------------------------
+# Private applicant imports
+# -------------------------
+imports/applications/
+
+# -------------------------
 # OS junk
 # ------------------------- 
 .DS_Store

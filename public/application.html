@@ -99,6 +99,8 @@
           <label><span class="field-label" data-i18n="application_dob">Date of Birth</span><input name="dateOfBirth" type="date" required></label>
           <label><span class="field-label" data-i18n="application_phone">Phone Number</span><input name="phone" type="tel" required></label>
           <label><span class="field-label" data-i18n="application_email">Email Address</span><input name="email" type="email" required></label>
+          <label><span class="field-label" data-i18n="application_preferred_contact">Preferred Contact Method</span><select name="preferredContact" required><option value="" data-i18n="application_choose">Choose...</option><option value="Email" data-i18n="application_contact_email">Email</option><option value="Text message" data-i18n="application_contact_text">Text message</option><option value="Other" data-i18n="application_contact_other">Other</option></select></label>
+          <label><span class="field-label" data-i18n="application_contact_other_explanation">Please Specify</span><input name="preferredContactOther" type="text" class="is-auto-filled" readonly aria-readonly="true"></label>
           <label class="wide"><span class="field-label" data-i18n="application_social_media">Social Media Links</span><textarea name="socialMedia" rows="3" required placeholder="Facebook, LinkedIn, Instagram, or N/A" data-i18n-placeholder="application_social_placeholder"></textarea></label>
         </div>
       </section>

@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "local": "vercel dev --local --yes"
+    "local": "vercel dev --local --yes",
+    "parse:applications": "node tools/parse-application-emails.js",
+    "seed:applications": "node tools/seed-application-baseline.js"
   },
   "dependencies": {
     "resend": "^6.6.0"

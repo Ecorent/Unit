@@ -1,4 +1,10 @@
 import { t } from "/js/i18n.js";
+import { db } from "./firebase.js";
+import {
+  addDoc,
+  collection,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
@@ -69,6 +75,7 @@ if (slug) {
 }
 
 form.addEventListener("input", () => {
+  applyConditionalFields();
   saveDraft();
   updateCompletionStatus();
   updateStepper();
@@ -96,16 +103,25 @@ form.addEventListener("submit", async event => {
   showFeedback("success", t("application_sending"));
 
   try {
+    const payload = buildApplicationPayload();
+    const candidateRank = calculateCandidateRank(payload);
+
     const response = await fetch("/api/application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(buildApplicationPayload())
+      body: JSON.stringify(payload)
     });
 
     const result = await response.json();
 
     if (!response.ok || result.error) {
       throw new Error(result.error || "Application failed to send");
+    }
+
+    try {
+      await storeApplication(payload, candidateRank);
+    } catch (error) {
+      console.error("Application email was sent, but Firestore storage failed:", error);
     }
 
     scoreValue.textContent = "100%";
@@ -163,6 +179,7 @@ function updateStepper() {
 }
 
 function isFieldComplete(field) {
+  if (field.disabled) return true;
   if (field.type === "checkbox") return field.checked;
   return field.value.trim() !== "";
 }
@@ -187,6 +204,138 @@ function buildApplicationPayload() {
   payload.acknowledgment = form.elements.acknowledgment.checked;
 
   return payload;
+}
+
+async function storeApplication(application, candidateRank) {
+  const searchText = [
+    application.fullName,
+    application.email,
+    application.phone,
+    application.unitName,
+    application.slug
+  ].filter(Boolean).join(" ").toLowerCase();
+
+  await addDoc(collection(db, "applications"), {
+    ...application,
+    applicantName: application.fullName || "",
+    applicantEmail: application.email || "",
+    applicantPhone: application.phone || "",
+    unitName: application.unitName || t("application_selected_apartment"),
+    rankingScore: candidateRank.score,
+    rankingBand: candidateRank.band,
+    rankingFactors: candidateRank.factors,
+    status: "New",
+    searchText,
+    submittedAt: serverTimestamp(),
+    submittedAtClient: new Date().toISOString()
+  });
+}
+
+function calculateCandidateRank(application) {
+  let score = 100;
+  const factors = [];
+
+  const subtract = (points, label) => {
+    score -= points;
+    factors.push({ points: -points, label });
+  };
+
+  const addNote = label => {
+    factors.push({ points: 0, label });
+  };
+
+  if (isYes(application.evicted)) {
+    subtract(18, "Prior eviction disclosed");
+  }
+
+  if (isYes(application.brokenLease)) {
+    subtract(15, "Prior broken lease disclosed");
+  }
+
+  if (isYes(application.bankruptcy)) {
+    subtract(12, "Bankruptcy disclosed");
+  }
+
+  if (isYes(application.criminalConviction)) {
+    subtract(10, "Criminal conviction disclosed for review");
+  }
+
+  if (hasMeaningfulDisclosure(application.backgroundNotes)) {
+    subtract(8, "Additional credit/background notes provided");
+  }
+
+  const employmentMonths = parseDurationInMonths(application.employmentLength);
+  if (employmentMonths != null) {
+    if (employmentMonths < 3) {
+      subtract(8, "Employment length under 3 months");
+    } else if (employmentMonths < 12) {
+      subtract(4, "Employment length under 12 months");
+    } else {
+      addNote("Employment length is 12+ months");
+    }
+  }
+
+  const monthlyIncome = Number(application.monthlyIncome);
+  if (Number.isFinite(monthlyIncome)) {
+    if (monthlyIncome < 2000) {
+      subtract(8, "Monthly gross income under $2,000");
+    } else if (monthlyIncome < 3000) {
+      subtract(4, "Monthly gross income under $3,000");
+    } else {
+      addNote("Monthly gross income is $3,000+");
+    }
+  }
+
+  const occupantCount = Number(application.occupantCount);
+  if (Number.isFinite(occupantCount) && occupantCount > 6) {
+    subtract(3, "More than 6 occupants listed");
+  }
+
+  const petCount = Number(application.petCount);
+  if (Number.isFinite(petCount) && petCount > 2) {
+    subtract(2, "More than 2 pets listed");
+  }
+
+  if (!application.screeningAuthorization || !application.acknowledgment) {
+    subtract(20, "Required authorization or acknowledgment missing");
+  }
+
+  const finalScore = Math.min(100, Math.max(1, Math.round(score)));
+  const band = finalScore >= 85
+    ? "Strong"
+    : finalScore >= 70
+      ? "Review"
+      : finalScore >= 50
+        ? "Needs careful review"
+        : "High concern";
+
+  return {
+    score: finalScore,
+    band,
+    factors: factors.length ? factors : [{ points: 0, label: "No scoring deductions from questionnaire responses" }]
+  };
+}
+
+function isYes(value) {
+  return String(value || "").trim().toLowerCase() === "yes";
+}
+
+function hasMeaningfulDisclosure(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  return normalized !== "" && normalized !== "n/a" && normalized !== "na" && normalized !== "none" && normalized !== "no";
+}
+
+function parseDurationInMonths(value) {
+  const text = String(value || "").toLowerCase();
+  const numberMatch = text.match(/(\d+(?:\.\d+)?)/);
+  if (!numberMatch) return null;
+
+  const amount = Number(numberMatch[1]);
+  if (!Number.isFinite(amount)) return null;
+
+  if (text.includes("year") || text.includes("yr")) return amount * 12;
+  if (text.includes("month") || text.includes("mo")) return amount;
+  return amount;
 }
 
 function saveDraft() {
@@ -242,6 +391,39 @@ function collectDraftData() {
 }
 
 function applyConditionalFields() {
+  const preferredContact = form.elements.preferredContact;
+  const preferredContactOther = form.elements.preferredContactOther;
+
+  if (preferredContact && preferredContactOther) {
+    const isOther = preferredContact.value === "Other";
+    preferredContactOther.readOnly = !isOther;
+    preferredContactOther.required = isOther;
+    preferredContactOther.placeholder = isOther ? t("application_contact_other_placeholder") : "";
+
+    if (isOther) {
+      if (preferredContactOther.dataset.autoFilled === "true") {
+        preferredContactOther.value = "";
+      }
+
+      delete preferredContactOther.dataset.autoFilled;
+      preferredContactOther.classList.remove("is-auto-filled");
+      preferredContactOther.removeAttribute("aria-readonly");
+      markRequiredFields();
+    } else {
+      const contactValue = preferredContact.value === "Email"
+        ? form.elements.email.value
+        : preferredContact.value === "Text message"
+          ? form.elements.phone.value
+          : "";
+
+      preferredContactOther.value = contactValue;
+      preferredContactOther.dataset.autoFilled = "true";
+      preferredContactOther.classList.add("is-auto-filled");
+      preferredContactOther.setAttribute("aria-readonly", "true");
+      preferredContactOther.closest("label")?.querySelector(".required-marker")?.remove();
+    }
+  }
+
   conditionalFields.forEach(group => {
     const trigger = form.elements[group.trigger];
     if (!trigger) return;
@@ -384,6 +566,7 @@ window.addEventListener("languageChanged", e => {
   updatePageTitle();
   updateSelectedUnit();
   updateStepperToggleLabel();
+  applyConditionalFields();
   updateCompletionStatus();
   markRequiredFields();
   updateStepper();

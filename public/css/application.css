@@ -372,13 +372,15 @@ input[readonly],
 textarea[readonly],
 .is-auto-filled {
   background: #eef3ef;
+  border-color: #d5ddd7;
   color: #65716a;
   cursor: not-allowed;
 }
 
 input[readonly]:focus,
-textarea[readonly]:focus {
-  border-color: #dfe7e1;
+textarea[readonly]:focus,
+.is-auto-filled:focus {
+  border-color: #d5ddd7;
   box-shadow: none;
 }
 
