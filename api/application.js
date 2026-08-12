@@ -1,6 +1,12 @@
 import { Resend } from 'resend';
+import crypto from 'crypto';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const firebaseConfig = {
+  apiKey: 'AIzaSyBxeT7J01HowUGiIG-pXie7zb-wgyZkTNk',
+  projectId: 'ecorent-203b2'
+};
+const firestoreApplicationsUrl = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/(default)/documents/applications`;
 const recipients = [
   'emmanuelhenao0816@gmail.com',
   'ecorentusa@gmail.com'
@@ -103,26 +109,125 @@ export default async function handler(req, res) {
 
   try {
     const candidateRank = calculateCandidateRank(application);
+    const storedApplication = buildStoredApplication(application, candidateRank);
+    const storageResult = await createApplication(storedApplication);
 
-    const { error } = await resend.emails.send({
-      from: 'ECOrent Applications <contact@ecorentusa.com>',
-      to: recipients,
-      reply_to: application.email,
-      subject: `[Rank ${candidateRank.score}/100] New Rental Application - ${application.unitName || 'Selected apartment'} - ${application.fullName}`,
-      html: buildApplicationEmail(application, candidateRank)
-    });
-
-    if (error) {
-      console.error("Resend error:", error);
-      return res.status(500).json({ error: 'Application email failed to send' });
+    if (storageResult.duplicate) {
+      return res.status(409).json({
+        code: 'DUPLICATE_APPLICATION',
+        error: 'An application with this email already exists for this apartment'
+      });
     }
 
-    console.log("Rental application email sent successfully");
+    if (storageResult.error) {
+      console.error('Firestore error:', storageResult.error);
+      return res.status(500).json({ error: 'Application failed to save' });
+    }
+
+    try {
+      const { error } = await resend.emails.send({
+        from: 'ECOrent Applications <contact@ecorentusa.com>',
+        to: recipients,
+        reply_to: application.email,
+        subject: `[Rank ${candidateRank.score}/100] New Rental Application - ${application.unitName || 'Selected apartment'} - ${application.fullName}`,
+        html: buildApplicationEmail(application, candidateRank)
+      });
+
+      if (error) {
+        console.error('Application was saved, but the notification email failed:', error);
+      } else {
+        console.log('Rental application email sent successfully');
+      }
+    } catch (emailError) {
+      console.error('Application was saved, but the notification email failed:', emailError);
+    }
+
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error("Server error:", err);
     return res.status(500).json({ error: 'Server error' });
   }
+}
+
+function buildStoredApplication(application, candidateRank) {
+  const submittedAt = new Date().toISOString();
+  const unitName = application.unitName || 'Selected apartment';
+
+  return {
+    ...application,
+    applicantName: application.fullName || '',
+    applicantEmail: application.email || '',
+    applicantPhone: application.phone || '',
+    unitName,
+    rankingScore: candidateRank.score,
+    rankingBand: candidateRank.band,
+    rankingFactors: candidateRank.factors,
+    status: 'New',
+    searchText: [
+      application.fullName,
+      application.email,
+      application.phone,
+      unitName,
+      application.slug
+    ].filter(Boolean).join(' ').toLowerCase(),
+    submittedAt,
+    submittedAtClient: submittedAt
+  };
+}
+
+async function createApplication(application) {
+  const documentId = getApplicationDocumentId(application);
+  const url = `${firestoreApplicationsUrl}?documentId=${encodeURIComponent(documentId)}&key=${firebaseConfig.apiKey}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields: toFirestoreFields(application) })
+  });
+
+  if (response.status === 409) {
+    return { duplicate: true };
+  }
+
+  if (!response.ok) {
+    return { error: `${response.status} ${await response.text()}` };
+  }
+
+  return { duplicate: false };
+}
+
+function getApplicationDocumentId(application) {
+  const email = normalizeIdentityValue(application.email);
+  const unit = normalizeIdentityValue(application.slug || application.unitName);
+  const key = `${email}|${unit}`;
+  return `submission-${crypto.createHash('sha256').update(key).digest('hex').slice(0, 32)}`;
+}
+
+function normalizeIdentityValue(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ');
+}
+
+function toFirestoreFields(value) {
+  return Object.entries(value).reduce((fields, [key, fieldValue]) => {
+    if (fieldValue === undefined) return fields;
+    fields[key] = toFirestoreValue(fieldValue);
+    return fields;
+  }, {});
+}
+
+function toFirestoreValue(value) {
+  if (value === null) return { nullValue: null };
+  if (typeof value === 'boolean') return { booleanValue: value };
+  if (typeof value === 'number' && Number.isInteger(value)) return { integerValue: String(value) };
+  if (typeof value === 'number') return { doubleValue: value };
+  if (Array.isArray(value)) return { arrayValue: { values: value.map(toFirestoreValue) } };
+  if (typeof value === 'object') return { mapValue: { fields: toFirestoreFields(value) } };
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(value) && !Number.isNaN(new Date(value).getTime())) {
+    return { timestampValue: value };
+  }
+  return { stringValue: String(value) };
 }
 
 function buildApplicationEmail(application, candidateRank) {

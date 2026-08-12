@@ -263,6 +263,14 @@ body {
   box-sizing: border-box;
 }
 
+.apply-button.is-disabled {
+  background: #aeb8b1;
+  border-color: #aeb8b1;
+  color: #f4f6f4;
+  cursor: wait;
+  pointer-events: none;
+}
+
 .apply-button:active {
   background: var(--darker-green);
   border-color: var(--darker-green);
@@ -356,7 +364,7 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .apply-button:hover {
+  .apply-button:not(.is-disabled):hover {
     background: var(--darker-green);
     border-color: var(--darker-green);
   }

@@ -265,6 +265,11 @@ function updateApplicationLinks(unit, lang) {
   });
 
   const href = `application.html?${query.toString()}`;
-  document.getElementById("applyTopLink").href = href;
+  const applyTopLink = document.getElementById("applyTopLink");
+
+  applyTopLink.href = href;
+  applyTopLink.classList.remove("is-disabled");
+  applyTopLink.removeAttribute("aria-disabled");
+  applyTopLink.removeAttribute("aria-busy");
   document.getElementById("applyPanelLink").href = href;
 }

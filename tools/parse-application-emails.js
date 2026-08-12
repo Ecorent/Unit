@@ -257,9 +257,13 @@ function normalizeFields(fields) {
 }
 
 function parseSubmittedDate(displayDate, headerDate) {
-  const date = displayDate ? new Date(displayDate) : new Date(headerDate);
-  if (!Number.isNaN(date.getTime())) {
-    return date.toISOString();
+  for (const value of [displayDate, headerDate]) {
+    if (!value) continue;
+
+    const date = new Date(value);
+    if (!Number.isNaN(date.getTime())) {
+      return date.toISOString();
+    }
   }
 
   return new Date().toISOString();

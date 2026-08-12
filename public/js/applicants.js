@@ -24,9 +24,9 @@ const statusFilter = document.getElementById("statusFilter");
 const searchInput = document.getElementById("searchInput");
 
 const totalCount = document.getElementById("totalCount");
-const strongCount = document.getElementById("strongCount");
-const reviewCount = document.getElementById("reviewCount");
-const openCount = document.getElementById("openCount");
+const newCount = document.getElementById("newCount");
+const conversionRate = document.getElementById("conversionRate");
+const monthCount = document.getElementById("monthCount");
 
 let applications = [];
 let unsubscribeApplications = null;
@@ -170,11 +170,30 @@ function getFilteredApplications() {
 
 function updateSummary() {
   totalCount.textContent = applications.length;
-  strongCount.textContent = applications.filter(application => application.rankingBand === "Strong").length;
-  reviewCount.textContent = applications.filter(application => application.rankingBand === "Review").length;
-  openCount.textContent = applications.filter(application => {
-    const status = normalizeStatus(application.status);
-    return status === "New" || status === "Reviewing";
+  newCount.textContent = countApplicationsByStatus("New");
+  conversionRate.textContent = calculateConversionRate();
+  monthCount.textContent = countApplicationsThisMonth();
+}
+
+function countApplicationsByStatus(status) {
+  return applications.filter(application => normalizeStatus(application.status) === status).length;
+}
+
+function calculateConversionRate() {
+  const approved = countApplicationsByStatus("Approved");
+  const denied = countApplicationsByStatus("Denied");
+  const decided = approved + denied;
+  return decided ? `${Math.round((approved / decided) * 100)}%` : "0%";
+}
+
+function countApplicationsThisMonth() {
+  const now = new Date();
+
+  return applications.filter(application => {
+    const submittedAt = getSubmittedDate(application);
+    return submittedAt
+      && submittedAt.getFullYear() === now.getFullYear()
+      && submittedAt.getMonth() === now.getMonth();
   }).length;
 }
 
@@ -270,9 +289,7 @@ function normalizeStatus(status) {
 }
 
 function formatDate(application) {
-  const submittedAt = application.submittedAt?.toDate?.() || (
-    application.submittedAtClient ? new Date(application.submittedAtClient) : null
-  );
+  const submittedAt = getSubmittedDate(application);
 
   if (!submittedAt || Number.isNaN(submittedAt.getTime())) return "N/A";
 
@@ -280,6 +297,14 @@ function formatDate(application) {
     dateStyle: "medium",
     timeStyle: "short"
   }).format(submittedAt);
+}
+
+function getSubmittedDate(application) {
+  const submittedAt = application.submittedAt?.toDate?.() || (
+    application.submittedAtClient ? new Date(application.submittedAtClient) : null
+  );
+
+  return submittedAt && !Number.isNaN(submittedAt.getTime()) ? submittedAt : null;
 }
 
 function formatCurrency(value) {

@@ -1,10 +1,4 @@
 import { t } from "/js/i18n.js";
-import { db } from "./firebase.js";
-import {
-  addDoc,
-  collection,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
@@ -104,7 +98,6 @@ form.addEventListener("submit", async event => {
 
   try {
     const payload = buildApplicationPayload();
-    const candidateRank = calculateCandidateRank(payload);
 
     const response = await fetch("/api/application", {
       method: "POST",
@@ -114,14 +107,13 @@ form.addEventListener("submit", async event => {
 
     const result = await response.json();
 
-    if (!response.ok || result.error) {
-      throw new Error(result.error || "Application failed to send");
+    if (response.status === 409 && result.code === "DUPLICATE_APPLICATION") {
+      showFeedback("error", t("application_duplicate"));
+      return;
     }
 
-    try {
-      await storeApplication(payload, candidateRank);
-    } catch (error) {
-      console.error("Application email was sent, but Firestore storage failed:", error);
+    if (!response.ok || result.error) {
+      throw new Error(result.error || "Application failed to send");
     }
 
     scoreValue.textContent = "100%";
@@ -204,31 +196,6 @@ function buildApplicationPayload() {
   payload.acknowledgment = form.elements.acknowledgment.checked;
 
   return payload;
-}
-
-async function storeApplication(application, candidateRank) {
-  const searchText = [
-    application.fullName,
-    application.email,
-    application.phone,
-    application.unitName,
-    application.slug
-  ].filter(Boolean).join(" ").toLowerCase();
-
-  await addDoc(collection(db, "applications"), {
-    ...application,
-    applicantName: application.fullName || "",
-    applicantEmail: application.email || "",
-    applicantPhone: application.phone || "",
-    unitName: application.unitName || t("application_selected_apartment"),
-    rankingScore: candidateRank.score,
-    rankingBand: candidateRank.band,
-    rankingFactors: candidateRank.factors,
-    status: "New",
-    searchText,
-    submittedAt: serverTimestamp(),
-    submittedAtClient: new Date().toISOString()
-  });
 }
 
 function calculateCandidateRank(application) {
@@ -408,7 +375,6 @@ function applyConditionalFields() {
       delete preferredContactOther.dataset.autoFilled;
       preferredContactOther.classList.remove("is-auto-filled");
       preferredContactOther.removeAttribute("aria-readonly");
-      markRequiredFields();
     } else {
       const contactValue = preferredContact.value === "Email"
         ? form.elements.email.value
@@ -434,12 +400,15 @@ function applyConditionalFields() {
       const field = form.elements[name];
       if (!field) return;
 
+      field.required = !shouldAutofill;
+
       if (shouldAutofill) {
         field.value = value;
         field.readOnly = true;
         field.dataset.autoFilled = "true";
         field.classList.add("is-auto-filled");
         field.setAttribute("aria-readonly", "true");
+        field.closest("label")?.querySelector(".required-marker")?.remove();
         return;
       }
 
@@ -454,6 +423,8 @@ function applyConditionalFields() {
       delete field.dataset.autoFilled;
     });
   });
+
+  markRequiredFields();
 }
 
 function updateSelectedUnit() {
