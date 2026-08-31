@@ -89,6 +89,7 @@ function syncPreferredContact() {
     if (details.dataset.autoFilled === "true") details.value = "";
     delete details.dataset.autoFilled;
     details.classList.remove("is-auto-filled");
+    markRequiredFields();
     return;
   }
 
@@ -99,17 +100,25 @@ function syncPreferredContact() {
       : "";
   details.dataset.autoFilled = "true";
   details.classList.add("is-auto-filled");
+  markRequiredFields();
 }
 
 function markRequiredFields() {
-  form.querySelectorAll("[required]").forEach(field => {
-    const label = field.closest("label");
-    const labelText = label?.querySelector(".field-label");
-    if (!labelText || labelText.querySelector(".required-marker")) return;
+  form.querySelectorAll("label").forEach(label => {
+    const field = label.querySelector("input, select, textarea");
+    const labelText = label.querySelector(".field-label");
+    const existingMarker = labelText?.querySelector(".required-marker");
+
+    if (!field?.required) {
+      existingMarker?.remove();
+      return;
+    }
+
+    if (!labelText || existingMarker) return;
     const marker = document.createElement("span");
     marker.className = "required-marker";
     marker.setAttribute("aria-hidden", "true");
-    marker.textContent = " *";
+    marker.textContent = "*";
     labelText.appendChild(marker);
   });
 }

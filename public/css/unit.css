@@ -216,6 +216,85 @@ body {
   margin-bottom: 24px;
 }
 
+.action-panel-loading {
+  min-height: 290px;
+}
+
+.loading-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.action-skeleton {
+  display: grid;
+  gap: 13px;
+}
+
+.action-skeleton span {
+  display: block;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e9efeb 25%, #f7faf8 50%, #e9efeb 75%);
+  background-size: 200% 100%;
+  animation: action-panel-shimmer 1.4s ease-in-out infinite;
+}
+
+.action-skeleton span:nth-child(1) {
+  width: 28%;
+  height: 11px;
+}
+
+.action-skeleton span:nth-child(2) {
+  width: 68%;
+  height: 30px;
+}
+
+.action-skeleton span:nth-child(3) {
+  width: 100%;
+  height: 72px;
+  border-radius: 8px;
+}
+
+.action-skeleton span:nth-child(4) {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.action-panel-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #7a271a;
+}
+
+.action-panel-error i {
+  color: #b42318;
+}
+
+.action-panel-error p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+@keyframes action-panel-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-skeleton span {
+    animation: none;
+  }
+}
+
 .stay-date-fields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

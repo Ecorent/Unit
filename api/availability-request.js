@@ -117,6 +117,7 @@ function buildAvailabilityEmail(request, quote) {
         ${emailRow("Email", request.email)}
         ${emailRow("Preferred contact", request.preferredContact)}
         ${emailRow("Contact details", request.preferredContactOther || "N/A")}
+        ${emailRow("Additional questions or requests", request.additionalQuestions || "None provided")}
 
         <p style="margin: 24px 0 0; padding: 12px; background: #f7faf8; color: #5d665f; font-size: 13px;">
           This is an availability request only. The dates are not confirmed or held automatically.

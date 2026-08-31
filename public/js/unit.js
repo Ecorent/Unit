@@ -29,7 +29,11 @@ if (!slug) {
 // 🧠 QUERY (BOTH LANGUAGES)
 // 🔄 FETCH ONCE
 fetch(`/api/unit?slug=${encodeURIComponent(slug)}`)
-  .then(res => res.json())
+  .then(async res => {
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.code || "UNIT_REQUEST_FAILED");
+    return data;
+  })
   .then(({ result }) => {
     if (!result) {
       document.body.innerHTML = `<h1>${t("unit_not_found")}</h1>`;
@@ -38,6 +42,10 @@ fetch(`/api/unit?slug=${encodeURIComponent(slug)}`)
 
     unitCache = result;
     renderUnit(currentLang);
+  })
+  .catch(error => {
+    console.error("Unable to load unit:", error);
+    renderUnitLoadError();
   });
 
 // 💰 PRICE FORMATTER
@@ -107,6 +115,7 @@ function renderUnit(lang) {
   if (isNightly(unit)) {
     renderNightlyPricingPanel(unit, lang);
   } else {
+    renderMonthlyApplicationPanel(unit, lang);
     updateApplicationLinks(unit, lang);
   }
 
@@ -282,13 +291,36 @@ function updateApplicationLinks(unit, lang) {
   document.getElementById("applyPanelLink").href = href;
 }
 
+function renderMonthlyApplicationPanel() {
+  const panel = document.getElementById("unitActionPanel");
+  panel.className = "apply-panel-inline";
+  panel.removeAttribute("aria-busy");
+  panel.innerHTML = `
+    <p class="unit-kicker">${t("unit_next_step")}</p>
+    <h2 class="section-title">${t("unit_start_application")}</h2>
+    <p class="apply-copy">${t("unit_apply_copy")}</p>
+    <div class="application-notes" aria-label="${t("unit_application_details")}">
+      <div><i class="fas fa-user-group"></i><span>${t("unit_note_occupants")}</span></div>
+      <div><i class="fas fa-list-check"></i><span>${t("unit_note_documents")}</span></div>
+      <div><i class="fas fa-receipt"></i><span>${t("unit_note_reservation")}</span></div>
+      <div><i class="fas fa-file-signature"></i><span>${t("unit_note_follow_up")}</span></div>
+    </div>
+    <a class="apply-button apply-button-large is-disabled" id="applyTopLink" aria-disabled="true" aria-busy="true">
+      <span>${t("unit_apply_button")}</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+    <a class="hidden-apply-link" id="applyPanelLink" aria-hidden="true" tabindex="-1"></a>
+  `;
+}
+
 function renderNightlyPricingPanel(unit, lang) {
-  const panel = document.querySelector(".apply-panel-inline");
+  const panel = document.getElementById("unitActionPanel");
   const bounds = getSeasonBounds(unit.seasonalRates);
   const today = new Date().toISOString().slice(0, 10);
   const firstAvailable = bounds?.firstDate && bounds.firstDate > today ? bounds.firstDate : today;
 
-  panel.classList.add("nightly-pricing-panel");
+  panel.className = "apply-panel-inline nightly-pricing-panel";
+  panel.removeAttribute("aria-busy");
   panel.innerHTML = `
     <p class="unit-kicker">${t("nightly_pricing_kicker")}</p>
     <h2 class="section-title">${t("nightly_pricing_title")}</h2>
@@ -389,4 +421,16 @@ function disableNightlyApplication(link) {
   link.removeAttribute("href");
   link.classList.add("is-disabled");
   link.setAttribute("aria-disabled", "true");
+}
+
+function renderUnitLoadError() {
+  const panel = document.getElementById("unitActionPanel");
+  if (!panel) return;
+  panel.className = "apply-panel-inline action-panel-error";
+  panel.removeAttribute("aria-busy");
+  panel.innerHTML = `
+    <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+    <p role="alert">${t("unit_options_error")}</p>
+  `;
+  syncLeftColumnHeight();
 }
