@@ -9,13 +9,17 @@ const cards = {};
 
 const map = L.map("map", { 
   zoomControl: false,      
-  attributionControl: false 
+  attributionControl: true
 })
 .setView([39.5, -98.35], 4);
 
 L.tileLayer(
-  "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-  { attribution: "&copy; OpenStreetMap &copy; CARTO" }
+  "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2oes_1_df28cb6f96cab1c60bfe3062",
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: "abcd",
+    maxZoom: 20
+  }
 ).addTo(map);
 
 function sanityImageUrl(url, width, quality = 78) {
