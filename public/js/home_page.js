@@ -23,10 +23,18 @@ function sanityImageUrl(url, width, quality = 78) {
 
 // 🔄 FETCH ONCE
 fetch("/api/units")
-  .then(res => res.json())
+  .then(async res => {
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.code || "UNITS_REQUEST_FAILED");
+    return data;
+  })
   .then(({ result }) => {
     unitsCache = result || [];
     renderUnits();
+  })
+  .catch(error => {
+    console.error("Unable to load units:", error);
+    unitsGrid.innerHTML = `<p class="units-error" role="alert">${t("units_load_error")}</p>`;
   });
 
 // 🖼️ RENDER

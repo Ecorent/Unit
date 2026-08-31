@@ -51,6 +51,10 @@ export default async function handler(req, res) {
     res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
     return res.status(200).json({ result: data.result || null });
   } catch (error) {
-    return res.status(500).json({ error: "Unable to load unit" });
+    console.error("Unable to load unit from Sanity:", error);
+    return res.status(503).json({
+      error: "Unable to load unit",
+      code: "SANITY_UNAVAILABLE"
+    });
   }
 }

@@ -211,6 +211,17 @@ body {
   justify-content: start;
 }
 
+.units-error {
+  grid-column: 1 / -1;
+  margin: 1rem 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid #b42318;
+  border-radius: 0.75rem;
+  color: #7a271a;
+  background: #fef3f2;
+  text-align: center;
+}
+
 .unit-card {
   background:
     linear-gradient(180deg, #ffffff 0%, #fbfcfb 100%);
