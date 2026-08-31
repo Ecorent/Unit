@@ -1,3 +1,5 @@
+import { canUseLocalSample, SAMPLE_UNIT_SLUG, sampleUnit } from "./_sampleUnit.js";
+
 const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
@@ -6,6 +8,8 @@ const query = `
   *[_type == "unit" && slug.current == $slug][0]{
     title{en, es},
     price,
+    "pricingType": coalesce(pricingType, "monthly"),
+    seasonalRates[]{startDate, endDate, nightlyRate},
     address,
     bedrooms,
     bathrooms,
@@ -33,6 +37,11 @@ export default async function handler(req, res) {
 
   if (!slug) {
     return res.status(400).json({ error: "Missing slug" });
+  }
+
+  if (slug === SAMPLE_UNIT_SLUG && canUseLocalSample()) {
+    res.setHeader("Cache-Control", "no-store");
+    return res.status(200).json({ result: sampleUnit });
   }
 
   const params = new URLSearchParams({ query });

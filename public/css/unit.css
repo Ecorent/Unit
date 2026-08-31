@@ -216,6 +216,93 @@ body {
   margin-bottom: 24px;
 }
 
+.stay-date-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stay-date-fields label {
+  display: grid;
+  gap: 7px;
+  color: var(--dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.stay-date-fields input {
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+  border: 1px solid #cfdad2;
+  border-radius: 8px;
+  padding: 0 11px;
+  background: #fff;
+  color: var(--dark);
+  font: inherit;
+}
+
+.stay-date-fields input:focus {
+  outline: 3px solid rgba(31, 156, 83, 0.18);
+  border-color: var(--buttons);
+}
+
+.stay-quote {
+  margin-bottom: 18px;
+}
+
+.quote-placeholder,
+.quote-error {
+  margin: 0;
+  padding: 13px;
+  border-radius: 8px;
+  background: #f7faf8;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.quote-error {
+  border: 1px solid #f3b5ad;
+  background: #fef3f2;
+  color: #7a271a;
+}
+
+.quote-summary {
+  padding: 15px;
+  border: 1px solid #dbe8de;
+  border-radius: 8px;
+  background: #f7faf8;
+}
+
+.quote-summary h3 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+}
+
+.quote-line,
+.quote-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  font-size: 0.9rem;
+}
+
+.quote-total {
+  margin-top: 5px;
+  padding-top: 13px;
+  border-top: 1px solid #cad9cd;
+  font-size: 1.05rem;
+}
+
+.quote-summary > p {
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
 .application-notes div {
   min-height: 48px;
   border: 1px solid #e4ece6;
@@ -348,6 +435,10 @@ body {
   }
 
   .application-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .stay-date-fields {
     grid-template-columns: 1fr;
   }
 }

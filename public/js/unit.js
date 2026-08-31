@@ -1,4 +1,10 @@
 import { t, tPlural } from "/js/i18n.js";
+import {
+  calculateNightlyQuote,
+  formatListingPrice,
+  getSeasonBounds,
+  isNightly
+} from "/js/pricing.js";
 
 // 🔑 SANITY CONFIG
 // 🌍 CURRENT LANGUAGE
@@ -7,6 +13,7 @@ let currentLang = localStorage.getItem("lang") || "en";
 // 📦 CACHE
 let unitCache = null;
 let formMessageState = null; // "success" | "error" | null
+let nightlySelection = { checkIn: "", checkOut: "" };
 
 // 📩 CONTACT FORM MESSAGE STATE
 
@@ -34,10 +41,6 @@ fetch(`/api/unit?slug=${encodeURIComponent(slug)}`)
   });
 
 // 💰 PRICE FORMATTER
-function formatPrice(price) {
-  return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
-}
-
 function sanityImageUrl(url, width, quality = 82) {
   if (!url) return "";
   const separator = url.includes("?") ? "&" : "?";
@@ -80,8 +83,7 @@ function renderUnit(lang) {
 
   document.getElementById("pageTitle").textContent = unit.title[lang];
   document.getElementById("unitTitle").textContent = unit.title[lang];
-  document.getElementById("unitPrice").textContent = formatPrice(unit.price);
-  updateApplicationLinks(unit, lang);
+  document.getElementById("unitPrice").textContent = formatListingPrice(unit, t);
 
   document.getElementById("unitDetails").innerHTML = `
     <li><i class="fas fa-bed"></i>${unit.bedrooms} ${tPlural("bedroom", unit.bedrooms)}</li>
@@ -101,6 +103,12 @@ function renderUnit(lang) {
 
   document.getElementById("mapFrame").src =
     `https://maps.google.com/maps?q=${encodeURIComponent(unit.address)}&output=embed&hl=${lang}`;
+
+  if (isNightly(unit)) {
+    renderNightlyPricingPanel(unit, lang);
+  } else {
+    updateApplicationLinks(unit, lang);
+  }
 
   if (!document.querySelector(".carousel-track")) {
     initCarousel(unit.images || []);
@@ -272,4 +280,113 @@ function updateApplicationLinks(unit, lang) {
   applyTopLink.removeAttribute("aria-disabled");
   applyTopLink.removeAttribute("aria-busy");
   document.getElementById("applyPanelLink").href = href;
+}
+
+function renderNightlyPricingPanel(unit, lang) {
+  const panel = document.querySelector(".apply-panel-inline");
+  const bounds = getSeasonBounds(unit.seasonalRates);
+  const today = new Date().toISOString().slice(0, 10);
+  const firstAvailable = bounds?.firstDate && bounds.firstDate > today ? bounds.firstDate : today;
+
+  panel.classList.add("nightly-pricing-panel");
+  panel.innerHTML = `
+    <p class="unit-kicker">${t("nightly_pricing_kicker")}</p>
+    <h2 class="section-title">${t("nightly_pricing_title")}</h2>
+    <p class="apply-copy">${t("nightly_pricing_intro")}</p>
+    <div class="stay-date-fields">
+      <label>
+        <span>${t("check_in")}</span>
+        <input id="checkInDate" type="date" min="${firstAvailable}" ${bounds?.lastCheckout ? `max="${bounds.lastCheckout}"` : ""} value="${nightlySelection.checkIn}">
+      </label>
+      <label>
+        <span>${t("check_out")}</span>
+        <input id="checkOutDate" type="date" min="${firstAvailable}" ${bounds?.lastCheckout ? `max="${bounds.lastCheckout}"` : ""} value="${nightlySelection.checkOut}">
+      </label>
+    </div>
+    <div class="stay-quote" id="stayQuote" aria-live="polite"></div>
+    <a class="apply-button apply-button-large is-disabled" id="applyTopLink" aria-disabled="true">
+      <span>${t("nightly_apply_button")}</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+    <a class="hidden-apply-link" id="applyPanelLink" aria-hidden="true" tabindex="-1"></a>
+  `;
+
+  const checkInInput = document.getElementById("checkInDate");
+  const checkOutInput = document.getElementById("checkOutDate");
+
+  const updateQuote = () => {
+    nightlySelection = { checkIn: checkInInput.value, checkOut: checkOutInput.value };
+    checkOutInput.min = checkInInput.value || firstAvailable;
+
+    const quoteElement = document.getElementById("stayQuote");
+    const applyLink = document.getElementById("applyTopLink");
+
+    if (!nightlySelection.checkIn || !nightlySelection.checkOut) {
+      quoteElement.innerHTML = `<p class="quote-placeholder">${t("select_stay_dates")}</p>`;
+      disableNightlyApplication(applyLink);
+      syncLeftColumnHeight();
+      return;
+    }
+
+    const quote = calculateNightlyQuote(
+      unit.seasonalRates,
+      nightlySelection.checkIn,
+      nightlySelection.checkOut
+    );
+
+    if (quote.error) {
+      const messageKey = quote.error === "unpriced_dates" ? "stay_dates_unavailable" : "stay_dates_invalid";
+      quoteElement.innerHTML = `<p class="quote-error" role="alert">${t(messageKey)}</p>`;
+      disableNightlyApplication(applyLink);
+      syncLeftColumnHeight();
+      return;
+    }
+
+    const locale = lang === "es" ? "es-US" : "en-US";
+    const currency = value => Number(value).toLocaleString(locale, {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 2
+    });
+
+    quoteElement.innerHTML = `
+      <div class="quote-summary">
+        <h3>${t("stay_price_breakdown")}</h3>
+        ${quote.segments.map(segment => `
+          <div class="quote-line">
+            <span>${currency(segment.nightlyRate)} × ${segment.nights} ${segment.nights === 1 ? t("night_singular") : t("night_plural")}</span>
+            <strong>${currency(segment.subtotal)}</strong>
+          </div>
+        `).join("")}
+        <div class="quote-total">
+          <span>${t("estimated_total")}</span>
+          <strong>${currency(quote.total)}</strong>
+        </div>
+        <p>${t("nightly_quote_note")}</p>
+      </div>
+    `;
+
+    const query = new URLSearchParams({
+      slug,
+      unit: unit.title[lang] || unit.title.en || "",
+      checkIn: nightlySelection.checkIn,
+      checkOut: nightlySelection.checkOut,
+      estimatedTotal: String(quote.total)
+    });
+    applyLink.href = `availability-request.html?${query.toString()}`;
+    applyLink.classList.remove("is-disabled");
+    applyLink.removeAttribute("aria-disabled");
+    document.getElementById("applyPanelLink").href = applyLink.href;
+    syncLeftColumnHeight();
+  };
+
+  checkInInput.addEventListener("change", updateQuote);
+  checkOutInput.addEventListener("change", updateQuote);
+  updateQuote();
+}
+
+function disableNightlyApplication(link) {
+  link.removeAttribute("href");
+  link.classList.add("is-disabled");
+  link.setAttribute("aria-disabled", "true");
 }

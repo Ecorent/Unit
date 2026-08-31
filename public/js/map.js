@@ -1,4 +1,5 @@
 import { t, tPlural } from "/js/i18n.js";
+import { formatListingPrice, formatMapPrice } from "/js/pricing.js";
 
 let currentLang = localStorage.getItem("lang") || "en";
 let unitCache = [];
@@ -17,29 +18,36 @@ L.tileLayer(
   { attribution: "&copy; OpenStreetMap &copy; CARTO" }
 ).addTo(map);
 
-function formatPrice(price) {
-  return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
-}
-
 function sanityImageUrl(url, width, quality = 78) {
   if (!url) return "";
   const separator = url.includes("?") ? "&" : "?";
   return `${url}${separator}auto=format&w=${width}&q=${quality}&fit=max`;
 }
 
-function createPriceMarker(price) {
+function createPriceMarker(unit) {
   return L.divIcon({
     className: "",
-    html: `<div class="price-marker">$${Number(price).toLocaleString()}</div>`,
+    html: `<div class="price-marker">${formatMapPrice(unit, t)}</div>`,
     iconSize: null
   });
 }
 
-fetch("/api/units")
-  .then(res => res.json())
+const previewMode = new URLSearchParams(window.location.search).get("preview");
+const unitsEndpoint = previewMode === "nightly" ? "/api/units?preview=nightly" : "/api/units";
+
+fetch(unitsEndpoint)
+  .then(async res => {
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.code || "UNITS_REQUEST_FAILED");
+    return data;
+  })
   .then(({ result }) => {
     unitCache = result || [];
     render();
+  })
+  .catch(error => {
+    console.error("Unable to load map units:", error);
+    document.getElementById("mapUnits").innerHTML = `<p class="units-error" role="alert">${t("units_load_error")}</p>`;
   });
 
 function render() {
@@ -78,7 +86,7 @@ function createUnitCard(unit) {
   card.innerHTML = `
     <div class="unit-carousel">
       <div class="carousel-blur"></div>
-      <div class="price-badge">${formatPrice(unit.price)}</div>
+      <div class="price-badge">${formatListingPrice(unit, t)}</div>
 
       <div class="carousel-track">
         ${images
@@ -149,7 +157,7 @@ function renderMarker(unit) {
 
   const marker = L.marker(
     [unit.latitude, unit.longitude],
-    { icon: createPriceMarker(unit.price) }
+    { icon: createPriceMarker(unit) }
   ).addTo(map);
 
   const bubble = () =>

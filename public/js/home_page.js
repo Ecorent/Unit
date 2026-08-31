@@ -1,4 +1,5 @@
 import { t, tPlural } from "/js/i18n.js";
+import { formatListingPrice } from "/js/pricing.js";
 
 // 🔑 SANITY CONFIG
 // 🌍 CURRENT LANGUAGE
@@ -11,10 +12,6 @@ const unitsGrid = document.getElementById("unitsGrid");
 let unitsCache = [];
 
 // 💰 PRICE FORMATTER
-function formatPrice(price) {
-  return `$${Number(price).toLocaleString()} / ${t("per_month")}`;
-}
-
 function sanityImageUrl(url, width, quality = 78) {
   if (!url) return "";
   const separator = url.includes("?") ? "&" : "?";
@@ -22,7 +19,10 @@ function sanityImageUrl(url, width, quality = 78) {
 }
 
 // 🔄 FETCH ONCE
-fetch("/api/units")
+const previewMode = new URLSearchParams(window.location.search).get("preview");
+const unitsEndpoint = previewMode === "nightly" ? "/api/units?preview=nightly" : "/api/units";
+
+fetch(unitsEndpoint)
   .then(async res => {
     const data = await res.json();
     if (!res.ok) throw new Error(data.code || "UNITS_REQUEST_FAILED");
@@ -61,7 +61,7 @@ function createUnitCard(unit) {
   card.innerHTML = `
     <div class="unit-carousel">
       <div class="carousel-blur"></div>
-      <div class="price-badge">${formatPrice(unit.price)}</div>
+      <div class="price-badge">${formatListingPrice(unit, t)}</div>
 
       <div class="carousel-track">
         ${images

@@ -1,3 +1,5 @@
+import { canUseLocalSample, sampleUnit } from "./_sampleUnit.js";
+
 const SANITY_PROJECT_ID = "uxragbo5";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-10-01";
@@ -7,6 +9,8 @@ const query = `
   | order(order asc, _createdAt desc) {
     title{en, es},
     price,
+    "pricingType": coalesce(pricingType, "monthly"),
+    seasonalRates[]{startDate, endDate, nightlyRate},
     address,
     sqft,
     bedrooms,
@@ -34,7 +38,9 @@ export default async function handler(req, res) {
     }
 
     res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
-    return res.status(200).json({ result: data.result || [] });
+    const units = data.result || [];
+    const includeSample = req.query.preview === "nightly" && canUseLocalSample();
+    return res.status(200).json({ result: includeSample ? [sampleUnit, ...units] : units });
   } catch (error) {
     console.error("Unable to load units from Sanity:", error);
     return res.status(503).json({

@@ -21,6 +21,32 @@ function validateWidth(value, maxWidth = 25) {
   return true;
 }
 
+function validateSeasonalRates(rates, context) {
+  if (context.document?.pricingType !== "nightly") return true;
+  if (!rates?.length) return "Add at least one seasonal rate";
+  if (rates.length > 5) return "You can add up to 5 seasonal rates";
+
+  const ranges = rates.map((rate, index) => ({
+    index,
+    start: rate?.startDate ? new Date(`${rate.startDate}T00:00:00Z`) : null,
+    end: rate?.endDate ? new Date(`${rate.endDate}T00:00:00Z`) : null
+  }));
+
+  for (const range of ranges) {
+    if (!range.start || !range.end) return `Season ${range.index + 1} needs start and end dates`;
+    if (range.end <= range.start) return `Season ${range.index + 1} must end after it starts`;
+  }
+
+  const sorted = [...ranges].sort((a, b) => a.start - b.start);
+  for (let index = 1; index < sorted.length; index += 1) {
+    if (sorted[index].start <= sorted[index - 1].end) {
+      return "Seasonal date ranges cannot overlap";
+    }
+  }
+
+  return true;
+}
+
 export default {
   name: "unit",
   title: "Rental Unit",
@@ -64,10 +90,77 @@ export default {
     },
 
     {
+      name: "pricingType",
+      title: "Pricing Type",
+      description: "Existing units are treated as monthly until changed here.",
+      type: "string",
+      options: {
+        layout: "radio",
+        list: [
+          { title: "Monthly", value: "monthly" },
+          { title: "Nightly (seasonal)", value: "nightly" }
+        ]
+      },
+      initialValue: "monthly"
+    },
+
+    {
       name: "price",
       title: "Monthly Price",
       type: "number",
-      validation: Rule => Rule.required().min(0)
+      hidden: ({ document }) => document?.pricingType === "nightly",
+      validation: Rule => Rule.min(0).custom((value, context) => {
+        if (context.document?.pricingType === "nightly") return true;
+        return typeof value === "number" ? true : "Monthly price is required";
+      })
+    },
+
+    {
+      name: "seasonalRates",
+      title: "Seasonal Nightly Rates",
+      description: "Add exact start and end dates with the nightly price. Maximum 5 seasons.",
+      type: "array",
+      hidden: ({ document }) => document?.pricingType !== "nightly",
+      of: [
+        {
+          name: "seasonalRate",
+          title: "Seasonal Rate",
+          type: "object",
+          fields: [
+            {
+              name: "startDate",
+              title: "Start Date",
+              type: "date",
+              options: { dateFormat: "MMMM D, YYYY" },
+              validation: Rule => Rule.required()
+            },
+            {
+              name: "endDate",
+              title: "End Date",
+              description: "This date is included in the season.",
+              type: "date",
+              options: { dateFormat: "MMMM D, YYYY" },
+              validation: Rule => Rule.required()
+            },
+            {
+              name: "nightlyRate",
+              title: "Price Per Night",
+              type: "number",
+              validation: Rule => Rule.required().positive()
+            }
+          ],
+          preview: {
+            select: { startDate: "startDate", endDate: "endDate", rate: "nightlyRate" },
+            prepare({ startDate, endDate, rate }) {
+              return {
+                title: startDate && endDate ? `${startDate} – ${endDate}` : "Incomplete date range",
+                subtitle: typeof rate === "number" ? `$${rate.toLocaleString()} / night` : "Add nightly price"
+              };
+            }
+          }
+        }
+      ],
+      validation: Rule => Rule.max(5).custom(validateSeasonalRates)
     },
 
     {
@@ -206,12 +299,15 @@ export default {
     select: {
       title: "title.en",
       subtitle: "price",
+      pricingType: "pricingType",
       media: "images.0"
     },
-    prepare({ title, subtitle, media }) {
+    prepare({ title, subtitle, pricingType, media }) {
       return {
         title,
-        subtitle: `$${subtitle?.toLocaleString()} / month`,
+        subtitle: pricingType === "nightly"
+          ? "Seasonal nightly rates"
+          : `$${subtitle?.toLocaleString()} / month`,
         media
       };
     }

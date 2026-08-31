@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
+  <title>EcoRent USA | Request Availability</title>
+  <meta name="description" content="Request availability for an EcoRent USA nightly stay.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/application.css">
+  <link rel="stylesheet" href="/css/availability-request.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/footer.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main class="application-shell availability-shell">
+    <section class="application-hero">
+      <div>
+        <p class="hero-kicker" data-i18n="availability_kicker">Nightly stay</p>
+        <h1 data-i18n="availability_title">Request availability</h1>
+        <p class="hero-copy" data-i18n="availability_intro">Send your selected dates and contact information to EcoRent USA.</p>
+      </div>
+      <aside class="score-panel request-status">
+        <i class="fas fa-calendar-check" aria-hidden="true"></i>
+        <strong data-i18n="availability_request_only">Request only</strong>
+        <span data-i18n="availability_not_confirmed">Your stay is not confirmed or held until we follow up.</span>
+      </aside>
+    </section>
+
+    <section class="selected-unit stay-selection" aria-label="Selected stay" data-i18n-aria-label="availability_selected_stay">
+      <i class="fas fa-house"></i>
+      <div class="stay-selection-grid">
+        <div><span data-i18n="application_apartment">Apartment</span><strong id="selectedUnit">Selected property</strong></div>
+        <div><span data-i18n="check_in">Check-in</span><strong id="selectedCheckIn">—</strong></div>
+        <div><span data-i18n="check_out">Checkout</span><strong id="selectedCheckOut">—</strong></div>
+        <div><span data-i18n="availability_estimate">Estimated total</span><strong id="selectedTotal">—</strong></div>
+      </div>
+    </section>
+
+    <form id="availabilityRequestForm" class="application-card" novalidate>
+      <section class="form-section">
+        <div class="section-heading">
+          <span>01</span>
+          <div>
+            <h2 data-i18n="application_section_applicant">Applicant Information</h2>
+            <p data-i18n="availability_contact_help">Tell us how to contact you about these dates.</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <label><span class="field-label" data-i18n="application_full_name">Full Legal Name</span><input name="fullName" type="text" required></label>
+          <label><span class="field-label" data-i18n="application_dob">Date of Birth</span><input name="dateOfBirth" type="date" required></label>
+          <label><span class="field-label" data-i18n="application_phone">Phone Number</span><input name="phone" type="tel" required></label>
+          <label><span class="field-label" data-i18n="application_email">Email Address</span><input name="email" type="email" required></label>
+          <label><span class="field-label" data-i18n="application_preferred_contact">Preferred Contact Method</span><select name="preferredContact" required><option value="" data-i18n="application_choose">Choose...</option><option value="Email" data-i18n="application_contact_email">Email</option><option value="Text message" data-i18n="application_contact_text">Text message</option><option value="Other" data-i18n="application_contact_other">Other</option></select></label>
+          <label><span class="field-label" data-i18n="application_contact_other_explanation">Please Specify</span><input name="preferredContactOther" type="text" readonly aria-readonly="true"></label>
+        </div>
+      </section>
+
+      <p class="request-disclaimer" data-i18n="availability_disclaimer">Submitting this form requests availability. It does not confirm or hold the selected dates.</p>
+      <div class="form-actions">
+        <button type="submit" class="submit-button">
+          <span data-i18n="availability_submit">Request availability</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+      <div id="availabilityFeedback" class="application-feedback hidden" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <div id="footer"></div>
+  <script type="module" src="/js/navbar.js"></script>
+  <script src="/js/footer.js"></script>
+  <script type="module" src="/js/availability-request.js"></script>
+</body>
+</html>
