@@ -1,7 +1,7 @@
 import { t, tPlural } from "/js/i18n.js";
 import {
   calculateNightlyQuote,
-  formatListingPrice,
+  formatPropertyCardPrice,
   getSeasonBounds,
   getSeasonalRates,
   isNightly
@@ -92,7 +92,11 @@ function renderUnit(lang) {
 
   document.getElementById("pageTitle").textContent = unit.title[lang];
   document.getElementById("unitTitle").textContent = unit.title[lang];
-  document.getElementById("unitPrice").textContent = formatListingPrice(unit, t);
+  document.getElementById("unitPrice").textContent = formatPropertyCardPrice(
+    unit,
+    t,
+    lang === "es" ? "es-US" : "en-US"
+  );
 
   document.getElementById("unitDetails").innerHTML = `
     <li><i class="fas fa-bed"></i>${unit.bedrooms} ${tPlural("bedroom", unit.bedrooms)}</li>
