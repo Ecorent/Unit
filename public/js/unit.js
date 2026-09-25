@@ -383,8 +383,126 @@ function renderNightlyPricingPanel(unit, lang) {
   const checkInInput = document.getElementById("checkInDate");
   const checkOutInput = document.getElementById("checkOutDate");
   const seasonalRatesToggle = panel.querySelector(".seasonal-rates-toggle");
-  let pendingMapFrame = null;
-  let mapRefreshSequence = 0;
+  const mapFrameStack = document.querySelector(".map-frame-stack");
+  const closedMapFrame = document.getElementById("mapFrame");
+  let expandedMapFrame = null;
+  let expandedMapReady = false;
+  let preloadStarted = false;
+  let closedMapCardHeight = 0;
+  let expandedMapCardHeight = 0;
+
+  mapFrameStack?.querySelectorAll("iframe:not(#mapFrame)").forEach(frame => frame.remove());
+
+  const setMapFrameVisibility = (frame, visible) => {
+    frame.style.opacity = visible ? "" : "0";
+    frame.style.pointerEvents = visible ? "" : "none";
+    if (visible) {
+      frame.removeAttribute("aria-hidden");
+      frame.removeAttribute("tabindex");
+    } else {
+      frame.setAttribute("aria-hidden", "true");
+      frame.setAttribute("tabindex", "-1");
+    }
+  };
+
+  const lockMapRowHeight = height => {
+    const leftColumn = document.querySelector(".left-column");
+    if (!leftColumn || height <= 0) return;
+    leftColumn.style.setProperty("--map-row-height", `${height}px`);
+    leftColumn.classList.add("map-row-locked");
+  };
+
+  const activateMapFrame = frame => {
+    if (!frame || !closedMapFrame || !seasonalRatesToggle?.isConnected) return;
+
+    const currentMapFrame = document.getElementById("mapFrame");
+    lockMapRowHeight(frame === expandedMapFrame ? expandedMapCardHeight : closedMapCardHeight);
+    syncLeftColumnHeight();
+
+    if (currentMapFrame === frame) return;
+
+    requestAnimationFrame(() => {
+      currentMapFrame?.removeAttribute("id");
+      if (currentMapFrame) setMapFrameVisibility(currentMapFrame, false);
+      frame.id = "mapFrame";
+      setMapFrameVisibility(frame, true);
+    });
+  };
+
+  const preloadExpandedMap = () => {
+    if (
+      preloadStarted ||
+      !closedMapFrame ||
+      !mapFrameStack ||
+      !seasonalRatesToggle?.isConnected ||
+      window.matchMedia("(max-width: 768px)").matches
+    ) return;
+    preloadStarted = true;
+
+    const mapCard = document.querySelector(".map");
+    const leftColumn = document.querySelector(".left-column");
+    const details = document.querySelector(".details");
+    const mapSource = closedMapFrame.getAttribute("src");
+
+    if (!mapCard || !leftColumn || !details || !mapSource) return;
+
+    const measurement = details.cloneNode(true);
+    measurement.removeAttribute("id");
+    measurement.querySelectorAll("[id]").forEach(element => element.removeAttribute("id"));
+    const measurementToggle = measurement.querySelector(".seasonal-rates-toggle");
+    if (measurementToggle) measurementToggle.open = true;
+    Object.assign(measurement.style, {
+      position: "absolute",
+      top: "0",
+      left: "-10000px",
+      width: `${details.getBoundingClientRect().width}px`,
+      height: "auto",
+      visibility: "hidden",
+      pointerEvents: "none"
+    });
+    document.body.appendChild(measurement);
+    const expandedDetailsHeight = measurement.offsetHeight;
+    measurement.remove();
+
+    const rowGap = Number.parseFloat(getComputedStyle(leftColumn).rowGap) || 0;
+    const targetMapCardHeight = Math.max(0, (expandedDetailsHeight - rowGap) / 2);
+    const targetMapHeight = Math.max(
+      1,
+      mapFrameStack.offsetHeight + targetMapCardHeight - mapCard.getBoundingClientRect().height
+    );
+
+    closedMapCardHeight = mapCard.getBoundingClientRect().height;
+    expandedMapCardHeight = targetMapCardHeight;
+    if (!seasonalRatesToggle.open) lockMapRowHeight(closedMapCardHeight);
+
+    closedMapFrame.style.height = `${mapFrameStack.offsetHeight}px`;
+    closedMapFrame.style.bottom = "auto";
+
+    expandedMapFrame = closedMapFrame.cloneNode(false);
+    expandedMapFrame.removeAttribute("id");
+    expandedMapFrame.removeAttribute("src");
+    expandedMapFrame.setAttribute("loading", "eager");
+    expandedMapFrame.style.height = `${targetMapHeight}px`;
+    expandedMapFrame.style.bottom = "auto";
+    setMapFrameVisibility(expandedMapFrame, false);
+
+    expandedMapFrame.addEventListener("load", () => {
+      window.setTimeout(() => {
+        if (!expandedMapFrame?.isConnected || !seasonalRatesToggle?.isConnected) return;
+        expandedMapReady = true;
+        if (seasonalRatesToggle.open) activateMapFrame(expandedMapFrame);
+      }, 150);
+    }, { once: true });
+
+    expandedMapFrame.src = mapSource;
+    mapFrameStack.appendChild(expandedMapFrame);
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(preloadExpandedMap, { timeout: 1000 });
+  } else {
+    window.setTimeout(preloadExpandedMap, 250);
+  }
 
   seasonalRatesToggle?.addEventListener("toggle", () => {
     if (window.matchMedia("(max-width: 768px)").matches) {
@@ -392,73 +510,13 @@ function renderNightlyPricingPanel(unit, lang) {
       return;
     }
 
-    const currentMapFrame = document.getElementById("mapFrame");
-    const mapFrameStack = document.querySelector(".map-frame-stack");
-    const mapCard = document.querySelector(".map");
-    const leftColumn = document.querySelector(".left-column");
-    const details = document.querySelector(".details");
-    const mapSource = currentMapFrame?.getAttribute("src");
-
-    if (!currentMapFrame || !mapFrameStack || !mapCard || !leftColumn || !details || !mapSource) {
-      syncLeftColumnHeight();
+    if (seasonalRatesToggle.open) {
+      preloadExpandedMap();
+      if (expandedMapReady) activateMapFrame(expandedMapFrame);
       return;
     }
 
-    mapRefreshSequence += 1;
-    const refreshSequence = mapRefreshSequence;
-    pendingMapFrame?.remove();
-
-    const rowGap = Number.parseFloat(getComputedStyle(leftColumn).rowGap) || 0;
-    const targetMapCardHeight = Math.max(0, (details.offsetHeight - rowGap) / 2);
-    const targetMapHeight = Math.max(
-      1,
-      mapFrameStack.offsetHeight + targetMapCardHeight - mapCard.getBoundingClientRect().height
-    );
-
-    const nextMapFrame = currentMapFrame.cloneNode(false);
-    nextMapFrame.removeAttribute("id");
-    nextMapFrame.removeAttribute("src");
-    nextMapFrame.setAttribute("aria-hidden", "true");
-    nextMapFrame.setAttribute("loading", "eager");
-    nextMapFrame.style.height = `${targetMapHeight}px`;
-    nextMapFrame.style.bottom = "auto";
-    nextMapFrame.style.opacity = "0";
-    nextMapFrame.style.pointerEvents = "none";
-    mapFrameStack.appendChild(nextMapFrame);
-    pendingMapFrame = nextMapFrame;
-
-    const fallbackTimer = window.setTimeout(() => {
-      if (refreshSequence !== mapRefreshSequence) return;
-      nextMapFrame.remove();
-      pendingMapFrame = null;
-      syncLeftColumnHeight();
-    }, 8000);
-
-    nextMapFrame.addEventListener("load", () => {
-      window.setTimeout(() => {
-        if (refreshSequence !== mapRefreshSequence || !seasonalRatesToggle.isConnected) {
-          nextMapFrame.remove();
-          return;
-        }
-
-        window.clearTimeout(fallbackTimer);
-        syncLeftColumnHeight();
-
-        requestAnimationFrame(() => {
-          currentMapFrame.removeAttribute("id");
-          nextMapFrame.id = "mapFrame";
-          nextMapFrame.removeAttribute("aria-hidden");
-          nextMapFrame.style.height = "";
-          nextMapFrame.style.bottom = "";
-          nextMapFrame.style.opacity = "";
-          nextMapFrame.style.pointerEvents = "";
-          currentMapFrame.remove();
-          pendingMapFrame = null;
-        });
-      }, 150);
-    }, { once: true });
-
-    nextMapFrame.src = mapSource;
+    activateMapFrame(closedMapFrame);
   });
 
   const updateQuote = () => {

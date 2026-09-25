@@ -68,6 +68,10 @@ body {
   min-width: 0;
 }
 
+.left-column.map-row-locked {
+  grid-template-rows: minmax(0, 1fr) var(--map-row-height);
+}
+
 .carousel {
   padding: 16px;
   min-height: 0;
@@ -533,6 +537,10 @@ body {
     gap: 16px;
     height: auto;
     min-height: 0;
+    grid-template-rows: auto auto;
+  }
+
+  .left-column.map-row-locked {
     grid-template-rows: auto auto;
   }
 
