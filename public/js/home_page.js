@@ -1,5 +1,5 @@
 import { t, tPlural } from "/js/i18n.js";
-import { formatListingPrice } from "/js/pricing.js";
+import { formatPropertyCardPrice } from "/js/pricing.js";
 
 // 🔑 SANITY CONFIG
 // 🌍 CURRENT LANGUAGE
@@ -61,7 +61,7 @@ function createUnitCard(unit) {
   card.innerHTML = `
     <div class="unit-carousel">
       <div class="carousel-blur"></div>
-      <div class="price-badge">${formatListingPrice(unit, t)}</div>
+      <div class="price-badge">${formatPropertyCardPrice(unit, t, currentLang === "es" ? "es-US" : "en-US")}</div>
 
       <div class="carousel-track">
         ${images

@@ -186,14 +186,26 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  background: #fff;
 }
 
-.map iframe {
+.map-frame-stack {
+  position: relative;
   width: 100%;
   flex: 1;
   min-height: 0;
-  border: none;
+  overflow: hidden;
   border-radius: 6px;
+  background: #fff;
+}
+
+.map-frame-stack iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 .apply-panel-inline {
@@ -327,11 +339,81 @@ body {
   border-color: var(--buttons);
 }
 
+.seasonal-rates-toggle {
+  margin: 0 0 16px;
+  overflow: hidden;
+  border: 1px solid #dbe8de;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.seasonal-rates-toggle summary {
+  display: flex;
+  min-height: 46px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 13px;
+  color: var(--dark);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+.seasonal-rates-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+.seasonal-rates-toggle summary:focus-visible {
+  outline: 3px solid rgba(31, 156, 83, 0.18);
+  outline-offset: -3px;
+}
+
+.seasonal-rates-toggle summary i {
+  color: var(--darker-green);
+  transition: transform 0.2s ease;
+}
+
+.seasonal-rates-toggle[open] summary i {
+  transform: rotate(180deg);
+}
+
+.seasonal-rates-list {
+  border-top: 1px solid #dbe8de;
+  padding: 5px 13px;
+  background: #f7faf8;
+}
+
+.seasonal-rate-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.seasonal-rate-row + .seasonal-rate-row {
+  border-top: 1px solid #e4ece6;
+}
+
+.seasonal-rate-row strong {
+  flex-shrink: 0;
+  color: var(--dark);
+}
+
 .stay-quote {
   margin-bottom: 18px;
 }
 
-.quote-placeholder,
+.stay-quote:empty {
+  margin-bottom: 0;
+}
+
 .quote-error {
   margin: 0;
   padding: 13px;
@@ -373,13 +455,6 @@ body {
   padding-top: 13px;
   border-top: 1px solid #cad9cd;
   font-size: 1.05rem;
-}
-
-.quote-summary > p {
-  margin: 10px 0 0;
-  color: var(--ink-soft);
-  font-size: 0.76rem;
-  line-height: 1.45;
 }
 
 .application-notes div {
@@ -503,8 +578,8 @@ body {
     font-size: 20px;
   }
 
-  .map iframe {
-    height: 280px;
+  .map-frame-stack {
+    min-height: 280px;
   }
 
   .apply-copy,
@@ -519,6 +594,12 @@ body {
 
   .stay-date-fields {
     grid-template-columns: 1fr;
+  }
+
+  .seasonal-rate-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
   }
 }
 

@@ -3,6 +3,7 @@ import {
   calculateNightlyQuote,
   formatListingPrice,
   getSeasonBounds,
+  getSeasonalRates,
   isNightly
 } from "/js/pricing.js";
 
@@ -316,8 +317,43 @@ function renderMonthlyApplicationPanel() {
 function renderNightlyPricingPanel(unit, lang) {
   const panel = document.getElementById("unitActionPanel");
   const bounds = getSeasonBounds(unit.seasonalRates);
+  const seasonalRates = getSeasonalRates(unit.seasonalRates);
   const today = new Date().toISOString().slice(0, 10);
   const firstAvailable = bounds?.firstDate && bounds.firstDate > today ? bounds.firstDate : today;
+  const locale = lang === "es" ? "es-US" : "en-US";
+  const currency = value => Number(value).toLocaleString(locale, {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2
+  });
+  const rateCurrency = value => Number(value).toLocaleString(locale, {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+  const formatSeasonDate = value => new Date(`${value}T00:00:00Z`).toLocaleDateString(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC"
+  });
+  const seasonalRatesMarkup = seasonalRates.length ? `
+    <details class="seasonal-rates-toggle">
+      <summary>
+        <span>${t("view_seasonal_rates")}</span>
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </summary>
+      <div class="seasonal-rates-list">
+        ${seasonalRates.map(rate => `
+          <div class="seasonal-rate-row">
+            <span>${formatSeasonDate(rate.startDate)} – ${formatSeasonDate(rate.endDate)}</span>
+            <strong>${rateCurrency(rate.nightlyRate)}/${t("night_singular")}</strong>
+          </div>
+        `).join("")}
+      </div>
+    </details>
+  ` : "";
 
   panel.className = "apply-panel-inline nightly-pricing-panel";
   panel.removeAttribute("aria-busy");
@@ -335,6 +371,7 @@ function renderNightlyPricingPanel(unit, lang) {
         <input id="checkOutDate" type="date" min="${firstAvailable}" ${bounds?.lastCheckout ? `max="${bounds.lastCheckout}"` : ""} value="${nightlySelection.checkOut}">
       </label>
     </div>
+    ${seasonalRatesMarkup}
     <div class="stay-quote" id="stayQuote" aria-live="polite"></div>
     <a class="apply-button apply-button-large is-disabled" id="applyTopLink" aria-disabled="true">
       <span>${t("nightly_apply_button")}</span>
@@ -345,6 +382,84 @@ function renderNightlyPricingPanel(unit, lang) {
 
   const checkInInput = document.getElementById("checkInDate");
   const checkOutInput = document.getElementById("checkOutDate");
+  const seasonalRatesToggle = panel.querySelector(".seasonal-rates-toggle");
+  let pendingMapFrame = null;
+  let mapRefreshSequence = 0;
+
+  seasonalRatesToggle?.addEventListener("toggle", () => {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      syncLeftColumnHeight();
+      return;
+    }
+
+    const currentMapFrame = document.getElementById("mapFrame");
+    const mapFrameStack = document.querySelector(".map-frame-stack");
+    const mapCard = document.querySelector(".map");
+    const leftColumn = document.querySelector(".left-column");
+    const details = document.querySelector(".details");
+    const mapSource = currentMapFrame?.getAttribute("src");
+
+    if (!currentMapFrame || !mapFrameStack || !mapCard || !leftColumn || !details || !mapSource) {
+      syncLeftColumnHeight();
+      return;
+    }
+
+    mapRefreshSequence += 1;
+    const refreshSequence = mapRefreshSequence;
+    pendingMapFrame?.remove();
+
+    const rowGap = Number.parseFloat(getComputedStyle(leftColumn).rowGap) || 0;
+    const targetMapCardHeight = Math.max(0, (details.offsetHeight - rowGap) / 2);
+    const targetMapHeight = Math.max(
+      1,
+      mapFrameStack.offsetHeight + targetMapCardHeight - mapCard.getBoundingClientRect().height
+    );
+
+    const nextMapFrame = currentMapFrame.cloneNode(false);
+    nextMapFrame.removeAttribute("id");
+    nextMapFrame.removeAttribute("src");
+    nextMapFrame.setAttribute("aria-hidden", "true");
+    nextMapFrame.setAttribute("loading", "eager");
+    nextMapFrame.style.height = `${targetMapHeight}px`;
+    nextMapFrame.style.bottom = "auto";
+    nextMapFrame.style.opacity = "0";
+    nextMapFrame.style.pointerEvents = "none";
+    mapFrameStack.appendChild(nextMapFrame);
+    pendingMapFrame = nextMapFrame;
+
+    const fallbackTimer = window.setTimeout(() => {
+      if (refreshSequence !== mapRefreshSequence) return;
+      nextMapFrame.remove();
+      pendingMapFrame = null;
+      syncLeftColumnHeight();
+    }, 8000);
+
+    nextMapFrame.addEventListener("load", () => {
+      window.setTimeout(() => {
+        if (refreshSequence !== mapRefreshSequence || !seasonalRatesToggle.isConnected) {
+          nextMapFrame.remove();
+          return;
+        }
+
+        window.clearTimeout(fallbackTimer);
+        syncLeftColumnHeight();
+
+        requestAnimationFrame(() => {
+          currentMapFrame.removeAttribute("id");
+          nextMapFrame.id = "mapFrame";
+          nextMapFrame.removeAttribute("aria-hidden");
+          nextMapFrame.style.height = "";
+          nextMapFrame.style.bottom = "";
+          nextMapFrame.style.opacity = "";
+          nextMapFrame.style.pointerEvents = "";
+          currentMapFrame.remove();
+          pendingMapFrame = null;
+        });
+      }, 150);
+    }, { once: true });
+
+    nextMapFrame.src = mapSource;
+  });
 
   const updateQuote = () => {
     nightlySelection = { checkIn: checkInInput.value, checkOut: checkOutInput.value };
@@ -354,7 +469,7 @@ function renderNightlyPricingPanel(unit, lang) {
     const applyLink = document.getElementById("applyTopLink");
 
     if (!nightlySelection.checkIn || !nightlySelection.checkOut) {
-      quoteElement.innerHTML = `<p class="quote-placeholder">${t("select_stay_dates")}</p>`;
+      quoteElement.innerHTML = "";
       disableNightlyApplication(applyLink);
       syncLeftColumnHeight();
       return;
@@ -374,13 +489,6 @@ function renderNightlyPricingPanel(unit, lang) {
       return;
     }
 
-    const locale = lang === "es" ? "es-US" : "en-US";
-    const currency = value => Number(value).toLocaleString(locale, {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 2
-    });
-
     quoteElement.innerHTML = `
       <div class="quote-summary">
         <h3>${t("stay_price_breakdown")}</h3>
@@ -394,7 +502,6 @@ function renderNightlyPricingPanel(unit, lang) {
           <span>${t("estimated_total")}</span>
           <strong>${currency(quote.total)}</strong>
         </div>
-        <p>${t("nightly_quote_note")}</p>
       </div>
     `;
 

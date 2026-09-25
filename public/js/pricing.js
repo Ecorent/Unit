@@ -9,9 +9,41 @@ export function formatListingPrice(unit, t) {
   return `$${Number(unit?.price).toLocaleString()} / ${t("per_month")}`;
 }
 
+export function formatPropertyCardPrice(unit, t, locale = "en-US") {
+  if (!isNightly(unit)) return formatListingPrice(unit, t);
+
+  const rates = getSeasonalRates(unit?.seasonalRates);
+  if (!rates.length) return t("seasonal_rates");
+
+  const lowestRate = Math.min(...rates.map(rate => rate.nightlyRate));
+  const price = lowestRate.toLocaleString(locale, {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+
+  return `${t("nightly_from")} ${price}/${t("night_singular")}`;
+}
+
 export function formatMapPrice(unit, t) {
   if (isNightly(unit)) return t("seasonal_marker");
   return `$${Number(unit?.price).toLocaleString()}`;
+}
+
+export function getSeasonalRates(rates = []) {
+  return (Array.isArray(rates) ? rates : [])
+    .filter(rate => {
+      const start = parseDate(rate?.startDate);
+      const end = parseDate(rate?.endDate);
+      return start && end && end >= start && Number(rate?.nightlyRate) > 0;
+    })
+    .map(rate => ({
+      startDate: rate.startDate,
+      endDate: rate.endDate,
+      nightlyRate: Number(rate.nightlyRate)
+    }))
+    .sort((a, b) => a.startDate.localeCompare(b.startDate));
 }
 
 export function getSeasonBounds(rates = []) {
